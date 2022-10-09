@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
+  <data name="txtCurrJob.ToolTip" xml:space="preserve">
+    <value>This is the task name associated with the task number to the left.  This will only be populated for recognized versions of Linux, as the task (process) name is stored very near the beginning of the TSS for the task</value>
+  </data>
+  <data name="lblS0CTS.ToolTip" xml:space="preserve">
+    <value>Overflow flag: Indicates that the result of the last arithmetic instruction would not fit in the data type assigned. (i.e. a carry in/out of the sign bit).  It is used by many JCC (conditional jump) and other instructions.  In MS-DOS this flag is also set on the exit of many interrupt routines to signal a failure to the calling routine.</value>
+  </data>
+  <data name="lblS0RTS.ToolTip" xml:space="preserve">
+    <value>Direction flag: Controls the direction of the string instructions Compare String (CMPS-B/W/D), Load String (LODS-B/W/D), Move String (MOVS-B/W/D), Scan String (SCAS-B/W/D), Store String (STOS-B/W/D).  B, W and D are suffixes (part of the instruction names) which stand for Byte, Word &amp; DoubleWord.</value>
+  </data>
+  <data name="lblS0SND.ToolTip" xml:space="preserve">
+    <value>Interrupt Flag: When set, maskable externally generated interrupts (from hardware) can interrupt the processor.  When not set, maskable interrupts are ignored (buffered in the Programmable Interrupt Controller (PIC)).  Note that non-maskable interrupts (NMI) and interrupts generated by the INT instruction are not affected by the value of this flag.</value>
+  </data>
+  <data name="lblS0RCV.ToolTip" xml:space="preserve">
+    <value>Trap flag (single step): When set, the CPU will execute the next instruction and then stop.  Technically after executing the next instruction, the CPU will generate an Interrupt 0x01 (SINGLE STEP).  An application can hook this interrupt to take control of the CPU after the instruction is executed.</value>
+  </data>
+  <data name="txtFlagsValue.ToolTip" xml:space="preserve">
+    <value>This is the entire flags value.  In 16-bit mode, the bottom 4 bytes make up the FLAGS register, while in 32-bit (Protected) mode, all 4 bytes make up the EFLAGS register.  Some of the individual flags are listed to the left of this value.</value>
+  </data>
+  <data name="lblOFInd.ToolTip" xml:space="preserve">
+    <value>Overflow flag: Indicates that the result of the last arithmetic instruction would not fit in the data type assigned. (i.e. a carry in/out of the sign bit).  It is used by many JCC (conditional jump) and other instructions.  In MS-DOS this flag is also set on the exit of many interrupt routines to signal a failure to the calling routine.</value>
+  </data>
+  <data name="lblDFInd.ToolTip" xml:space="preserve">
+    <value>Direction flag: Controls the direction of the string instructions Compare String (CMPS-B/W/D), Load String (LODS-B/W/D), Move String (MOVS-B/W/D), Scan String (SCAS-B/W/D), Store String (STOS-B/W/D).  B, W and D are suffixes (part of the instruction names) which stand for Byte, Word &amp; DoubleWord.</value>
+  </data>
+  <data name="lblIFInd.ToolTip" xml:space="preserve">
+    <value>Interrupt Flag: When set, maskable externally generated interrupts (from hardware) can interrupt the processor.  When not set, maskable interrupts are ignored (buffered in the Programmable Interrupt Controller (PIC)).  Note that non-maskable interrupts (NMI) and interrupts generated by the INT instruction are not affected by the value of this flag.</value>
+  </data>
+  <data name="lblTFInd.ToolTip" xml:space="preserve">
+    <value>Trap flag (single step): When set, the CPU will execute the next instruction and then stop.  Technically after executing the next instruction, the CPU will generate an Interrupt 0x01 (SINGLE STEP).  An application can hook this interrupt to take control of the CPU after the instruction is executed.</value>
+  </data>
+  <data name="lblPFInd.ToolTip" xml:space="preserve">
+    <value>Parity flag: Set if the number of set bits in the result of the last arithmetic instruction was even, not set if odd.  Used by JCC (conditional jump) instructions Jump if Parity/Jump if Parity Equal/Jump if no Parity/Jump if Parity Odd (JP/JPE/JNP/JPO)</value>
+  </data>
+  <data name="txtESP.ToolTip" xml:space="preserve">
+    <value>Stack Pointer register: Points to the top of the stack, in combination with the Stack Segment register.  Although this is a general register, it may NOT be used for any purpose other than to point to the top of the stack, as many instructions assume this to be the case.  In 16-bit (Real/Virtual 8086) modes, the bottom two bytes of this register are referred to as the SP register.  In 32-bit (Protected) mode, all 4 bytes are referred to as the ESP register.</value>
+  </data>
+  <data name="txtEBP.ToolTip" xml:space="preserve">
+    <value>Base Pointer register: Used to point to the base of the stack in procedure calls.  This is a "general register" and is occasionally (but not usually) used for other purposes.  In 16-bit (Real/Virtual 8086) modes, the bottom two bytes of this register are referred to as the BP register.  In 32-bit (Protected) mode, all 4 bytes are referred to as the EBP register.</value>
+  </data>
+  <data name="txtEDI.ToolTip" xml:space="preserve">
+    <value>Destination Index register: Used as a pointer to the destination address in string/other instructions.  This is a "general register" and is also used for other purposes.  In 16-bit (Real/Virtual 8086) modes, the bottom two bytes of this register are referred to as the DI register.  In 32-bit (Protected) mode, all 4 bytes are referred to as the EDI register.</value>
+  </data>
+  <data name="txtESI.ToolTip" xml:space="preserve">
+    <value>Source Index register: Used as a pointer to the source address in string/other instructions.  This is a "general register" and is also used for other purposes.  In 16-bit (Real/Virtual 8086) modes, the bottom two bytes of this register are referred to as the SI register.  In 32-bit (Protected) mode, all 4 bytes are referred to as the ESI register.</value>
+  </data>
+  <data name="txtEDX.ToolTip" xml:space="preserve">
+    <value>Data register: Used by arithmetic and I/O instructions.  This is a "general register" and is also used for other purposes.  See the EAX register description for information on the 4 registers that reference this 1 value. (DH, DL, DX, EDX)</value>
+  </data>
+  <data name="txtECX.ToolTip" xml:space="preserve">
+    <value>Counter register: Used as a counter in shift/rotate and loop type instructions.  This is a "general register" and is also used for other purposes.  See the EAX register description for information on the 4 registers that reference this 1 value. (CH, CL, CX, ECX)  </value>
+  </data>
+  <data name="txtEBX.ToolTip" xml:space="preserve">
+    <value>Base register: Used as a pointer to data in segmented mode.  This is a "general register" and is also used for other purposes.  See the EAX register description for information on the 4 registers that reference this 1 value. (BH, BL, BX, EBX)  </value>
+  </data>
+  <data name="txtEAX.ToolTip" xml:space="preserve">
+    <value>Accumulator register: Used for I/O port access, arithmetic, interrupt calls.  This is a "general register" and is also used for other purposes.  Note that this register represents 4 distinct values.  In 16-bit (Real/Virtual 8086) modes, the bottom 2 bytes are the AL register value, the next two bytes are the AH register value, and the bottom two bytes together make up the AX register.  In 32-bit (protected) mode, the full 4 bytes are the EAX register value.</value>
+  </data>
+  <metadata name="Number.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="mName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Present.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Base.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Limit.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="PrivLvl.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="SegType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="SystemDescType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="OpSize32.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Value.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tmrGDT.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>201, 17</value>
+  </metadata>
+  <metadata name="ofd1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>295, 17</value>
+  </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>372, 17</value>
+  </metadata>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>487, 17</value>
+  </metadata>
+  <metadata name="tmrSuperFast.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>642, 17</value>
+  </metadata>
+</root>

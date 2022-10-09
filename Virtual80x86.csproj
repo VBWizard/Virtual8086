@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1672122B-356C-4300-B53D-A105F127BEB0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VirtualProcessor</RootNamespace>
+    <AssemblyName>Virtual8086</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS DECODE_MAKE_STRINGS DEBUGGER_FEATURE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE  MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ConsolePause>false</ConsolePause>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>512</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <BaseAddress>2424336480</BaseAddress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Without Tries|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Without Tries\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIESx STACK_FFFF_HACK DISABLE_STACK_OVERFLOW DECODE_MAKE_STRINGS DEBUGGER_FEATURE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug With Decode Strings|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug With Decode Strings\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS DEBUGGER_FEATURE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PerfTest|AnyCPU' ">
+    <OutputPath>bin\PerfTest\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE PERFTEST</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release No Tries|AnyCPU' ">
+    <OutputPath>bin\Release No Tries\</OutputPath>
+    <DefineConstants>STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS DECODE_MAKE_STRINGS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE  MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <BaseAddress>2424336480</BaseAddress>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Tries|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug Without Tries\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIESx STACK_FFFF_HACK DISABLE_STACK_OVERFLOW DECODE_MAKE_STRINGS PERFTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug With Decode Strings|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug With Decode Strings\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PerfTest|x64'">
+    <OutputPath>bin\x64\PerfTest\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE PERFTEST</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release No Tries|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Release No Tries\</OutputPath>
+    <DefineConstants>STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release with Debugger Features|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Release with Debugger Features\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE  MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <BaseAddress>2424336480</BaseAddress>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release with Debugger Features|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Release with Debugger Features\</OutputPath>
+    <DefineConstants>DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS RELEASE  MEM_PERF_ENHANCEMENTS DEBUGGER_FEATURE</DefineConstants>
+    <BaseAddress>2424336480</BaseAddress>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Virtual8086.ni">
+      <HintPath>C:\Windows\assembly\NativeImages_v4.0.30319_64\Virtual8086\18601a349f8f1495d48fcd0c62773f5f\Virtual8086.ni.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Devices\cVGA.cs" />
+    <Compile Include="sInstruct.cs" />
+    <Compile Include="Devices\cCMOSDevice.cs" />
+    <Compile Include="Devices\cDevice.cs" />
+    <Compile Include="Devices\cDeviceBlock.cs" />
+    <Compile Include="Devices\cFloppyDevice.cs" />
+    <Compile Include="Devices\cSerial.cs" />
+    <Compile Include="Devices\cPICDevice.cs" />
+    <Compile Include="Devices\cTestDevice.cs" />
+    <Compile Include="Devices\cKbdDevice.cs" />
+    <Compile Include="Devices\ScanCodes.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="cOpCodeList.cs" />
+    <Compile Include="InstructionList.cs" />
+    <Compile Include="Misc.cs" />
+    <Compile Include="Memory.cs" />
+    <Compile Include="OpcodeLoader.cs" />
+    <Compile Include="Ports.cs" />
+    <Compile Include="Processor_80x86.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registers.cs" />
+    <Compile Include="PCSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cInstruct.cs" />
+    <Compile Include="cInstructCache.cs" />
+    <None Include="cInstructionCache.cs" />
+    <Compile Include="Decoder.cs" />
+    <Compile Include="Devices\cDMA.cs" />
+    <Compile Include="Devices\cHDC.cs" />
+    <Compile Include="Devices\cPIT.cs" />
+    <Compile Include="Devices\cPS2.cs">
+    </Compile>
+    <Compile Include="FloatingPoint.cs" />
+    <Compile Include="FPU.cs" />
+    <Compile Include="IeeeClass.cs" />
+    <Compile Include="Instructions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TLB.cs" />
+    <None Include="Devices\DeviceTemplate.cs" />
+    <Content Include="OpCode_Operand_List.xml" />
+    <None Include="doc.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

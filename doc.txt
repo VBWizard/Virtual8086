@@ -1,0 +1,340 @@
+1610721618
+A.1.1. Codes for Addressing Method
+The following abbreviations are used for addressing methods:
+A	Direct address. The instruction has no ModR/M byte; the address of the operand is encoded in the instruction; and no base register, index register, or scaling factor can be applied (for example, far JMP (EA)).
+C	The reg field of the ModR/M byte selects a control register (for example, MOV (0F20, 0F22)).
+D	The reg field of the ModR/M byte selects a debug register (for example, MOV (0F21,0F23)).
+E	A ModR/M byte follows the opcode and specifies the operand. The operand is either a general-purpose register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, a displacement.
+F	EFLAGS Register.
+G	The reg field of the ModR/M byte selects a general register (for example, AX (000)).
+I	Immediate data. The operand value is encoded in subsequent bytes of the instruction.
+J	The instruction contains a relative offset to be added to the instruction pointer register (for example, JMP (0E9), LOOP).
+M	The ModR/M byte may refer only to memory (for example, BOUND, LES, LDS, LSS, LFS, LGS, CMPXCHG8B).
+O	The instruction has no ModR/M byte; the offset of the operand is coded as a word or double word (depending on address size attribute) in the instruction. No base register, index register, or scaling factor can be applied (for example, MOV (A0–A3)).
+	IsRef = true
+P	The reg field of the ModR/M byte selects a packed quadword MMX technology register.
+Q	A ModR/M byte follows the opcode and specifies the operand. The operand is either an MMX technology register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, and a displacement.
+R	The mod field of the ModR/M byte may refer only to a general register (for example, MOV (0F20-0F24, 0F26)).
+S	The reg field of the ModR/M byte selects a segment register (for example, MOV (8C,8E)).
+T	The reg field of the ModR/M byte selects a test register (for example, MOV (0F24,0F26)).
+V	The reg field of the ModR/M byte selects a 128-bit XMM register.
+W	A ModR/M byte follows the opcode and specifies the operand. The operand is either a 128-bit XMM register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, and a displacement
+X	Memory addressed by the DS:SI register pair (for example, MOVS, CMPS, OUTS, or LODS).
+Y	Memory addressed by the ES:DI register pair (for example, MOVS, CMPS, INS, STOS, or SCAS).
+Z  	Added  	The instruction has no ModR/M byte; the three least-significant bits of the opcode byte selects a general-purpose register
+
+A.1.2. Codes for Operand Type
+The following abbreviations are used for operand types:
+a	Two one-word operands in memory or two double-word operands in memory, depending on operand-size attribute (used only by the BOUND instruction).
+b	Byte, regardless of operand-size attribute.
+c	Byte or word, depending on operand-size attribute.
+d	Doubleword, regardless of operand-size attribute.
+dq 	Double-quadword, regardless of operand-size attribute.
+p	32-bit or 48-bit pointer, depending on operand-size attribute.
+pi	Quadword MMX technology register (e.g. mm0)
+ps	128-bit packed single-precision floating-point data.
+q	Quadword, regardless of operand-size attribute.
+s	6-byte pseudo-descriptor.
+ss	Scalar element of a 128-bit packed single-precision floating data.
+si	Doubleword integer register (e.g., eax)
+v	Word or doubleword, depending on operand-size attribute.
+w	Word, regardless of operand-size attribute.
+
+
+STRUCTURE
+---------
+Instruction
+Prefixes		Opcode	ModR/M	SIB	Displacement	Immediate
+
+
+Prefixes	1-4 bytes
+
+Opcode		1-2 bytes
+	The primary opcode is 1, 2, or 3 bytes. An additional 3-bit opcode field is sometimes encoded
+	in the ModR/M byte. Smaller encoding fields can be defined within the primary opcode. These
+	fields define the direction of the operation, the size of displacements, the register encoding,
+	condition codes, or sign extension. The encoding of fields in the opcode varies, depending on
+	the class of operation.
+Mod R/M:	1 byte
+	• Most instructions that refer to an operand in memory have an addressing-form specifier byte
+	(called the ModR/M byte) following the primary opcode. The ModR/M byte contains three
+	fields of information:
+	• The mod field combines with the r/m field to form 32 possible values: eight registers and
+	24 addressing modes.
+	• The reg/opcode field specifies either a register number or three more bits of opcode information.
+	The purpose of the reg/opcode field is specified in the primary opcode.
+	• The r/m field can specify a register as an operand or can be combined with the mod field to
+	encode an addressing mode.
+	FIELDS: Mod / Reg* / R/M
+		Mod = bits 7 & 6
+		Reg = bits 5 - 3
+		R/M = bits 2 - 0 - see Table 2-1. 16-Bit Addressing Forms with the ModR/M Byte
+
+A.2.5.2. OPCODES WITH MODR/M BYTES OUTSIDE THE 00H THROUGH BFH RANGE
+The opcode D8C1H illustrates an opcode with a ModR/M byte outside the range of 00H through
+BFH. The instruction encoded here, can be located in Section A.2.4., “Opcode Extensions For
+One- And Two-byte Opcodes”. In Table A-6, the ModR/M byte C1H indicates row C, column
+1, which is an FADD instruction using ST(0), ST(1) as the operands.
+
+
+SIB: 1 byte
+	• Certain encodings of the ModR/M byte require a second addressing byte, the SIB byte, to fully
+	specify the addressing form. The base-plus-index and scale-plus-index forms of 32-bit
+	addressing require the SIB byte. The SIB byte includes the following fields:
+	• The scale field specifies the scale factor.
+	• The index field specifies the register number of the index register.
+	• The base field specifies the register number of the base register.
+
+	FIELDS: Scale / Index / Base
+		Scale = bits 7 - 6	(The scale field specifies the scale factor)
+		Index = bits 5 - 3	(The index field specifies the register number of the index register)
+		Base = bits 2 - 0	(The base field specifies the register number of the base register)
+Address Displacement 4,2,1 or 0 bytes (8, 16 or 32 bits)
+Immediate Data 4,2,1,0 bytes (
+	(always the last field of an instruction)
+*Reg field is sometimes used as an opcode extension field
+
+
+Instructions that begin with 0FH can be found in the two-byte opcode maps given in Table A-3.
+
+
+Table B-2. Encoding of reg Field When w Field is Not Present in Instruction
+000 = 0 = EAX / AX / AL
+001 = 1 = ECX / CX / CL
+010 = 2 = EDX / DX / DL
+011 = 3 = EBX / BX / BL
+100 = 4 = ESP / SP / AH
+101 = 5 = EBP / BP / CH
+110 = 6 = ESI / SI / DH
+111 = 7 = EDI / DI / BH
+
+
+Table B-3. Encoding of reg Field When w Field is Present in Instruction
+Register Specified by reg Field			Register Specified by reg Field
+during 16-Bit Data Operations			during 32-Bit Data Operations
+	Function of w Field						Function of w Field
+reg		When w = 0	When w = 1			reg		When w = 0	When w = 1
+000		AL			AX					000		AL			EAX
+001		CL			CX					001		CL			ECX
+010		DL			DX					010		DL			EDX
+011		BL			BX					011		BL			EBX
+100		AH			SP					100		AH			ESP
+101		CH			BP					101		CH			EBP
+110		DH			SI					110		DH			ESI
+111		BH			DI					111		BH			EDI
+
+Table B-4. Encoding of Operand Size (w) Bit
+w Bit		Operand Size When					Operand Size When
+			Operand-Size Attribute is 16 bits	Operand-Size Attribute is 32 bits
+-			---------------------------------	---------------------------------
+0			8 Bits								8 Bits
+1			16 Bits								32 Bits
+
+
+Table B-5. Encoding of Sign-Extend (s) Bit
+s			Effect on 8-Bit										Effect on 16- or 32-Bit
+			Immediate Data										Immediate Data
+-			------------------------------------------------	-----------------------
+0			None												None
+1			Sign-extend to fill 16-bit or 32-bit destination	None
+
+
+Table B-9. Encoding of Operation Direction (d) Bit
+d	Source				Destination
+-	------------------	------------------------
+0	reg					Field ModR/M or SIB Byte
+1	ModR/M or SIB Byte	reg Field
+
+
+Prefixes
+Group 1
+	— Lock and repeat prefixes:
+		• F0H—LOCK.
+			The LOCK prefix can be prepended only to the following instructions and only to those forms
+			of the instructions where the destination operand is a memory operand: ADD, ADC, AND,
+			BTC, BTR, BTS, CMPXCHG, CMPXCH8B, DEC, INC, NEG, NOT, OR, SBB, SUB, XOR,
+			XADD, and XCHG
+		• F2H—REPNE/REPNZ (used only with string instructions).
+		• F3H—REP or REPE/REPZ (use only with string instructions).
+
+Group 2
+	— Segment override prefixes:
+		• 2EH—CS segment override (use with any branch instruction is reserved).
+		• 36H—SS segment override prefix (use with any branch instruction is reserved).
+		• 3EH—DS segment override prefix (use with any branch instruction is reserved).
+		• 26H—ES segment override prefix (use with any branch instruction is reserved).
+		• 64H—FS segment override prefix (use with any branch instruction is reserved).
+		• 65H—GS segment override prefix (use with any branch instruction is reserved).
+	— Branch hints:
+		• 2EH—Branch not taken (used only with Jcc instructions).
+		• 3EH—Branch taken (used only with Jcc instructions).
+
+Group 3
+	— 66H—Operand-size override prefix.
+Group 4
+	— 67H—Address-size override prefix.
+
+For each instruction, one prefix may be used from each of these groups and be placed in any
+order. Using redundant prefixes (more than one prefix from a group) is reserved and may cause
+unpredictable behavior.
+The LOCK prefix forces an atomic operation to insure exclusive use of shared memory in a
+multiprocessor environment. See “LOCK—Assert LOCK# Signal Prefix” in Chapter 3, Instruction
+Set Reference, for a detailed description of this prefix and the instructions with which it can
+be used.
+The repeat prefixes cause an instruction to be repeated for each element of a string. They can be
+used only with the string instructions: MOVS, CMPS, SCAS, LODS, STOS, INS, and OUTS.
+Use of the repeat prefixes with other IA-32 instructions is reserved and may cause unpredictable
+behavior (see the note below).
+The branch hint prefixes allow a program to give a hint to the processor about the most likely
+code path that will be taken at a branch. These prefixes can only be used with the conditional
+branch instructions (Jcc). Use of these prefixes with other IA-32 instructions is reserved and
+may cause unpredictable behavior. The branch hint prefixes were introduced in the Pentium 4
+and Intel Xeon processors as part of the SSE2 extensions.
+The operand-size override prefix allows a program to switch between 16- and 32-bit operand
+sizes. Either operand size can be the default. This prefix selects the non-default size. Use of this
+prefix with MMX, SSE, and/or SSE2 instructions is reserved and may cause unpredictable
+behavior (see the note below).
+The address-size override prefix allows a program to switch between 16- and 32-bit addressing.
+Either address size can be the default. This prefix selects the non-default size. Using this prefix
+when the operands for an instruction do not reside in memory is reserved and may cause unpredictable
+behavior.
+
+
+
+
+
+Table 3-2. IA-32 General Exceptions
+Vector
+No. Name Source
+Protected
+Mode
+Real
+Address
+Mode
+Virtual
+8086
+Mode
+0 #DE—Divide Error DIV and IDIV instructions. Yes Yes Yes
+1 #DB—Debug Any code or data reference. Yes Yes Yes
+3 #BP—Breakpoint INT 3 instruction. Yes Yes Yes
+4 #OF—Overflow INTO instruction. Yes Yes Yes
+5 #BR—BOUND
+Range Exceeded
+BOUND instruction. Yes Yes Yes
+6 #UD—Invalid
+Opcode (Undefined
+Opcode)
+UD2 instruction or reserved
+opcode.
+Yes Yes Yes
+7 #NM—Device Not
+Available (No Math
+Coprocessor)
+Floating-point or WAIT/FWAIT
+instruction.
+Yes Yes Yes
+8 #DF—Double Fault Any instruction that can
+generate an exception, an
+NMI, or an INTR.
+Yes Yes Yes
+10 #TS—Invalid TSS Task switch or TSS access. Yes Reserved Yes
+11 #NP—Segment Not
+Present
+Loading segment registers or
+accessing system segments.
+Yes Reserved Yes
+12 #SS—Stack
+Segment Fault
+Stack operations and SS
+register loads.
+Yes Yes Yes
+13 #GP—General
+Protection*
+Any memory reference and
+other protection checks.
+Yes Yes Yes
+14 #PF—Page Fault Any memory reference. Yes Reserved Yes
+16 #MF—Floating-Point
+Error (Math Fault)
+Floating-point or WAIT/FWAIT
+instruction.
+Yes Yes Yes
+17 #AC—Alignment
+Check
+Any data reference in memory. Yes Reserved Yes
+18 #MC—Machine
+Check
+Model dependent machine
+check errors.
+Yes Yes Yes
+19 #XF—SIMD
+Floating-Point
+Numeric Error
+SSE and SSE2 floating-point
+instructions.
+Yes Yes Yes
+
+DEBUG PROGRAM
+Flags Register  
+Flag Name Set Clear 
+Overflow(yes/no) 	OV NV 
+Direction(increment/decrement) DN UP 
+Interrupt(enable/disable) EI DI 
+Sign(negative/positive) NG PL 
+Zero(yes/no) ZR NZ 
+Auxiliary carry(yes/no) AC NA 
+Parity(even/odd) PE PO 
+Carry(yes/no) CY NC 
+ 
+
+FLAGS - Intel 8086 Family Flags Register
+
+      ³11³10³F³E³D³C³B³A³9³8³7³6³5³4³3³2³1³0³
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  CF Carry Flag
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  1
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  PF Parity Flag
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  0
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  AF Auxiliary Flag
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  0
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  ZF Zero Flag
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  SF Sign Flag
+        ³  ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  TF Trap Flag  (Single Step)
+        ³  ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄ  IF Interrupt Flag
+        ³  ³ ³ ³ ³ ³ ³ ÀÄÄÄ  DF Direction Flag
+        ³  ³ ³ ³ ³ ³ ÀÄÄÄ  OF Overflow flag
+        ³  ³ ³ ³ ÀÄÁÄÄÄ  IOPL I/O Privilege Level  (286+ only)
+        ³  ³ ³ ÀÄÄÄÄÄ  NT Nested Task Flag  (286+ only)
+        ³  ³ ÀÄÄÄÄÄ  0
+        ³  ÀÄÄÄÄÄ  RF Resume Flag (386+ only)
+        ÀÄÄÄÄÄÄ  VM  Virtual Mode Flag (386+ only)
+
+        - see   PUSHF  POPF  STI  CLI  STD  CLD
+ MSW - Machine Status Word (286+ only)
+
+
+      ³31³30-5³4³3³2³1³0³  Machine Status Word
+        ³   ³  ³ ³ ³ ³ ÀÄÄÄÄ Protection Enable (PE)
+        ³   ³  ³ ³ ³ ÀÄÄÄÄÄ Math Present (MP)
+        ³   ³  ³ ³ ÀÄÄÄÄÄÄ Emulation (EM)
+        ³   ³  ³ ÀÄÄÄÄÄÄÄ Task Switched (TS)
+        ³   ³  ÀÄÄÄÄÄÄÄÄ Extension Type (ET)
+        ³   ÀÄÄÄÄÄÄÄÄÄÄ Reserved
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄ Paging (PG)
+
+
+        Bit 0   PE      Protection Enable, switches processor between
+                        protected and real mode
+        Bit 1   MP      Math Present, controls function of the WAIT
+                        instruction
+        Bit 2   EM      Emulation, indicates whether coprocessor functions
+                        are to be emulated
+        Bit 3   TS      Task Switched, set and interrogated by coprocessor
+                        on task switches and when interpretting coprocessor
+                        instructions
+        Bit 4   ET      Extension Type, indicates type of coprocessor in
+                        system
+        Bits 5-30       Reserved
+        bit 31  PG      Paging, indicates whether the processor uses page
+                        tables to translate linear addresses to physical
+                        addresses
+

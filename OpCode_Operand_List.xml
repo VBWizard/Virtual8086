@@ -1,0 +1,4664 @@
+<Root>
+  <Op OpCode="00">
+    <Instruction>ADD</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="01">
+    <Instruction>ADD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="02">
+    <Instruction>ADD</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="03">
+    <Instruction>ADD</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="04">
+    <Instruction>ADD</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="05">
+    <Instruction>ADD</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="06">
+    <Instruction>PUSH</Instruction>
+    <Operand1>ES</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="07">
+    <Instruction>POP</Instruction>
+    <Operand1>ES</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="08">
+    <Instruction>OR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="09">
+    <Instruction>OR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0A">
+    <Instruction>OR</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0B">
+    <Instruction>OR</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0C">
+    <Instruction>OR</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0D">
+    <Instruction>OR</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0E">
+    <Instruction>PUSH</Instruction>
+    <Operand1>CS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="10">
+    <Instruction>ADC</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="11">
+    <Instruction>ADC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="12">
+    <Instruction>ADC</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="13">
+    <Instruction>ADC</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="14">
+    <Instruction>ADC</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="15">
+    <Instruction>ADC</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="16">
+    <Instruction>PUSH</Instruction>
+    <Operand1>SS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="17">
+    <Instruction>POP</Instruction>
+    <Operand1>SS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="18">
+    <Instruction>SBB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="19">
+    <Instruction>SBB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1A">
+    <Instruction>SBB</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1B">
+    <Instruction>SBB</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1C">
+    <Instruction>SBB</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1D">
+    <Instruction>SBB</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1E">
+    <Instruction>PUSH</Instruction>
+    <Operand1>DS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="1F">
+    <Instruction>POP</Instruction>
+    <Operand1>DS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="20">
+    <Instruction>AND</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="21">
+    <Instruction>AND</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="22">
+    <Instruction>AND</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="23">
+    <Instruction>AND</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="24">
+    <Instruction>AND</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="25">
+    <Instruction>AND</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="27">
+    <Instruction>DAA</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="28">
+    <Instruction>SUB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="29">
+    <Instruction>SUB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="2A">
+    <Instruction>SUB</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="2B">
+    <Instruction>SUB</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="2C">
+    <Instruction>SUB</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="2D">
+    <Instruction>SUB</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="2F">
+    <Instruction>DAS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="30">
+    <Instruction>XOR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="31">
+    <Instruction>XOR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="32">
+    <Instruction>XOR</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="33">
+    <Instruction>XOR</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="34">
+    <Instruction>XOR</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="35">
+    <Instruction>XOR</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="37">
+    <Instruction>AAA</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="38">
+    <Instruction>CMP</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="39">
+    <Instruction>CMP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="3A">
+    <Instruction>CMP</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="3B">
+    <Instruction>CMP</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="3C">
+    <Instruction>CMP</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="3D">
+    <Instruction>CMP</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="3F">
+    <Instruction>AAS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="40">
+    <Instruction>INC</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="41">
+    <Instruction>INC</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="42">
+    <Instruction>INC</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="43">
+    <Instruction>INC</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="44">
+    <Instruction>INC</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="45">
+    <Instruction>INC</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="46">
+    <Instruction>INC</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="47">
+    <Instruction>INC</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="48">
+    <Instruction>DEC</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="49">
+    <Instruction>DEC</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4A">
+    <Instruction>DEC</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4B">
+    <Instruction>DEC</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4C">
+    <Instruction>DEC</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4D">
+    <Instruction>DEC</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4E">
+    <Instruction>DEC</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="4F">
+    <Instruction>DEC</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="50">
+    <Instruction>PUSH</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="51">
+    <Instruction>PUSH</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="52">
+    <Instruction>PUSH</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="53">
+    <Instruction>PUSH</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="54">
+    <Instruction>PUSH</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="55">
+    <Instruction>PUSH</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="56">
+    <Instruction>PUSH</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="57">
+    <Instruction>PUSH</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="58">
+    <Instruction>POP</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="59">
+    <Instruction>POP</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5A">
+    <Instruction>POP</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5B">
+    <Instruction>POP</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5C">
+    <Instruction>POP</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5D">
+    <Instruction>POP</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5E">
+    <Instruction>POP</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="5F">
+    <Instruction>POP</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="60">
+    <Instruction>PUSHA</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="61">
+    <Instruction>POPA</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="62">
+    <Instruction>BOUND</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ma</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="63">
+    <Instruction>ARPL</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>Gw</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>-1</UseNewDecoder>
+  </Op>
+  <Op OpCode="68">
+    <Instruction>PUSH</Instruction>
+    <Operand1>Iv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="69">
+    <Instruction>IMUL</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>Iv</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6A">
+    <Instruction>PUSH</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6B">
+    <Instruction>IMUL</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>Ib</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6C">
+    <Instruction>INS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6D">
+    <Instruction>INS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6E">
+    <Instruction>OUTS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="6F">
+    <Instruction>OUTS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="70">
+    <Instruction>JO</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="71">
+    <Instruction>JNO</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="72">
+    <Instruction>JB</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="73">
+    <Instruction>JNB</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="74">
+    <Instruction>JZ</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="75">
+    <Instruction>JNZ</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="76">
+    <Instruction>JBE</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="77">
+    <Instruction>JA</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="78">
+    <Instruction>JS</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="79">
+    <Instruction>JNS</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7A">
+    <Instruction>JPE</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7B">
+    <Instruction>JPO</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7C">
+    <Instruction>JL</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7D">
+    <Instruction>JGE</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7E">
+    <Instruction>JLE</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="7F">
+    <Instruction>JG</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="80">
+    <Instruction>ADD</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="81">
+    <Instruction>ADD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="82">
+    <Instruction>SUB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="83">
+    <Instruction>SUB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="84">
+    <Instruction>TEST</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="85">
+    <Instruction>TEST</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="86">
+    <Instruction>XCHG</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="87">
+    <Instruction>XCHG</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="88">
+    <Instruction>MOV</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="89">
+    <Instruction>MOV</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8A">
+    <Instruction>MOV</Instruction>
+    <Operand1>Gb</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8B">
+    <Instruction>MOV</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8C">
+    <Instruction>MOV</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>Sw</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8D">
+    <Instruction>LEA</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>M</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8E">
+    <Instruction>MOV</Instruction>
+    <Operand1>Sw</Operand1>
+    <Operand2>Ew</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8F">
+    <Instruction>POP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="90">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="91">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>ECX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="92">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>EDX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="93">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>EBX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="94">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>ESP</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="95">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>EBP</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="96">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>ESI</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="97">
+    <Instruction>XCHG</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>EDI</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="98">
+    <Instruction>CBW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="99">
+    <Instruction>CWD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9A">
+    <Instruction>CALL</Instruction>
+    <Operand1>Ap</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9B">
+    <Instruction>FWAIT</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9C">
+    <Instruction>PUSHF</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9D">
+    <Instruction>POPF</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9E">
+    <Instruction>SAHF</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="9F">
+    <Instruction>LAHF</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A0">
+    <Instruction>MOV</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ob</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A1">
+    <Instruction>MOV</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Ov</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A2">
+    <Instruction>MOV</Instruction>
+    <Operand1>Ob</Operand1>
+    <Operand2>AL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A3">
+    <Instruction>MOV</Instruction>
+    <Operand1>Ov</Operand1>
+    <Operand2>EAX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A4">
+    <Instruction>MOVSB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A5">
+    <Instruction>MOVSW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A6">
+    <Instruction>CMPSB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A7">
+    <Instruction>CMPSW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A8">
+    <Instruction>TEST</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="A9">
+    <Instruction>TEST</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AA">
+    <Instruction>STOSB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AB">
+    <Instruction>STOSW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AC">
+    <Instruction>LODSB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AD">
+    <Instruction>LODSW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE">
+    <Instruction>SCASB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF">
+    <Instruction>SCASW</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B0">
+    <Instruction>MOV</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B1">
+    <Instruction>MOV</Instruction>
+    <Operand1>CL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B2">
+    <Instruction>MOV</Instruction>
+    <Operand1>DL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B3">
+    <Instruction>MOV</Instruction>
+    <Operand1>BL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B4">
+    <Instruction>MOV</Instruction>
+    <Operand1>AH</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B5">
+    <Instruction>MOV</Instruction>
+    <Operand1>CH</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B6">
+    <Instruction>MOV</Instruction>
+    <Operand1>DH</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B7">
+    <Instruction>MOV</Instruction>
+    <Operand1>BH</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B8">
+    <Instruction>MOV</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="B9">
+    <Instruction>MOV</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BA">
+    <Instruction>MOV</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BB">
+    <Instruction>MOV</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BC">
+    <Instruction>MOV</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BD">
+    <Instruction>MOV</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BE">
+    <Instruction>MOV</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="BF">
+    <Instruction>MOV</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C000">
+    <Instruction>ROL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C001">
+    <Instruction>ROR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C002">
+    <Instruction>RCL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C003">
+    <Instruction>RCR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C004">
+    <Instruction>SHL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C005">
+    <Instruction>SHR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C006">
+    <Instruction>SHL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C007">
+    <Instruction>SAR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C100">
+    <Instruction>ROL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C101">
+    <Instruction>ROR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C102">
+    <Instruction>RCL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C103">
+    <Instruction>RCR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C104">
+    <Instruction>SHL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C105">
+    <Instruction>SHR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C106">
+    <Instruction>SHL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C107">
+    <Instruction>SAR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C2">
+    <Instruction>RET</Instruction>
+    <Operand1>Iw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C3">
+    <Instruction>RET</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C4">
+    <Instruction>LES</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Mp</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C5">
+    <Instruction>LDS</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Mp</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C6">
+    <Instruction>MOV</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C7">
+    <Instruction>MOV</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C8">
+    <Instruction>ENTER</Instruction>
+    <Operand1>Iw</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="C9">
+    <Instruction>LEAVE</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CA">
+    <Instruction>RETF</Instruction>
+    <Operand1>Iw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CB">
+    <Instruction>RETF</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CC">
+    <Instruction>INT</Instruction>
+    <Operand1>3</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CD">
+    <Instruction>INT</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CE">
+    <Instruction>INTO</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="CF">
+    <Instruction>IRET</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D000">
+    <Instruction>ROL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D001">
+    <Instruction>ROR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D002">
+    <Instruction>RCL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D003">
+    <Instruction>RCR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D004">
+    <Instruction>SHL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D005">
+    <Instruction>SHR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D006">
+    <Instruction>SAL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D007">
+    <Instruction>SAR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D100">
+    <Instruction>ROL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D101">
+    <Instruction>ROR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D102">
+    <Instruction>RCL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D103">
+    <Instruction>RCR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D104">
+    <Instruction>SHL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D105">
+    <Instruction>SHR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D106">
+    <Instruction>SAL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D107">
+    <Instruction>SAR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D200">
+    <Instruction>ROL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D201">
+    <Instruction>ROR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D202">
+    <Instruction>RCL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D203">
+    <Instruction>RCR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D204">
+    <Instruction>SHL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D205">
+    <Instruction>SHR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D206">
+    <Instruction>SAL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D207">
+    <Instruction>SAR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D300">
+    <Instruction>ROL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D301">
+    <Instruction>ROR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D302">
+    <Instruction>RCL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D303">
+    <Instruction>RCR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D304">
+    <Instruction>SHL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D305">
+    <Instruction>SHR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D306">
+    <Instruction>SAL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D307">
+    <Instruction>SAR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>CL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D4">
+    <Instruction>AAM</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D5">
+    <Instruction>AAD</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D6">
+    <Instruction>SALC</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D7">
+    <Instruction>XLAT</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E0">
+    <Instruction>LOOPNZ</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E1">
+    <Instruction>LOOPZ</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E2">
+    <Instruction>LOOP</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E3">
+    <Instruction>JCXZ</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E4">
+    <Instruction>IN</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E5">
+    <Instruction>IN</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E6">
+    <Instruction>OUT</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>AL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E7">
+    <Instruction>OUT</Instruction>
+    <Operand1>Ib</Operand1>
+    <Operand2>EAX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E8">
+    <Instruction>CALL</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="E9">
+    <Instruction>JMP</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="EA">
+    <Instruction>JMP</Instruction>
+    <Operand1>Ap</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="EB">
+    <Instruction>JMP</Instruction>
+    <Operand1>Jb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="EC">
+    <Instruction>IN</Instruction>
+    <Operand1>AL</Operand1>
+    <Operand2>DX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="ED">
+    <Instruction>IN</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>DX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="EE">
+    <Instruction>OUT</Instruction>
+    <Operand1>DX</Operand1>
+    <Operand2>AL</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="EF">
+    <Instruction>OUT</Instruction>
+    <Operand1>DX</Operand1>
+    <Operand2>EAX</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F0">
+    <Instruction>LOCK</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F1">
+    <Instruction>ICEBP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F2">
+    <Instruction>REPNZ</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F3">
+    <Instruction>REPZ</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F4">
+    <Instruction>HLT</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F5">
+    <Instruction>CMC</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F600">
+    <Instruction>TEST</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F601">
+    <Instruction>TEST</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F602">
+    <Instruction>NOT</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F603">
+    <Instruction>NEG</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F604">
+    <Instruction>MUL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F605">
+    <Instruction>IMUL</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F606">
+    <Instruction>DIV</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F607">
+    <Instruction>IDIV</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F700">
+    <Instruction>TEST</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F701">
+    <Instruction>TEST</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F702">
+    <Instruction>NOT</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F703">
+    <Instruction>NEG</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F704">
+    <Instruction>MUL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F705">
+    <Instruction>IMUL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F706">
+    <Instruction>DIV</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F707">
+    <Instruction>IDIV</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F8">
+    <Instruction>CLC</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="F9">
+    <Instruction>STC</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FA">
+    <Instruction>CLI</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FB">
+    <Instruction>STI</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FC">
+    <Instruction>CLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FD">
+    <Instruction>STD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE00">
+    <Instruction>INC</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE01">
+    <Instruction>DEC</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF00">
+    <Instruction>INC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF01">
+    <Instruction>DEC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF02">
+    <Instruction>CALL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF03">
+    <Instruction>CALLF</Instruction>
+    <Operand1>Mp</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF04">
+    <Instruction>JMP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF05">
+    <Instruction>JMPF</Instruction>
+    <Operand1>Mp</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FF06">
+    <Instruction>PUSH</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE00">
+    <Instruction>SLDT</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE01">
+    <Instruction>STR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE02">
+    <Instruction>LLDT</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE03">
+    <Instruction>LTR</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE04">
+    <Instruction>VERR</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AE05">
+    <Instruction>VERW</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F02">
+    <Instruction>LAR</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F06">
+    <Instruction>CLTS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF00">
+    <Instruction>SGDT</Instruction>
+    <Operand1>Ms</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF01">
+    <Instruction>SIDT</Instruction>
+    <Operand1>Ms</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF02">
+    <Instruction>LGDT</Instruction>
+    <Operand1>Ms</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF03">
+    <Instruction>LIDT</Instruction>
+    <Operand1>Ms</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF04">
+    <Instruction>SMSW</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF06">
+    <Instruction>LMSW</Instruction>
+    <Operand1>Ew</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AF07">
+    <Instruction>INVLPG</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F82">
+    <Instruction>JB</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F86">
+    <Instruction>JBE</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8D">
+    <Instruction>JGE</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8C">
+    <Instruction>JL</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8E">
+    <Instruction>JLE</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F83">
+    <Instruction>JNB</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F87">
+    <Instruction>JNBE</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8F">
+    <Instruction>JNLE</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F81">
+    <Instruction>JNO</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8B">
+    <Instruction>JNP</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F89">
+    <Instruction>JNS</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F85">
+    <Instruction>JNZ</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F80">
+    <Instruction>JO</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F88">
+    <Instruction>JS</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F84">
+    <Instruction>JZ</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB0">
+    <Instruction>CMPXCHG</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Gb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB1">
+    <Instruction>CMPXCHG</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D800">
+    <Instruction>FADD</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D801">
+    <Instruction>FMUL</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D806">
+    <Instruction>FDIV</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D807">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D0">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D1">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D2">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D3">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D4">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D5">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D6">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D7">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D8">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8D9">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DA">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DB">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DC">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DD">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DE">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8DF">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E0">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E1">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E2">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E3">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E4">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E5">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E6">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8E7">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F0">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F1">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F2">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F3">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F4">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F5">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F6">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8F7">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D900">
+    <Instruction>FLD</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D902">
+    <Instruction>FST</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D903">
+    <Instruction>FST</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D905">
+    <Instruction>FLDCW</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D906">
+    <Instruction>FSTENV</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D907">
+    <Instruction>FSTCW</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9E0">
+    <Instruction>FCHS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9E1">
+    <Instruction>FABS</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9FC">
+    <Instruction>FRNDINT</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DB00">
+    <Instruction>FILD</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DB02">
+    <Instruction>FIST</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DB03">
+    <Instruction>FIST</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DB05">
+    <Instruction>FLD</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBE1">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBE2">
+    <Instruction>FCLEX</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBE3">
+    <Instruction>FINIT</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DC01">
+    <Instruction>FMUL</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DC02">
+    <Instruction>FCOM</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DC03">
+    <Instruction>FCOM</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DC06">
+    <Instruction>FDIV</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCC8">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCC9">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCA">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCB">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCC">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCD">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCE">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCCF">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DD00">
+    <Instruction>FLD</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DD02">
+    <Instruction>FST</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DD03">
+    <Instruction>FST</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DD06">
+    <Instruction>FSAVE</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DD07">
+    <Instruction>FSTSW</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDE1">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDE8">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDE9">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDEA">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDEB">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDEC">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDED">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDEE">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDEF">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEE1">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEE9">
+    <Instruction>FSUB</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE07">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DED9">
+    <Instruction>FCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF0">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF1">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF2">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF3">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF4">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF5">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF6">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF7">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEF9">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DF00">
+    <Instruction>FILD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DF02">
+    <Instruction>FIST</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DF03">
+    <Instruction>FIST</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DF05">
+    <Instruction>FILD</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DF07">
+    <Instruction>FIST</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DFE0">
+    <Instruction>FSTSW</Instruction>
+    <Operand1>AX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FC1">
+    <Instruction>XADD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FC8">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCB">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>EBX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FC9">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>ECX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCF">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>EDI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCA">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>EDX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCD">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>EBP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCE">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>ESI</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FCC">
+    <Instruction>BSWAP</Instruction>
+    <Operand1>ESP</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA1">
+    <Instruction>POP</Instruction>
+    <Operand1>FS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA0">
+    <Instruction>PUSH</Instruction>
+    <Operand1>FS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA9">
+    <Instruction>POP</Instruction>
+    <Operand1>GS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA8">
+    <Instruction>PUSH</Instruction>
+    <Operand1>GS</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F20">
+    <Instruction>MOV</Instruction>
+    <Operand1>Rd</Operand1>
+    <Operand2>Cd</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F21">
+    <Instruction>MOV</Instruction>
+    <Operand1>Rd</Operand1>
+    <Operand2>Dd</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBC">
+    <Instruction>BSF</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBD">
+    <Instruction>BSR</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F40">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F41">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F42">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F43">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F44">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F45">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F46">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F47">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F48">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F49">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4A">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4B">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4C">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4D">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4E">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F4F">
+    <Instruction>CMOVcc</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA3">
+    <Instruction>BT</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB3">
+    <Instruction>BTR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FAB">
+    <Instruction>BTS</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AD04">
+    <Instruction>BT</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AD05">
+    <Instruction>BTS</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AD06">
+    <Instruction>BTR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="AD07">
+    <Instruction>BTC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F8A">
+    <Instruction>JP</Instruction>
+    <Operand1>Jv</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB4">
+    <Instruction>LFS</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Mp</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB5">
+    <Instruction>LGS</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Mp</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB2">
+    <Instruction>LSS</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Mp</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F22">
+    <Instruction>MOV</Instruction>
+    <Operand1>Cd</Operand1>
+    <Operand2>Rd</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F23">
+    <Instruction>MOV</Instruction>
+    <Operand1>Dd</Operand1>
+    <Operand2>Rd</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA5">
+    <Instruction>SHLD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>CL</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA4">
+    <Instruction>SHLD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>Ib</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FAC">
+    <Instruction>SHRD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>Ib</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FAD">
+    <Instruction>SHRD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>CL</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB6">
+    <Instruction>MOVZX</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FB7">
+    <Instruction>MOVZX</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ew</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8000">
+    <Instruction>ADD</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8001">
+    <Instruction>OR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8002">
+    <Instruction>ADC</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8003">
+    <Instruction>SBB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8004">
+    <Instruction>AND</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8005">
+    <Instruction>SUB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8006">
+    <Instruction>XOR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8007">
+    <Instruction>CMP</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8100">
+    <Instruction>ADD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8101">
+    <Instruction>OR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8102">
+    <Instruction>ADC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8103">
+    <Instruction>SBB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8104">
+    <Instruction>AND</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8105">
+    <Instruction>SUB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8106">
+    <Instruction>XOR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8107">
+    <Instruction>CMP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Iv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8200">
+    <Instruction>ADD</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8201">
+    <Instruction>OR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8202">
+    <Instruction>ADC</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8203">
+    <Instruction>SBB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8204">
+    <Instruction>AND</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8205">
+    <Instruction>SUB</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8206">
+    <Instruction>XOR</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8207">
+    <Instruction>CMP</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8300">
+    <Instruction>ADD</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8301">
+    <Instruction>OR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8302">
+    <Instruction>ADC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8303">
+    <Instruction>SBB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8304">
+    <Instruction>AND</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8305">
+    <Instruction>SUB</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8306">
+    <Instruction>XOR</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="8307">
+    <Instruction>CMP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FAF">
+    <Instruction>IMUL</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ev</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F90">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F91">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F92">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F93">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F94">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F95">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F96">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F97">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F98">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F99">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9A">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9B">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9C">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9D">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9E">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F9F">
+    <Instruction>SETcc</Instruction>
+    <Operand1>Eb</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBE">
+    <Instruction>MOVSX</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Eb</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBF">
+    <Instruction>MOVSX</Instruction>
+    <Operand1>Gv</Operand1>
+    <Operand2>Ew</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FA2">
+    <Instruction>CPUID</Instruction>
+    <Operand1>EAX</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F0B">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F18">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBE4">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F09">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0F31">
+    <Instruction>RDTSC</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBB">
+    <Instruction>BTC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Gv</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FBA">
+    <Instruction>BTC</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>Ib</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C0">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C1">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C2">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C3">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C4">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C5">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C6">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C7">
+    <Instruction>FLD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C8">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9C9">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CA">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CB">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CC">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CD">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CE">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9CF">
+    <Instruction>FXCH</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9EE">
+    <Instruction>FLDZ</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D9E8">
+    <Instruction>FLD1</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF0">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF1">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF2">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF3">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF4">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF5">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF6">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DCF7">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEC1">
+    <Instruction>FADD</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8C8">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8C9">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CA">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CB">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CC">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CD">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CE">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="D8CF">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEC8">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEC9">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECA">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECB">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECC">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECD">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECE">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DECF">
+    <Instruction>FMUL</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDD8">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDD9">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDA">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDB">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDC">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDD">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDE">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDDF">
+    <Instruction>FST</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DDFF">
+    <Instruction>NOP</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA00">
+    <Instruction>FADD</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA01">
+    <Instruction>FIMUL</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA03">
+    <Instruction>FCOM</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA04">
+    <Instruction>FSUB</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA06">
+    <Instruction>FDIV</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DA07">
+    <Instruction>FDIVR</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC0">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC1">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC2">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC3">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC4">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC5">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC6">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC7">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC8">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAC9">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACA">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACB">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACC">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACD">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACE">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DACF">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAE9">
+    <Instruction>FUCOM</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD0">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD1">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD2">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD3">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD4">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD5">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD6">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD7">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD8">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DAD9">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADA">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADB">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADC">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADD">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADE">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DADF">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC0">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC1">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC2">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC3">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC4">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC5">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC6">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC7">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC8">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBC9">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCA">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCB">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCC">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCD">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCE">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBCF">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD0">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD1">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD2">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD3">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD4">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD5">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD6">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD7">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD8">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBD9">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDA">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDB">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDC">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDD">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDE">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DBDF">
+    <Instruction>FCMOV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="0FC7">
+    <Instruction>CMPXCHG</Instruction>
+    <Operand1>Mq</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+</Root>

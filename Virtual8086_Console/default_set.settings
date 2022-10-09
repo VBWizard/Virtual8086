@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Virtual8086_Console" GeneratedClassName="default_set">
+  <Profiles />
+  <Settings>
+    <Setting Name="ShowAssemblerCode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Debug_Code_Filename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dbg_code.lst</Value>
+    </Setting>
+    <Setting Name="Debug_Ports_Filename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dbg_ports.lst</Value>
+    </Setting>
+    <Setting Name="SaveAssemblerCode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SaveDebugPorts" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SaveDebugMemory" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DisplayBIOSWhenDebugging" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DisplayVGABIOSWhenDebugging" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DebugAtSegment" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DebugAtAddress" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">1048576</Value>
+    </Setting>
+    <Setting Name="DieAtSegment" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">3180</Value>
+    </Setting>
+    <Setting Name="DebugAtEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DieAtEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ProcessorType" Type="VirtualProcessor.eProcTypes" Scope="User">
+      <Value Profile="(Default)">i80386</Value>
+    </Setting>
+    <Setting Name="FD2PathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HD1Cyls" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">306</Value>
+    </Setting>
+    <Setting Name="HD2Cyls" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HD1Heads" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="HD2Heads" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HD1SPT" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">17</Value>
+    </Setting>
+    <Setting Name="HD2SPT" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="HD1DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
+      <Value Profile="(Default)">IDE_DISK</Value>
+    </Setting>
+    <Setting Name="HD2DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartOnLoad" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TimerTickInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="MiscROMPathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MiscROMLoadAddress" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="StartEmuOnLoad" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DumpMemOnShutdown" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DumpMemAbove1MB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DumpMemFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Debug_Mem_Filename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dbg_mem.lst</Value>
+    </Setting>
+    <Setting Name="DebugToFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DebugToScreen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CalculateTimings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DebugCodeMaxFileSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">536870912</Value>
+    </Setting>
+    <Setting Name="DieAtAddress" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">818</Value>
+    </Setting>
+    <Setting Name="PhysicalMemoryAmount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6291456</Value>
+    </Setting>
+    <Setting Name="FD1PathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Emulator Stuff\from_flash_ubuntu\v86media\622c_2.flp</Value>
+    </Setting>
+    <Setting Name="HD1PathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">J:\Emulator Stuff\from_flash_ubuntu\v86media\hd10meg3.img</Value>
+    </Setting>
+    <Setting Name="HD2PathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BIOSPathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">J:\Emulator Stuff\bios\BIOS-bochs-legacy-1hdc</Value>
+    </Setting>
+    <Setting Name="VideoBiosPathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">J:\Emulator Stuff\bios\VGABIOS-lgpl-latest</Value>
+    </Setting>
+    <Setting Name="Debug_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">j:\temp\Virtual8086_dbg\</Value>
+    </Setting>
+    <Setting Name="CMOSPathAndFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">J:\Yogi\src\Virtual8086\cmos.bin</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
