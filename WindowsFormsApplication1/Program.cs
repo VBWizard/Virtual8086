@@ -167,10 +167,10 @@ namespace WindowsFormsApplication1
 #if DEBUG
             //if (default_set.Default.DebugAtEnabled)
             //{
-                mStartDebuggingInstanceCount += 1;
-                if (mStartDebuggingInstanceCount == 1)
-                    mSystem.mProc.StartDebugging += HandleStartDebugging;
-                mStartDebuggingInstanceCount += 1;
+//                mStartDebuggingInstanceCount += 1;
+//                if (mStartDebuggingInstanceCount == 1)
+//                    mSystem.mProc.StartDebugging += HandleStartDebugging;
+//                mStartDebuggingInstanceCount += 1;
             if (default_set.Default.DumpAtEnabled)     
                 mSystem.mProc.WatchExecutionAddress += HandleTakeADump;
                 
@@ -195,7 +195,7 @@ namespace WindowsFormsApplication1
                 {
 #endif
             mSystem.TaskNameOffset = default_set.Default.TaskNameOffset;
-            mSystem.Debuggies = new sDebugComponents(false, false, false, false, false, false, false, false, false, false, false, false, false);
+            mSystem.Debuggies = new sDebugComponents(false, false, false, false, false, false, false, false, true, false, false, false, false);
             mSystem.OSType = eOpSysType.Linux;
             mSystem.FPUEnabled(true);
             mSystem.ColdBoot();
@@ -243,7 +243,7 @@ namespace WindowsFormsApplication1
 
             while (1 == 1)
             {
-                Thread.Sleep(150);
+                Thread.Sleep(50);
                 lBPage = 0;  //mSystem.mProc.mem.GetByte(sender, 0x400 + 0x62);
                 while (mSystem.DeviceBlock == null)
                 { }
@@ -251,7 +251,7 @@ namespace WindowsFormsApplication1
                 catch { }
                 lBPageSize = 0; // mSystem.mProc.mem.GetWord(sender, 0x400 + 0x4c);
                 if (lBPageSize == 0)
-                    lBPageSize = 4000; //4000;
+                    lBPageSize = 40000; //4000;
                 lBS = 0xb8000 + lBSOffset;
 
                 lPosX = -1; lPosY = 0; lCurrPosY = 0;
@@ -328,8 +328,8 @@ namespace WindowsFormsApplication1
                         
                         //lBCursorX = PhysicalMem.mMemBytes[(UInt32)(0x450)]; // mSystem.mProc.mem.GetByte(sender, 0x400 + 0x50);
                         //lBCursorY = PhysicalMem.mMemBytes[(UInt32)(0x451)]; // mSystem.mProc.mem.GetByte(sender, 0x400 + 0x51);
-                        try { Console.SetCursorPosition(lBCursorX, lBCursorY); }
-                        catch { }
+                        //try { Console.SetCursorPosition(lBCursorX, lBCursorY); }
+                        //catch { }
                     }
                 }
                 catch { }
@@ -499,20 +499,22 @@ namespace WindowsFormsApplication1
             //lWrite += "\t\tIn Call Count = " + e.PortInfo.InCount.GetDWord();
             //Debug_Ports_Filename
             DebugPortFile.WriteLine(lWrite);
+            DebugPortFile.Flush();
             //Debug.WriteLine(lWrite);
             //mPortFile.WriteLine("\tInstruct @: " + mCurrentOp.proc.regs.CS.ToString("x").PadLeft(4, '0').ToUpper() +
-            //     ":" + mCurrentOp.proc.regs.IP.ToString("x").PadLeft(4, '0').ToUpper() + "\n\r");
+            //     ":" + mCurrentOp.proc.regs.IP.ToString("x").PadLeft(4, '0').ToUpper() + "\n");
         }
         static void HandleDataOutEvent(object sender, Ports.CustomEventArgs e)
         {
             //if (e.PortInfo.Portnum == 0x64 || e.PortInfo.Portnum == 0x80)
-            if ((e.PortInfo.Portnum == 0x20 && e.PortInfo.Value == 0x20))
-                return;
-            if (e.PortInfo.Portnum != 0x3d4 && e.PortInfo.Portnum != 0x3d5)
-                return;
+            //if ((e.PortInfo.Portnum == 0x20 && e.PortInfo.Value == 0x20))
+//                return;
+//            if (e.PortInfo.Portnum != 0x3d4 && e.PortInfo.Portnum != 0x3d5)
+//                return;
             string lWrite = DateTime.Now.ToString();
             //lWrite += sender.regs.CS.Value.ToString("X8") + ":" + sender.regs.IP.ToString("X8");
-            lWrite += "\tData Out on port " + e.PortInfo.Portnum.ToString("x").PadLeft(4, '0').ToUpper() +
+            if (e.PortInfo.Portnum == 0x21 || e.PortInfo.Portnum == 0x20) return;
+                lWrite += "\tData Out on port " + e.PortInfo.Portnum.ToString("x").PadLeft(4, '0').ToUpper() +
                 "\t Value\t" + e.PortInfo.Value.ToString("x").PadLeft(8, '0').ToUpper() + "\t";
             if (e.PortInfo.Size == TypeCode.Byte & e.PortInfo.Value > 0x13)
             {
@@ -617,7 +619,7 @@ namespace WindowsFormsApplication1
             else
                 lMemFile = new StreamWriter(default_set.Default.Debug_Path + default_set.Default.Debug_Mem_Filename.Replace(".", "_" + mSystem.mProc.mSystem.mFileSuffix + "-" + new Random().Next(1000000) + "."));
 
-            m.Append("\n\rStarted @ " + mSystem.mProc.StartedAt + "\n\rStopped @ " + mSystem.mProc.StoppedAt + "\n\r");
+            m.Append("\nStarted @ " + mSystem.mProc.StartedAt + "\nStopped @ " + mSystem.mProc.StoppedAt + "\n");
             m.Append("\n\rInstructions decoded: " + mSystem.mProc.InstructionsDecoded + " (" + Math.Round(mSystem.mProc.InstructionsDecoded / TotalTime.TotalSeconds, 0) + ")\n\r");
             m.Append("\n\rInstructions executed: " + mSystem.mProc.InstructionsExecuted + " (" + Math.Round(mSystem.mProc.InstructionsExecuted / TotalTime.TotalSeconds, 0) + ")\n\r");
             //m.Append(cValue.createCount);
@@ -869,13 +871,11 @@ namespace WindowsFormsApplication1
         {
             mSingleStep = mSystem.mProc.mSingleStep;
             DoSingleStep(mSingleStep);
-            if ((e.ProcessorFoundDebuggingStart) || default_set.Default.DebugAtEnabled && mSystem.mProc.regs.CS.Value == default_set.Default.DebugAtSegment && (mSystem.mProc.regs.EIP == default_set.Default.DebugAtAddress || default_set.Default.DebugAtAddress == 0xFFFFFFFF))
-            {
-                if (!mNowDebugging)
+            if (!mNowDebugging)
+                if ((e.ProcessorFoundDebuggingStart) || default_set.Default.DebugAtEnabled && mSystem.mProc.regs.CS.Value == default_set.Default.DebugAtSegment && (mSystem.mProc.regs.EIP == default_set.Default.DebugAtAddress || default_set.Default.DebugAtAddress == 0xFFFFFFFF))
                     AttemptToEnableDebugging();
-            }
-            else if (default_set.Default.DieAtEnabled && mSystem.mProc.regs.CS.Value == default_set.Default.DieAtSegment && (mSystem.mProc.regs.EIP == default_set.Default.DieAtAddress || default_set.Default.DieAtAddress == 0xFFFFFFFF))
-                mSystem.mProc.PowerOff = true;
+                else if (default_set.Default.DieAtEnabled && mSystem.mProc.regs.CS.Value == default_set.Default.DieAtSegment && (mSystem.mProc.regs.EIP == default_set.Default.DieAtAddress || default_set.Default.DieAtAddress == 0xFFFFFFFF))
+                    mSystem.mProc.PowerOff = true;
             //mMainForm.HandleSingleStepEvent(new object(), new Processor_80x86.CustomEventArgs(mSystem.mProc));
         }
         static void HandleParseDoneEvent(object sender, Processor_80x86.CustomEventArgs e)
@@ -974,7 +974,6 @@ namespace WindowsFormsApplication1
             }
             if (lPrintedSomething)
                 lOutput.AppendFormat("\n\r");
-            lOutput.Append("\n\r");
 
             if (DebugCodeFile != null)
             {
@@ -1086,9 +1085,9 @@ namespace WindowsFormsApplication1
             {
                 mShowIRQServiceMessage = false;
                 if (mIRQIsReallyException)
-                    lOutput.AppendFormat("********** Exception Handler {0} starts **********\n\r", IRQOrExceptionNum.ToString("X2"));
+                    lOutput.AppendFormat("\n********** Exception Handler {0} starts **********\n", IRQOrExceptionNum.ToString("X2"));
                 else
-                    lOutput.AppendFormat("********** Servicing IRQ (INT # {0}) starts **********\n\r", IRQOrExceptionNum.ToString("X2"));
+                    lOutput.AppendFormat("\n********** Servicing IRQ (INT # {0}) starts **********\n", IRQOrExceptionNum.ToString("X2"));
             }
             if (lNum == 8)
             {
@@ -1101,24 +1100,24 @@ namespace WindowsFormsApplication1
                         lStackVal = sender.mem.GetDWord(mSystem.mProc, ref sender.sCurrentDecode, PhysicalMem.GetLocForSegOfs(sender, sender.regs.SS.Value, sender.regs.ESP));
                     }
                     catch { lStackVal = 0; }
-                lOutput.AppendFormat("EAX={0}  EBX={1}  ECX={2}  EDX={3}  M={4}  INT={5}   TASK={6}\n\r", sender.regs.EAX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EBX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.ECX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EDX.ToString("x").ToUpper().PadLeft(8, '0'), lProt.Substring(0, 1), lCurrIntNum, GlobalRoutines.GetLinuxCurrentTaskName(sender.mSystem));
+                lOutput.AppendFormat("EAX={0}  EBX={1}  ECX={2}  EDX={3}  M={4}  INT={5}   TASK={6}\n", sender.regs.EAX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EBX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.ECX.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EDX.ToString("x").ToUpper().PadLeft(8, '0'), lProt.Substring(0, 1), lCurrIntNum, GlobalRoutines.GetLinuxCurrentTaskName(sender.mSystem));
                 lOutput.AppendFormat("EBP={1}  ESI={2}  EDI={3}  ESP={0}  [ESP]={4}  CPL={5} ({6})   ", sender.regs.ESP.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EBP.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.ESI.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.EDI.ToString("x").ToUpper().PadLeft(8, '0'), lStackVal.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CPL.ToString("X"), sender.regs.CS.Selector.access.PrivLvl.ToString("X"));
                 if ((sender.regs.CR0 & 0x80000000) == 0x80000000)
                 {
-                    //lOutput.AppendFormat("(stackaddr={0})  TLB-C={1}\n\r", sender.mTLB.ShallowTranslate(mSystem.mProc, ref sender.sCurrentDecode, (DWord)(sender.regs.SS.Value + sender.regs.ESP), false, ePrivLvl.Kernel_Ring_0).ToString("X8"), sender.mTLB.mCurrEntries);
+                    //lOutput.AppendFormat("(stackaddr={0})  TLB-C={1}\n", sender.mTLB.ShallowTranslate(mSystem.mProc, ref sender.sCurrentDecode, (DWord)(sender.regs.SS.Value + sender.regs.ESP), false, ePrivLvl.Kernel_Ring_0).ToString("X8"), sender.mTLB.mCurrEntries);
 
                 }
                 else
-                    lOutput.Append("\n\r");
-                lOutput.AppendFormat("TR={7}  LDT={0}  CR0={1}  CR2={9}  CR3={8}  CR4={2}    O16={3} A16={4} SO16={5} SA16={6}\n\r", sender.regs.LDTR.SegSel.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR0.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR4.ToString("x").ToUpper().PadLeft(8, '0'), sender.OpSize16.ToString().Substring(0, 1), sender.AddrSize16.ToString().Substring(0, 1), sender.OpSize16.ToString().Substring(0, 1), sender.AddrSize16Stack.ToString().Substring(0, 1), sender.regs.TR.SegSel.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR3.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR2.ToString("x").ToUpper().PadLeft(8, '0'));
-                lOutput.AppendFormat("SS={2} ({7})   DS={0} ({8})   ES={1} ({9})   CS={3} ({10})   FS={4} ({11})   GS={5} ({12})  EFLAGS={6}\n\r", sender.regs.DS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.ES.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.SS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.CS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.FS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.GS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.EFLAGS.ToString("x").ToUpper().PadLeft(8, '0'),
+                    lOutput.Append("\n");
+                lOutput.AppendFormat("TR={7}  LDT={0}  GDT={10}  CR0={1}  CR2={9}  CR3={8}  CR4={2}    O16={3} A16={4} SO16={5} SA16={6}\n", sender.regs.LDTR.SegSel.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR0.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR4.ToString("x").ToUpper().PadLeft(8, '0'), sender.OpSize16.ToString().Substring(0, 1), sender.AddrSize16.ToString().Substring(0, 1), sender.OpSize16.ToString().Substring(0, 1), sender.AddrSize16Stack.ToString().Substring(0, 1), sender.regs.TR.SegSel.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR3.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.CR2.ToString("x").ToUpper().PadLeft(8, '0'), sender.regs.GDTR.Value.ToString("x").ToUpper().PadLeft(8,'0'));
+                lOutput.AppendFormat("SS={2} ({7})   DS={0} ({8})   ES={1} ({9})   CS={3} ({10})   FS={4} ({11})   GS={5} ({12})  EFLAGS={6}\n", sender.regs.DS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.ES.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.SS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.CS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.FS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.GS.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.EFLAGS.ToString("x").ToUpper().PadLeft(8, '0'),
                     sender.regs.SS.DescriptorNum.ToString("X3"), sender.regs.DS.DescriptorNum.ToString("X3"), sender.regs.ES.DescriptorNum.ToString("X3"), sender.regs.CS.DescriptorNum.ToString("X3"), sender.regs.FS.DescriptorNum.ToString("X3"), sender.regs.GS.DescriptorNum.ToString("X3"));
             }
             else
             {
-                lOutput.AppendFormat("AX={0}  BX={1}  CX={2}  DX={3}  M={4}  INT={5}\n\r", sender.regs.AX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.BX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.CX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.DX.ToString("x").ToUpper().PadLeft(lNum, '0'), lProt.Substring(0, 1), lCurrIntNum);
-                lOutput.AppendFormat("BP={0}  SI={1}  DI={2}  SP={3}  [SP]={4}\n\r", sender.regs.BP.ToString("X4"), sender.regs.SI.ToString("X4"), sender.regs.DI.ToString("X4"), sender.regs.SP.ToString("X4"), sender.mem.GetWord(sender, ref sender.sCurrentDecode, PhysicalMem.GetLocForSegOfs(sender, sender.regs.SS.Value, sender.regs.SP)).ToString("X4"), sender.regs.GDTR.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.IDTR.Value.ToString("x").ToUpper().PadLeft(4, '0'));
-                lOutput.AppendFormat("SS={0}  DS={1}  ES={2}  CS={3}  FLAGS={4}\n\r", sender.regs.SS.Value.ToString("X4"), sender.regs.DS.Value.ToString("X4"), sender.regs.ES.Value.ToString("X4"), sender.regs.CS.Value.ToString("X4"), sender.regs.FLAGS.ToString("X4"));
+                lOutput.AppendFormat("AX={0}  BX={1}  CX={2}  DX={3}  M={4}  INT={5}\n", sender.regs.AX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.BX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.CX.ToString("x").ToUpper().PadLeft(lNum, '0'), sender.regs.DX.ToString("x").ToUpper().PadLeft(lNum, '0'), lProt.Substring(0, 1), lCurrIntNum);
+                lOutput.AppendFormat("BP={0}  SI={1}  DI={2}  SP={3}  [SP]={4}\n", sender.regs.BP.ToString("X4"), sender.regs.SI.ToString("X4"), sender.regs.DI.ToString("X4"), sender.regs.SP.ToString("X4"), sender.mem.GetWord(sender, ref sender.sCurrentDecode, PhysicalMem.GetLocForSegOfs(sender, sender.regs.SS.Value, sender.regs.SP)).ToString("X4"), sender.regs.GDTR.Value.ToString("x").ToUpper().PadLeft(4, '0'), sender.regs.IDTR.Value.ToString("x").ToUpper().PadLeft(4, '0'));
+                lOutput.AppendFormat("SS={0}  DS={1}  ES={2}  CS={3}  FLAGS={4}\n", sender.regs.SS.Value.ToString("X4"), sender.regs.DS.Value.ToString("X4"), sender.regs.ES.Value.ToString("X4"), sender.regs.CS.Value.ToString("X4"), sender.regs.FLAGS.ToString("X4"));
             }
             if (lNum == 4)
             {
@@ -1131,6 +1130,7 @@ namespace WindowsFormsApplication1
             {
                 lOutput.AppendFormat(":" + lIP.ToString("X8") + " (" + sender.mTLB.ShallowTranslate(sender, ref sender.sCurrentDecode, (DWord)(sender.regs.CS.Value + sender.regs.EIP), false, ePrivLvl.Kernel_Ring_0).ToString("X8") + ") ");
             }
+            lOutput.Append("\t");
             if (sender.sCurrentDecode.bytes != null)
                 for (int cnt = 0; cnt < sender.sCurrentDecode.bytes.Count(); cnt++)
                     bytes.Append(String.Format("{0:x}", sender.sCurrentDecode.bytes[cnt]).ToUpper().PadLeft(2, '0'));
@@ -1201,7 +1201,7 @@ namespace WindowsFormsApplication1
                 //temporarily added flush to test something
                 //DebugCodeFile.Flush();
             }
-
+            sender.sCurrentDecode.ExceptionThrown = false;
         }
         static void AttemptToEnableDebugging()
         {

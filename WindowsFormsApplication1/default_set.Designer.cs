@@ -12,7 +12,7 @@ namespace WindowsFormsApplication1 {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     internal sealed partial class default_set : global::System.Configuration.ApplicationSettingsBase {
         
         private static default_set defaultInstance = ((default_set)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new default_set())));
@@ -265,7 +265,7 @@ namespace WindowsFormsApplication1 {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("IDE_CDROM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("IDE_DISK")]
         public global::VirtualProcessor.Devices.device_type_t HD1DeviceType {
             get {
                 return ((global::VirtualProcessor.Devices.device_type_t)(this["HD1DeviceType"]));

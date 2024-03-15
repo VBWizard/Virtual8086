@@ -63,7 +63,7 @@
       <Value Profile="(Default)">63</Value>
     </Setting>
     <Setting Name="HD1DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
-      <Value Profile="(Default)">IDE_CDROM</Value>
+      <Value Profile="(Default)">IDE_DISK</Value>
     </Setting>
     <Setting Name="HD2DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
       <Value Profile="(Default)">IDE_DISK</Value>

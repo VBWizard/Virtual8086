@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Word = System.UInt16;
 using DWord = System.UInt32;
 using QWord = System.UInt64;
+using System.Globalization;
 
 namespace VirtualProcessor
 {
@@ -428,7 +429,6 @@ namespace VirtualProcessor
 
             //    //Set the flags
             SetFlagsForAddition(mProc, lPreVal1, lOp2Value, lOp1ValSigned, lOp1ValUnsigned, CurrentDecode.Op1TypeCode);
-            //            SetFlagsForAddition(mProc, lPreVal1, Op2Val, lOp1ValSigned, lOp1ValUnsigned);
 
             #region Instructions
             /*
@@ -573,6 +573,7 @@ namespace VirtualProcessor
                 */
             #endregion
         }
+ 
     }
     public class ARPL : Instruct
     {
@@ -961,13 +962,23 @@ namespace VirtualProcessor
             //Operand1 = Array Index (signed integer)
             //Operand2 = Mem location with a par of signed word integers (double-word for 32 bit)
             //First dw integer is lower bound, 2nd is upper bound
-            int lLowerBound = (int)CurrentDecode.Op2Value.OpDWord;
-            int lUpperBound = (int)mProc.mem.GetWord(mProc, ref CurrentDecode, GetSegOverriddenAddress(mProc, CurrentDecode.Op2Add + 2));
+            int lLowerBound = 0;
+            int lUpperBound = 0;
+            if (CurrentDecode.lOpSize16)
+            {
+                lLowerBound = (int)mProc.mem.GetWord(mProc, ref CurrentDecode, GetSegOverriddenAddress(mProc, CurrentDecode.Op2Add));
+                lUpperBound = (int)mProc.mem.GetWord(mProc, ref CurrentDecode, GetSegOverriddenAddress(mProc, CurrentDecode.Op2Add + 2));
+            }
+            else
+            {
+                lLowerBound = (int)mProc.mem.GetDWord(mProc, ref CurrentDecode, GetSegOverriddenAddress(mProc, CurrentDecode.Op2Add));
+                lUpperBound = (int)mProc.mem.GetDWord(mProc, ref CurrentDecode, GetSegOverriddenAddress(mProc, CurrentDecode.Op2Add + 4));
+            }
             int lCheckVal = (int)CurrentDecode.Op1Value.OpDWord;
             if (lCheckVal < lLowerBound || lCheckVal > lUpperBound)
             {
-                CurrentDecode.Op1Value.OpQWord = 5;
-                mProc.INT.Impl(ref CurrentDecode);
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = 0x5;
             }
 
             //NOTES:
@@ -1058,14 +1069,27 @@ break;
                 }
                     if (Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected && mProc.regs.CS.mDescriptorNum > 0 && mProc.regs.CS.mDescriptorNum <= mProc.mGDTCache.Count)
                     {
-                        mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, PhysicalMem.GetSegForLoc(mProc, CurrentDecode.Op1Value.OpDWord));
-                        //mProc.regs.CS.Value = PhysicalMem.GetSegForLoc(mProc, (UInt32)Op1Val);
-                        mProc.regs.EIP = PhysicalMem.GetOfsForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
-            
+//20240309
+                        //get the descriptor for CS.  If it is a call gate 
+                        if (mProc.mGDTCache[(int)(CurrentDecode.Op1Value.OpQWord >> 32) >> 3].access.m_SystemDescType == eSystemOrGateDescType.Call_Gate_32)
+                        {
+                            mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, mProc.mGDTCache[(int)(CurrentDecode.Op1Value.OpQWord >> 32) >> 3].Base);
+                            mProc.regs.EIP = (UInt32)mProc.mGDTCache[(int)(CurrentDecode.Op1Value.OpQWord >> 32) >> 3].Value & 0xFFFF;
+                        }
+                        else
+                        {
+                            //QWord didn't work
+                            mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, PhysicalMem.GetSegForLoc(mProc, CurrentDecode.Op1Value.OpDWord));
+                            mProc.regs.EIP = PhysicalMem.GetOfsForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
+                        }
                     }
                     else
                     {
-                        mProc.regs.CS.Value = PhysicalMem.GetSegForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
+//                        if (CurrentDecode.Op1TypeCode == TypeCode.UInt64)
+                            //QWord didn't work
+                            mProc.regs.CS.Value = PhysicalMem.GetSegForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
+//                        else
+//                            mProc.regs.CS.Value = PhysicalMem.GetSegForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
                         mProc.regs.EIP = PhysicalMem.GetOfsForLoc(mProc, CurrentDecode.Op1Value.OpDWord);
             
                     }
@@ -1129,7 +1153,11 @@ break;
             }
             else
             {
-                mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, CurrentDecode.Op1Value.OpDWord >> 0x10);
+                //20240309
+                if (CurrentDecode.Op1TypeCode == TypeCode.UInt64)
+                    mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, (DWord)(CurrentDecode.Op1Value.OpQWord >> 0x20));
+                else
+                    mProc.mem.SetDWord(mProc, ref CurrentDecode, Processor_80x86.RCS, CurrentDecode.Op1Value.OpDWord >> 0x10);
                 mProc.regs.EIP = mProc.mem.GetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add);
             }
 
@@ -1261,7 +1289,15 @@ break;
         public override void Impl(ref sInstruction CurrentDecode)
         {
             mProc.mSTIAfterNextInstr = mProc.mSTICalled = false;
-            mProc.regs.setFlagIF(false);
+            //20240309 - this caused msdos to break
+/*            if (mProc.regs.CPL > ePrivLvl.Kernel_Ring_0 && mProc.OperatingMode == ProcessorMode.Protected)
+            {
+                mProc.sCurrentDecode.ExceptionNumber = 13;
+                mProc.sCurrentDecode.ExceptionErrorCode = 0;
+                mProc.sCurrentDecode.ExceptionThrown = true;
+            }
+            else
+*/                mProc.regs.setFlagIF(false);
             #region Instructions
             /*
             Operation
@@ -2672,8 +2708,11 @@ break;
                     //FADDP Add ST(0) to ST(1), store result in ST(1), and pop the register stack
                     mProc.mFPU.Add(1, 0, 2, false, true);
                     break;
+                case 0xDE00: case 0xDE80: case 0xDE81: case 0xDE82: case 0xDE83: case 0xDE84: case 0xDE85: case 0xDE86: case 0xDE87:
+                    mProc.mFPU.Add(0, System.Convert.ToDouble(CurrentDecode.Op1Value.OpWord), 1, true, false);
+                    break;
                 default:
-                    throw new Exception("Not coded yet");
+                    throw new Exception($"OpCode {CurrentDecode.OpCode.ToString("X")} Not coded yet");
             }
             #region Instructions
             /*
@@ -2924,6 +2963,10 @@ break;
                         return;
                     mProc.mFPU.Pop();
                     break;
+                case 0xDB06: //FCOMI
+                    lReg1 = mProc.mFPU.GetDataRegDouble(mProc.mFPU.ST((int)(CurrentDecode.OpCode - 0xDB00)));
+                    CompareI(lReg0, lReg1);
+                    break;
                     throw new Exception("Not coded yet");
             }
 
@@ -2949,6 +2992,34 @@ break;
                 mProc.mFPU.mStatusReg.CC2 = mProc.mFPU.mStatusReg.CC0 = false;
                 mProc.mFPU.mStatusReg.CC3 = true;
             }
+        }
+        public void CompareI(Double Val1, Double Val2)
+        {
+            if (Double.IsNaN(Val1) || Double.IsNaN(Val2))
+            {
+                mProc.regs.setFlagZF(true);
+                mProc.regs.setFlagPF(true);
+                mProc.regs.setFlagCF(true);
+            }
+            else if (Val1 > Val2)
+            {
+                mProc.regs.setFlagZF(false);
+                mProc.regs.setFlagPF(false);
+                mProc.regs.setFlagCF(false);
+            }
+            else if (Val2 > Val1)
+            {
+                mProc.regs.setFlagZF(false);
+                mProc.regs.setFlagPF(false);
+                mProc.regs.setFlagCF(true);
+            }
+            else //(Val2 == Val1)
+            {
+                mProc.regs.setFlagZF(true);
+                mProc.regs.setFlagPF(false);
+                mProc.regs.setFlagCF(false);
+            }
+
         }
     }
     public class FCLEX : Instruct
@@ -3003,9 +3074,19 @@ break;
                     bytes = mProc.mem.Chunk(mProc, ref CurrentDecode, 0, CurrentDecode.Op1Add, 8);
                     mProc.mFPU.Divide(0, System.Convert.ToDouble(BitConverter.ToDouble(bytes, 0)), FPU.FPU_DEST_INTERNAL_SOURCE_EXTERNAL, false, false);
                     break;
+                case 0xDEF8:
                 case 0xDEF9:
+                case 0xDEFA:
+                case 0xDEFB:
+                case 0xDEFC:
+                case 0xDEFD:
+                case 0xDEFE:
+                case 0xDEFF:
+                    UInt32 idx = CurrentDecode.OpCode - 0xDEF8;
+                    //Divide ST(i) by ST(0), store result in ST(i), and pop the register stack.
                     //DE F9 FDIVP Divide ST(1) by ST(0), store result in ST(1), and pop the register stack
-                    mProc.mFPU.Divide(1, 0, 2, false, true);
+                    mProc.mFPU.Divide(idx, 0, 2, false, true);
+                    //mProc.mFPU.Divide(1, 0, 2, false, true);
                     break;
                 case 0xDA06:
                     //Divide ST(0) by m32int and store result in ST(0)
@@ -3029,7 +3110,7 @@ break;
                     mProc.mFPU.Divide(lTemp, 0, 1, false, false);
                     break;
                 default:
-                    throw new Exception("Not coded yet");
+                    throw new Exception($"OpCode {CurrentDecode.OpCode.ToString("X")} Not coded yet");
             }
 
             #region Instructions
@@ -4479,7 +4560,7 @@ break;
             mDescription = "Increment by 1";
             mModFlags = eFLAGS.OF | eFLAGS.SF | eFLAGS.ZF | eFLAGS.AF | eFLAGS.PF;
         }
-        public override void Impl(ref sInstruction CurrentDecode)
+          public override void Impl(ref sInstruction CurrentDecode)
         {
             sOpVal lPreVal1 = CurrentDecode.Op1Value, lOp1Value = CurrentDecode.Op1Value;
 
@@ -4667,6 +4748,8 @@ break;
                     ins.Op1Add = 0x0;
                     mProc.regs.CS.Value = mProc.mem.GetWord(mProc, ref CurrentDecode, (CurrentDecode.Op1Value.OpDWord * 4 + 2));
                     mProc.regs.IP = mProc.mem.GetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Value.OpDWord * 4);
+                    if (mProc.mSystem.Debuggies.DebugInterrupts)
+                        mProc.mSystem.PrintDebugMsg(eDebuggieNames.Interrupts, $"New CS = {mProc.regs.CS.Value.ToString("X4")}, New IP = {mProc.regs.IP.ToString("X4")}");
                     break;
 
                 default:    //protected or virtual mode
@@ -4746,7 +4829,7 @@ break;
                                 ins.Op1Value.OpDWord = lTempSS; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
                                 if (ins.ExceptionThrown)
                                 {
-                                    
+
                                     return;
                                 }
                                 ins.Op1Value.OpDWord = lTempESP; mProc.PUSH.Impl(ref ins);
@@ -4786,188 +4869,194 @@ break;
                                 Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
                                 //mProc.regs.CPL = mProc.regs.CS.Selector.access.PrivLvl;
                                 //mProc.regs.CS.Selector.access.PrivLvl
-                    
+
                                 return;
                             }
                             //(* code segment, DPL<CPL, VM=0 *)
                             else  //VM=1
                                 if (lGDT.access.PrivLvl != 0)
-                                    throw new Exception("Code #GP(new code segment selector)");
-                                else    //INTERRUPT-FROM-VIRTUAL-8086-MODE;
+                                throw new Exception("Code #GP(new code segment selector)");
+                            else    //INTERRUPT-FROM-VIRTUAL-8086-MODE;
+                            {
+                                //CLR 07/11/2013 - Added CPL because of paging issues when a paging error occurs while coming out of V86 Mode for a clock tick
+                                //CLR 07/19/2013 - Removed when I moved CPL to CS functionality instead of a separate variable
+                                //mProc.regs.CPL = 0;
+                                if (lGDT.access.PrivLvl != ePrivLvl.Kernel_Ring_0)
+                                    throw new Exception("INT 0x" + CurrentDecode.Op1Value.OpWord.ToString("X3") + ": GPE - Interrupt DPL != 0 on VMode Interrupt call");
+                                //INTERRUPT-FROM-VIRTUAL-8086-MODE
+                                if (mProc.mCurrTSS.TSS_is_32bit)
                                 {
-                                    //CLR 07/11/2013 - Added CPL because of paging issues when a paging error occurs while coming out of V86 Mode for a clock tick
-                                    //CLR 07/19/2013 - Removed when I moved CPL to CS functionality instead of a separate variable
-                                    //mProc.regs.CPL = 0;
-                                    if (lGDT.access.PrivLvl != ePrivLvl.Kernel_Ring_0)
-                                        throw new Exception("INT 0x" + CurrentDecode.Op1Value.OpWord.ToString("X3") + ": GPE - Interrupt DPL != 0 on VMode Interrupt call");
-                                    //INTERRUPT-FROM-VIRTUAL-8086-MODE
-                                    if (mProc.mCurrTSS.TSS_is_32bit)
-                                    {
-                                        lNewSS = mProc.mCurrTSS.SS0;
-                                        lNewESP = mProc.mCurrTSS.ESP0;
-                                    }
-                                    else
-                                        throw new Exception("16 bit TSS not coded yet");
-                                    lTempEFLAGS = mProc.regs.EFLAGS;
-                                    mProc.regs.setFlagVM(false);
-                                    mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
-                                    //Update the processor's operating mode
-                                    Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
-                                    lTempCS = mProc.regs.CS.mRealModeValue;
-                                    //mProc.mOpSize16 = false;
-                                    //mProc.mAddrSize16 = false;
-                                    mProc.regs.SS.Value = lNewSS;
-                                    mProc.regs.ESP = lNewESP;
-
-                                    if (mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_32)
-                                    {
-                                        CurrentDecode.mOverrideAddrSizeFor32BitGate = true;
-                                        ins.mOverrideAddrSizeFor32BitGate = true;
-                                    }
-                                    //Don't pass the register address because we are in Protected mode now
-                                    //Passing the address would cause the selectors to be pushed instead of the register values
-                                    ins.Op1Add = 0x00;
-                                    ins.Op1Value.OpDWord = mProc.regs.GS.mRealModeValue; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
-                                    if (ins.ExceptionThrown)
-                                    {
-                                        
-                                        return;
-                                    }
-                                    ins.Op1Value.OpDWord = mProc.regs.FS.mRealModeValue; mProc.PUSH.Impl(ref ins);
-                                    ins.Op1Value.OpDWord = mProc.regs.DS.mRealModeValue; mProc.PUSH.Impl(ref ins);
-                                    ins.Op1Value.OpDWord = mProc.regs.ES.mRealModeValue; mProc.PUSH.Impl(ref ins);
-                                    /*mProc.PUSH.Op1Add = Processor_80x86.RSS;*/
-                                    ins.Op1Value.OpDWord = lTempSS; mProc.PUSH.Impl(ref ins);
-                                    /*mProc.PUSH.Op1Add = Processor_80x86.RESP;  CLR 07/10/2013 - remarked out this and RSS above*/
-                                    ins.Op1Value.OpDWord = lTempESP; mProc.PUSH.Impl(ref ins);
-                                    ins.Op1Add = 0;
-                                    ins.Op1Value.OpDWord = lTempEFLAGS; mProc.PUSH.Impl(ref ins);
-
-                                    //Per IASD Vol 3, pg 162 ...
-                                    //Error codes are not pushed on the stack for exceptions that are generated externally (with the
-                                    //INTR or LINT[1:0] pins) or the INT n instruction, even if an error code is normally produced
-                                    //for those exceptions
-                                    if (CurrentDecode.ExceptionThrown || CurrentDecode.Op1Value.OpWord == 0x14)
-                                    {
-                                        ins.Op1Value.OpDWord = lTempCS; mProc.PUSH.Impl(ref ins);
-                                        ins.Op1Value.OpDWord = mProc.regs.EIP; mProc.PUSH.Impl(ref ins);
-                                        //CLR 07/11/2013 - changed from the *8)+2 to just ExceptionErrorCode
-                                        //For Exception D, code was already calculated above.
-
-                                        //if (Op1Value.OpWord == 0xD)
-                                        //    mProc.PUSH.Op1Value.OpDWord = mProc.ExceptionErrorCode;
-                                        //else
-                                        ins.Op1Value.OpDWord = (CurrentDecode.ExceptionErrorCode * 8) + 2;
-                                        mProc.PUSH.Impl(ref ins);
-                                        if (mProc.OpSize16 && !CurrentDecode.mOverrideAddrSizeFor32BitGate)
-                                        {
-                                            ins.Op1Value.OpDWord = 0;
-                                            mProc.PUSH.Impl(ref ins);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ins.Op1Value.OpDWord = lTempCS; mProc.PUSH.Impl(ref ins);
-                                        ins.Op1Value.OpDWord = mProc.regs.EIP; mProc.PUSH.Impl(ref ins);
-                                    }
-
-                                    CurrentDecode.mOverrideAddrSizeFor32BitGate = false;
-                                    ins.mOverrideAddrSizeFor32BitGate = true;
-
-                                    mProc.regs.GS.Value = 0;
-                                    mProc.regs.setFlagTF(false);
-                                    mProc.regs.setFlagRF(false);
-                                    mProc.regs.setFlagIF(false);
-                                    //This call triggers the change from Virtual-8086 to Protected mode
-                                    mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
-                                    //Update the processor's operating mode
-                                    Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
-
-                                    mProc.regs.FS.Value = 0;
-                                    mProc.regs.DS.Value = 0;
-                                    mProc.regs.ES.Value = 0;
-
-                                    mProc.regs.CS.Value = lIDT.SegSelector;
-                                    mProc.regs.EIP = lIDT.PEP_Offset;
-                                    mProc.mOverrideStackSize = false;
-                                    CurrentDecode.ExceptionNumber = Global.CPU_NO_EXCEPTION;
-                        
-                                    return;
+                                    lNewSS = mProc.mCurrTSS.SS0;
+                                    lNewESP = mProc.mCurrTSS.ESP0;
                                 }
-                        else    //(* PE=1, interrupt or trap gate, DPL ? CPL *)
-                            if (mProc.regs.FLAGSB.VM)
-                            //throw new Exception("Code #GP(new code segment selector)");
-                            {
-                                //Decimal 13 (GP)
-                                mProc.mExceptionWhileExcepting = true;
-                                CurrentDecode.ExceptionNumber = 0x0d;
-                                CurrentDecode.ExceptionThrown = true;
-                                CurrentDecode.ExceptionAddress = CurrentDecode.InstructionAddress;
-                                CurrentDecode.ExceptionErrorCode = lIDT.SegSelector;
-                    
-                                return;
-                            }
+                                else
+                                    throw new Exception("16 bit TSS not coded yet");
+                                lTempEFLAGS = mProc.regs.EFLAGS;
+                                mProc.regs.setFlagVM(false);
+                                mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
+                                //Update the processor's operating mode
+                                Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
+                                lTempCS = mProc.regs.CS.mRealModeValue;
+                                //mProc.mOpSize16 = false;
+                                //mProc.mAddrSize16 = false;
+                                mProc.regs.SS.Value = lNewSS;
+                                mProc.regs.ESP = lNewESP;
 
-                            else if ((lGDT.access.SegType == eGDTSegType.Code_Exec_Only_Conforming
-                            || lGDT.access.SegType == eGDTSegType.Code_Exec_Only_Conforming_Accessed
-                            || lGDT.access.SegType == eGDTSegType.Code_Exec_RO_Conforming
-                            || lGDT.access.SegType == eGDTSegType.Code_Exec_RO_Conforming_Accessed)
-                            || lGDT.access.PrivLvl == mProc.regs.CPL)
-                            {
-                                //INTRA-PRIVILEGE-LEVEL-INTERRUPT: (* PE=1, DPL = CPL or conforming segment *)
-                                ins.Op1Add = 0x0;
-                                ins.Op1TypeCode = TypeCode.UInt32;
-                                ins.Op1Value.OpDWord = mProc.regs.EFLAGS; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
+                                if (mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_32)
+                                {
+                                    CurrentDecode.mOverrideAddrSizeFor32BitGate = true;
+                                    ins.mOverrideAddrSizeFor32BitGate = true;
+                                }
+                                //Don't pass the register address because we are in Protected mode now
+                                //Passing the address would cause the selectors to be pushed instead of the register values
+                                ins.Op1Add = 0x00;
+                                ins.Op1Value.OpDWord = mProc.regs.GS.mRealModeValue; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
                                 if (ins.ExceptionThrown)
                                 {
-                                    
+
                                     return;
                                 }
-                                if (CurrentDecode.ExceptionThrown)
+                                ins.Op1Value.OpDWord = mProc.regs.FS.mRealModeValue; mProc.PUSH.Impl(ref ins);
+                                ins.Op1Value.OpDWord = mProc.regs.DS.mRealModeValue; mProc.PUSH.Impl(ref ins);
+                                ins.Op1Value.OpDWord = mProc.regs.ES.mRealModeValue; mProc.PUSH.Impl(ref ins);
+                                /*mProc.PUSH.Op1Add = Processor_80x86.RSS;*/
+                                ins.Op1Value.OpDWord = lTempSS; mProc.PUSH.Impl(ref ins);
+                                /*mProc.PUSH.Op1Add = Processor_80x86.RESP;  CLR 07/10/2013 - remarked out this and RSS above*/
+                                ins.Op1Value.OpDWord = lTempESP; mProc.PUSH.Impl(ref ins);
+                                ins.Op1Add = 0;
+                                ins.Op1Value.OpDWord = lTempEFLAGS; mProc.PUSH.Impl(ref ins);
+
+                                //Per IASD Vol 3, pg 162 ...
+                                //Error codes are not pushed on the stack for exceptions that are generated externally (with the
+                                //INTR or LINT[1:0] pins) or the INT n instruction, even if an error code is normally produced
+                                //for those exceptions
+                                if (CurrentDecode.ExceptionThrown || CurrentDecode.Op1Value.OpWord == 0x14)
                                 {
-                                    ins.Op1Add = Processor_80x86.RCS; ins.Operand1IsRef = true; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
-                                    ins.Op1Value.OpDWord = mProc.regs.EIP; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
-                                    ins.Op1Value.OpDWord = CurrentDecode.ExceptionErrorCode;
+                                    ins.Op1Value.OpDWord = lTempCS; mProc.PUSH.Impl(ref ins);
+                                    ins.Op1Value.OpDWord = mProc.regs.EIP; mProc.PUSH.Impl(ref ins);
+                                    //CLR 07/11/2013 - changed from the *8)+2 to just ExceptionErrorCode
+                                    //For Exception D, code was already calculated above.
+
+                                    //if (Op1Value.OpWord == 0xD)
+                                    //    mProc.PUSH.Op1Value.OpDWord = mProc.ExceptionErrorCode;
+                                    //else
+                                    ins.Op1Value.OpDWord = (CurrentDecode.ExceptionErrorCode * 8) + 2;
                                     mProc.PUSH.Impl(ref ins);
-                                    if (mProc.OpSize16)
+                                    if (mProc.OpSize16 && !CurrentDecode.mOverrideAddrSizeFor32BitGate)
                                     {
-                                        ins.Op1Value.OpWord = 0;
+                                        ins.Op1Value.OpDWord = 0;
                                         mProc.PUSH.Impl(ref ins);
                                     }
                                 }
                                 else
                                 {
-                                    ins.Op1Add = Processor_80x86.RCS; ins.Operand1IsRef = true; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
-                                    ins.Op1Value.OpDWord = mProc.regs.EIP; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
+                                    ins.Op1Value.OpDWord = lTempCS; mProc.PUSH.Impl(ref ins);
+                                    ins.Op1Value.OpDWord = mProc.regs.EIP; mProc.PUSH.Impl(ref ins);
                                 }
+
+                                CurrentDecode.mOverrideAddrSizeFor32BitGate = false;
+                                ins.mOverrideAddrSizeFor32BitGate = true;
+
+                                mProc.regs.GS.Value = 0;
+                                mProc.regs.setFlagTF(false);
+                                mProc.regs.setFlagRF(false);
+                                mProc.regs.setFlagIF(false);
+                                //This call triggers the change from Virtual-8086 to Protected mode
+                                mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
+                                //Update the processor's operating mode
+                                Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
+
+                                mProc.regs.FS.Value = 0;
+                                mProc.regs.DS.Value = 0;
+                                mProc.regs.ES.Value = 0;
+
                                 mProc.regs.CS.Value = lIDT.SegSelector;
                                 mProc.regs.EIP = lIDT.PEP_Offset;
                                 mProc.mOverrideStackSize = false;
                                 CurrentDecode.ExceptionNumber = Global.CPU_NO_EXCEPTION;
-                                if (mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_16 ||
-                                    mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_32)
-                                    mProc.regs.setFlagIF(false);
-                                mProc.regs.setFlagTF(false);
-                                mProc.regs.setFlagNT(false);
-                                mProc.regs.setFlagVM(false);
-                                mProc.regs.setFlagRF(false);
-                                mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
-                                //Update the processor's operating mode
-                                Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
-                    
+
                                 return;
                             }
-                            else    //(* PE=1, interrupt or trap gate, nonconforming *)
-                            {   //#GP(CodeSegmentSelector + EXT)
-                                //(* code segment, DPL>CPL *)
-                                mProc.mExceptionWhileExcepting = true;
-                                CurrentDecode.ExceptionNumber = 0x0d;
-                                CurrentDecode.ExceptionThrown = true;
-                                CurrentDecode.ExceptionAddress = CurrentDecode.InstructionAddress;
-                                CurrentDecode.ExceptionErrorCode = lIDT.SegSelector;
-                    
+                        else    //(* PE=1, interrupt or trap gate, DPL ? CPL *)
+                            if (mProc.regs.FLAGSB.VM)
+                        //throw new Exception("Code #GP(new code segment selector)");
+                        {
+                            //Decimal 13 (GP)
+                            mProc.mExceptionWhileExcepting = true;
+                            CurrentDecode.ExceptionNumber = 0x0d;
+                            CurrentDecode.ExceptionThrown = true;
+                            CurrentDecode.ExceptionAddress = CurrentDecode.InstructionAddress;
+                            CurrentDecode.ExceptionErrorCode = lIDT.SegSelector;
+
+                            return;
+                        }
+
+                        else if ((lGDT.access.SegType == eGDTSegType.Code_Exec_Only_Conforming
+                        || lGDT.access.SegType == eGDTSegType.Code_Exec_Only_Conforming_Accessed
+                        || lGDT.access.SegType == eGDTSegType.Code_Exec_RO_Conforming
+                        || lGDT.access.SegType == eGDTSegType.Code_Exec_RO_Conforming_Accessed)
+                        || lGDT.access.PrivLvl == mProc.regs.CPL)
+                        {
+                            //INTRA-PRIVILEGE-LEVEL-INTERRUPT: (* PE=1, DPL = CPL or conforming segment *)
+                            ins.Op1Add = 0x0;
+                            ins.Op1TypeCode = TypeCode.UInt32;
+                            ins.Op1Value.OpDWord = mProc.regs.EFLAGS; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
+                            if (ins.ExceptionThrown)
+                            {
+
                                 return;
                             }
+                            if (CurrentDecode.ExceptionThrown)
+                            {
+                                ins.Op1Add = Processor_80x86.RCS; ins.Operand1IsRef = true; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
+                                ins.Op1Value.OpDWord = mProc.regs.EIP; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
+                                ins.Op1Value.OpDWord = CurrentDecode.ExceptionErrorCode;
+                                mProc.PUSH.Impl(ref ins);
+                                if (mProc.OpSize16)
+                                {
+                                    ins.Op1Value.OpWord = 0;
+                                    mProc.PUSH.Impl(ref ins);
+                                }
+                            }
+                            else
+                            {
+                                ins.Op1Add = Processor_80x86.RCS; ins.Operand1IsRef = true; mProc.PUSH.Impl(ref ins); ins.Op1Add = 0x0;
+                                ins.Op1Value.OpDWord = mProc.regs.EIP; ins.Operand1IsRef = false; mProc.PUSH.Impl(ref ins);
+                            }
+//20240309
+                                if ((int)mProc.regs.CPL != (lIDT.SegSelector & 3))
+                                if (mProc.regs.CPL == ePrivLvl.App_Level_3)
+                                    mProc.regs.CS.Value = (DWord)(lIDT.SegSelector | (int)mProc.regs.CPL);
+                                else
+                                    mProc.regs.CS.Value = (DWord)(lIDT.SegSelector & 0xFFF8);
+                            else
+                                mProc.regs.CS.Value = lIDT.SegSelector;
+                            mProc.regs.EIP = lIDT.PEP_Offset;
+                            mProc.mOverrideStackSize = false;
+                            CurrentDecode.ExceptionNumber = Global.CPU_NO_EXCEPTION;
+                            if (mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_16 ||
+                                mProc.mIDTCache[CurrentDecode.Op1Value.OpWord].GateType == eSystemOrGateDescType.Interrupt_Gate_32)
+                                mProc.regs.setFlagIF(false);
+                            mProc.regs.setFlagTF(false);
+                            mProc.regs.setFlagNT(false);
+                            mProc.regs.setFlagVM(false);
+                            mProc.regs.setFlagRF(false);
+                            mProc.regs.FLAGSB.SetValues(mProc.regs.EFLAGS);
+                            //Update the processor's operating mode
+                            Processor_80x86.mCurrInstructOpMode = mProc.OperatingMode;
+                            return;
+                        }
+                        else    //(* PE=1, interrupt or trap gate, nonconforming *)
+                        {   //#GP(CodeSegmentSelector + EXT)
+                            //(* code segment, DPL>CPL *)
+                            mProc.mExceptionWhileExcepting = true;
+                            CurrentDecode.ExceptionNumber = 0x0d;
+                            CurrentDecode.ExceptionThrown = true;
+                            CurrentDecode.ExceptionAddress = CurrentDecode.InstructionAddress;
+                            CurrentDecode.ExceptionErrorCode = lIDT.SegSelector;
+
+                            return;
+                        }
 
                         throw new Exception("INT: Shouldn't get here!");
                     }
@@ -5481,8 +5570,6 @@ break;
             UInt16 lCS = 0; UInt32 lIP = 0; UInt16 lJunk = 0;
             bool lIsNegative = false;
 
-            /*if (CurrentDecode.OpCode == 0xea)
-                System.Diagnostics.Debugger.Break();*/
             //if (ChosenOpCode.Instruction!=null && !ChosenOpCode.Operand1.StartsWith("E") && !ChosenOpCode.Operand1.StartsWith("A"))
             if (CurrentDecode.ChosenOpCode.Op1AM != sOpCodeAddressingMethod.EType && CurrentDecode.ChosenOpCode.Op1AM != sOpCodeAddressingMethod.DirectAddress)
                 //Added to check for negative jump value
@@ -5674,182 +5761,182 @@ break;
                 sGDTEntry theDescriptor = mProc.mGDTCache[lTSSDescriptor];
                 int new_TSS_max = 0;
 
-                mProc.mSwitchSource = eSwitchSource.SWITCH_FROM_JMP;
+                    mProc.mSwitchSource = eSwitchSource.SWITCH_FROM_JMP;
 
-                /*Step 1: The following checks are made before calling task_switch(),
-                    for JMP & CALL only. These checks are NOT made for exceptions,
-                    interrupts & IRET.
-                
-                    1) TSS DPL must be >= CPL
-                    2) TSS DPL must be >= TSS selector RPL
-                    3) TSS descriptor is not busy.*/
-                if (theDescriptor.Value == 0)
-                    throw new Exception("Task switch: Bad TSS Selector");
-                if (!theDescriptor.access.Present)
-                    throw new Exception("Task switch: TSS descriptor is not present");
+                    /*Step 1: The following checks are made before calling task_switch(),
+                        for JMP & CALL only. These checks are NOT made for exceptions,
+                        interrupts & IRET.
 
-                /*  STEP 2: The processor performs limit-checking on the target TSS
-                        to verify that the TSS limit is greater than or equal
-                        to 67h (2Bh for 16-bit TSS).*/
-                if (theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Av || theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Bu)
-                    new_TSS_max = 0x67;
-                else
-                    new_TSS_max = 0x2b;
+                        1) TSS DPL must be >= CPL
+                        2) TSS DPL must be >= TSS selector RPL
+                        3) TSS descriptor is not busy.*/
+                    if (theDescriptor.Value == 0)
+                        throw new Exception($"Task switch: Bad TSS Selector {lTSSDescriptor.ToString("X")} of JMPF address {CurrentDecode.Op1Value.OpQWord.ToString("X")}");
+                    if (!theDescriptor.access.Present)
+                        throw new Exception("Task switch: TSS descriptor is not present");
 
-                if (theDescriptor.Limit < new_TSS_max)
-                    throw new Exception("Task switch: new TSS limit < correct size for type");
-
-                if (theDescriptor.Base == mProc.regs.CS.Selector.Base)
-                    if (mProc.mSystem.Debuggies.DebugCPU)
-                        mProc.mSystem.PrintDebugMsg(eDebuggieNames.CPU, "Task switching to same task (Base = Base)");
-
-                // Check that old TSS, new TSS, and all segment descriptors
-                // used in the task switch are paged in.
-                //N/A FOR NOW
-
-                // Privilege and busy checks done in CALL, JUMP, INT, IRET
-
-                // STEP 3: Save the current task state in the TSS. Up to this point,
-                //         any exception that occurs aborts the task switch without
-                //         changing the processor state.
-                /* save current machine state in old task's TSS */
-                UInt32 lOldEFlags = mProc.regs.EFLAGS;
-                //sTSS lNewTSS = new sTSS(mProc.mCurrTSS.GetValue(mProc), new_TSS_max==0x67?true:false);
-
-                if (theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_16_Bu || theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Bu)
-                    lOldEFlags &= 0xFFFFBFFF;
-
-                if (new_TSS_max == 0x67)
-                {
-                    mProc.mCurrTSS.EIP = mProc.regs.EIP;
-                    mProc.mCurrTSS.EFLAGS = mProc.regs.EFLAGS;
-                    mProc.mCurrTSS.EAX = mProc.regs.EAX;
-                    mProc.mCurrTSS.ECX = mProc.regs.ECX;
-                    mProc.mCurrTSS.EDX = mProc.regs.EDX;
-                    mProc.mCurrTSS.EBX = mProc.regs.EBX;
-                    if (mProc.regs.CPL == ePrivLvl.Kernel_Ring_0 && theDescriptor.access.PrivLvl == ePrivLvl.App_Level_3)
-                        mProc.mCurrTSS.ESP0 = mProc.regs.ESP;
+                    /*  STEP 2: The processor performs limit-checking on the target TSS
+                            to verify that the TSS limit is greater than or equal
+                            to 67h (2Bh for 16-bit TSS).*/
+                    if (theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Av || theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Bu)
+                        new_TSS_max = 0x67;
                     else
-                        mProc.mCurrTSS.ESP = mProc.regs.ESP;
-                    mProc.mCurrTSS.EBP = mProc.regs.EBP;
-                    mProc.mCurrTSS.ESI = mProc.regs.ESI;
-                    mProc.mCurrTSS.EDI = mProc.regs.EDI;
-                    mProc.mCurrTSS.ES = (UInt16)mProc.regs.ES.mWholeSelectorValue;
-                    mProc.mCurrTSS.CS = (UInt16)mProc.regs.CS.mWholeSelectorValue;
-                    if (mProc.regs.CPL == ePrivLvl.Kernel_Ring_0 && theDescriptor.access.PrivLvl == ePrivLvl.App_Level_3)
-                        mProc.mCurrTSS.SS0 = (UInt16)mProc.regs.SS.mWholeSelectorValue;
-                    else
-                        mProc.mCurrTSS.SS = (UInt16)mProc.regs.SS.mWholeSelectorValue;
-                    mProc.mCurrTSS.DS = (UInt16)mProc.regs.DS.mWholeSelectorValue;
-                    mProc.mCurrTSS.GS = (UInt16)mProc.regs.GS.mWholeSelectorValue;
-                    mProc.mCurrTSS.FS = (UInt16)mProc.regs.FS.mWholeSelectorValue;
-                    mProc.mCurrTSS.CR3 = mProc.regs.CR3;
-                }
-                else
-                {
-                    mProc.mCurrTSS.EIP = mProc.regs.IP;
-                    mProc.mCurrTSS.EFLAGS = mProc.regs.FLAGS;
-                    mProc.mCurrTSS.EAX = mProc.regs.AX;
-                    mProc.mCurrTSS.ECX = mProc.regs.CX;
-                    mProc.mCurrTSS.EDX = mProc.regs.DX;
-                    mProc.mCurrTSS.EBX = mProc.regs.BX;
-                    mProc.mCurrTSS.ESP = mProc.regs.SP;
-                    mProc.mCurrTSS.EBP = mProc.regs.BP;
-                    mProc.mCurrTSS.ESI = mProc.regs.SI;
-                    mProc.mCurrTSS.EDI = mProc.regs.DI;
-                    mProc.mCurrTSS.ES = (UInt16)mProc.regs.ES.mWholeSelectorValue;
-                    mProc.mCurrTSS.CS = (UInt16)mProc.regs.CS.mWholeSelectorValue;
-                    mProc.mCurrTSS.SS = (UInt16)mProc.regs.SS.mWholeSelectorValue;
-                    mProc.mCurrTSS.DS = (UInt16)mProc.regs.DS.mWholeSelectorValue;
-                    mProc.mCurrTSS.CR3 = mProc.regs.CR3;
-                }
+                        new_TSS_max = 0x2b;
 
-                // effect on link field of new task
-                if (mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_CALL || mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_INT)
-                    // set to selector of old task's TSS
-                    mProc.mCurrTSS.PrevTaskLink = mProc.regs.TR.mSegSel;
+                    if (theDescriptor.Limit < new_TSS_max)
+                        throw new Exception("Task switch: new TSS limit < correct size for type");
 
-                //mProc.mCurrTSS = new sTSS(mProc.mem.Chunk(mProc, 0, mProc.regs.TR.mBase, 104),
-                //    mProc.mGDTCache[lTSSDescriptor].access.SystemDescType == eSystemOrGateDescType.TSS_32_Av || mProc.mGDTCache[lTSSDescriptor >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Bu);
+                    if (theDescriptor.Base == mProc.regs.CS.Selector.Base)
+                        if (mProc.mSystem.Debuggies.DebugCPU)
+                            mProc.mSystem.PrintDebugMsg(eDebuggieNames.CPU, "Task switching to same task (Base = Base)");
 
-                //Set busy flag of current task!!!
-                if (mProc.mSwitchSource != eSwitchSource.SWITCH_FROM_IRET)
+                    // Check that old TSS, new TSS, and all segment descriptors
+                    // used in the task switch are paged in.
+                    //N/A FOR NOW
+
+                    // Privilege and busy checks done in CALL, JUMP, INT, IRET
+
+                    // STEP 3: Save the current task state in the TSS. Up to this point,
+                    //         any exception that occurs aborts the task switch without
+                    //         changing the processor state.
+                    /* save current machine state in old task's TSS */
+                    UInt32 lOldEFlags = mProc.regs.EFLAGS;
+                    //sTSS lNewTSS = new sTSS(mProc.mCurrTSS.GetValue(mProc), new_TSS_max==0x67?true:false);
+
+                    if (theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_16_Bu || theDescriptor.access.m_SystemDescType == eSystemOrGateDescType.TSS_32_Bu)
+                        lOldEFlags &= 0xFFFFBFFF;
+
                     if (new_TSS_max == 0x67)
-                        mProc.mGDTCache.SetBusyFlag(mProc, lTSSDescriptor, true);
+                    {
+                        mProc.mCurrTSS.EIP = mProc.regs.EIP;
+                        mProc.mCurrTSS.EFLAGS = mProc.regs.EFLAGS;
+                        mProc.mCurrTSS.EAX = mProc.regs.EAX;
+                        mProc.mCurrTSS.ECX = mProc.regs.ECX;
+                        mProc.mCurrTSS.EDX = mProc.regs.EDX;
+                        mProc.mCurrTSS.EBX = mProc.regs.EBX;
+                        if (mProc.regs.CPL == ePrivLvl.Kernel_Ring_0 && theDescriptor.access.PrivLvl == ePrivLvl.App_Level_3)
+                            mProc.mCurrTSS.ESP0 = mProc.regs.ESP;
+                        else
+                            mProc.mCurrTSS.ESP = mProc.regs.ESP;
+                        mProc.mCurrTSS.EBP = mProc.regs.EBP;
+                        mProc.mCurrTSS.ESI = mProc.regs.ESI;
+                        mProc.mCurrTSS.EDI = mProc.regs.EDI;
+                        mProc.mCurrTSS.ES = (UInt16)mProc.regs.ES.mWholeSelectorValue;
+                        mProc.mCurrTSS.CS = (UInt16)mProc.regs.CS.mWholeSelectorValue;
+                        if (mProc.regs.CPL == ePrivLvl.Kernel_Ring_0 && theDescriptor.access.PrivLvl == ePrivLvl.App_Level_3)
+                            mProc.mCurrTSS.SS0 = (UInt16)mProc.regs.SS.mWholeSelectorValue;
+                        else
+                            mProc.mCurrTSS.SS = (UInt16)mProc.regs.SS.mWholeSelectorValue;
+                        mProc.mCurrTSS.DS = (UInt16)mProc.regs.DS.mWholeSelectorValue;
+                        mProc.mCurrTSS.GS = (UInt16)mProc.regs.GS.mWholeSelectorValue;
+                        mProc.mCurrTSS.FS = (UInt16)mProc.regs.FS.mWholeSelectorValue;
+                        mProc.mCurrTSS.CR3 = mProc.regs.CR3;
+                    }
                     else
-                        mProc.mGDTCache.SetBusyFlag(mProc, lTSSDescriptor, false);
+                    {
+                        mProc.mCurrTSS.EIP = mProc.regs.IP;
+                        mProc.mCurrTSS.EFLAGS = mProc.regs.FLAGS;
+                        mProc.mCurrTSS.EAX = mProc.regs.AX;
+                        mProc.mCurrTSS.ECX = mProc.regs.CX;
+                        mProc.mCurrTSS.EDX = mProc.regs.DX;
+                        mProc.mCurrTSS.EBX = mProc.regs.BX;
+                        mProc.mCurrTSS.ESP = mProc.regs.SP;
+                        mProc.mCurrTSS.EBP = mProc.regs.BP;
+                        mProc.mCurrTSS.ESI = mProc.regs.SI;
+                        mProc.mCurrTSS.EDI = mProc.regs.DI;
+                        mProc.mCurrTSS.ES = (UInt16)mProc.regs.ES.mWholeSelectorValue;
+                        mProc.mCurrTSS.CS = (UInt16)mProc.regs.CS.mWholeSelectorValue;
+                        mProc.mCurrTSS.SS = (UInt16)mProc.regs.SS.mWholeSelectorValue;
+                        mProc.mCurrTSS.DS = (UInt16)mProc.regs.DS.mWholeSelectorValue;
+                        mProc.mCurrTSS.CR3 = mProc.regs.CR3;
+                    }
 
-                // Step 6: If JMP or IRET, clear busy bit in old task TSS descriptor,
-                //         otherwise leave set.
-                if (mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_JMP || mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_IRET)
-                    mProc.mGDTCache.SetBusyFlag(mProc, (Word)(mProc.regs.TR.SegSel >> 3), false);
+                    // effect on link field of new task
+                    if (mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_CALL || mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_INT)
+                        // set to selector of old task's TSS
+                        mProc.mCurrTSS.PrevTaskLink = mProc.regs.TR.mSegSel;
 
-                // Commit point.  At this point, we commit to the new
-                // processing, we complete the task switch without performing
-                // additional access and segment availablility checks and
-                // generate the appropriate exception prior to beginning
-                // execution of the new task.
-                mProc.mCurrTSS.Commit(mProc, ref CurrentDecode);
+                    //mProc.mCurrTSS = new sTSS(mProc.mem.Chunk(mProc, 0, mProc.regs.TR.mBase, 104),
+                    //    mProc.mGDTCache[lTSSDescriptor].access.SystemDescType == eSystemOrGateDescType.TSS_32_Av || mProc.mGDTCache[lTSSDescriptor >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Bu);
 
-                // Step 7: Load the task register with the segment selector and
-                //        descriptor for the new task TSS.
-                mProc.regs.TR.mSegSel = lTop;
-                mProc.mSystem.TaskSwitchBreakpoint = true;
-                if (mProc.mSystem.BreakOnSwitchToTaskNum((UInt32)((mProc.regs.TR.SegSel & 0xFFFF) >> 3)))
-                    mProc.mSystem.mSwitchToTaskBreakpoint = true;
-                DWord lTempCR3 = mProc.mem.GetDWord(mProc, ref CurrentDecode, theDescriptor.Base + 28);
-                //CLR 07/17/2013: Added the conditional move of CR3 back in to match BOCHS code.
-                if (lTempCR3 != mProc.regs.CR3)
-                    mProc.regs.CR3 = lTempCR3;
-                LTR.Load(mProc, ref CurrentDecode);
+                    //Set busy flag of current task!!!
+                    if (mProc.mSwitchSource != eSwitchSource.SWITCH_FROM_IRET)
+                        if (new_TSS_max == 0x67)
+                            mProc.mGDTCache.SetBusyFlag(mProc, lTSSDescriptor, true);
+                        else
+                            mProc.mGDTCache.SetBusyFlag(mProc, lTSSDescriptor, false);
 
-                // Step 8: Set TS flag in the CR0 image stored in the new task TSS.
-                mProc.regs.CR0 |= 0x8;
-                // Task switch clears LE/L3/L2/L1/L0 in DR7
-                mProc.regs.DR7 &= ~(UInt32)(0x00000155);
+                    // Step 6: If JMP or IRET, clear busy bit in old task TSS descriptor,
+                    //         otherwise leave set.
+                    if (mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_JMP || mProc.mSwitchSource == eSwitchSource.SWITCH_FROM_IRET)
+                        mProc.mGDTCache.SetBusyFlag(mProc, (Word)(mProc.regs.TR.SegSel >> 3), false);
 
-                // Step 9: If call or interrupt, set the NT flag in the eflags
-                //         image stored in new task's TSS.  If IRET or JMP,
-                //         NT is restored from new TSS eflags image. (no change)
+                    // Commit point.  At this point, we commit to the new
+                    // processing, we complete the task switch without performing
+                    // additional access and segment availablility checks and
+                    // generate the appropriate exception prior to beginning
+                    // execution of the new task.
+                    mProc.mCurrTSS.Commit(mProc, ref CurrentDecode);
+
+                    // Step 7: Load the task register with the segment selector and
+                    //        descriptor for the new task TSS.
+                    mProc.regs.TR.mSegSel = lTop;
+                    mProc.mSystem.TaskSwitchBreakpoint = true;
+                    if (mProc.mSystem.BreakOnSwitchToTaskNum((UInt32)((mProc.regs.TR.SegSel & 0xFFFF) >> 3)))
+                        mProc.mSystem.mSwitchToTaskBreakpoint = true;
+                    DWord lTempCR3 = mProc.mem.GetDWord(mProc, ref CurrentDecode, theDescriptor.Base + 28);
+                    //CLR 07/17/2013: Added the conditional move of CR3 back in to match BOCHS code.
+                    if (lTempCR3 != mProc.regs.CR3)
+                        mProc.regs.CR3 = lTempCR3;
+                    LTR.Load(mProc, ref CurrentDecode);
+
+                    // Step 8: Set TS flag in the CR0 image stored in the new task TSS.
+                    mProc.regs.CR0 |= 0x8;
+                    // Task switch clears LE/L3/L2/L1/L0 in DR7
+                    mProc.regs.DR7 &= ~(UInt32)(0x00000155);
+
+                    // Step 9: If call or interrupt, set the NT flag in the eflags
+                    //         image stored in new task's TSS.  If IRET or JMP,
+                    //         NT is restored from new TSS eflags image. (no change)
 
 
-                // Step 10: Load the new task (dynamic) state from new TSS.
-                //          Any errors associated with loading and qualification of
-                //          segment descriptors in this step occur in the new task's
-                //          context.  State loaded here includes LDTR, CR3,
-                //          EFLAGS, EIP, general purpose registers, and segment
-                //          descriptor parts of the segment registers.
-                mProc.regs.EIP = mProc.mCurrTSS.EIP;
-                mProc.regs.EAX = mProc.mCurrTSS.EAX;
-                mProc.regs.ECX = mProc.mCurrTSS.ECX;
-                mProc.regs.EDX = mProc.mCurrTSS.EDX;
-                mProc.regs.EBX = mProc.mCurrTSS.EBX;
-                if (mProc.regs.CPL == ePrivLvl.App_Level_3 && theDescriptor.access.PrivLvl == ePrivLvl.Kernel_Ring_0)
-                    mProc.regs.ESP = mProc.mCurrTSS.ESP0;
-                else
-                    mProc.regs.ESP = mProc.mCurrTSS.ESP;
-                mProc.regs.EBP = mProc.mCurrTSS.EBP;
-                mProc.regs.ESI = mProc.mCurrTSS.ESI;
-                mProc.regs.EDI = mProc.mCurrTSS.EDI;
+                    // Step 10: Load the new task (dynamic) state from new TSS.
+                    //          Any errors associated with loading and qualification of
+                    //          segment descriptors in this step occur in the new task's
+                    //          context.  State loaded here includes LDTR, CR3,
+                    //          EFLAGS, EIP, general purpose registers, and segment
+                    //          descriptor parts of the segment registers.
+                    mProc.regs.EIP = mProc.mCurrTSS.EIP;
+                    mProc.regs.EAX = mProc.mCurrTSS.EAX;
+                    mProc.regs.ECX = mProc.mCurrTSS.ECX;
+                    mProc.regs.EDX = mProc.mCurrTSS.EDX;
+                    mProc.regs.EBX = mProc.mCurrTSS.EBX;
+                    if (mProc.regs.CPL == ePrivLvl.App_Level_3 && theDescriptor.access.PrivLvl == ePrivLvl.Kernel_Ring_0)
+                        mProc.regs.ESP = mProc.mCurrTSS.ESP0;
+                    else
+                        mProc.regs.ESP = mProc.mCurrTSS.ESP;
+                    mProc.regs.EBP = mProc.mCurrTSS.EBP;
+                    mProc.regs.ESI = mProc.mCurrTSS.ESI;
+                    mProc.regs.EDI = mProc.mCurrTSS.EDI;
 
-                mProc.regs.EFLAGS = mProc.mCurrTSS.EFLAGS;
-                mProc.regs.CS.Value = mProc.mCurrTSS.CS;
-                if (mProc.regs.CPL == ePrivLvl.App_Level_3 && theDescriptor.access.PrivLvl == ePrivLvl.Kernel_Ring_0)
-                    mProc.regs.SS.Value = mProc.mCurrTSS.SS0;
-                else
-                    mProc.regs.SS.Value = mProc.mCurrTSS.SS;
-                mProc.regs.DS.Value = mProc.mCurrTSS.DS;
-                mProc.regs.ES.Value = mProc.mCurrTSS.ES;
-                mProc.regs.FS.Value = mProc.mCurrTSS.FS;
-                mProc.regs.GS.Value = mProc.mCurrTSS.GS;
-                mProc.regs.LDTR.mSegSel = mProc.mCurrTSS.LDT_SegSel;
-                LLDT.Load(mProc, ref CurrentDecode);
+                    mProc.regs.EFLAGS = mProc.mCurrTSS.EFLAGS;
+                    mProc.regs.CS.Value = mProc.mCurrTSS.CS;
+                    if (mProc.regs.CPL == ePrivLvl.App_Level_3 && theDescriptor.access.PrivLvl == ePrivLvl.Kernel_Ring_0)
+                        mProc.regs.SS.Value = mProc.mCurrTSS.SS0;
+                    else
+                        mProc.regs.SS.Value = mProc.mCurrTSS.SS;
+                    mProc.regs.DS.Value = mProc.mCurrTSS.DS;
+                    mProc.regs.ES.Value = mProc.mCurrTSS.ES;
+                    mProc.regs.FS.Value = mProc.mCurrTSS.FS;
+                    mProc.regs.GS.Value = mProc.mCurrTSS.GS;
+                    mProc.regs.LDTR.mSegSel = mProc.mCurrTSS.LDT_SegSel;
+                    LLDT.Load(mProc, ref CurrentDecode);
 
-                /* set CPL to 3 to force a privilege level change and stack switch if SS
-                is not properly loaded */
-                //mProc.regs.CPL = 3;
-                return;
-            }
+                    /* set CPL to 3 to force a privilege level change and stack switch if SS
+                    is not properly loaded */
+                    //mProc.regs.CPL = 3;
+                    return;
+                }
 
 
             if (Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected)
@@ -7134,7 +7221,20 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            if ((CurrentDecode.Op2Add >= Processor_80x86.REGADDRBASE + Processor_80x86.RCSOFS) && (CurrentDecode.Op2Add <= Processor_80x86.REGADDRBASE + Processor_80x86.RSSOFS) && Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected)
+            //if (mProc.regs.EIP == 0x0C09 || mProc.regs.EIP == 0x0C0B)
+                //System.Diagnostics.Debugger.Break();
+            if (CurrentDecode.Op1Add == Processor_80x86.REGADDRBASE + Processor_80x86.RCSOFS)
+            {
+                //#UD - Can't mov to CS
+                CurrentDecode.ExceptionNumber = 0x6;
+                CurrentDecode.ExceptionThrown = true;
+                return;
+
+            }
+            if ((CurrentDecode.Op1Add >= Processor_80x86.REGADDRBASE + Processor_80x86.RCSOFS) && (CurrentDecode.Op1Add <= Processor_80x86.REGADDRBASE + Processor_80x86.RSSOFS) && Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected)
+            {
+            }
+                if ((CurrentDecode.Op2Add >= Processor_80x86.REGADDRBASE + Processor_80x86.RCSOFS) && (CurrentDecode.Op2Add <= Processor_80x86.REGADDRBASE + Processor_80x86.RSSOFS) && Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected)
             {
                 if (CurrentDecode.lOpSize16)
                     CurrentDecode.Op2Value.OpWord = (UInt16)Misc.GetSelectorForSegment(mProc, CurrentDecode.Op2Add, CurrentDecode.Op2Value.OpWord);
@@ -8086,7 +8186,7 @@ break;
             mProc.POP.Impl(ref ins);
             if (ins.ExceptionThrown)
             {
-                
+
                 return;
             }
             lTempFlags = ins.Op1Value.OpDWord;
@@ -8095,33 +8195,33 @@ break;
                 {
                     if (CurrentDecode.lOpSize16)
                     {
-                        mProc.regs.FLAGS = (Word)lTempFlags;
+                        mProc.regs.FLAGS = (Word)(lTempFlags | 0x2);
                     }
                     else
                     {
                         lPrePopFlags = (DWord)(mProc.regs.EFLAGS & 0x1A0000);
                         mProc.regs.EFLAGS = lTempFlags & 0x25FFFF;
-                        mProc.regs.EFLAGS |= lPrePopFlags;
+                        mProc.regs.EFLAGS |= lPrePopFlags | 0x2;
                     }
                 }
                 else //IOPL > 0
                     if (CurrentDecode.lOpSize16)
-                    {
-                        //Keep only the following flag ... IOPL
-                        lPrePopFlags = (Word)(mProc.regs.FLAGS & 0x3000);
-                        mProc.regs.FLAGS = (Word)(lTempFlags & 0x3D7FFF);
-                        mProc.regs.FLAGS |= (Word)lPrePopFlags;
-                        mProc.regs.setFlagVIP(false);
-                        mProc.regs.setFlagVIF(false);
-                    }
-                    else
-                    {
-                        lPrePopFlags = (Word)(mProc.regs.FLAGS & 0x2B000);
-                        mProc.regs.EFLAGS = lTempFlags & 0x3D4FFF;
-                        mProc.regs.EFLAGS |= (DWord)lPrePopFlags;
-                        mProc.regs.setFlagVIP(false);
-                        mProc.regs.setFlagVIF(false);
-                    }
+                {
+                    //Keep only the following flag ... IOPL
+                    lPrePopFlags = (Word)(mProc.regs.FLAGS & 0x3000);
+                    mProc.regs.FLAGS = (Word)(lTempFlags & 0x3D7FFF);
+                    mProc.regs.FLAGS |= (Word)(lPrePopFlags | 0x2);
+                    mProc.regs.setFlagVIP(false);
+                    mProc.regs.setFlagVIF(false);
+                }
+                else
+                {
+                    lPrePopFlags = (Word)(mProc.regs.FLAGS & 0x2B000);
+                    mProc.regs.EFLAGS = lTempFlags & 0x3D4FFF;
+                    mProc.regs.EFLAGS |= (DWord)lPrePopFlags | 0x2;
+                    mProc.regs.setFlagVIP(false);
+                    mProc.regs.setFlagVIF(false);
+                }
             }
         }
     }
@@ -9919,7 +10019,7 @@ break;
                 lBase &= 0x00FFFFFF;
 
             mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lLimit);
-            mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add + 4, lBase);
+            mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add + 2, lBase);
 
             #region Instructions
             #endregion
@@ -9953,7 +10053,7 @@ break;
                 lBase &= 0x00FFFFFF;
 
             mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lLimit);
-            mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add + 4, lBase);
+            mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add + 2, lBase);
 
             #region Instructions
             #endregion
@@ -10383,6 +10483,8 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
+//            if (mProc.regs.EIP == 0x0000026B)
+//                System.Diagnostics.Debugger.Break();
             //capture value pre-operation
             sOpVal lPreVal1 = CurrentDecode.Op1Value, lOp1Value = CurrentDecode.Op1Value;
             //08/28/2010 - Changed to use SignExtendOp

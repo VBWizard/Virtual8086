@@ -194,7 +194,7 @@ namespace VirtualProcessor
             else
                 mInstruction.InstructionEIP = mInstructionEIP;
 
-            if (mDecodeOffset == 0xC016151D)
+            if (mDecodeOffset == 0x15A561)
             {
                 int a = 0;
                 a += 1 - 1 + a - 25;
@@ -204,6 +204,7 @@ namespace VirtualProcessor
             #endregion
             bool lPrefixFound = true;
             //Get any prefixes
+
             while (lPrefixFound)
             {
                 lPrefixFound = false;
@@ -214,98 +215,56 @@ namespace VirtualProcessor
                     case 0x26:  //26 = ES seg override
                         mInstruction.OverrideSegment = eGeneralRegister.ES;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x64:  //64 = FS seg override
                         mInstruction.OverrideSegment = eGeneralRegister.FS;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x65:  //65 = GS seg override
                         mInstruction.OverrideSegment = eGeneralRegister.GS;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x36:  //36 = SS seg override
                         mInstruction.OverrideSegment = eGeneralRegister.SS;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x2E:  //2E = CS seg override or Hint
-                        //mDecodeOffsetPlus1 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset + 1);
-                        //if ( (mDecodeOffsetPlus1 >= 0x70) && (mDecodeOffsetPlus1 <= 0x7E)
-                        //    ||(mDecodeOffsetPlus1 == 0xE3) )
-                        //{
-                        //    mInstruction.BranchHint = (char)mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset);
-                        //    return true;
-                        //}
                         mInstruction.OverrideSegment = eGeneralRegister.CS;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x3E:  //3E = DS seg override or Hint
-                        //mDecodeOffsetPlus1 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset + 1);
-                        //if ( (mDecodeOffsetPlus1 >= 0x70) && (mDecodeOffsetPlus1 <= 0x7E)
-                        //    ||(mDecodeOffsetPlus1 == 0xE3) )
-                        //if ((mDecodeOffsetPlus1 >= 0x70) && (mDecodeOffsetPlus1 <= 0x7E)
-                        //    || (mDecodeOffsetPlus1 == 0xE3))
-                        //{
-                        //    mInstruction.BranchHint = (char)0x3E;
-                        //    return true;
-                        //}
                         mInstruction.OverrideSegment = eGeneralRegister.DS;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x66:  //66 = Operand size override prefix
                         mProcessor_OpSize16 = !mOrigProcessor_OpSize16;
                         mInstruction.OpSizePrefixFound = true;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0x67:  //67 = Address-size override prefix
                         mProcessor_AddrSize16 = !mOrigProcessor_AddrSize16;
                         mInstruction.AddrSizePrefixFound = true;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0xF0:
                         mInstruction.Lock = true;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
+                        //NOTE: This prefix didn't have the 3 lines of code that the others had
                         break;
                     case 0xF2:
                         mInstruction.RepNZ = true;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
                     case 0xF3:
                         mInstruction.RepZ = true;
                         lPrefixFound = true;
-                        mDecodeOffset++;
-                        mInstruction.BytesUsed++;
-                        mTempPrefixByteUsed = true;
                         break;
+                }
+                if (lPrefixFound)
+                {
+                    mDecodeOffset++;
+                    mInstruction.BytesUsed++;
+                    mTempPrefixByteUsed = true;
                 }
             }
 
@@ -344,7 +303,6 @@ namespace VirtualProcessor
             }
 
             mInstruction.RealOpCode = mInstruction.OpCode;
-
             switch (mInstruction.OpCode)
             {
                 //For Group OpCodes, append the REG from the ModRMReg to the OpCode (i.e. 0x80 becomes 0x8001-0x8007)
@@ -575,7 +533,8 @@ namespace VirtualProcessor
                     case sOpCodeAddressingMethod.EType:             //E - A ModR/M byte follows the opcode and specifies the operand. The operand is either a general-purpose register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, a displacement.
                         #region SetC up register via ModMR/SIB using Reg
                         //For Op1, Direction=0 is ModRM/SIB, Direction=1 = Reg
-                        mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op1OT);
+                        if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
+                            mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op1OT);
                         if (mInstruction.OverrideSegment == 0 && mOverrideSegment != eGeneralRegister.NONE && mInstruction.ChosenOpCode.Op1OT != sOpCodeOperandType.None)
                         {
                             mInstruction.OverrideSegment = mOverrideSegment;
@@ -612,7 +571,8 @@ namespace VirtualProcessor
                         #endregion
                         break;
                     case sOpCodeAddressingMethod.GenReg:            //G - The reg field of the ModR/M byte selects a general register 
-                        mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_REGFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
+                        if (mTemp_MODRM_REGFieldRegister != eGeneralRegister.NONE) 
+                            mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_REGFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
                     case sOpCodeAddressingMethod.MMXPkdQWord:       //P - The reg field of the ModR/M byte selects a packed quadword MMX technology register.
                         GetRegEnumForMMXReg(); break;
                     case sOpCodeAddressingMethod.QType:             //Q - A ModR/M byte follows the opcode and specifies the operand. The operand is either an MMX technology register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, and a displacement.
@@ -634,7 +594,8 @@ namespace VirtualProcessor
                     //}
                         #endregion
                     case sOpCodeAddressingMethod.ModGenReg:         //R - The mod field of the ModR/M byte may refer only to a general register
-                        mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
+                        if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
+                            mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
                     case sOpCodeAddressingMethod.RegSegReg:         //S - The reg field of the ModR/M byte selects a segment register
                         mInstruction.Op1.Register = GetModRMSegReg(ref mInstruction); break;
                     case sOpCodeAddressingMethod.RegTestReg:        //T
@@ -780,7 +741,8 @@ namespace VirtualProcessor
                     case sOpCodeAddressingMethod.EType:             //E - A ModR/M byte follows the opcode and specifies the operand. The operand is either a general-purpose register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, a displacement.
                         #region SetC up register via ModMR/SIB using Reg
                         //For Op2, Direction=0 is Reg, Direction=1 = ModRM
-                        mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op2OT);
+                        if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
+                            mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op2OT);
                         if (mInstruction.OverrideSegment == 0 && mOverrideSegment != eGeneralRegister.NONE && mInstruction.ChosenOpCode.Op1OT != sOpCodeOperandType.None)
                         {
                             mInstruction.OverrideSegment = mOverrideSegment;
@@ -817,7 +779,8 @@ namespace VirtualProcessor
                         #endregion
                         break;
                     case sOpCodeAddressingMethod.GenReg:            //G - The reg field of the ModR/M byte selects a general register 
-                        mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_REGFieldRegister, mInstruction.ChosenOpCode.Op2OT); break;
+                        if (mTemp_MODRM_REGFieldRegister != eGeneralRegister.NONE)
+                            mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_REGFieldRegister, mInstruction.ChosenOpCode.Op2OT); break;
                     case sOpCodeAddressingMethod.MMXPkdQWord:       //P - The reg field of the ModR/M byte selects a packed quadword MMX technology register.
                         GetRegEnumForMMXReg(); break;
                     case sOpCodeAddressingMethod.QType:             //Q - A ModR/M byte follows the opcode and specifies the operand. The operand is either an MMX technology register or a memory address. If it is a memory address, the address is computed from a segment register and any of the following values: a base register, an index register, a scaling factor, and a displacement.
@@ -839,7 +802,8 @@ namespace VirtualProcessor
                     //}
                         #endregion
                     case sOpCodeAddressingMethod.ModGenReg:         //R - The mod field of the ModR/M byte may refer only to a general register
-                        mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op2OT); break;
+                        if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
+                            mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op2OT); break;
                     case sOpCodeAddressingMethod.RegSegReg:         //S - The reg field of the ModR/M byte selects a segment register
                         mInstruction.Op2.Register = GetModRMSegReg(ref mInstruction); break;
                     case sOpCodeAddressingMethod.RegTestReg:        //T
@@ -1444,7 +1408,7 @@ namespace VirtualProcessor
                         case eGeneralRegister.BP: return eGeneralRegister.EBP;
                         case eGeneralRegister.SI: return eGeneralRegister.ESI;
                         case eGeneralRegister.DI: return eGeneralRegister.EDI;
-                        default: return Reg;
+                        default: throw new Exception("should not get here");  return Reg;
                     }
                 case sOpCodeOperandType.WordOrDWord:
                     switch (Reg)
@@ -1468,7 +1432,7 @@ namespace VirtualProcessor
                         case eGeneralRegister.SI: return (mProcessor_OpSize16 ? eGeneralRegister.SI : eGeneralRegister.ESI);
                         case eGeneralRegister.DI: return (mProcessor_OpSize16 ? eGeneralRegister.DI : eGeneralRegister.EDI);
 
-                        default: return Reg;
+                        default: throw new Exception("should not get here 2"); return Reg;
                     }
             }
             throw new Exception("CRAP!");

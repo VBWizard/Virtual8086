@@ -87,6 +87,14 @@ namespace VirtualProcessor
             return (UInt16)(MemLocation >> 16);
         }
 
+        //Added this due to CPU test.
+        //This was called by CALL, but didn't work correctly so I 
+        //removed it from CALL
+        public static UInt16 GetSegForLoc(Processor_80x86 mProc, UInt64 MemLocation)
+        {
+            return (UInt16)(MemLocation >> 32);
+        }
+
         public static void Commit(Processor_80x86 mProc, uint[] mChangeAddress, byte[] mChanges)
         {
             for (int cnt = 0; cnt < PhysicalMem.mChangesPending; cnt++)
@@ -220,10 +228,11 @@ namespace VirtualProcessor
         /// <param name="ValueToInit">Value to initialize each byte to</param>
         public void InitializeMem(byte ValueToInit)
         {
-            for (int loc = 0; loc < 0xb8000; loc++)
+            for (int loc = 0; loc < 0xa0000; loc++)
                 mMemBytes[loc] = ValueToInit;
-            for (int loc = 0xb9000; loc < mMemBytes.Length - 1; loc++)
-                mMemBytes[loc] = ValueToInit;
+            if (mMemBytes.Length > 0x100000)
+                for (int loc = 0x100000; loc < mMemBytes.Length - 1; loc++)
+                    mMemBytes[loc] = ValueToInit;
         }
 
         public void InitializeVideoMem()
@@ -359,20 +368,27 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
         public static void BlockChanged(Processor_80x86 mProc, UInt32 Address, bool Writing)
         {
+            try
+            {
                 UInt32 block = Address / 4096;
-            if (Writing)
-            {
-                if (mProc.mem.mCHangedBlocks[block] == 1)
-                    mProc.mem.mCHangedBlocks[block] = 2;
+                if (Writing)
+                {
+                    if (mProc.mem.mCHangedBlocks[block] == 1)
+                        mProc.mem.mCHangedBlocks[block] = 2;
+                    else
+                        mProc.mem.mCHangedBlocks[block] = 1;
+                }
                 else
-                    mProc.mem.mCHangedBlocks[block] = 1;
+                {
+                    if (mProc.mem.mCHangedBlocks[block] == 4)
+                        mProc.mem.mCHangedBlocks[block] = 5;
+                    else
+                        mProc.mem.mCHangedBlocks[block] = 4;
+                }
             }
-            else
+            catch (Exception e)
             {
-                if (mProc.mem.mCHangedBlocks[block] == 4)
-                    mProc.mem.mCHangedBlocks[block] = 5;
-                else
-                    mProc.mem.mCHangedBlocks[block] = 4;
+                int a = 0;
             }
         }
 #endif
@@ -424,14 +440,9 @@ namespace VirtualProcessor
 
         private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, byte Value)
         {
+//            if (MemAddr == 0x1D408)
+//                System.Diagnostics.Debugger.Break();
             if (sIns.ExceptionThrown) return;
-
-            int a = 0;
-            if (MemAddr == 0x004BCA2C)
-            {
-                a += 1;
-                a -= 1 + 1 - 2 + 2;
-            }
 
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000)
             {
@@ -1333,7 +1344,7 @@ namespace VirtualProcessor
             }
             else
 #if MEM_PERF_ENHANCEMENTS
-                if ((Location & 0xFFF) == 0xFFF)
+                if ((Location & 0xFFF) >= 0xFFD)
                     //Setting a DWord at the requested location will cross a page boundary, so do it the old fashioned slow way
                     //so that we get each byte from the proper page.
 #endif

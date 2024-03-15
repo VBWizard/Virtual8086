@@ -571,7 +571,10 @@ namespace VirtualProcessor
                     OpAdd = mProc.GetDWordRegValueForRegEnum(CurrentDecode.OverrideSegment);
                 //if (mProc.OperatingMode != ProcessorMode.Protected)
                 if (Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected && mProc.regs.CS.mDescriptorNum > 0)
-                { }
+                { 
+                    /*if (CurrentDecode.InstructionAddSize16) 
+                        OpAdd = OpAdd << 4;*/
+                }
                 else
                     OpAdd = OpAdd << 4;
                 if (CurrentDecode.lAddrSize16)
@@ -809,7 +812,7 @@ namespace VirtualProcessor
 
         internal static bool VerifyCPL0(Processor_80x86 mProc, ref sInstruction mIns )
         {
-            if (mProc.regs.CPL != 0)
+            if (mProc.regs.CPL != 0 && mProc.OperatingMode != ProcessorMode.Virtual8086)
             {
                 mIns.ExceptionNumber = 0xD;
                 mIns.ExceptionThrown = true;

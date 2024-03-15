@@ -20,7 +20,7 @@ namespace VirtualProcessor
             //string filePath = @"..\..\..\..\Virtual8086\Virtual8086\OpCode_Operand_List.xml";
             string filePath = @"..\..\..\..\Virtual8086\OpCode_Operand_List.xml";
 #elif DEBUG
-            string filePath = @"..\..\..\..\Virtual8086\OpCode_Operand_List.xml";
+            string filePath = @"d:\Virtual8086_active\Virtual8086\OpCode_Operand_List.xml";
 #else
             string filePath = @"..\..\..\..\Virtual8086\OpCode_Operand_List.xml";
 #endif

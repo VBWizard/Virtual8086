@@ -30,12 +30,6 @@ namespace WindowsFormsApplication1
             ggMemory_Click(this, new EventArgs());
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            button1.Focus();
-
-        }
-
         private void ggMemory_Click(object sender, EventArgs e)
         {
             if (Program.mSystem == null)
@@ -113,7 +107,7 @@ namespace WindowsFormsApplication1
 
             int lCellCount = (int)Program.mSystem.mTotalMemory / 4096;
             int lCellsPerSide = (int)Math.Sqrt(lCellCount);
-            UInt32 lOffset = (UInt32)(((GridPoint.Y * lCellsPerSide) + GridPoint.X + GridPoint.Y)*4096);
+            UInt32 lOffset = (UInt32)(((GridPoint.Y * lCellsPerSide) + GridPoint.X)*4096);
             string lContents = "";
             
             this.Text = lOffset.ToString("X8");
@@ -127,14 +121,13 @@ namespace WindowsFormsApplication1
                 else
                     lContents += ".";
             }
-#if DOTRIES
+//#if DOTRIES
             MessageBox.Show("Contents: " + lContents);
-#endif
+//#endif
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
-
     }
 }

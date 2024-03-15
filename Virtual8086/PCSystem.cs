@@ -321,7 +321,8 @@ namespace VirtualProcessor
             Drives[mDriveCount].Cylinders = Cylinders;
             Drives[mDriveCount].Heads = Heads;
             Drives[mDriveCount].SectorsPerTrack = SectorsPerTrack;
-            Drives[mDriveCount].DeviceType = DeviceType;
+            //04/01/2023 - Hacked thsi to get it to work b/c changing the config didn't affect this
+            Drives[mDriveCount].DeviceType = device_type_t.IDE_DISK;
             mDriveCount++;
         }
 
@@ -372,6 +373,7 @@ namespace VirtualProcessor
                 PrintDebugMsg(eDebuggieNames.System, lTemp.DeviceName + " - EXCEPTION (" + System.Threading.Thread.CurrentThread.Name + "): " + e.Message);
             else
                 PrintDebugMsg(eDebuggieNames.System, "EXCEPTION: (" + System.Threading.Thread.CurrentThread.Name + "): " + e.Message);
+                PrintDebugMsg(eDebuggieNames.System, "  call stack: " + e.StackTrace);
             ShutDown();
             throw e;
         }

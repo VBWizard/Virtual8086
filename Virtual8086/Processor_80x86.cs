@@ -357,7 +357,7 @@ namespace VirtualProcessor
             //}
             Top:
                 if (PowerOff)
-                    return;
+                    break;
                 mLastEIP = regs.EIP;
                 mLastESP = regs.ESP;
                 if (PhysicalMem.mChangesPending > 0)
@@ -388,6 +388,7 @@ namespace VirtualProcessor
                         if (mLastInstructionAddress != mCurrentInstructionAddress)
                         {
                             mDecoder.Decode(ref sCurrentDecode);
+                            mInsructionsDecoded++;
                             mLastInstructionAddress = mCurrentInstructionAddress;
                         }
                         if (sCurrentDecode.ExceptionThrown)
@@ -407,7 +408,6 @@ namespace VirtualProcessor
                         }
                         if (sCurrentDecode.Lock)
                             Signals.LOCK = true;
-                        mInsructionsDecoded++;
                         //InstructionCache.Add(mCurrentInstruction);
 
                         if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
@@ -465,7 +465,8 @@ namespace VirtualProcessor
                         regs.EIP = mLastEIP;
                         if (PhysicalMem.mChangesPending > 0)
                             mem.Rollback();
-                        RestoreSavedRegisters();
+//20240309                        if ((regs.CR0 & 0x80000000) == 0x80000000)
+                            RestoreSavedRegisters();
                         mRepeatCondition = NOT_REPEAT;
                         mBranchHint = 0;
                         mOpSize16 = true;
@@ -549,6 +550,7 @@ namespace VirtualProcessor
                 }
                 if (mSTICalled)
                 {
+//20240309                    regs.setFlagIF(true); //hack
                     mSTICalled = false;
                     mSTIAfterNextInstr = true;
                 }
@@ -690,7 +692,7 @@ namespace VirtualProcessor
 
 #endif
 #endif
-                    if (mSystem.mModeBreakpoint || mSystem.mCPL0SwitchBreakpoint || mSystem.mCPL3SwitchBreakpoint || mSystem.mTaskSwitchBreakpoint || mSystem.mPagingExceptionBreakpoint)
+                    if (mSystem.mModeBreakpointSet || mSystem.mCPL0SwitchBreakpointSet || mSystem.mCPL3SwitchBreakpoint || mSystem.mTaskSwitchBreakpoint || mSystem.mPagingExceptionBreakpoint)
                     {
                         mSystem.mModeBreakpoint = false;
                         mSystem.mCPL0SwitchBreakpoint = false;
@@ -948,6 +950,8 @@ namespace VirtualProcessor
 
             //if (sIns.ExceptionNumber == 0)
             //    System.Diagnostics.Debugger.Break();
+
+//20240309            sIns.ExceptionThrown = false;
 
             if (mCurrInstructOpMode == ProcessorMode.Real)
             {
@@ -2017,6 +2021,7 @@ namespace VirtualProcessor
         internal Instruct ENTER;
         internal Instruct FADD;
         internal Instruct FCLEX;
+        internal Instruct FDIV;
         internal Instruct FDIVR;
         internal Instruct FINIT;
         internal Instruct FILD;

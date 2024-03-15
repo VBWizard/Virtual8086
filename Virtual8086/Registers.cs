@@ -356,6 +356,7 @@ namespace VirtualProcessor
 
         public void ResetFlags()
         {
+            EFLAGS = 2;
             setFlagIF(true);
         }
 
@@ -440,8 +441,9 @@ namespace VirtualProcessor
         /// <returns>Updated Flags word</returns>
         public void setFlagPF(UInt64 InVal)
         {
-
-            if ( (Misc.parity[InVal & 0xFF] | Misc.parity[(InVal >> 8) & 0xFF] | Misc.parity[(InVal >> 16) & 0xFF] | Misc.parity[(InVal >> 24) & 0xFF] | Misc.parity[(InVal >> 32) & 0xFF] | Misc.parity[(InVal >> 40) & 0xFF] | Misc.parity[(InVal >> 48) & 0xFF] | Misc.parity[(InVal >> 56) & 0xFF]) > 0)
+            //Per intel 386 manual, modified this to only consider the bottom 8 bits
+            if ((Misc.parity[InVal & 0xFF]) > 0 ) 
+            //| Misc.parity[(InVal >> 8) & 0xFF] | Misc.parity[(InVal >> 16) & 0xFF] | Misc.parity[(InVal >> 24) & 0xFF] | Misc.parity[(InVal >> 32) & 0xFF] | Misc.parity[(InVal >> 40) & 0xFF] | Misc.parity[(InVal >> 48) & 0xFF] | Misc.parity[(InVal >> 56) & 0xFF]) > 0)
                 FLAGS |= 0x4;
             else
                 FLAGS &= 0xFFFB;
