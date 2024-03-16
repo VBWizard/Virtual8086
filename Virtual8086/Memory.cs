@@ -4,8 +4,8 @@ namespace VirtualProcessor
 {
     public class PhysicalMem
     {
-        public UInt32[] mChangeAddress = new UInt32[67108864];
-        public byte[] mChanges = new byte[67108864];
+        public static UInt32[] mChangeAddress = new UInt32[67108864];
+        public static byte[] mChanges = new byte[67108864];
         public static long mChangesPending = 0;
         public static byte[] mMemBytes;
         public bool mUsePaging = true;
@@ -13,9 +13,9 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
         public byte[] mCHangedBlocks;
 #endif
-        internal bool mLastAddressWrite = false;
-        internal UInt32 mLastLogicalAddress = 0;
-        internal UInt32 mLastPhysicalAddress = 0;
+        internal static bool mLastAddressWrite = false;
+        internal static UInt32 mLastLogicalAddress = 0;
+        internal static UInt32 mLastPhysicalAddress = 0;
         internal int mPrivCheckSize;
 
         //// The 'priv_check' array is used to decide if the current access
@@ -33,7 +33,7 @@ namespace VirtualProcessor
         ////    +---------------> Current CR0.WP value
         private static byte[] mPrivCheck;
 
-        private UInt32 mPagedMemoryAddress, lMemAddr3;
+        private static UInt32 mPhysicalMemoryAddress, lMemAddr3;
         byte[] mChunkPhysicalArray = new byte[1];
         byte[] mChunkArray = new byte[1];
         static UInt64[] mQWChunkPhysicalArray = new UInt64[1];
@@ -107,7 +107,7 @@ namespace VirtualProcessor
             mChangesPending = 0;
         }
 
-        public UInt32 GetPageTableEntry(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, ref UInt32 PDE, ref UInt32 PTE, bool Writing)
+        public static UInt32 GetPageTableEntry(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, ref UInt32 PDE, ref UInt32 PTE, bool Writing)
         {
             UInt32 mLocalExceptionErrorCode = 0xFF;
 
@@ -245,7 +245,7 @@ namespace VirtualProcessor
             }
         }
 
-        public bool PageAccessWillCausePF(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
+        public static bool PageAccessWillCausePF(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
         {
             UInt32 lResult;
 
@@ -256,7 +256,7 @@ namespace VirtualProcessor
                 return false;
             if ((Address & 0xFFFFF000) == mLastLogicalAddress && (Writing == mLastAddressWrite || !Writing && mLastAddressWrite))
                 return false;
-            lResult = mProc.mTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
+            lResult = cTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
             if (!sIns.ExceptionThrown)
             {
                 mLastLogicalAddress = Address & 0xFFFFF000;
@@ -272,7 +272,7 @@ namespace VirtualProcessor
             return sIns.ExceptionThrown;
         }
 
-        public UInt32 PagedMemoryAddress(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
+        public static UInt32 PagedMemoryAddress(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
         {
             UInt32 lResult;
 
@@ -281,7 +281,7 @@ namespace VirtualProcessor
             //if ((Address & 0xFFFFF000) == mLastLogicalAddress && (mLastAddressWrite || !Writing))
             if ((Address & 0xFFFFF000) == mLastLogicalAddress && (Writing == mLastAddressWrite || !Writing && mLastAddressWrite))
                 return (mLastPhysicalAddress) | (Address & 0x00000FFF);
-            lResult = mProc.mTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
+            lResult = cTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
 
             if (sIns.ExceptionThrown)
                 return 0xF0f0f0f0;
@@ -393,13 +393,13 @@ namespace VirtualProcessor
         }
 #endif
 
-        private byte Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr)
+        private static byte Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr)
         {
 
             if (sIns.ExceptionThrown) return 0;
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000)
             {
-                mPagedMemoryAddress = PagedMemoryAddress(mProc, ref sIns, MemAddr, false);
+                mPhysicalMemoryAddress = PagedMemoryAddress(mProc, ref sIns, MemAddr, false);
                 if (sIns.ExceptionThrown)
                     return 0xF3;
 #if USE_MAPPED_IO
@@ -411,11 +411,11 @@ namespace VirtualProcessor
                 }
 #endif
 #if CALCULATE_PAGE_MEMORY_USAGE
-                BlockChanged(mProc, mPagedMemoryAddress, false);
+                BlockChanged(mProc, mPhysicalMemoryAddress, false);
 #endif
-                if (mPagedMemoryAddress > mMemBytes.Length)
-                    mProc.mSystem.PrintDebugMsg(eDebuggieNames.System, "Error in 'byte Memory()'.  Attempt to read from virtual physical address 0x" + mPagedMemoryAddress.ToString("X8") + ", virtual address 0x" + MemAddr.ToString("X8"));
-                return mMemBytes[mPagedMemoryAddress];
+                if (mPhysicalMemoryAddress > mMemBytes.Length)
+                    mProc.mSystem.PrintDebugMsg(eDebuggieNames.System, "Error in 'byte Memory()'.  Attempt to read from virtual physical address 0x" + mPhysicalMemoryAddress.ToString("X8") + ", virtual address 0x" + MemAddr.ToString("X8"));
+                return mMemBytes[mPhysicalMemoryAddress];
             }
             else
             {
@@ -438,7 +438,7 @@ namespace VirtualProcessor
             }
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, byte Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, byte Value)
         {
 //            if (MemAddr == 0x1D408)
 //                System.Diagnostics.Debugger.Break();
@@ -486,7 +486,7 @@ namespace VirtualProcessor
             }
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt16 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt16 Value)
         {
 #if MEM_PERF_ENHANCEMENTS
             this.SetWordP(mProc, ref sIns, MemAddr, Value);
@@ -498,7 +498,7 @@ namespace VirtualProcessor
 #endif
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt32 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt32 Value)
         {
 #if MEM_PERF_ENHANCEMENTS
             this.SetDWordP(mProc, ref sIns, MemAddr, Value);
@@ -515,7 +515,7 @@ namespace VirtualProcessor
 #endif
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt64 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt64 Value)
         {
             Memory(mProc, ref sIns, MemAddr, (UInt32)Value);
             Memory(mProc, ref sIns, MemAddr + 4,(UInt32)(Value>>32));
@@ -543,7 +543,7 @@ namespace VirtualProcessor
             return mChunkPhysicalArray;
         }
 
-        public byte GetByte(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location)
+        public static byte GetByte(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location)
         {
             if (Location >= Processor_80x86.REGADDRBASE && Location <= Processor_80x86.REGADDRBASE + Processor_80x86.RDHOFS)
                 return GetByteRegisterValue(mProc, Location);
@@ -1358,10 +1358,6 @@ namespace VirtualProcessor
                 RefreshIfRequired(mProc, ref sIns, Location, Value, TypeCode.UInt16);
         }
 
-#if MEM_PERF_ENHANCEMENTS
-#endif
-#if MEM_PERF_ENHANCEMENTS
-#endif
 
         public static void SetWordRegisterValue(Processor_80x86 mProc, UInt32 Location, UInt16 Value)
         {

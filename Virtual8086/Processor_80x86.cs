@@ -91,7 +91,8 @@ namespace VirtualProcessor
         {
             get { return mProcType; }
         }
-        public RegStruct regs, savedRegs;
+        public RegStruct regs;
+        public static RegStruct savedRegs;
         public Ports ports;
         public PhysicalMem mem;
         internal bool[] DRQ = new bool[8] { false, false, false, false, false, false, false, false };
@@ -175,8 +176,8 @@ namespace VirtualProcessor
         /// <summary>
         /// List of instructions, used only to get the right sOpCode for a given instruction
         /// </summary>
-        public InstructionList<Instruct> Instructions = new InstructionList<Instruct>();
-        public sOpCodePointer[] OpCodeIndexer = new sOpCodePointer[0xFFFF];
+        public static InstructionList<Instruct> Instructions = new InstructionList<Instruct>();
+        public static sOpCodePointer[] OpCodeIndexer = new sOpCodePointer[0xFFFF];
         internal sSignals Signals;
         internal static bool mProtectedModeActive = false;
         internal bool mIncrementedEIP = false;
@@ -361,7 +362,7 @@ namespace VirtualProcessor
                 mLastEIP = regs.EIP;
                 mLastESP = regs.ESP;
                 if (PhysicalMem.mChangesPending > 0)
-                    PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                    PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                 mCurrInstructOpMode = OperatingMode;
                 mIncrementedEIP = false;
                 if (!HaltProcessor && !mExternalPauseActive)
@@ -372,7 +373,7 @@ namespace VirtualProcessor
                         mCacheMisses++;
                         if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
                             mProcessorStatus = eProcessorStatus.Decoding;
-                        if (((regs.CR0 & 0x80000000) == 0x80000000 && mCurrentInstructionAddress < Processor_80x86.REGADDRBASE) && mem.PageAccessWillCausePF(this, ref sCurrentDecode, mCurrentInstructionAddress, false))
+                        if (((regs.CR0 & 0x80000000) == 0x80000000 && mCurrentInstructionAddress < Processor_80x86.REGADDRBASE) && PhysicalMem.PageAccessWillCausePF(this, ref sCurrentDecode, mCurrentInstructionAddress, false))
                         {
                             mRepeatCondition = NOT_REPEAT;
                             mBranchHint = 0;
@@ -451,8 +452,6 @@ namespace VirtualProcessor
                         ExceptionHandler(this, ref sCurrentDecode);
                         goto Top;
                     }
-
-
                     if (mExportDebug)
                         OnParseCompleteEvent(new CustomEventArgs(this));
                     if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
@@ -478,7 +477,7 @@ namespace VirtualProcessor
                         goto Top;
                     }
                     if (PhysicalMem.mChangesPending > 0)
-                        PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                        PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                     //TimeStart = DateTime.Now;
                     //mMSinTimedSection += (DateTime.Now - TimeStart).TotalMilliseconds;
 
@@ -501,8 +500,6 @@ namespace VirtualProcessor
                             return;
 #endif
                     sCurrentDecode.mChosenInstruction.UsageCount++;
-                    if (PhysicalMem.mChangesPending > 0)
-                        PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
 #if !RELEASE
                     if (mExportDebug)
                         OnInstructCompleteEvent(new CustomEventArgs(this));
@@ -531,16 +528,6 @@ namespace VirtualProcessor
                         // Do I really need these?    regs.mCSDescriptorNum = regs.mDSDescriptorNum = regs.mESDescriptorNum = regs.mFSDescriptorNum = regs.mGSDescriptorNum = regs.mSSDescriptorNum = 0;
                     }
                     #endregion
-                }
-                else
-                {
-                    //mInsructionsExecuted++;
-                    //Thread.Sleep(1);
-                    //Thread.Yield();
-                    //NVM: We're in HALT which means the halt instruction was executed, so keep executing it to keep our instruction count correct
-                    //regs.EIP -= sCurrentDecode.BytesUsed;
-                    //HaltProcessor = false;
-
                 }
                 #region STI Handling
                 if (mSTIAfterNextInstr == true)
@@ -574,8 +561,8 @@ namespace VirtualProcessor
                 #region INTR Pin Processing
                 //If the INTR pin is asserted AND interrupts are enabled (IF=1), service IRQ
                 //07/18/2013: Locking for obvious reasons
-                lock (mSystem.DeviceBlock.mPIC)
-                {
+//                lock (mSystem.DeviceBlock.mPIC)
+//                {
                     if (Signals.INTR)
                     {
                         if ((regs.FLAGS & 0x200) == 0x200)
@@ -583,7 +570,7 @@ namespace VirtualProcessor
                             HaltProcessor = false;
                             HandleNewIRQServiceRequest();
                         }
-                    }
+//                    }
                 }
                 #endregion
 
@@ -708,7 +695,7 @@ namespace VirtualProcessor
                 {
                     mSystem.DeviceBlock.mPIT.mPICTimers[0].Stop();
                     OnSingleStepEvent(new CustomEventArgs(this));
-                    mSystem.DeviceBlock.mPIT.mPICTimers[0].Interval += mTimerTickMSec;
+                    //mSystem.DeviceBlock.mPIT.mPICTimers[0].Interval += mTimerTickMSec;
                     mSystem.DeviceBlock.mPIT.mPICTimers[0].Start();
                 }
             }
@@ -808,7 +795,7 @@ namespace VirtualProcessor
             if (sCurrentDecode.ExceptionThrown || Signals.HOLD || (Signals.INTR && (regs.FLAGS & 0x200) == 0x200) )
             {
                 if (PhysicalMem.mChangesPending > 0)
-                    PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                    PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                 return true;
             }
             mInsructionsExecuted++;
@@ -855,7 +842,7 @@ namespace VirtualProcessor
                 return;
             }
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
         }
         public void HandleNewIRQServiceRequest()
         {
@@ -1022,7 +1009,7 @@ namespace VirtualProcessor
             sIns.ExceptionAddress = 0;
 
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
         }
 
         private void SaveRegisters()
@@ -1087,7 +1074,7 @@ namespace VirtualProcessor
 
             mGDTCacheResetsExecuted++;
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this,mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.GDTR.lCache = mem.ChunkPhysical(this, 0, regs.GDTR.Base, regs.GDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.GDTR.lCache, (UInt16)((regs.GDTR.Limit + 1) / 8));
             mGDTCache = new cGDTCache(PhysicalMem.QWChunkPhysical(regs.GDTR.lCache, (UInt16)((regs.GDTR.Limit + 1) / 8)), (UInt16)regs.GDTR.Limit);
@@ -1098,7 +1085,7 @@ namespace VirtualProcessor
         public void RefreshLDTCache()
         {
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.LDTR.lCache = mem.ChunkPhysical(this, 0, regs.LDTR.Base, regs.LDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.LDTR.lCache, (UInt16)((regs.LDTR.Limit + 1) / 8));
             mLDTCache = new cGDTCache(PhysicalMem.QWChunkPhysical(regs.LDTR.lCache, (UInt16)((regs.LDTR.Limit + 1) / 8)), (UInt16)regs.LDTR.Limit);
@@ -1108,7 +1095,7 @@ namespace VirtualProcessor
         public void RefreshIDTCache()
         {
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.IDTR.lCache = mem.ChunkPhysical(this, 0, regs.IDTR.Base, regs.IDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.IDTR.lCache, (UInt16)((regs.IDTR.Limit + 1) / 8));
             mIDTCache = new cIDTCache(PhysicalMem.QWChunkPhysical(regs.IDTR.lCache, (UInt16)((regs.IDTR.Limit + 1) / 8)), mGDTCache);
@@ -1536,7 +1523,7 @@ namespace VirtualProcessor
             throw new Exception("GetRegcValueForRegEnum - Register address not found for: " + Register);
         }
 
-        internal UInt32 GetControlRegAddrForRegEnum(eGeneralRegister Register)
+        internal static UInt32 GetControlRegAddrForRegEnum(eGeneralRegister Register)
         {
             switch (Register)
             {
@@ -1982,14 +1969,14 @@ namespace VirtualProcessor
         //}
         #endregion
 
-        internal Instruct MOV;
+        internal static Instruct MOV;
         internal Instruct CALL;
         internal Instruct ADD;
         internal Instruct PUSH;
         internal Instruct INC;
         internal Instruct POP;
         internal Instruct JMP;
-        internal Instruct CMP;
+        internal static Instruct CMP;
         internal Instruct CMPXCHG;
         internal Instruct AND;
         internal Instruct JA;

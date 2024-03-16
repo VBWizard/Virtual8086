@@ -118,11 +118,13 @@ namespace WindowsFormsApplication1
                     {
                         lblInactiveLED.BackColor = Color.LightGreen;
                         lblInactiveLED.ForeColor = Color.Black;
+                        lblInactiveLED.Text = "A";
                     }
                     else if (lblInactiveLED.BackColor != Color.Black)
                     {
-                        lblInactiveLED.ForeColor = Color.Orange;
-                        lblInactiveLED.BackColor = Color.Black;
+                        lblInactiveLED.ForeColor = Color.Green;
+                        lblInactiveLED.BackColor = Color.Orange;
+                        lblInactiveLED.Text = "a";
                     }
                     txtCR0.Text = mSystem.mProc.regs.CR0.ToString("X8");
                     txtCR2.Text = mSystem.mProc.regs.CR2.ToString("X8");
@@ -136,9 +138,9 @@ namespace WindowsFormsApplication1
                     txtIPS.Text = (mSystem.mProc.InstructionsExecuted / (DateTime.Now - mSystem.mProc.StartedAt).TotalSeconds).ToString("#,###");  //lIPS /= 1000;
                     txtTIE.Text = mSystem.mProc.InstructionsExecuted.ToString("#,###");
                     //txtTLBEntryCount.Text = mSystem.mProc.mTLB.mCurrEntries.ToString("#,###");
-                    txtTLBHits.Text = mSystem.mProc.mTLB.mHits.ToString("#,###");
-                    txtTLBMisses.Text = mSystem.mProc.mTLB.mMisses.ToString("#,###");
-                    txtTLBFlushes.Text = mSystem.mProc.mTLB.mFlushes.ToString("#,###");
+                    txtTLBHits.Text = cTLB.mHits.ToString("#,###");
+                    txtTLBMisses.Text = cTLB.mMisses.ToString("#,###");
+                    txtTLBFlushes.Text = cTLB.mFlushes.ToString("#,###");
                     //txtConsoleText.Text = Program.screen.ToString();
                     txtUpTime.Text = (System.DateTime.Now - mSystem.mProc.StartedAt).Days.ToString("00") + "   " + (System.DateTime.Now - mSystem.mProc.StartedAt).Hours.ToString("00") + ":" + (System.DateTime.Now - mSystem.mProc.StartedAt).Minutes.ToString("00") + ":" + (System.DateTime.Now - mSystem.mProc.StartedAt).Seconds.ToString("00");
                     lblCPUMode.Text = Processor_80x86.mCurrInstructOpMode.ToString().Substring(0, 1);
@@ -543,9 +545,9 @@ namespace WindowsFormsApplication1
             {
                 mMyInstructions = new VirtualProcessor.InstructionList<Instruct>();
                 Program.mSystem.mProc.InitInstructions(mMyInstructions);
-                ocl.AddOpCodesToInstructionList(ref mMyInstructions, ref Program.mSystem.mProc.OpCodeIndexer);
+                ocl.AddOpCodesToInstructionList(ref mMyInstructions, ref Processor_80x86.OpCodeIndexer);
                 mMyInstructions.FixupIndex(Program.mSystem.mProc);
-                mDecoder = new VirtualProcessor.Decoder(Program.mSystem.mProc, mMyInstructions, Program.mSystem.mProc.OpCodeIndexer, false, false);
+                mDecoder = new VirtualProcessor.Decoder(Program.mSystem.mProc, mMyInstructions, Processor_80x86.OpCodeIndexer, false, false);
             }
             lDecodeStartAddress = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.CS, mProc.regs.EIP);
 
@@ -560,7 +562,7 @@ namespace WindowsFormsApplication1
             for (int cnt = 0; cnt < ADDRESS_COUNT_TO_DECODE - 1; cnt++)
             {
                 lDecodeStartAddress = PhysicalMem.GetLocForSegOfs(mProc, lCS, lEIP);
-                mDecoder.mInstructionEIP = lEIP;
+                VirtualProcessor.Decoder.mInstructionEIP = lEIP;
                 mDecoder.mDecodeOffset = lDecodeStartAddress;
                 //Console.WriteLine("Decode @ " + mDecoder.mDecodeOffset.ToString("X8"));
                 
@@ -571,7 +573,7 @@ namespace WindowsFormsApplication1
                 }
                 catch (Exception exc)
                 { break; }
-                if (!mDecoder.mValidDecode)
+                if (!VirtualProcessor.Decoder.mValidDecode)
                     break;
                 s = lCurrInstruction.ToString(ref sIns);
                 if (cnt == 0)
@@ -585,7 +587,7 @@ namespace WindowsFormsApplication1
                 theIns = "";
                 ListViewItem lvi = new ListViewItem(lCS.ToString("X8") + ":" + lEIP.ToString("X8") + " ");
                 for (int cnt2 = 0; cnt2 < sIns.BytesUsed; cnt2++)
-                    theIns += sIns.bytes[cnt2].ToString("X2");
+                    theIns += sInstruction.bytes[cnt2].ToString("X2");
                 //Subitem 1
                 lvi.SubItems.Add(theIns);
                 //Subitem 2
@@ -723,7 +725,7 @@ namespace WindowsFormsApplication1
         private void cmdStepOver_Click(object sender, EventArgs e)
         {
             cmdBreak.Enabled = true;
-            mDecoder.mInstructionEIP = mProc.regs.EIP;
+            VirtualProcessor.Decoder.mInstructionEIP = mProc.regs.EIP;
             mDecoder.mDecodeOffset = PhysicalMem.GetLocForSegOfs(mProc, mProc.regs.CS.Value, mProc.regs.EIP); ;
             try
             {
@@ -744,6 +746,11 @@ namespace WindowsFormsApplication1
         {
             frMemDisplay = new frmMemDisplay();
             frMemDisplay.Show();
+        }
+
+        private void cmdResetIPS_Click(object sender, EventArgs e)
+        {
+            mSystem.mProc.StartedAt = DateTime.Now;
         }
 
         private void lbInstructions_DoubleClick(object sender, EventArgs e)
@@ -797,7 +804,7 @@ namespace WindowsFormsApplication1
                         lbInstructions.Items[cnt].BackColor = Color.LightBlue;
                         lbInstructions.Items[cnt].EnsureVisible();
                         lDecodeStartAddress = PhysicalMem.GetLocForSegOfs(Program.mSystem.mProc, Program.mSystem.mProc.regs.CS.Value, Program.mSystem.mProc.regs.EIP);
-                        mDecoder.mInstructionEIP = Program.mSystem.mProc.regs.EIP;
+                        VirtualProcessor.Decoder.mInstructionEIP = Program.mSystem.mProc.regs.EIP;
                         mDecoder.mDecodeOffset = lDecodeStartAddress;
                         //Console.WriteLine("Decode @ " + mDecoder.mDecodeOffset.ToString("X8"));
                         try {
@@ -806,7 +813,7 @@ namespace WindowsFormsApplication1
                         catch (Exception exc)
                         { break; }
                         string s = mCurrInstruction.ToString();
-                        if (!mDecoder.mValidDecode)
+                        if (!VirtualProcessor.Decoder.mValidDecode)
                             break;
 
                         if (sIns.Operand1IsRef)
@@ -963,8 +970,9 @@ namespace WindowsFormsApplication1
             mSystem.DeviceBlock.mPIT.mPICTimers[0].Stop();
             mSystem.mProc.mSingleStep = true;
             Processor_80x86.CEAStartDebugging d = new Processor_80x86.CEAStartDebugging(mSystem.mProc);
-             mSystem.mProc.OnStartDebugging(d);
-             //mSystem.mProc.SingleStepEvent += HandleSingleStepEvent;
+            Program.mSystem.mProc.StartDebugging += Program.HandleStartDebugging;
+            mSystem.mProc.OnStartDebugging(d);
+            mSystem.mProc.SingleStepEvent += HandleSingleStepEvent;
              mSystem.mProc.mSingleStep = true;
         }
     }

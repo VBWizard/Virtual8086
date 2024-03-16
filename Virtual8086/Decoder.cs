@@ -20,6 +20,7 @@ namespace VirtualProcessor
 
     public struct sInstruction
     {
+        Processor_80x86 mProc;
         public UInt32 testVal;
         public char BytesUsed;
         public char BranchHint;
@@ -40,7 +41,7 @@ namespace VirtualProcessor
         public UInt32 InstructionEIP;
         public Instruct mChosenInstruction;
         public sOpCode ChosenOpCode;
-        public byte[] bytes;
+        public static byte[] bytes;
         public string Operand1SValue, Operand2SValue, Operand3SValue, CombinedSValue;
         public bool Operand1IsRef, Operand2IsRef, Operand3IsRef;
         public TypeCode Op1TypeCode, Op2TypeCode, Op3TypeCode;
@@ -56,8 +57,9 @@ namespace VirtualProcessor
         public bool Op1Populated, Op2Populated, Op3Populated;
         public sOperand Op1Operand, Op2Operand, Op3Operand;
 
-        public void Init()
+        public void Init(Processor_80x86 proc)
         {
+            mProc = proc;
             RealOpCode = 0;
             OpCode = 0;
             OverrideSegment = 0;
@@ -106,33 +108,33 @@ namespace VirtualProcessor
         #region Variables
         public UInt32 mDecodeOffset;
         private eGeneralRegister mTempEffReg1, mTempEffReg2, mTemp_MODRM_MODFieldRegister, mTemp_MODRM_REGFieldRegister, mOverrideSegment;
-        public UInt32 mDisplacement32, mImmediate, mSIBDisplacement;
-        public UInt16 mDisplacement16;
-        public byte mDisplacement8;
-        public byte mTempSIBMultiplier;
+        public static UInt32 mDisplacement32, mImmediate, mSIBDisplacement;
+        public static UInt16 mDisplacement16;
+        public static byte mDisplacement8;
+        public static byte mTempSIBMultiplier;
         private readonly InstructionList<Instruct> mIList;
         //private Instruct mChosenInstruction;
-        private bool mOpFound, mProcessor_OpSize16, mProcessor_AddrSize16, mOrigProcessor_OpSize16, mOrigProcessor_AddrSize16,
+        private static bool mOpFound, mProcessor_OpSize16, mProcessor_AddrSize16, mOrigProcessor_OpSize16, mOrigProcessor_AddrSize16,
             mHasDisp8, mHasDisp16, mHasDisp32, mDispIsNegative, mHasMODRMEffective, mFPUInstructRequiresModRM, mProcessor_ProtectedModeActive;
         private readonly Processor_80x86 mProc;
-        private UInt32 mInitialDecodeOffset;
-        private byte mTempPrefixByte;
-        private bool mTempPrefixByteUsed;
+        private static UInt32 mInitialDecodeOffset;
+        private static byte mTempPrefixByte;
+        private static bool mTempPrefixByteUsed;
         /// <summary>
         /// Indicates whether the CS:EIP of the processor should be used.  If false then the mDecodeOffset must be set manually before Decode() is called.
         /// </summary>
-        private bool mUseProcessorCS_IP = false;
+        private static bool mUseProcessorCS_IP = false;
         /// <summary>
         /// Indicates whether exceptions should be triggered by this Decoder instance.  If false then mValidDecode will be set to False whenever an exception would have been triggered
         /// </summary>
-        private bool mTriggerExceptions = true;
+        private static bool mTriggerExceptions = true;
         /// <summary>
         /// Indicates whether the instruction returned by Decode() is valid or not.  Only used if TriggerExceptions=false
         /// </summary>
-        public bool mValidDecode;
+        public static bool mValidDecode;
         UInt64 cnt;
-        public UInt32 mInstructionEIP;
-        byte mNextByte;
+        public static UInt32 mInstructionEIP;
+        static byte mNextByte;
         #endregion
 
         public Decoder(Processor_80x86 Proc, InstructionList<Instruct> IList, sOpCodePointer[] OpcodeIndexer, bool UseProcessorCS_IP, bool TriggerExceptions)
@@ -176,7 +178,7 @@ namespace VirtualProcessor
             mProcessor_AddrSize16 = mOrigProcessor_AddrSize16;
             mProcessor_ProtectedModeActive = Processor_80x86.mProtectedModeActive;
             //mInstruction = new sInstruction();
-            mInstruction.Init();
+            mInstruction.Init(mProc);
             mInstruction.mInstructionStatus = eProcessorStatus.Decoding;
 
             mOverrideSegment = eGeneralRegister.DS;
@@ -208,7 +210,7 @@ namespace VirtualProcessor
             while (lPrefixFound)
             {
                 lPrefixFound = false;
-                mTempPrefixByte = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+                mTempPrefixByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
                 mTempPrefixByteUsed = false;
                 switch (mTempPrefixByte)
                 {
@@ -272,7 +274,7 @@ namespace VirtualProcessor
             #region Opcode Processing
             //Get the OpCode
             if (mTempPrefixByteUsed)
-                mInstruction.OpCode = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+                mInstruction.OpCode = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
             else
             {
                 mInstruction.OpCode = mTempPrefixByte;
@@ -284,7 +286,7 @@ namespace VirtualProcessor
 
             if ((mInstruction.OpCode == 0x0F) || (mInstruction.OpCode >= 0xD8 && mInstruction.OpCode <= 0xDF))
             {
-                mNextByte = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+                mNextByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
                 if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                 //FPU instructions that have a MODRM > 0xBF use the MODRM as the 2nd byte of the instruction, which consumes the byte
                 //All other FPU instructions use bits 5,4,3 as an extension to the instruction, and do NOT consume the byte (which will later be used as the Mod/RM)
@@ -334,7 +336,7 @@ namespace VirtualProcessor
                         mInstruction.OpCode = 0xAE;
                     else if (mInstruction.OpCode == 0x0f01)
                         mInstruction.OpCode = 0xAF;
-                    mInstruction.OpCode = (mInstruction.OpCode << 8) | (byte)((mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset) >> 3) & 0x07);
+                    mInstruction.OpCode = (mInstruction.OpCode << 8) | (byte)((PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset) >> 3) & 0x07);
                     if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                     break;
             }
@@ -362,20 +364,10 @@ namespace VirtualProcessor
                 return;
                 //throw new Exception("Unable to find instruction   OpCode " + mInstruction.OpCode.ToString("x") + " at CS:EIP " + mProc.regs.CS.Value.ToString("X8") + ":" + mProc.regs.EIP.ToString("X8"));
             }
-            mInstruction.ChosenOpCode = mProc.OpCodeIndexer[mInstruction.OpCode].OpCode;
+            mInstruction.ChosenOpCode = Processor_80x86.OpCodeIndexer[mInstruction.OpCode].OpCode;
             mOpFound = true;
             if (mInstruction.ChosenOpCode.OpCode == 0xFFFF)
                 mOpFound = false;
-            //for (int c = 0; c < mChosenInstruction.mOpCodes.Count; c++)
-            //{
-            //    mChosenOpCode = mChosenInstruction.mOpCodes[c];
-            //    if (mChosenOpCode.OpCode == mInstruction.OpCode)
-            //    {
-            //        mChosenInstruction.ChosenOpCode = mChosenOpCode;
-            //        mOpFound = true;
-            //        break;
-            //    }
-            //}
 
             if (!mOpFound)
                 throw new Exception("Could not find correct version of instruction for OpCode: " + mInstruction.OpCode.ToString("x"));
@@ -415,11 +407,11 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op1OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
                             case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
+                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
                                 else
                                 { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
                                 break;
@@ -497,11 +489,11 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op1OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
                             case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
+                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
                                 else
                                 { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
                                 break;
@@ -627,11 +619,11 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op2OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
                             case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
+                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
                                 else
                                 { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
                                 break;
@@ -706,11 +698,11 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op2OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
                             case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
+                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
                                 else
                                 { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
                                 break;
@@ -830,11 +822,11 @@ namespace VirtualProcessor
                     #region Get byte(s) immediately following the instruction
                     switch (mInstruction.ChosenOpCode.Op3OT)
                     {
-                        case sOpCodeOperandType.Byte: mInstruction.Op3.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; break;
+                        case sOpCodeOperandType.Byte: mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; break;
                         case sOpCodeOperandType.Word: mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; break;
                         case sOpCodeOperandType.ByteOrWord:
                             if (mProcessor_OpSize16)
-                            { mInstruction.Op3.Imm8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; }
+                            { mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; }
                             else
                             { mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; }
                             break;
@@ -859,9 +851,9 @@ namespace VirtualProcessor
             //All done, return the result!
             mInstruction.BytesUsed = (char)(mDecodeOffset - mInitialDecodeOffset);
 #if DEBUG
-            mInstruction.bytes = new byte[/*16*/mInstruction.BytesUsed];
+            sInstruction.bytes = new byte[/*16*/mInstruction.BytesUsed];
             for (cnt = mInitialDecodeOffset; cnt < mDecodeOffset/*16*/; cnt++)
-                mInstruction.bytes[cnt - mInitialDecodeOffset] = mProc.mem.GetByte(mProc, ref mInstruction, (uint)cnt);
+                sInstruction.bytes[cnt - mInitialDecodeOffset] = PhysicalMem.GetByte(mProc, ref mInstruction, (uint)cnt);
 #endif
             //System.Diagnostics.Debug.WriteLine("");
             mInstruction.InstructionOpSize16 = !mInstruction.OpSizePrefixFound;
@@ -880,7 +872,7 @@ namespace VirtualProcessor
                     return;
             if ((Misc.ModRMRequired(lRealOpCode, mInstruction.IsTwoByteOpCode) > 0) || mFPUInstructRequiresModRM)
             {
-                mInstruction.ModRegRM = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+                mInstruction.ModRegRM = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
                 mInstruction.ModRegRM_Mod = (byte)(mInstruction.ModRegRM >> 6);
                 mInstruction.ModRegRM_Reg = (byte)((mInstruction.ModRegRM >> 3) & 0x07);
                 mInstruction.ModRegRM_RM = (byte)(mInstruction.ModRegRM & 0x07);
@@ -924,7 +916,7 @@ namespace VirtualProcessor
                     case 0x01:
                         mHasMODRMEffective = true;
                         mOverrideSegment = eGeneralRegister.DS;
-                        mDisplacement8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
+                        mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
                         if (Misc.IsNegative(mDisplacement8))
                         {
                             mDisplacement8 = Misc.Negate(mDisplacement8);
@@ -1045,12 +1037,12 @@ namespace VirtualProcessor
             if (!mHasDisp32)
                 switch (mInstruction.ModRegRM_Mod)
                 {
-                    /*case 1: mDisplacement16 = (UInt16)(Misc.SignExtend(mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++)));
+                    /*case 1: mDisplacement16 = (UInt16)(Misc.SignExtend(PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++)));
                         mInstruction.BytesUsed++;
                         mHasDisp16 = true;
                         //mOverrideSegment = eGeneralRegister.SS;
                         break;*/
-                    case 1: mDisplacement8 = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
+                    case 1: mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
                         if ((mDisplacement8 & 0x80) == 0x80)
                         {
                             mDisplacement8 = Misc.Negate(mDisplacement8);
@@ -1089,7 +1081,7 @@ namespace VirtualProcessor
 
         private void PreProcessSIB(ref sInstruction mInstruction)
         {
-            mInstruction.SIB = mProc.mem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+            mInstruction.SIB = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
             mInstruction.Scale = (byte)(mInstruction.SIB >> 6);
             mInstruction.Index = (byte)(((mInstruction.SIB >> 3) & 0x07));
             mInstruction.Base = (byte)(mInstruction.SIB & 0x07);

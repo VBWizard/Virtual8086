@@ -143,6 +143,7 @@ namespace VirtualProcessor
         //Redhat = 32
         public static string GetLinuxCurrentTaskName(PCSystem mSystem)
         {
+            return String.Empty;
             bool lNameFound = false;
 
             if (mSystem.OSType != eOpSysType.Linux)

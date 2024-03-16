@@ -190,7 +190,7 @@ namespace VirtualProcessor
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            if (CurrentDecode.bytes.Length > 1)
+            if (sInstruction.bytes.Length > 1)
                 mProc.regs.AH = (byte)(mProc.regs.AL / CurrentDecode.Op1Value.OpByte);
             else
                 mProc.regs.AH = (byte)(mProc.regs.AL / 10);
@@ -793,7 +793,7 @@ namespace VirtualProcessor
             }
             else
             {
-                lTheByte = mProc.mem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
+                lTheByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
                 mProc.regs.setFlagCF(BT.TestBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8)));
             }
 
@@ -838,7 +838,7 @@ namespace VirtualProcessor
             }
             else
             {
-                lTheByte = mProc.mem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
+                lTheByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
                 if (BT.TestBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8)))
                 {
                     mProc.regs.setFlagCF(true);
@@ -889,7 +889,7 @@ namespace VirtualProcessor
             }
             else
             {
-                lTheByte = mProc.mem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
+                lTheByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
                 mProc.regs.setFlagCF(BT.TestBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8)));
                 lTheByte = Misc.setBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8), false);
                 mProc.mem.SetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8), lTheByte);
@@ -930,7 +930,7 @@ namespace VirtualProcessor
             }
             else
             {
-                lTheByte = mProc.mem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
+                lTheByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8));
                 mProc.regs.setFlagCF(BT.TestBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8)));
                 lTheByte = Misc.setBit(lTheByte, (int)(CurrentDecode.Op2Value.OpDWord % 8), true);
                 mProc.mem.SetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add + (CurrentDecode.Op2Value.OpDWord / 8), lTheByte);
@@ -1491,7 +1491,7 @@ break;
             }
             if (lExecuteMove)
             {
-                mProc.MOV.Impl(ref CurrentDecode);
+                Processor_80x86.MOV.Impl(ref CurrentDecode);
     
             }
         }
@@ -1587,9 +1587,9 @@ break;
 
             do
             {
-                Value1.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, lSource);
+                Value1.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, lSource);
                 if (CurrentDecode.ExceptionThrown) { return; }
-                Value2.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, lDest);
+                Value2.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, lDest);
                 if (CurrentDecode.ExceptionThrown) { return; }
                 sOpVal lPreVal1 = Value1;
 
@@ -1676,13 +1676,13 @@ break;
                 lLoopCounter -= 1;
                 SetFlagsForSubtraction(mProc, lPreVal1, Value2, Value1, TypeCode.UInt16);
                 mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpWord, Value1.OpWord, Value2.OpWord);
-                MOVSW.IncDec(mProc, ref lDest, ref lSource, mProc.mCurrInstructAddrSize16, 2, true, true, true, false);
-                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_NOT_ZERO && mProc.regs.FLAGSB.ZF == true)
+                MOVSW.IncDec(mProc, ref lDest, ref lSource, mProc.mCurrInstructAddrSize16, 2,true, true, true, false);
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_NOT_ZERO && mProc.regs.FLAGSB.ZF)
                 {
                     mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                     break;
                 }
-                else if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_ZERO && mProc.regs.FLAGSB.ZF == false)
+                else if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_ZERO && !mProc.regs.FLAGSB.ZF)
                 {
                     mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                     break;
@@ -1823,13 +1823,13 @@ break;
                         UInt64 lValue = (mProc.regs.EDX << 32) | mProc.regs.EAX;
                         if (lValue == CurrentDecode.Op2Value.OpQWord)
                         {
+                            mProc.regs.setFlagZF(true);
                             UInt64 lValue2 = (mProc.regs.ECX << 32) | mProc.regs.EBX;
-                            mProc.regs.setFlagZF(false);
                             mProc.mem.SetQWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lValue);
                         }
                         else
                         {
-                            mProc.regs.setFlagZF(true);
+                            mProc.regs.setFlagZF(false);
                             mProc.regs.EDX = (DWord)(CurrentDecode.Op1Value.OpQWord >> 32);
                             mProc.regs.EAX = CurrentDecode.Op1Value.OpDWord;
                         }
@@ -2161,6 +2161,9 @@ break;
                     CurrentDecode.Op2Value.OpByte = 0xff;
                     mProc.regs.setFlagSF(lOp1Value.OpByte);
                     mProc.regs.setFlagOF_Sub(lOp1Value.OpByte, CurrentDecode.Op2Value.OpByte, CurrentDecode.Op1Value.OpByte);
+                    mProc.regs.setFlagZF(lOp1Value.OpByte);
+                    mProc.regs.setFlagAF(lPreVal1.OpByte, lOp1Value.OpByte);
+                    mProc.regs.setFlagPF(lOp1Value.OpByte);
                     break;
                 case TypeCode.UInt16:
                     lOp1Value.OpWord--;
@@ -2168,6 +2171,9 @@ break;
                     CurrentDecode.Op2Value.OpWord = 0xffff;
                     mProc.regs.setFlagSF(lOp1Value.OpWord);
                     mProc.regs.setFlagOF_Sub(lOp1Value.OpWord, CurrentDecode.Op2Value.OpWord, CurrentDecode.Op1Value.OpWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpWord);
+                    mProc.regs.setFlagAF(lPreVal1.OpWord, lOp1Value.OpWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpWord);
                     break;
                 case TypeCode.UInt32:
                     lOp1Value.OpDWord--;
@@ -2175,6 +2181,9 @@ break;
                     CurrentDecode.Op2Value.OpDWord = 0xffffffff;
                     mProc.regs.setFlagSF(lOp1Value.OpDWord);
                     mProc.regs.setFlagOF_Sub(lOp1Value.OpDWord, CurrentDecode.Op2Value.OpDWord, CurrentDecode.Op1Value.OpDWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpDWord);
+                    mProc.regs.setFlagAF(lPreVal1.OpDWord, lOp1Value.OpDWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpDWord);
                     break;
                 case TypeCode.UInt64:
                     lOp1Value.OpQWord--;
@@ -2182,14 +2191,11 @@ break;
                     CurrentDecode.Op2Value.OpQWord = 0xffffffffffffffff;
                     mProc.regs.setFlagSF(lOp1Value.OpQWord);
                     mProc.regs.setFlagOF_Sub(lOp1Value.OpQWord, CurrentDecode.Op2Value.OpQWord, CurrentDecode.Op1Value.OpQWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpQWord);
+                    mProc.regs.setFlagAF(lPreVal1.OpQWord, lOp1Value.OpQWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpQWord);
                     break;
             }
-            //Put the value back in Dest's referenced location
-
-            //            SetFlagsForSubtraction(mProc, lPreVal1, Op2Value, lOp1Value, Op1TypeCode, false, true);
-            mProc.regs.setFlagZF(lOp1Value.OpQWord);
-            mProc.regs.setFlagAF(lPreVal1.OpQWord, lOp1Value.OpQWord);
-            mProc.regs.setFlagPF(lOp1Value.OpQWord);
             #region Instructions
             /*
                 Description
@@ -4539,7 +4545,7 @@ break;
             }
             else
             {
-                mProc.mTLB.InvalidatePage(mProc, lMemAddr);
+                cTLB.InvalidatePage(mProc, lMemAddr);
             }
 
         }
@@ -4573,6 +4579,9 @@ break;
                     CurrentDecode.Op2Value.OpByte = 0x1;
                     mProc.regs.setFlagSF(lOp1Value.OpByte);
                     mProc.regs.setFlagOF_Add(lOp1Value.OpByte, CurrentDecode.Op2Value.OpByte, CurrentDecode.Op1Value.OpByte);
+                    mProc.regs.setFlagZF(lOp1Value.OpByte);
+                    mProc.regs.setFlagAF(lOp1Value.OpByte, lPreVal1.OpByte);
+                    mProc.regs.setFlagPF(lOp1Value.OpByte);
                     break;
                 case TypeCode.UInt16:
                     lOp1Value.OpWord++;
@@ -4580,6 +4589,9 @@ break;
                     CurrentDecode.Op2Value.OpWord = 0x1;
                     mProc.regs.setFlagSF(lOp1Value.OpWord);
                     mProc.regs.setFlagOF_Add(lOp1Value.OpWord, CurrentDecode.Op2Value.OpWord, CurrentDecode.Op1Value.OpWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpWord);
+                    mProc.regs.setFlagAF(lOp1Value.OpWord, lPreVal1.OpWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpWord);
                     break;
                 case TypeCode.UInt32:
                     lOp1Value.OpDWord++;
@@ -4587,6 +4599,9 @@ break;
                     CurrentDecode.Op2Value.OpDWord = 0x1;
                     mProc.regs.setFlagSF(lOp1Value.OpDWord);
                     mProc.regs.setFlagOF_Add(lOp1Value.OpDWord, CurrentDecode.Op2Value.OpDWord, CurrentDecode.Op1Value.OpDWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpDWord);
+                    mProc.regs.setFlagAF(lOp1Value.OpDWord, lPreVal1.OpDWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpDWord);
                     break;
                 case TypeCode.UInt64:
                     lOp1Value.OpQWord++;
@@ -4594,12 +4609,11 @@ break;
                     CurrentDecode.Op2Value.OpQWord = 0x1;
                     mProc.regs.setFlagSF(lOp1Value.OpQWord);
                     mProc.regs.setFlagOF_Add(lOp1Value.OpQWord, CurrentDecode.Op2Value.OpQWord, CurrentDecode.Op1Value.OpQWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpQWord);
+                    mProc.regs.setFlagAF(lOp1Value.OpQWord, lPreVal1.OpQWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpQWord);
                     break;
             }
-            //            SetFlagsForAddition(mProc, lPreVal1, CurrentDecode.Op2Value, lOp1Value, lOp1Value, CurrentDecode.Op1TypeCode);
-            mProc.regs.setFlagZF(lOp1Value.OpQWord);
-            mProc.regs.setFlagAF(lOp1Value.OpQWord, lPreVal1.OpQWord);
-            mProc.regs.setFlagPF(lOp1Value.OpQWord);
 
         }
     }
@@ -6713,7 +6727,7 @@ break;
             {
                 mProc.regs.GDTR.Parse(mProc, CurrentDecode.Op1Value.OpQWord);
                 if (Processor_80x86.mCurrInstructOpMode != ProcessorMode.Real)
-                    mProc.regs.GDTR.mBase = mProc.mem.PagedMemoryAddress(mProc, ref CurrentDecode, mProc.regs.GDTR.Base, false);
+                    mProc.regs.GDTR.mBase = PhysicalMem.PagedMemoryAddress(mProc, ref CurrentDecode, mProc.regs.GDTR.Base, false);
                 if (CurrentDecode.ExceptionThrown)
                     return;
             }
@@ -6745,7 +6759,7 @@ break;
             {
                 mProc.regs.IDTR.Parse(mProc, CurrentDecode.Op1Value.OpQWord);
                 if (Processor_80x86.mCurrInstructOpMode != ProcessorMode.Real)
-                    mProc.regs.IDTR.mBase = mProc.mem.PagedMemoryAddress(mProc, ref CurrentDecode, mProc.regs.IDTR.Base, false);
+                    mProc.regs.IDTR.mBase = PhysicalMem.PagedMemoryAddress(mProc, ref CurrentDecode, mProc.regs.IDTR.Base, false);
                 if (CurrentDecode.ExceptionThrown)
                     return;
             }
@@ -6775,7 +6789,7 @@ break;
         {
             mProc.regs.LDTR.mBase = mProc.mGDTCache[mProc.regs.LDTR.mSegSel >> 3].Base;
             if (Processor_80x86.mCurrInstructOpMode != ProcessorMode.Real && mProc.regs.LDTR.mSegSel != 0x0)
-                mProc.regs.LDTR.mBase = mProc.mem.PagedMemoryAddress(mProc, ref sIns, mProc.regs.LDTR.Base, false);
+                mProc.regs.LDTR.mBase = PhysicalMem.PagedMemoryAddress(mProc, ref sIns, mProc.regs.LDTR.Base, false);
             if (sIns.ExceptionThrown)
                 return;
             mProc.regs.LDTR.mLimit = mProc.mGDTCache[mProc.regs.LDTR.mSegSel >> 3].Limit;
@@ -6846,7 +6860,7 @@ break;
             MOVSW.SetupMOVSSrcDest(mProc, ref lSource, ref lJunk, mProc.mCurrInstructAddrSize16);
             do
             {
-                mProc.regs.AL = mProc.mem.GetByte(mProc, ref CurrentDecode, lSource);
+                mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, lSource);
                 if (CurrentDecode.ExceptionThrown)
                 { return; }
                 MOVSW.IncDec(mProc, ref lJunk, ref lSource, mProc.mCurrInstructAddrSize16, 1, true, false, true, false);
@@ -7300,8 +7314,8 @@ break;
             do
             {
                 //8/28/10 - Per Intel, DS can be overwritten, ES cannot, changing for this reason
-                mProc.mem.SetByte(mProc, ref CurrentDecode, lDest, mProc.mem.GetByte(mProc, ref CurrentDecode, lSource));
-                //mProc.mCurrentInstruction.mName += mProc.mem.GetByte(mProc, ref DecodedInstruction, lSource).ToString("X2") + ", ";
+                mProc.mem.SetByte(mProc, ref CurrentDecode, lDest, PhysicalMem.GetByte(mProc, ref CurrentDecode, lSource));
+                //mProc.mCurrentInstruction.mName += PhysicalMem.GetByte(mProc, ref DecodedInstruction, lSource).ToString("X2") + ", ";
                 if (CurrentDecode.ExceptionThrown)
                 { return; }
                 MOVSW.IncDec(mProc, ref lDest, ref lSource, mProc.mCurrInstructAddrSize16, 1, true, true, true, false);
@@ -7458,26 +7472,33 @@ break;
         }
         public static void SetupMOVSSrcDest(Processor_80x86 mProc, ref DWord Source, ref DWord Dest, bool AddrSize16)
         {
-            if (mProc.mSegmentOverride == Processor_80x86.RSS)
-                if (AddrSize16)
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.SI);
-                else
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.ESI);
-            else if (mProc.mSegmentOverride == Processor_80x86.RES)
-                if (AddrSize16)
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.SI);
-                else
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.ESI);
-            else if (mProc.mSegmentOverride == Processor_80x86.RCS)
-                if (AddrSize16)
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.CS, mProc.regs.SI);
-                else
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.CS, mProc.regs.ESI);
-            else
-                if (AddrSize16)
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.SI);
-                else
-                    Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.ESI);
+            switch (mProc.mSegmentOverride)
+            {
+                case Processor_80x86.RSS:
+                    if (AddrSize16)
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.SI);
+                    else
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.ESI);
+                    break;
+                case Processor_80x86.RES:
+                    if (AddrSize16)
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.SI);
+                    else
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.ESI);
+                    break;
+                case Processor_80x86.RCS:
+                    if (AddrSize16)
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.CS, mProc.regs.SI);
+                    else
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.CS, mProc.regs.ESI);
+                    break;
+                default:
+                    if (AddrSize16)
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.SI);
+                    else
+                        Source = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.ESI);
+                    break;
+            }
             if (AddrSize16)
                 Dest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI);
             else
@@ -7993,7 +8014,7 @@ break;
 
                 if (CurrentDecode.RealOpCode == 0x6e)
                 {
-                    mProc.ports.Out(CurrentDecode.Op1Value.OpByte, mProc.mem.GetByte(mProc, ref CurrentDecode, lSource), TypeCode.Byte);
+                    mProc.ports.Out(CurrentDecode.Op1Value.OpByte, PhysicalMem.GetByte(mProc, ref CurrentDecode, lSource), TypeCode.Byte);
                     if (CurrentDecode.ExceptionThrown)
                     { return; }
                     MOVSW.IncDec(mProc, ref lJunk, ref lSource, mProc.mCurrInstructAddrSize16, 1, true, false, false, false);
@@ -9342,9 +9363,9 @@ break;
                 return;
             }
             if (mProc.mCurrInstructAddrSize16)
-                lSource.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI));
+                lSource.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI));
             else
-                lSource.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI));
+                lSource.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI));
             if (CurrentDecode.ExceptionThrown)
             { return; }
             lAL.OpQWord = lPreVal1.OpQWord;
@@ -10483,8 +10504,6 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-//            if (mProc.regs.EIP == 0x0000026B)
-//                System.Diagnostics.Debugger.Break();
             //capture value pre-operation
             sOpVal lPreVal1 = CurrentDecode.Op1Value, lOp1Value = CurrentDecode.Op1Value;
             //08/28/2010 - Changed to use SignExtendOp
@@ -10494,26 +10513,32 @@ break;
                 case TypeCode.Byte:
                     lOp1Value.OpByte &= CurrentDecode.Op2Value.OpByte;
                     mProc.regs.setFlagSF(lOp1Value.OpByte);
+                    mProc.regs.setFlagPF(lOp1Value.OpByte);
+                    mProc.regs.setFlagZF(lOp1Value.OpByte);
                     break;
                 case TypeCode.UInt16:
                     lOp1Value.OpWord &= CurrentDecode.Op2Value.OpWord;
                     mProc.regs.setFlagSF(lOp1Value.OpWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpWord);
                     break;
                 case TypeCode.UInt32:
                     lOp1Value.OpDWord &= CurrentDecode.Op2Value.OpDWord;
                     mProc.regs.setFlagSF(lOp1Value.OpDWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpDWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpDWord);
                     break;
                 case TypeCode.UInt64:
                     lOp1Value.OpQWord &= CurrentDecode.Op2Value.OpQWord;
                     mProc.regs.setFlagSF(lOp1Value.OpQWord);
+                    mProc.regs.setFlagPF(lOp1Value.OpQWord);
+                    mProc.regs.setFlagZF(lOp1Value.OpQWord);
                     break;
             }
 
             //Set the flags
             mProc.regs.setFlagCF(false);
             mProc.regs.setFlagOF(false);
-            mProc.regs.setFlagPF(lOp1Value.OpQWord);
-            mProc.regs.setFlagZF(lOp1Value.OpQWord);
             //AF flag undefined
             #region Instructions
             #endregion
@@ -10673,7 +10698,7 @@ break;
                 lTemp = (UInt16)(mProc.regs.EBX + mProc.regs.AL);
 
             UInt32 loc = GetSegOverriddenAddress(mProc, lTemp);
-            mProc.regs.AL = mProc.mem.GetByte(mProc, ref CurrentDecode, loc);
+            mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, loc);
 
             #region Instructions
             #endregion
@@ -10698,7 +10723,7 @@ break;
         public override void Impl(ref sInstruction CurrentDecode)
         {
             UInt32 TableBase = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.BX);
-            mProc.regs.AL = mProc.mem.GetByte(mProc, ref CurrentDecode, TableBase + mProc.regs.AL);
+            mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, TableBase + mProc.regs.AL);
 
             throw new Exception("Partially implemented!");
             #region Instructions

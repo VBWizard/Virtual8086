@@ -243,8 +243,8 @@ namespace WindowsFormsApplication1
 
             while (1 == 1)
             {
-                Thread.Sleep(50);
-                lBPage = 0;  //mSystem.mProc.mem.GetByte(sender, 0x400 + 0x62);
+                Thread.Sleep(10);
+                lBPage = 0;  //mSystem.PhysicalMem.GetByte(sender, 0x400 + 0x62);
                 while (mSystem.DeviceBlock == null)
                 { }
                 try { lBSOffset = ((mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xC] << 8) | mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xD]) * 2; }// = mSystem.mProc.mem.GetWord(sender, 0x400 + 0x4e);
@@ -307,7 +307,7 @@ namespace WindowsFormsApplication1
                 }
                 if (mExitMainDisplayThread)
                     return;
-                try
+                /*try
                 {
                     if (bShowTheCursor)
                     {
@@ -326,13 +326,13 @@ namespace WindowsFormsApplication1
                         }
                         
                         
-                        //lBCursorX = PhysicalMem.mMemBytes[(UInt32)(0x450)]; // mSystem.mProc.mem.GetByte(sender, 0x400 + 0x50);
-                        //lBCursorY = PhysicalMem.mMemBytes[(UInt32)(0x451)]; // mSystem.mProc.mem.GetByte(sender, 0x400 + 0x51);
+                        lBCursorX = PhysicalMem.mMemBytes[(UInt32)(0x450)]; // mSystem.PhysicalMem.GetByte(sender, 0x400 + 0x50);
+                        lBCursorY = PhysicalMem.mMemBytes[(UInt32)(0x451)]; // mSystem.PhysicalMem.GetByte(sender, 0x400 + 0x51);
                         //try { Console.SetCursorPosition(lBCursorX, lBCursorY); }
                         //catch { }
                     }
                 }
-                catch { }
+                catch { }*/
                 //Application.DoEvents();
             }
         }
@@ -402,7 +402,7 @@ namespace WindowsFormsApplication1
                 lKeyScan = "C";
             //else if (lKeyScan == "OEM3")
             //{
-            //    mSystem.mProc.mem.SetByte(0x417, (byte)(mSystem.mProc.mem.GetByte(0x417) | 0x04));
+            //    mSystem.mProc.mem.SetByte(0x417, (byte)(mSystem.PhysicalMem.GetByte(0x417) | 0x04));
             //    lKeyScan = "C";
             //}
             else if (lKeyScan == "F9")
@@ -625,9 +625,9 @@ namespace WindowsFormsApplication1
             //m.Append(cValue.createCount);
             m.Append("\n\rInstruction cache hits: " + mSystem.mProc.mCacheHits);
             m.Append("\n\rInstruction cache misses: " + mSystem.mProc.mCacheMisses);
-            m.Append("\n\rTLB Hits: " + mSystem.mProc.mTLB.mHits);
-            m.Append("\n\rTLB Misses: " + mSystem.mProc.mTLB.mMisses);
-            m.Append("\n\rTLB Flushes: " + mSystem.mProc.mTLB.mFlushes);
+            m.Append("\n\rTLB Hits: " + cTLB.mHits);
+            m.Append("\n\rTLB Misses: " + cTLB.mMisses);
+            m.Append("\n\rTLB Flushes: " + cTLB.mFlushes);
             m.Append("\n\rGDT Cache Resets: " + mSystem.mProc.GDTCacheResetsExecuted + " (" + mSystem.mProc.TimeInGDTRefresh.ToString() + ")\n\r");
             //m.Append("\n\rTime in timed section: " + mSystem.mProc.mMSinTimedSection + "\n\r");
             int mLength = PhysicalMem.mMemBytes.Length;
@@ -683,9 +683,9 @@ namespace WindowsFormsApplication1
             m.Append("\n\r\n\rInstructions: \n\r");
 
             Instruct i;
-            for (uint cnt=0;cnt<mSystem.mProc.Instructions.Count;cnt++)
+            for (uint cnt=0;cnt< Processor_80x86.Instructions.Count;cnt++)
             {
-                i = mSystem.mProc.Instructions[cnt];
+                i = Processor_80x86.Instructions[cnt];
                 if (i != null)
                 {
                     m.AppendFormat("\t{0}\t{1}\t{2}\t", i.Name, i.UsageCount, System.Math.Round(i.TotalTimeInInstruct, 3));
@@ -716,7 +716,7 @@ namespace WindowsFormsApplication1
             try
             {
                 for (UInt32 cnt1 = 0; cnt1 < 40; cnt1++)
-                    m.AppendFormat("{0} ", mProc.mem.GetByte(mSystem.mProc, ref sIns, (UInt32)(mProc.sCurrentDecode.InstructionAddress + cnt1)).ToString("X2"));
+                    m.AppendFormat("{0} ", PhysicalMem.GetByte(mSystem.mProc, ref sIns, (UInt32)(mProc.sCurrentDecode.InstructionAddress + cnt1)).ToString("X2"));
                 m.AppendFormat("\n\r\n\r");
             }
             catch { m.AppendFormat("\n\r\n\r"); }
@@ -928,7 +928,7 @@ namespace WindowsFormsApplication1
                 else
                     lOutput.AppendFormat("\ndest = {0}", proc.sCurrentDecode.Op1Add.ToString("x").PadLeft(8, '0').ToUpper());
 
-                try { lOutput.AppendFormat(" >{0}<", proc.mem.PagedMemoryAddress(proc, ref proc.sCurrentDecode, proc.sCurrentDecode.Op1Add, false).ToString("x").PadLeft(8, '0').ToUpper()); }
+                try { lOutput.AppendFormat(" >{0}<", PhysicalMem.PagedMemoryAddress(proc, ref proc.sCurrentDecode, proc.sCurrentDecode.Op1Add, false).ToString("x").PadLeft(8, '0').ToUpper()); }
                 catch
                 {
                     //Dunno why this code is setting Exception number/error code ... removing it
@@ -1131,9 +1131,9 @@ namespace WindowsFormsApplication1
                 lOutput.AppendFormat(":" + lIP.ToString("X8") + " (" + sender.mTLB.ShallowTranslate(sender, ref sender.sCurrentDecode, (DWord)(sender.regs.CS.Value + sender.regs.EIP), false, ePrivLvl.Kernel_Ring_0).ToString("X8") + ") ");
             }
             lOutput.Append("\t");
-            if (sender.sCurrentDecode.bytes != null)
+            /*if (sender.sCurrentDecode.bytes != null)
                 for (int cnt = 0; cnt < sender.sCurrentDecode.bytes.Count(); cnt++)
-                    bytes.Append(String.Format("{0:x}", sender.sCurrentDecode.bytes[cnt]).ToUpper().PadLeft(2, '0'));
+                    bytes.Append(String.Format("{0:x}", sender.sCurrentDecode.bytes[cnt]).ToUpper().PadLeft(2, '0'));*/
             lOutput.AppendFormat(bytes.ToString().PadRight(15, ' '));
             lInstrOutput.AppendFormat(bytes.ToString().PadRight(15, ' '));
             if (sender.sCurrentDecode.OverrideSegment != eGeneralRegister.DS &&
@@ -1143,17 +1143,17 @@ namespace WindowsFormsApplication1
             }
             else
                 lSegment = "";
-            if (sender.sCurrentDecode.bytes != null && sender.sCurrentDecode.bytes[0] == 0xf2)
+            /*if (sender.sCurrentDecode.bytes != null && sender.sCurrentDecode.bytes[0] == 0xf2)
                 if (sender.sCurrentDecode.mChosenInstruction.Name.Contains("CMPS") || sender.sCurrentDecode.mChosenInstruction.Name.Contains("SCAS"))
                     lOutput.Append("REPNE");
                 else
-                    lOutput.Append("REP");
+                    lOutput.Append("REP");*/
 
-            if (sender.sCurrentDecode.bytes != null && sender.sCurrentDecode.bytes[0] == 0xf3)
+            /*if (sender.sCurrentDecode.bytes != null && sender.sCurrentDecode.bytes[0] == 0xf3)
                 if (sender.sCurrentDecode.mChosenInstruction.Name.Contains("CMPS") || sender.sCurrentDecode.mChosenInstruction.Name.Contains("SCAS"))
                     lOutput.Append("REPE");
                 else
-                    lOutput.Append("REP");
+                    lOutput.Append("REP");*/
 
             lOutput.AppendFormat("\t" + ((sender.sCurrentDecode.mChosenInstruction.FPUInstruction) ? "(F) " : "") + sender.sCurrentDecode.mChosenInstruction.Name + "\t" + sender.sCurrentDecode.Operand1SValue);
 
@@ -1292,7 +1292,7 @@ namespace WindowsFormsApplication1
             StreamWriter standardOutput = new StreamWriter(fileStream, encoding);
             standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
-            Console.OutputEncoding = Encoding.GetEncoding(28591);
+            Console.OutputEncoding = encoding;
             Console.TreatControlCAsInput = true;
             Console.Title = "VirtualProcessor - Teminal";
             Console.WriteLine("Press <POWER> button to start the emulation.!");

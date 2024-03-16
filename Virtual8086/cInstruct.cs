@@ -29,7 +29,7 @@ namespace VirtualProcessor
         }
     }
 
-    public class Instruct
+    public class Instruct : Object
     {
         #region Variables & Definitions
         public string mName;
@@ -412,14 +412,14 @@ namespace VirtualProcessor
                     }
                 }
                 #region Get Value for Address by OpType
-                if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && mProc.mem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
+                if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && PhysicalMem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
                 {
                     return;
                 }
                 else
                     switch (CurrentDecode.OcOT)
                     {
-                        case sOpCodeOperandType.Byte: Val.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
+                        case sOpCodeOperandType.Byte: Val.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
                         case sOpCodeOperandType.Word: Val.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt16; break;
                         case sOpCodeOperandType.DWord: Val.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt32; break;
                         case sOpCodeOperandType.QWord: Val.OpQWord = mProc.mem.GetQWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt64; break;
@@ -588,14 +588,14 @@ namespace VirtualProcessor
                 {
                     case 0x8d: Val.OpDWord = OpAdd; break;
                     default:
-                        if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && mProc.mem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
+                        if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && PhysicalMem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
                         {
                             return;
                         }
                         else
                             switch (CurrentDecode.OcOT)
                             {
-                                case sOpCodeOperandType.Byte: Val.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
+                                case sOpCodeOperandType.Byte: Val.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
                                 case sOpCodeOperandType.Word: Val.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt16; break;
                                 case sOpCodeOperandType.DWord: Val.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt32; break;
                                 case sOpCodeOperandType.QWord: Val.OpQWord = mProc.mem.GetQWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt64; break;
@@ -732,41 +732,40 @@ namespace VirtualProcessor
         }
         internal void SetFlagsForSubtraction(Processor_80x86 mProc, sOpVal PreVal1, sOpVal PreVal2, sOpVal Op1Val, TypeCode Op1Type)
         {
-            mProc.regs.setFlagZF(Op1Val.OpQWord);
             switch (Op1Type)
             {
                 case TypeCode.Byte:
+                    mProc.regs.setFlagZF(Op1Val.OpByte);
                     mProc.regs.setFlagSF(Op1Val.OpByte);
-            mProc.regs.setFlagAF(PreVal1.OpByte, Op1Val.OpByte);
-            mProc.regs.setFlagPF(Op1Val.OpByte);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpByte, PreVal2.OpByte, Op1Val.OpByte);
+                    mProc.regs.setFlagAF(PreVal1.OpByte, Op1Val.OpByte);
+                    mProc.regs.setFlagPF(Op1Val.OpByte);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpByte, PreVal2.OpByte, Op1Val.OpByte);
                     break;
                 case TypeCode.UInt16:
+                    mProc.regs.setFlagZF(Op1Val.OpWord);
                     mProc.regs.setFlagSF(Op1Val.OpWord);
-            mProc.regs.setFlagAF(PreVal1.OpWord, Op1Val.OpWord);
-            mProc.regs.setFlagPF(Op1Val.OpWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpWord, PreVal2.OpWord, Op1Val.OpWord);
+                    mProc.regs.setFlagAF(PreVal1.OpWord, Op1Val.OpWord);
+                    mProc.regs.setFlagPF(Op1Val.OpWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpWord, PreVal2.OpWord, Op1Val.OpWord);
                     break;
                 case TypeCode.UInt32:
+                    mProc.regs.setFlagZF(Op1Val.OpDWord);
                     mProc.regs.setFlagSF(Op1Val.OpDWord);
-            mProc.regs.setFlagAF(PreVal1.OpDWord, Op1Val.OpDWord);
-            mProc.regs.setFlagPF(Op1Val.OpDWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpDWord, PreVal2.OpDWord, Op1Val.OpDWord);
+                    mProc.regs.setFlagAF(PreVal1.OpDWord, Op1Val.OpDWord);
+                    mProc.regs.setFlagPF(Op1Val.OpDWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpDWord, PreVal2.OpDWord, Op1Val.OpDWord);
                     break;
                 case TypeCode.UInt64:
+                    mProc.regs.setFlagZF(Op1Val.OpQWord);
                     mProc.regs.setFlagSF(Op1Val.OpQWord);
-            mProc.regs.setFlagAF(PreVal1.OpQWord, Op1Val.OpQWord);
-            mProc.regs.setFlagPF(Op1Val.OpQWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpQWord, PreVal2.OpQWord, Op1Val.OpQWord);
+                    mProc.regs.setFlagAF(PreVal1.OpQWord, Op1Val.OpQWord);
+                    mProc.regs.setFlagPF(Op1Val.OpQWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpQWord, PreVal2.OpQWord, Op1Val.OpQWord);
                     break;
             }
         }
         internal void SetFlagsForAddition(Processor_80x86 mProc, sOpVal PreVal1, sOpVal PreVal2, sOpVal Op1ValSigned, sOpVal Op1ValUnsigned, TypeCode Op1Type)
         {
-            if (Op1ValSigned.OpQWord == 0)
-                mProc.regs.FLAGS |= 0x40;
-            else
-                mProc.regs.FLAGS &= 0xFFBF;
             mProc.regs.setFlagAF(Op1ValSigned.OpQWord, PreVal1.OpQWord);
             //mProc.regs.setFlagCF(Op1ValUnsigned.OpQWord, PreVal1.OpQWord, PreVal2.OpQWord);
             if (Misc.parity[Op1ValSigned.OpByte] == 0x1)
@@ -778,19 +777,23 @@ namespace VirtualProcessor
             switch (Op1Type)
             {
                 case TypeCode.Byte:
+                    mProc.regs.setFlagPF(Op1ValSigned.OpByte);
+                    mProc.regs.setFlagZF(Op1ValSigned.OpByte);
                     mProc.regs.setFlagOF_Add(PreVal1.OpByte, PreVal2.OpByte, Op1ValSigned.OpByte);
-                    
                     mProc.regs.setFlagSF(Op1ValSigned.OpByte);
                     break;
                 case TypeCode.UInt16:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpWord, PreVal2.OpWord, Op1ValSigned.OpWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpWord);
                     break;
                 case TypeCode.UInt32:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpDWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpDWord, PreVal2.OpDWord, Op1ValSigned.OpDWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpDWord);
                     break;
                 case TypeCode.UInt64:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpQWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpQWord, PreVal2.OpQWord, Op1ValSigned.OpQWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpQWord);
                     break;

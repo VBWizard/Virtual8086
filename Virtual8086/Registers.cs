@@ -282,7 +282,7 @@ namespace VirtualProcessor
             {
                 mCR3 = value;
                 if ((CR0 & 0x80000001) == 0x80000001)
-                    mProc.mTLB.Flush(mProc);
+                    cTLB.Flush(mProc);
             }
         }
         [FieldOffset(52)]

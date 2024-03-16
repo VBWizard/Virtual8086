@@ -236,7 +236,7 @@ namespace VirtualProcessor
             sInstruction lCurrInstruct;
             while (!m_shutDown)
             {
-                mNewCalc.WaitOne();
+                Thread.Sleep(1);
                 while (mInstructQueue.Count > 0)
                 {
                     mParent.Signals.BUSY = true;

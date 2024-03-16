@@ -123,11 +123,11 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>104, 17</value>
   </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
   <data name="txtCurrJob.ToolTip" xml:space="preserve">
     <value>This is the task name associated with the task number to the left.  This will only be populated for recognized versions of Linux, as the task (process) name is stored very near the beginning of the TSS for the task</value>
-  </data>
-  <data name="lblS0CTS.ToolTip" xml:space="preserve">
-    <value>Overflow flag: Indicates that the result of the last arithmetic instruction would not fit in the data type assigned. (i.e. a carry in/out of the sign bit).  It is used by many JCC (conditional jump) and other instructions.  In MS-DOS this flag is also set on the exit of many interrupt routines to signal a failure to the calling routine.</value>
   </data>
   <data name="lblS0RTS.ToolTip" xml:space="preserve">
     <value>Direction flag: Controls the direction of the string instructions Compare String (CMPS-B/W/D), Load String (LODS-B/W/D), Move String (MOVS-B/W/D), Scan String (SCAS-B/W/D), Store String (STOS-B/W/D).  B, W and D are suffixes (part of the instruction names) which stand for Byte, Word &amp; DoubleWord.</value>
@@ -137,6 +137,9 @@
   </data>
   <data name="lblS0RCV.ToolTip" xml:space="preserve">
     <value>Trap flag (single step): When set, the CPU will execute the next instruction and then stop.  Technically after executing the next instruction, the CPU will generate an Interrupt 0x01 (SINGLE STEP).  An application can hook this interrupt to take control of the CPU after the instruction is executed.</value>
+  </data>
+  <data name="lblS0CTS.ToolTip" xml:space="preserve">
+    <value>Overflow flag: Indicates that the result of the last arithmetic instruction would not fit in the data type assigned. (i.e. a carry in/out of the sign bit).  It is used by many JCC (conditional jump) and other instructions.  In MS-DOS this flag is also set on the exit of many interrupt routines to signal a failure to the calling routine.</value>
   </data>
   <data name="txtFlagsValue.ToolTip" xml:space="preserve">
     <value>This is the entire flags value.  In 16-bit mode, the bottom 4 bytes make up the FLAGS register, while in 32-bit (Protected) mode, all 4 bytes make up the EFLAGS register.  Some of the individual flags are listed to the left of this value.</value>

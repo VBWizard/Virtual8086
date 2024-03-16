@@ -10,30 +10,30 @@ namespace VirtualProcessor
 
         public const int MAX_ENTRIES = 16;
 
-        public UInt32 mLogicalAddr1, mLogicalAddr2, mLogicalAddr3, mLogicalAddr4, mLogicalAddr5, mLogicalAddr6, mLogicalAddr7, mLogicalAddr8, mLogicalAddr9, mLogicalAddr10,
+        public static UInt32 mLogicalAddr1, mLogicalAddr2, mLogicalAddr3, mLogicalAddr4, mLogicalAddr5, mLogicalAddr6, mLogicalAddr7, mLogicalAddr8, mLogicalAddr9, mLogicalAddr10,
             mLogicalAddr11, mLogicalAddr12, mLogicalAddr13, mLogicalAddr14, mLogicalAddr15, mLogicalAddr16, mLogicalAddr17, mLogicalAddr18, mLogicalAddr19, mLogicalAddr20,
             mLogicalAddr21, mLogicalAddr22, mLogicalAddr23, mLogicalAddr24, mLogicalAddr25, mLogicalAddr26, mLogicalAddr27, mLogicalAddr28, mLogicalAddr29, mLogicalAddr30,
             mLogicalAddr31, mLogicalAddr32, mLogicalAddr33, mLogicalAddr34, mLogicalAddr35, mLogicalAddr36;
-        public UInt32 mPhysicalAddr1, mPhysicalAddr2, mPhysicalAddr3, mPhysicalAddr4, mPhysicalAddr5, mPhysicalAddr6, mPhysicalAddr7, mPhysicalAddr8, mPhysicalAddr9, mPhysicalAddr10,
+        public static UInt32 mPhysicalAddr1, mPhysicalAddr2, mPhysicalAddr3, mPhysicalAddr4, mPhysicalAddr5, mPhysicalAddr6, mPhysicalAddr7, mPhysicalAddr8, mPhysicalAddr9, mPhysicalAddr10,
             mPhysicalAddr11, mPhysicalAddr12, mPhysicalAddr13, mPhysicalAddr14, mPhysicalAddr15, mPhysicalAddr16, mPhysicalAddr17, mPhysicalAddr18, mPhysicalAddr19, mPhysicalAddr20,
             mPhysicalAddr21, mPhysicalAddr22, mPhysicalAddr23, mPhysicalAddr24, mPhysicalAddr25, mPhysicalAddr26, mPhysicalAddr27, mPhysicalAddr28, mPhysicalAddr29, mPhysicalAddr30,
             mPhysicalAddr31, mPhysicalAddr32, mPhysicalAddr33, mPhysicalAddr34, mPhysicalAddr35, mPhysicalAddr36;
-        public UInt16 mType1, mType2, mType3, mType4, mType5, mType6, mType7, mType8, mType9, mType10,
+        public static UInt16 mType1, mType2, mType3, mType4, mType5, mType6, mType7, mType8, mType9, mType10,
             mType11, mType12, mType13, mType14, mType15, mType16, mType17, mType18, mType19, mType20,
             mType21, mType22, mType23, mType24, mType25, mType26, mType27, mType28, mType29, mType30,
             mType31, mType32, mType33, mType34, mType35, mType36;
-        public bool mValid1, mValid2, mValid3, mValid4, mValid5, mValid6, mValid7, mValid8, mValid9, mValid10,
+        public static bool mValid1, mValid2, mValid3, mValid4, mValid5, mValid6, mValid7, mValid8, mValid9, mValid10,
             mValid11, mValid12, mValid13, mValid14, mValid15, mValid16, mValid17, mValid18, mValid19, mValid20,
             mValid21, mValid22, mValid23, mValid24, mValid25, mValid26, mValid27, mValid28, mValid29, mValid30,
             mValid31, mValid32, mValid33, mValid34, mValid35, mValid36;
-        public int mCurrEntryPtr = 0, mCurrPointer = 0;
-        public UInt64 mMisses, mHits, mFlushes;
+        public static int mCurrEntryPtr = 0, mCurrPointer = 0;
+        public static UInt64 mMisses, mHits, mFlushes;
         public cTLB()
         {
             mCurrEntryPtr = 1;
         }
 
-        public UInt32 Translate(Processor_80x86 mProc, ref sInstruction sIns, UInt32 inAddr, bool Writing, ePrivLvl pCPL)
+        public static UInt32 Translate(Processor_80x86 mProc, ref sInstruction sIns, UInt32 inAddr, bool Writing, ePrivLvl pCPL)
         {
             UInt32 lPage;
             int lEntry = 0;
@@ -189,7 +189,7 @@ namespace VirtualProcessor
             }
 
             //If we got here, we know there's no entry Entry in the TLB so we'll walk the page tables
-            lPage = mProc.mem.GetPageTableEntry(mProc, ref sIns, inAddr, ref lDirEntry, ref lPageEntry, Writing);
+            lPage = PhysicalMem.GetPageTableEntry(mProc, ref sIns, inAddr, ref lDirEntry, ref lPageEntry, Writing);
             if (sIns.ExceptionThrown)
                 return 0xF0F0F0F0;
 
@@ -461,7 +461,7 @@ namespace VirtualProcessor
             return 0xf1f1f1f1;
         }
 
-        public void Flush(Processor_80x86 mProc)
+        public static void Flush(Processor_80x86 mProc)
         {
             if (mProc.mSystem.Debuggies.DebugMemPaging)
                 mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "TLB has been flushing, has " + mCurrEntryPtr + " entries.");
@@ -501,9 +501,9 @@ namespace VirtualProcessor
                 if ((mType16 & 0x100) == 0x100)
                     mValid6 = false;
             }
-            mProc.mem.mLastAddressWrite = true;
-            mProc.mem.mLastLogicalAddress = 0xFFFFFFFF;
-            mProc.mem.mLastPhysicalAddress = 0xFFFFFFFF;
+            PhysicalMem.mLastAddressWrite = true;
+            PhysicalMem.mLastLogicalAddress = 0xFFFFFFFF;
+            PhysicalMem.mLastPhysicalAddress = 0xFFFFFFFF;
             mFlushes++;
             //If global pages enabled, exit now so that we don't invalidate EVERYTHING or set the current entry pointer back to 1
             if ((mProc.regs.CR4 & 0x80) == 0x80)
@@ -513,7 +513,7 @@ namespace VirtualProcessor
             mCurrEntryPtr = 1;
         }
 
-        internal void InvalidatePage(Processor_80x86 mProc, UInt32 Address)
+        internal static void InvalidatePage(Processor_80x86 mProc, UInt32 Address)
         {
             if (mLogicalAddr1 <= Address && mLogicalAddr1 + 0xfff >= Address)
                 mValid1 = false;
