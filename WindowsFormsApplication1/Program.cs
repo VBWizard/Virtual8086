@@ -195,7 +195,7 @@ namespace WindowsFormsApplication1
                 {
 #endif
             mSystem.TaskNameOffset = default_set.Default.TaskNameOffset;
-            mSystem.Debuggies = new sDebugComponents(false, false, false, false, false, false, false, false, true, false, false, false, false);
+            mSystem.Debuggies = new sDebugComponents(false, false, false, false, false, false, false, false, false, false, true, false, false);
             mSystem.OSType = eOpSysType.Linux;
             mSystem.FPUEnabled(true);
             mSystem.ColdBoot();
@@ -1288,11 +1288,11 @@ namespace WindowsFormsApplication1
             IntPtr stdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
             SafeFileHandle safeFileHandle = new SafeFileHandle(stdHandle, true);
             FileStream fileStream = new FileStream(safeFileHandle, FileAccess.Write);
-            Encoding encoding = System.Text.Encoding.GetEncoding(MY_CODE_PAGE);
-            StreamWriter standardOutput = new StreamWriter(fileStream, encoding);
+            //Encoding encoding = System.Text.Encoding.GetEncoding(MY_CODE_PAGE);
+            StreamWriter standardOutput = new StreamWriter(fileStream);
             standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
-            Console.OutputEncoding = encoding;
+            //Console.OutputEncoding = encoding;
             Console.TreatControlCAsInput = true;
             Console.Title = "VirtualProcessor - Teminal";
             Console.WriteLine("Press <POWER> button to start the emulation.!");

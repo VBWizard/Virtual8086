@@ -361,7 +361,7 @@ namespace Virtual8086_Console
             }
             //else if (lKeyScan == "OEM3")
             //{
-            //    mSystem.mProc.mem.SetByte(0x417, (byte)(mSystem.mProc.mem.GetByte(0x417) | 0x04));
+            //    mSystem.mProc.mem.SetByte(0x417, (byte)(mSystem.PhysicalMem.GetByte(0x417) | 0x04));
             //    lKeyScan = "C";
             //}
             else if (lKeyScan == "F12")
@@ -517,7 +517,7 @@ namespace Virtual8086_Console
             try
             {
                 for (UInt32 cnt1 = 0; cnt1 < 40; cnt1++)
-                    m.AppendFormat("{0} ", mProc.mem.GetByte(mProc, ref sIns, (UInt32)(mProc.mCurrentInstruction.DecodedInstruction.InstructionAddress + cnt1)).ToString("X2"));
+                    m.AppendFormat("{0} ", PhysicalMem.GetByte(mProc, ref sIns, (UInt32)(mProc.mCurrentInstruction.DecodedInstruction.InstructionAddress + cnt1)).ToString("X2"));
                 m.AppendFormat("\n\r\n\r");
             }
             catch { m.AppendFormat("\n\r\n\r"); }

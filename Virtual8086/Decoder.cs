@@ -91,7 +91,7 @@ namespace VirtualProcessor
             Op3.EffReg1 = 0;
             Op3.EffReg2 = 0;*/
             //Op3 = Op2;
-             Op1Add = 0; Op2Add = 0; Op3Add = 0;
+            Op1Add = 0; Op2Add = 0; Op3Add = 0;
             Op1Value.OpQWord = 0;
             Op2Value.OpQWord = 0;
             Op3Value.OpQWord = 0;
@@ -106,6 +106,7 @@ namespace VirtualProcessor
     public class Decoder
     {
         #region Variables
+        public const int BYTES_PER_READ = 16;
         public UInt32 mDecodeOffset;
         private eGeneralRegister mTempEffReg1, mTempEffReg2, mTemp_MODRM_MODFieldRegister, mTemp_MODRM_REGFieldRegister, mOverrideSegment;
         public static UInt32 mDisplacement32, mImmediate, mSIBDisplacement;
@@ -135,6 +136,25 @@ namespace VirtualProcessor
         UInt64 cnt;
         public static UInt32 mInstructionEIP;
         static byte mNextByte;
+        static byte[] memBytes;
+        UInt32 mMemBytesReadAddr;
+        int MemBytesPtr
+        {
+            get { return memBytesPtr; }
+            set
+            {
+                memBytesPtr = value;
+                /*if (memBytesPtr >= BYTES_PER_READ)
+                {
+                    sInstruction mIns = new sInstruction();
+                    mMemBytesReadAddr += (UInt32)MemBytesPtr;
+                    memBytes = PhysicalMem.GetBytes(mProc, ref mIns, mMemBytesReadAddr, BYTES_PER_READ);
+                    memBytesPtr -= BYTES_PER_READ;
+                }*/
+            }
+        }
+        private int memBytesPtr;
+
         #endregion
 
         public Decoder(Processor_80x86 Proc, InstructionList<Instruct> IList, sOpCodePointer[] OpcodeIndexer, bool UseProcessorCS_IP, bool TriggerExceptions)
@@ -148,6 +168,8 @@ namespace VirtualProcessor
             p.PriorityClass = ProcessPriorityClass.High;
             //p.ProcessorAffinity = (IntPtr)0xE0;
             System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.AboveNormal;
+            memBytes = new byte[BYTES_PER_READ];
+            memBytesPtr = BYTES_PER_READ + 1; //trigger reading bytes from memory 
         }
 
         public void Decode(ref sInstruction mInstruction)
@@ -206,11 +228,16 @@ namespace VirtualProcessor
             #endregion
             bool lPrefixFound = true;
             //Get any prefixes
+            mMemBytesReadAddr = mDecodeOffset;
+            memBytes = PhysicalMem.GetBytes(mProc, ref mInstruction, mDecodeOffset, BYTES_PER_READ);
+            if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
+            memBytesPtr = 0;
 
             while (lPrefixFound)
             {
                 lPrefixFound = false;
-                mTempPrefixByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+//                mTempPrefixByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+                mTempPrefixByte = memBytes[MemBytesPtr];
                 mTempPrefixByteUsed = false;
                 switch (mTempPrefixByte)
                 {
@@ -264,7 +291,7 @@ namespace VirtualProcessor
                 }
                 if (lPrefixFound)
                 {
-                    mDecodeOffset++;
+                    mDecodeOffset++; MemBytesPtr++;
                     mInstruction.BytesUsed++;
                     mTempPrefixByteUsed = true;
                 }
@@ -274,11 +301,12 @@ namespace VirtualProcessor
             #region Opcode Processing
             //Get the OpCode
             if (mTempPrefixByteUsed)
-                mInstruction.OpCode = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+            //                mInstruction.OpCode = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+            { mInstruction.OpCode = memBytes[MemBytesPtr++]; mDecodeOffset++; }
             else
             {
                 mInstruction.OpCode = mTempPrefixByte;
-                mDecodeOffset++;
+                mDecodeOffset++; MemBytesPtr++;
             }
 
             if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
@@ -286,7 +314,8 @@ namespace VirtualProcessor
 
             if ((mInstruction.OpCode == 0x0F) || (mInstruction.OpCode >= 0xD8 && mInstruction.OpCode <= 0xDF))
             {
-                mNextByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+//                mNextByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
+                mNextByte = memBytes[MemBytesPtr];
                 if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                 //FPU instructions that have a MODRM > 0xBF use the MODRM as the 2nd byte of the instruction, which consumes the byte
                 //All other FPU instructions use bits 5,4,3 as an extension to the instruction, and do NOT consume the byte (which will later be used as the Mod/RM)
@@ -295,7 +324,7 @@ namespace VirtualProcessor
                     mInstruction.OpCode = (UInt16)(mInstruction.OpCode << 8 | mNextByte);
                     mInstruction.IsTwoByteOpCode = true;
                     mInstruction.BytesUsed++;
-                    mDecodeOffset++;
+                    mDecodeOffset++; MemBytesPtr++;
                 }
                 else
                 {
@@ -336,7 +365,7 @@ namespace VirtualProcessor
                         mInstruction.OpCode = 0xAE;
                     else if (mInstruction.OpCode == 0x0f01)
                         mInstruction.OpCode = 0xAF;
-                    mInstruction.OpCode = (mInstruction.OpCode << 8) | (byte)((PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset) >> 3) & 0x07);
+                    mInstruction.OpCode = (mInstruction.OpCode << 8) | (byte)((memBytes[MemBytesPtr] >> 3) & 0x07);
                     if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                     break;
             }
@@ -399,30 +428,40 @@ namespace VirtualProcessor
                         mInstruction.Op1.Imm8 = 1; mInstruction.Op1.HasImm8 = true; break;
                     case sOpCodeAddressingMethod.OpOffset:          //O - The instruction has no ModR/M byte; the offset of the operand is coded as a word or double word (depending on address size attribute) in the instruction. No base register, index register, or scaling factor can be applied (for example, MOV (A0–A3)).
                         if (mProcessor_AddrSize16)
-                        { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
+//                        { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; }
+                        { mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
                         else
-                        { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; }
+//                        { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; }
+                        { mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; }
                         break;
                     case sOpCodeAddressingMethod.JmpRelOffset:      //J - J	The instruction contains a relative offset to be added to the instruction pointer register
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op1OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
-                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
+//                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; MemBytesPtr++; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
+//                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; break;
+                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
+//                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; MemBytesPtr++; }
+                                { mInstruction.Op1.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
                                 else
-                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
+//                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; }
+                                { mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
                                 break;
-                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break;
+//                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; break;
+                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break;
                             case sOpCodeOperandType.WordOrDWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break; }
+//                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; break; }
+                                { mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break; }
                                 else
-                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
+//                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
                             case sOpCodeOperandType.QWord:
-                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; break; }
+//                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; MemBytesPtr += 8; break; }
+                                { mInstruction.Op1.Imm64 = (UInt64)(memBytes[MemBytesPtr + 7] << 56 | memBytes[MemBytesPtr + 6] << 48 | memBytes[MemBytesPtr + 5] << 40 | memBytes[MemBytesPtr + 4] << 32 | memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 8; mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; break; }
                             default:
                                 throw new Exception("Decoder: JmpRelOffset - Op1 - Shouldn't get here");
                         }
@@ -436,15 +475,17 @@ namespace VirtualProcessor
                         {
                             case sOpCodeOperandType.Pointer:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
+//                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
                                 else //48-bit pointer - 6 bytes
-                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; mInstruction.Op1.HasImm64 = true; mDecodeOffset += 6; }
+//                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; mInstruction.Op1.HasImm64 = true; mDecodeOffset += 6; MemBytesPtr += 6; }
+                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; mInstruction.Op1.HasImm64 = true; MemBytesPtr += 6; mDecodeOffset += 6; }
                                 break;
                             default:
                                 throw new Exception("Decode: DirectAddress Op1 - Shouldn't get here!");
                         }
                         break;
-                        #endregion
+                    #endregion
                     case sOpCodeAddressingMethod.MemoryOnly:        //M - The ModR/M byte may refer only to memory (for example, BOUND, LES, LDS, LSS, LFS, LGS, CMPXCHG8B).
                         #region MemoryOnly
                         #region SetC up register via ModMR/SIB Ignoring REG
@@ -489,22 +530,30 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op1OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
-                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
+//                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; MemBytesPtr++; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op1.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op1.HasImm8 = true; break;
+//                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; break;
+                            case sOpCodeOperandType.Word: mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
+//                                { mInstruction.Op1.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op1.HasImm8 = true; MemBytesPtr++; }
+                                { mInstruction.Op1.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op1.HasImm8 = true; }
                                 else
-                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
+//                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; }
+                                { mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; }
                                 break;
-                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break;
+//                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; break;
+                            case sOpCodeOperandType.DWord: mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break;
                             case sOpCodeOperandType.WordOrDWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break; }
+//                                { mInstruction.Op1.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; MemBytesPtr += 2; break; }
+                                { mInstruction.Op1.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op1.HasImm16 = true; break; }
                                 else
-                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
+//                                { mInstruction.Op1.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op1.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op1.HasImm32 = true; break; }
                             case sOpCodeOperandType.QWord:
-                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; break; }
+//                                { mInstruction.Op1.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; MemBytesPtr += 8; break; }
+                                { mInstruction.Op1.Imm64 = (UInt64)(memBytes[MemBytesPtr + 7] << 56 | memBytes[MemBytesPtr + 6] << 48 | memBytes[MemBytesPtr + 5] << 40 | memBytes[MemBytesPtr + 4] << 32 | memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 8; mDecodeOffset += 8; mInstruction.Op1.HasImm64 = true; break; }
 
                             default:
                                 throw new Exception("Decoder: ImmedData - Op1 - Shouldn't get here");
@@ -563,7 +612,7 @@ namespace VirtualProcessor
                         #endregion
                         break;
                     case sOpCodeAddressingMethod.GenReg:            //G - The reg field of the ModR/M byte selects a general register 
-                        if (mTemp_MODRM_REGFieldRegister != eGeneralRegister.NONE) 
+                        if (mTemp_MODRM_REGFieldRegister != eGeneralRegister.NONE)
                             mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_REGFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
                     case sOpCodeAddressingMethod.MMXPkdQWord:       //P - The reg field of the ModR/M byte selects a packed quadword MMX technology register.
                         GetRegEnumForMMXReg(); break;
@@ -584,7 +633,7 @@ namespace VirtualProcessor
                     //    mInstruction.Op1.Displacement = mSIBDisplacement;
                     //    mInstruction.Op1.SIBMultiplier = mTempSIBMultiplier;
                     //}
-                        #endregion
+                    #endregion
                     case sOpCodeAddressingMethod.ModGenReg:         //R - The mod field of the ModR/M byte may refer only to a general register
                         if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
                             mInstruction.Op1.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op1OT); break;
@@ -611,30 +660,40 @@ namespace VirtualProcessor
                         mInstruction.Op2.Imm8 = 1; mInstruction.Op2.HasImm8 = true; break;
                     case sOpCodeAddressingMethod.OpOffset:          //The instruction has no ModR/M byte; the offset of the operand is coded as a word or double word (depending on address size attribute) in the instruction. No base register, index register, or scaling factor can be applied (for example, MOV (A0–A3)).
                         if (mProcessor_AddrSize16)
-                        { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
+//                        { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; }
+                        { mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
                         else
-                        { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; }
+//                        { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; }
+                        { mInstruction.Op2.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; }
                         break;
                     case sOpCodeAddressingMethod.JmpRelOffset:      //J - J	The instruction contains a relative offset to be added to the instruction pointer register
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op2OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
-                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
+//                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; mDecodeOffset++; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
+//                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; break;
+                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
+//                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; MemBytesPtr++; }
+                                { mInstruction.Op2.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
                                 else
-                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
+//                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; }
+                                { mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
                                 break;
-                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break;
+//                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; break;
+                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break;
                             case sOpCodeOperandType.WordOrDWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break; }
+//                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; break; }
+                                { mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break; }
                                 else
-                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
+//                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op2.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
                             case sOpCodeOperandType.QWord:
-                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; break; }
+//                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; MemBytesPtr += 8; break; }
+                                { mInstruction.Op2.Imm64 = (UInt64)(memBytes[MemBytesPtr + 7] << 56 | memBytes[MemBytesPtr + 6] << 48 | memBytes[MemBytesPtr + 5] << 40 | memBytes[MemBytesPtr + 4] << 32 | memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 8; mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; break; }
                             default:
                                 throw new Exception("Decoder: JmpRelOffset - Op2 - Shouldn't get here");
                         }
@@ -648,9 +707,11 @@ namespace VirtualProcessor
                         {
                             case sOpCodeOperandType.Pointer:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
+//                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
                                 else //48-bit pointer - 6 bytes
-                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; mInstruction.Op2.HasImm64 = true; mDecodeOffset += 6; }
+//                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; mInstruction.Op2.HasImm64 = true; mDecodeOffset += 6; MemBytesPtr += 6; }
+                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset) & 0x0000FFFFFFFFFFFF; MemBytesPtr += 6; mInstruction.Op2.HasImm64 = true; mDecodeOffset += 6; }
                                 break;
                             default:
                                 throw new Exception("Decode: DirectAddress Op2 - Shouldn't get here!");
@@ -698,22 +759,30 @@ namespace VirtualProcessor
                         #region Get byte(s) immediately following the instruction
                         switch (mInstruction.ChosenOpCode.Op2OT)
                         {
-                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
-                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
+//                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; MemBytesPtr++; break;
+                            case sOpCodeOperandType.Byte: mInstruction.Op2.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op2.HasImm8 = true; break;
+//                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; break;
+                            case sOpCodeOperandType.Word: mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break;
                             case sOpCodeOperandType.ByteOrWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
+//                                { mInstruction.Op2.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op2.HasImm8 = true; MemBytesPtr++; }
+                                { mInstruction.Op2.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op2.HasImm8 = true; }
                                 else
-                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
+//                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; }
+                                { mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; }
                                 break;
-                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break;
+//                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; break;
+                            case sOpCodeOperandType.DWord: mInstruction.Op2.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break;
                             case sOpCodeOperandType.WordOrDWord:
                                 if (mProcessor_OpSize16)
-                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break; }
+//                                { mInstruction.Op2.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; MemBytesPtr += 2; break; }
+                                { mInstruction.Op2.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op2.HasImm16 = true; break; }
                                 else
-                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
+//                                { mInstruction.Op2.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; MemBytesPtr += 4; break; }
+                                { mInstruction.Op2.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op2.HasImm32 = true; break; }
                             case sOpCodeOperandType.QWord:
-                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; break; }
+//                                { mInstruction.Op2.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; MemBytesPtr += 8; break; }
+                                { mInstruction.Op2.Imm64 = (UInt64)(memBytes[MemBytesPtr + 7] << 56 | memBytes[MemBytesPtr + 6] << 48 | memBytes[MemBytesPtr + 5] << 40 | memBytes[MemBytesPtr + 4] << 32 | memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 8; mDecodeOffset += 8; mInstruction.Op2.HasImm64 = true; break; }
                             default:
                                 throw new Exception("Decoder: ImmedData - Op2 - Shouldn't get here");
                         }
@@ -792,7 +861,7 @@ namespace VirtualProcessor
                     //    mInstruction.Op2.Displacement = mSIBDisplacement;
                     //    mInstruction.Op2.SIBMultiplier = mTempSIBMultiplier;
                     //}
-                        #endregion
+                    #endregion
                     case sOpCodeAddressingMethod.ModGenReg:         //R - The mod field of the ModR/M byte may refer only to a general register
                         if (mTemp_MODRM_MODFieldRegister != eGeneralRegister.NONE)
                             mInstruction.Op2.Register = GetRegEnumForOpType(mTemp_MODRM_MODFieldRegister, mInstruction.ChosenOpCode.Op2OT); break;
@@ -822,22 +891,30 @@ namespace VirtualProcessor
                     #region Get byte(s) immediately following the instruction
                     switch (mInstruction.ChosenOpCode.Op3OT)
                     {
-                        case sOpCodeOperandType.Byte: mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; break;
-                        case sOpCodeOperandType.Word: mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; break;
+//                        case sOpCodeOperandType.Byte: mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; MemBytesPtr++; break;
+                        case sOpCodeOperandType.Byte: mInstruction.Op3.Imm8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.Op3.HasImm8 = true; break;
+//                        case sOpCodeOperandType.Word: mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; MemBytesPtr += 2; break;
+                        case sOpCodeOperandType.Word: mInstruction.Op3.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; break;
                         case sOpCodeOperandType.ByteOrWord:
                             if (mProcessor_OpSize16)
-                            { mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; }
+//                            { mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset++; mInstruction.Op3.HasImm8 = true; MemBytesPtr++; }
+                            { mInstruction.Op3.Imm8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset); MemBytesPtr++; mDecodeOffset++; mInstruction.Op3.HasImm8 = true; }
                             else
-                            { mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; }
+//                            { mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; MemBytesPtr += 2; }
+                            { mInstruction.Op3.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; ; mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; }
                             break;
-                        case sOpCodeOperandType.DWord: mInstruction.Op3.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; break;
+//                        case sOpCodeOperandType.DWord: mInstruction.Op3.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; MemBytesPtr += 4; break;
+                        case sOpCodeOperandType.DWord: mInstruction.Op3.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; break;
                         case sOpCodeOperandType.WordOrDWord:
                             if (mProcessor_OpSize16)
-                            { mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; break; }
+//                            { mInstruction.Op3.Imm16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; mDecodeOffset += 2; break; }
+                            { mInstruction.Op3.Imm16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 2; mDecodeOffset += 2; mInstruction.Op3.HasImm16 = true; break; }
                             else
-                            { mInstruction.Op3.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; break; }
+//                            { mInstruction.Op3.Imm32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; MemBytesPtr += 4; break; }
+                            { mInstruction.Op3.Imm32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 4; mDecodeOffset += 4; mInstruction.Op3.HasImm32 = true; break; }
                         case sOpCodeOperandType.QWord:
-                            { mInstruction.Op3.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op3.HasImm64 = true; break; }
+//                            { mInstruction.Op3.Imm64 = mProc.mem.GetQWord(mProc, ref mInstruction, mDecodeOffset); mDecodeOffset += 8; mInstruction.Op3.HasImm64 = true; MemBytesPtr += 8; break; }
+{ mInstruction.Op3.Imm64 = (UInt64)(memBytes[MemBytesPtr + 7] << 56 | memBytes[MemBytesPtr + 6] << 48 | memBytes[MemBytesPtr + 5] << 40 | memBytes[MemBytesPtr + 4] << 32 | memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]); MemBytesPtr += 8; mDecodeOffset += 8; mInstruction.Op3.HasImm64 = true; break; }
                         default:
                             throw new Exception("Decoder: ImmedData - Op3 - Shouldn't get here");
                     }
@@ -872,7 +949,8 @@ namespace VirtualProcessor
                     return;
             if ((Misc.ModRMRequired(lRealOpCode, mInstruction.IsTwoByteOpCode) > 0) || mFPUInstructRequiresModRM)
             {
-                mInstruction.ModRegRM = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+//                mInstruction.ModRegRM = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); MemBytesPtr++;
+                mInstruction.ModRegRM = memBytes[MemBytesPtr++]; mDecodeOffset++;
                 mInstruction.ModRegRM_Mod = (byte)(mInstruction.ModRegRM >> 6);
                 mInstruction.ModRegRM_Reg = (byte)((mInstruction.ModRegRM >> 3) & 0x07);
                 mInstruction.ModRegRM_RM = (byte)(mInstruction.ModRegRM & 0x07);
@@ -907,16 +985,18 @@ namespace VirtualProcessor
                         {
                             mHasMODRMEffective = true;
                             mOverrideSegment = eGeneralRegister.DS;
-                            mDisplacement16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset);
+//                            mDisplacement16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset);
+                            mDisplacement16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]);
                             mHasDisp16 = true;
                             //My current decoder doesn't sign extend 16 bit ModRM displacements so I won't here
-                            mDecodeOffset += 2;
+                            mDecodeOffset += 2; MemBytesPtr += 2;
                         }
                         break;
                     case 0x01:
                         mHasMODRMEffective = true;
                         mOverrideSegment = eGeneralRegister.DS;
-                        mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
+//                        mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++; MemBytesPtr++;
+                        mDisplacement8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.BytesUsed++;
                         if (Misc.IsNegative(mDisplacement8))
                         {
                             mDisplacement8 = Misc.Negate(mDisplacement8);
@@ -929,10 +1009,11 @@ namespace VirtualProcessor
                     case 0x02:
                         mHasMODRMEffective = true;
                         mOverrideSegment = eGeneralRegister.DS;
-                        mDisplacement16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset);
+//                        mDisplacement16 = mProc.mem.GetWord(mProc, ref mInstruction, mDecodeOffset);
+                        mDisplacement16 = (UInt16)(memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]);
                         mHasDisp16 = true;
                         //My current decoder doesn't sign extend 16 bit ModRM displacements so I won't here
-                        mDecodeOffset += 2;
+                        mDecodeOffset += 2; MemBytesPtr += 2;
                         break;
                 }
             if (mInstruction.ModRegRM_Mod <= 3)
@@ -1042,7 +1123,9 @@ namespace VirtualProcessor
                         mHasDisp16 = true;
                         //mOverrideSegment = eGeneralRegister.SS;
                         break;*/
-                    case 1: mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++;
+                    case 1:
+//                        mDisplacement8 = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); mInstruction.BytesUsed++; MemBytesPtr++;
+                        mDisplacement8 = memBytes[MemBytesPtr++]; mDecodeOffset++; mInstruction.BytesUsed++;
                         if ((mDisplacement8 & 0x80) == 0x80)
                         {
                             mDisplacement8 = Misc.Negate(mDisplacement8);
@@ -1056,9 +1139,10 @@ namespace VirtualProcessor
                     case 2:
                         if (mInstruction.ModRegRM_Mod == 2 || (mInstruction.ModRegRM_Mod == 0 && mInstruction.ModRegRM_RM == 5))
                         {
-                            mDisplacement32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset);
+//                            mDisplacement32 = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset);
+                            mDisplacement32 = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]);
                             mInstruction.BytesUsed += (char)4;
-                            mDecodeOffset += 4;
+                            mDecodeOffset += 4; MemBytesPtr += 4;
                             mHasDisp32 = true;
                         }
                         break;
@@ -1081,7 +1165,8 @@ namespace VirtualProcessor
 
         private void PreProcessSIB(ref sInstruction mInstruction)
         {
-            mInstruction.SIB = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++);
+//            mInstruction.SIB = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset++); MemBytesPtr++;
+            mInstruction.SIB = memBytes[MemBytesPtr++]; mDecodeOffset++;
             mInstruction.Scale = (byte)(mInstruction.SIB >> 6);
             mInstruction.Index = (byte)(((mInstruction.SIB >> 3) & 0x07));
             mInstruction.Base = (byte)(mInstruction.SIB & 0x07);
@@ -1163,7 +1248,8 @@ namespace VirtualProcessor
                     {
                         if (mInstruction.ModRegRM_Mod == 0)
                         {
-                            mSIBDisplacement = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset);
+//                            mSIBDisplacement = mProc.mem.GetDWord(mProc, ref mInstruction, mDecodeOffset);
+                            mSIBDisplacement = (UInt32)(memBytes[MemBytesPtr + 3] << 24 | memBytes[MemBytesPtr + 2] << 16 | memBytes[MemBytesPtr + 1] << 8 | memBytes[MemBytesPtr]);
                             //if (Misc.IsNegative(mSIBDisplacement))
                             //{
                             //    mSIBDisplacement = Misc.Negate(mSIBDisplacement);
@@ -1172,7 +1258,7 @@ namespace VirtualProcessor
                             //else
                             mDispIsNegative = false;
                             mHasDisp32 = true;
-                            mDecodeOffset += 4;
+                            mDecodeOffset += 4; MemBytesPtr += 4;
                             return eGeneralRegister.NONE;
                         }
                         else
@@ -1400,7 +1486,7 @@ namespace VirtualProcessor
                         case eGeneralRegister.BP: return eGeneralRegister.EBP;
                         case eGeneralRegister.SI: return eGeneralRegister.ESI;
                         case eGeneralRegister.DI: return eGeneralRegister.EDI;
-                        default: throw new Exception("should not get here");  return Reg;
+                        default: throw new Exception("should not get here"); return Reg;
                     }
                 case sOpCodeOperandType.WordOrDWord:
                     switch (Reg)

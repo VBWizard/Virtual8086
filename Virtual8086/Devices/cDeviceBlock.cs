@@ -189,7 +189,7 @@ namespace VirtualProcessor.Devices
             mPIT.RequestShutdown();
             //Give each device a reasonable amount of time to stop and then kill it
             Thread.Sleep(100);
-            for (int c = 0; c < 20; c++)
+/*            for (int c = 0; c < 20; c++)
             {
                 if (mDeviceThreads[c]!=null)
                     if (mDeviceThreads[c].ThreadState != ThreadState.Stopped)
@@ -197,7 +197,7 @@ namespace VirtualProcessor.Devices
                     if (mDeviceThreads[c].ThreadState != ThreadState.Stopped)
                         mDeviceThreads[c].Abort();
                 }
-            }
+            }*/
 
             //Disable all device port handlers
             for (int c = 0; c < MAX_HANDLED_DEVICES; c++)

@@ -81,8 +81,8 @@ namespace WindowsFormsApplication1
             try
             {
                 //CLR 08/29/2022: TODO: Fixme - remarked out as this was taking a T O N o f CPU time.
-                /*if (mSystem != null && mSystem.mProc != null)
-                    txtCurrJob.Text = GlobalRoutines.GetLinuxCurrentTaskName(mSystem);*/
+                if (mSystem != null && mSystem.mProc != null)
+                    txtCurrJob.Text = GlobalRoutines.GetLinuxCurrentTaskName(mSystem);
 
                 if (Program.mSystem != null)
                     mSystem = Program.mSystem;
@@ -382,23 +382,23 @@ namespace WindowsFormsApplication1
             if (Processor_80x86.mCurrInstructOpMode == VirtualProcessor.ProcessorMode.Real)
                 return;
 
-//            if (ckShowAllGDT.Checked)
-//                lEntries = mSystem.mProc.mGDTCache.ListActive();
-//            else
-                //lEntries = mSystem.mProc.mGDTCache.ListFirstBusyTSS();
-                //lEntries = mSystem.mProc.mGDTCache.ListActiveTask();
+            if (ckShowAllGDT.Checked)
+                lEntries = mSystem.mProc.mGDTCache.ListActive();
+            else
+                lEntries = mSystem.mProc.mGDTCache.ListFirstBusyTSS();
+                //lEntries = mSystem.mProc.mGDTCache.ListActive();
 
-//            if (dgGDT.DataSource != lEntries)
-//                dgGDT.DataSource = lEntries;
-//            else
-//                dgGDT.Refresh();
-//dgGDT.Rows[cnt].Cells[0].Value = GlobalRoutines.GetLinuxTSSTaskName(mSystem, mSystem.mProc.mGDTCache[System.Convert.ToInt32(dgGDT.Rows[0].Cells[0].Value)].Base);
-//            for (int cnt=0;cnt<lEntries.Count();cnt++)
-//            {
-//                dgGDT.Rows[cnt].Cells[0].Value = GlobalRoutines.GetLinuxTSSTaskName(mSystem, lEntries[cnt].Base);
-//            }
-            //dgGDT.Columns.Clear();
-            //dgGDT.Columns.Add(
+            if (dgGDT.DataSource != lEntries)
+                dgGDT.DataSource = lEntries;
+            else
+                dgGDT.Refresh();
+            for (int cnt=0;cnt<lEntries.Count();cnt++)
+            {
+                if (lEntries[cnt].access.SystemDescType == eSystemOrGateDescType.TSS_32_Bu || lEntries[cnt].access.SystemDescType == eSystemOrGateDescType.TSS_32_Av ||
+                    lEntries[cnt].access.SystemDescType == eSystemOrGateDescType.TSS_16_Bu || lEntries[cnt].access.SystemDescType == eSystemOrGateDescType.TSS_16_Av)
+                dgGDT.Rows[cnt].Cells[0].Value = GlobalRoutines.GetLinuxTSSTaskName(mSystem, lEntries[cnt].Base);
+            }
+          //dgGDT.Columns.Clear();
 
             //if (!ckShowAllGDT.Checked)
             //    return;
@@ -751,6 +751,7 @@ namespace WindowsFormsApplication1
         private void cmdResetIPS_Click(object sender, EventArgs e)
         {
             mSystem.mProc.StartedAt = DateTime.Now;
+            mSystem.mProc.InstructionsExecuted = 0;
         }
 
         private void lbInstructions_DoubleClick(object sender, EventArgs e)

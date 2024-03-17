@@ -211,7 +211,7 @@ namespace VirtualProcessor
         { get { return mTimeInGDTRefresh; } }
         public double mMSinTimedSection = 0;
         public UInt64 InstructionsExecuted
-        { get { return mInsructionsExecuted; } }
+        { get { return mInsructionsExecuted; } set { mInsructionsExecuted = value; }  }
         public UInt64 GDTCacheResetsExecuted
         { get { return mGDTCacheResetsExecuted; } }
         public UInt64 InstructionsDecoded
@@ -976,9 +976,7 @@ namespace VirtualProcessor
                 if (mSystem.Debuggies.DebugExceptions || (mSystem.Debuggies.DebugCPU  && sIns.ExceptionNumber != 14))
                 {
                     StringBuilder lPrint = new StringBuilder('0');
-                    lPrint.AppendFormat("PMode EXCEPTION # {0}.  Executed instruction was: + " + sIns.mChosenInstruction.mName + ", transferring control from {1}",
-                        sIns.ExceptionNumber,
-                        ExceptionHappenedAtAddress.ToString("X8"));
+                    lPrint.AppendFormat($"PMode EXCEPTION # {sIns.ExceptionNumber} (phase={mProc.mProcessorStatus.ToString()}).  Executed instruction was: {sIns.mChosenInstruction.mName}, transferring control from {ExceptionHappenedAtAddress.ToString("X8")}"); 
                     mSystem.PrintDebugMsg(eDebuggieNames.Exceptions, lPrint.ToString());
                 }
                 if (sIns.ExceptionNumber == 0xE)
