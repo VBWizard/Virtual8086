@@ -36,8 +36,7 @@ namespace VirtualProcessor
         public static UInt32 Translate(Processor_80x86 mProc, ref sInstruction sIns, UInt32 inAddr, bool Writing, ePrivLvl pCPL)
         {
             UInt32 lPage;
-            int lEntry = 0;
-            UInt32 lDirEntry = 0, lPageEntry = 0, lFoundLogical = 0, lFoundPhys = 0;
+            UInt32 lDirEntry = 0, lPageEntry = 0, lFoundPhys = 0;
             bool lFound = false;
             UInt16 lFoundType = 0;
 
@@ -47,112 +46,96 @@ namespace VirtualProcessor
 #endif
             if (mValid1 && mLogicalAddr1 <= inAddr && mLogicalAddr1 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr1;
                 lFoundPhys = mPhysicalAddr1;
                 lFoundType = mType1;
                 lFound = true;
             }
             else if (mValid2 && mLogicalAddr2 <= inAddr && mLogicalAddr2 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr2;
                 lFoundPhys = mPhysicalAddr2;
                 lFoundType = mType2;
                 lFound = true;
             }
             else if (mValid3 && mLogicalAddr3 <= inAddr && mLogicalAddr3 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr3;
                 lFoundPhys = mPhysicalAddr3;
                 lFoundType = mType3;
                 lFound = true;
             }
             else if (mValid4 && mLogicalAddr4 <= inAddr && mLogicalAddr4 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr4;
                 lFoundPhys = mPhysicalAddr4;
                 lFoundType = mType4;
                 lFound = true;
             }
             else if (mValid5 && mLogicalAddr5 <= inAddr && mLogicalAddr5 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr5;
                 lFoundPhys = mPhysicalAddr5;
                 lFoundType = mType5;
                 lFound = true;
             }
             else if (mValid6 && mLogicalAddr6 <= inAddr && mLogicalAddr6 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr6;
                 lFoundPhys = mPhysicalAddr6;
                 lFoundType = mType6;
                 lFound = true;
             }
             else if (mValid7 && mLogicalAddr7 <= inAddr && mLogicalAddr7 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr7;
                 lFoundPhys = mPhysicalAddr7;
                 lFoundType = mType7;
                 lFound = true;
             }
             else if (mValid8 && mLogicalAddr8 <= inAddr && mLogicalAddr8 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr8;
                 lFoundPhys = mPhysicalAddr8;
                 lFoundType = mType8;
                 lFound = true;
             }
             else if (mValid9 && mLogicalAddr9 <= inAddr && mLogicalAddr9 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr9;
                 lFoundPhys = mPhysicalAddr9;
                 lFoundType = mType9;
                 lFound = true;
             }
             else if (mValid10 && mLogicalAddr10 <= inAddr && mLogicalAddr10 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr10;
                 lFoundPhys = mPhysicalAddr10;
                 lFoundType = mType10;
                 lFound = true;
             }
             else if (mValid11 && mLogicalAddr11 <= inAddr && mLogicalAddr11 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr11;
                 lFoundPhys = mPhysicalAddr11;
                 lFoundType = mType11;
                 lFound = true;
             }
             else if (mValid12 && mLogicalAddr12 <= inAddr && mLogicalAddr12 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr12;
                 lFoundPhys = mPhysicalAddr12;
                 lFoundType = mType12;
                 lFound = true;
             }
             else if (mValid13 && mLogicalAddr13 <= inAddr && mLogicalAddr13 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr13;
                 lFoundPhys = mPhysicalAddr13;
                 lFoundType = mType13;
                 lFound = true;
             }
             else if (mValid14 && mLogicalAddr14 <= inAddr && mLogicalAddr14 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr14;
                 lFoundPhys = mPhysicalAddr14;
                 lFoundType = mType14;
                 lFound = true;
             }
             else if (mValid15 && mLogicalAddr15 <= inAddr && mLogicalAddr15 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr15;
                 lFoundPhys = mPhysicalAddr15;
                 lFoundType = mType15;
                 lFound = true;
             }
             else if (mValid16 && mLogicalAddr16 <= inAddr && mLogicalAddr16 + 0xfff >= inAddr)
             {
-                lFoundLogical = mLogicalAddr16;
                 lFoundPhys = mPhysicalAddr16;
                 lFoundType = mType16;
                 lFound = true;

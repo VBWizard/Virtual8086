@@ -157,7 +157,7 @@ namespace VirtualProcessor.Devices
                         // count expired, done with transfer
                         // assert TC, deassert HRQ & DACK(n) lines
                         s.status_reg |= (byte)(1 << channel); // hold TC in status reg
-                        mParent.mProc.TC = true;
+                        mParent.mProc.mTC = true;
 
                         count_expired = true;
                     }
@@ -194,7 +194,7 @@ namespace VirtualProcessor.Devices
 
             if (count_expired)
             {
-                mParent.mProc.TC = false;           // clear TC, adapter card already notified
+                mParent.mProc.mTC = false;           // clear TC, adapter card already notified
                 mParent.mProc.Signals.HOLD = false;
                 mParent.mProc.DACK[channel] = false;
                 if (mParent.mSystem.Debuggies.DebugDMA)

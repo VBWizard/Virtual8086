@@ -178,7 +178,6 @@ namespace VirtualProcessor
         public static string GetLinuxTSSTaskName(PCSystem mSystem, DWord TSSBase)
         {
             bool lNameFound = false;
-            sInstruction sIns = new sInstruction();
             if (mSystem.OSType != eOpSysType.Linux)
                 return "None";
             string lJobName = "";

@@ -19,7 +19,7 @@ namespace VirtualProcessor
                 mIndex[c] = 0xffffffff;
             instructList = new T[0xFFFF];
         }
-        private T[] instructList;
+        public T[] instructList;
         public int Count;
 
         public T this[UInt32 OpCode]
@@ -54,7 +54,6 @@ namespace VirtualProcessor
 
         public void Add(T item, Processor_80x86 m_parent)
         {
-            int lIdx = 0;
             item.mProc = m_parent;
             instructList[this.Count] = item;
             Count++;

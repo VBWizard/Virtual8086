@@ -92,14 +92,12 @@ namespace VirtualProcessor
             get { return mProcType; }
         }
         public RegStruct regs;
-        public static RegStruct savedRegs;
+        public RegStruct savedRegs;
         public Ports ports;
         public PhysicalMem mem;
         internal bool[] DRQ = new bool[8] { false, false, false, false, false, false, false, false };
         internal bool[] DACK = new bool[8] { false, false, false, false, false, false, false, false };
         internal bool mTC = false, mSTICalled, mSTIAfterNextInstr;
-        internal bool TC
-        { get { return mTC; } set { mTC = value; } }
         public bool mCurrInstructOpSize16, mCurrInstructAddrSize16;
         public bool OpSize16
         {
@@ -219,7 +217,6 @@ namespace VirtualProcessor
         public DateTime StartedAt;
         public DateTime StoppedAt;
         public bool HaltProcessor = false, PowerOff = false, TrapNextInst = false, ServicingIRQ = false, mExportDebug = false;
-        private int mExceptionNumber = Global.CPU_NO_EXCEPTION;
         public UInt32 mLastInstructionAddress = 0, mCurrentInstructionAddress = 0, mExceptionTransferAddress = 0, mLastEIP = 0, mLastESP = 0;
         public int mTimerTickMSec = 52; //Default is just over 18 times per second (18.222)
         public cGDTCache mGDTCache, mLDTCache;
@@ -242,7 +239,6 @@ namespace VirtualProcessor
         internal eProcessorStatus mProcessorStatus = eProcessorStatus.Decoding;
         public eProcessorStatus ProcessorStatus { get { return mProcessorStatus; } }
         public bool mSingleStep = false;
-        CEAStartDebugging CAEStartDeb;
         public sInstruction sCurrentDecode;
 
         #endregion
@@ -257,7 +253,9 @@ namespace VirtualProcessor
             if (TotalMemory < 1024 * 1024)
                 throw new Exception("TOtal memory must be at least " + (1024 * 1024).ToString("0,000"));
             mem = new PhysicalMem(this,TotalMemory);
-            Init(TotalMemory, ProcessorType);
+            Instructions = new InstructionList<Instruct>();
+            OpCodeIndexer = new sOpCodePointer[0xFFFF];
+        Init(TotalMemory, ProcessorType);
         }
         public void Init(UInt32 TotalMemory, eProcTypes ProcessorType)
         {
@@ -1544,7 +1542,7 @@ namespace VirtualProcessor
         internal UInt32 GetDebugRegAddrForRegEnum(eGeneralRegister Register)
         {
             throw new Exception("GetDebugRegAddrForRegEnum: Incomplete!");
-            switch (Register)
+            /*switch (Register)
             {
                 case eGeneralRegister.CR0:
                     return RCR0;
@@ -1555,7 +1553,7 @@ namespace VirtualProcessor
                 case eGeneralRegister.CR4:
                     return RCR4;
             }
-            throw new Exception("Cannot identify Debug Register: " + Register);
+            throw new Exception("Cannot identify Debug Register: " + Register);*/
         }
 
         #region Register Related Stuff
@@ -1968,199 +1966,26 @@ namespace VirtualProcessor
         #endregion
 
         internal static Instruct MOV;
-        internal Instruct CALL;
         internal Instruct ADD;
         internal Instruct PUSH;
-        internal Instruct INC;
         internal Instruct POP;
         internal Instruct JMP;
-        internal static Instruct CMP;
-        internal Instruct CMPXCHG;
-        internal Instruct AND;
-        internal Instruct JA;
-        internal Instruct JB;
-        internal Instruct BSF;
-        internal Instruct BSR;
-        internal Instruct BSWAP;
-        internal Instruct BT;
-        internal Instruct BTC;
-        internal Instruct BTR;
-        internal Instruct BTS;
-        internal Instruct CALLF;
-        internal Instruct CBW;
-        internal Instruct CLC;
-        internal Instruct CLD;
-        internal Instruct CLI;
-        internal Instruct CLTS;
-        internal Instruct CMC;
-        internal Instruct CMOVcc;
-        internal Instruct CMPSB;
         internal Instruct CMPSD;
-        internal Instruct CMPSW;
-        internal Instruct CPUID;
-        internal Instruct CWD;
-        internal Instruct DAA;
-        internal Instruct DAS;
-        internal Instruct DEC;
-        internal Instruct DIV;
-        internal Instruct ENTER;
-        internal Instruct FADD;
-        internal Instruct FCLEX;
-        internal Instruct FDIV;
-        internal Instruct FDIVR;
-        internal Instruct FINIT;
-        internal Instruct FILD;
-        internal Instruct FIST;
-        internal Instruct FLDCW;
-        internal Instruct FLD1;
-        internal Instruct FLDZ;
-        internal Instruct FIMUL;
-        internal Instruct FRNDINT;
-        internal Instruct FMUL;
         internal Instruct FSTENV;
-        internal Instruct FSTCW;
-        internal Instruct FSTSW;
-        internal Instruct HLT;
-        internal Instruct ICEBP;
-        internal Instruct IDIV;
-        internal Instruct IMUL;
-        internal Instruct IN;
-        internal Instruct INS;
         internal Instruct INT;
-        internal Instruct INTO;
-        internal Instruct IRET;
-        internal Instruct JAE;
-        internal Instruct JBE;
-        internal Instruct JC;
-        internal Instruct JCXZ;
-        internal Instruct JE;
-        internal Instruct JG;
-        internal Instruct JGE;
-        internal Instruct JL;
-        internal Instruct JLE;
-        internal Instruct JMPF;
-        internal Instruct JNA;
-        internal Instruct JNAE;
-        internal Instruct JNB;
-        internal Instruct JNBE;
-        internal Instruct JNC;
-        internal Instruct JNE;
-        internal Instruct JNG;
-        internal Instruct JNGE;
-        internal Instruct JNLE;
-        internal Instruct JNO;
-        internal Instruct JNP;
-        internal Instruct JNS;
-        internal Instruct JNZ;
-        internal Instruct JO;
-        internal Instruct JP;
-        internal Instruct JPE;
-        internal Instruct JPO;
-        internal Instruct JS;
-        internal Instruct JZ;
-        internal Instruct LAHF;
-        internal Instruct LDS;
-        internal Instruct LEA;
-        internal Instruct LEAVE;
-        internal Instruct LES;
-        internal Instruct LFS;
-        internal Instruct LGS;
-        internal Instruct LIDT;
-        internal Instruct LLDT;
-        internal Instruct LGDT;
-        internal Instruct LMSW;
-        internal Instruct LTR;
-        /*internal Instruct LOCK = new LOCK(),this);*/
-        internal Instruct LODSB;
         internal Instruct LODSD;
-        internal Instruct LODSW;
-        internal Instruct LOOP;
         internal Instruct LOOPE;
         internal Instruct LOOPNE;
-        internal Instruct LOOPNZ;
-        internal Instruct LOOPZ;
-        internal Instruct LSS;
-        internal Instruct MOVSX;
-        internal Instruct MOVZX;
-        internal Instruct MOVSB;
         internal Instruct MOVSD;
-        internal Instruct MOVSW;
-        internal Instruct MUL;
-        internal Instruct NEG;
-        internal Instruct NOP;
-        internal Instruct NOT;
-        internal Instruct OR;
-        internal Instruct OUT;
-        internal Instruct OUTS;
-        internal Instruct POPA;
         internal Instruct POPF;
-        internal Instruct PUSHA;
-        internal Instruct PUSHAD;
-        internal Instruct PUSHF;
-        internal Instruct RCL;
-        internal Instruct RCR;
-        internal Instruct REP;
         internal Instruct REPZ;
-        internal Instruct REPE;
         internal Instruct REPNE;
-        internal Instruct REPNZ;
-        internal Instruct RET;
-        internal Instruct RETF;
-        internal Instruct RDTSC;
-        internal Instruct ROL;
-        internal Instruct ROR;
-        internal Instruct SAHF;
-        internal Instruct SBB;
-        internal Instruct SCASB;
         internal Instruct SCASD;
-        internal Instruct SCASW;
-        internal Instruct SAL;
-        internal Instruct SALC;
-        internal Instruct SAR;
-        internal Instruct SETcc;
-        internal Instruct SGDT;
         internal Instruct SHL;
-        internal Instruct SIDT;
-        internal Instruct SHLD;
-        internal Instruct SMSW;
         internal Instruct SHR;
-        internal Instruct SHRD;
-        internal Instruct STC;
-        internal Instruct STD;
-        internal Instruct STI;
-        internal Instruct STR;
-        internal Instruct STOSB;
         internal Instruct STOSD;
-        internal Instruct STOSW;
-        internal Instruct SUB;
-        internal Instruct TEST;
         internal Instruct FWAIT;
-        internal Instruct VERR;
-        internal Instruct VERW;
-        internal Instruct XCHG;
-        internal Instruct XLAT;
-        internal Instruct XLATB;
-        internal Instruct XOR;
-        internal Instruct GRP1;
-        internal Instruct GRP2;
-        internal Instruct GRP3a;
-        internal Instruct GRP3b;
-        internal Instruct GRP4;
-        internal Instruct GRP5;
-        internal Instruct GRP60;
-        internal Instruct GRP61;
-        internal Instruct GRP7;
-        internal Instruct GRP8;
-        internal Instruct GRPC0;
-        internal Instruct GRPC1;
-        internal Instruct GRPPUSH;
-        internal Instruct AAA;
-        internal Instruct AAD;
-        internal Instruct AAM;
-        internal Instruct AAS;
-        internal Instruct ADC;
-        internal Instruct ARPL;
-        internal Instruct BOUND;
+ 
 
     }
 

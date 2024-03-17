@@ -1006,7 +1006,6 @@ namespace VirtualProcessor
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            bool lIsNegative = false;
             UInt16 lTempIP = mProc.regs.IP;
             UInt32 lTempEIP = mProc.regs.EIP;
             sInstruction ins = CurrentDecode;
@@ -3528,8 +3527,6 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            QWord lOp1Value = 0;
-            long bits = 0;
 
             switch (CurrentDecode.OpCode)
             {
@@ -5581,7 +5578,6 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            UInt16 lCS = 0; UInt32 lIP = 0; UInt16 lJunk = 0;
             bool lIsNegative = false;
 
             //if (ChosenOpCode.Instruction!=null && !ChosenOpCode.Operand1.StartsWith("E") && !ChosenOpCode.Operand1.StartsWith("A"))
@@ -7400,8 +7396,6 @@ break;
         }
         public static void IncDec(Processor_80x86 mProc, ref DWord Dest, ref DWord Src, bool AddrSize16, byte Size, bool IncSource, bool IncDest, bool SourceOverridable, bool DestOverridable)
         {
-            DWord Junk = 0;
-
             if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)
                 if (AddrSize16)
                     mProc.regs.CX--;
@@ -8696,7 +8690,7 @@ break;
                         lTempCF = (int)lOp1Value.OpDWord & 0x01;
                         //10/01/2010 - Op1Val = Misc.setBit(Op1Val, Op1Val.TopBitNum, new cValue(Misc.getBit(mProc.regs.FLAGS,0)) );
                         lTempFLAGS0 = (mProc.regs.FLAGS & 0x01) << 31;
-                        lOp1Value.OpDWord = (DWord)(lTempFLAGS0 | (lOp1Value.OpDWord >> 1));
+                        lOp1Value.OpDWord = (DWord)((byte)lTempFLAGS0 | (lOp1Value.OpDWord >> 1));
                         mProc.regs.setFlagCF(lTempCF == 0x01);
                     }
                     mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Value.OpDWord);
@@ -9193,7 +9187,7 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            int lTempCount = CurrentDecode.Op2Value.OpByte, lTopBitNum = 0;
+            int lTempCount = CurrentDecode.Op2Value.OpByte;
             sOpVal lOp1Value = CurrentDecode.Op1Value;
             byte lTempB;
             Word lTempW;
@@ -9214,7 +9208,6 @@ break;
             switch (CurrentDecode.Op1TypeCode)
             {
                 case TypeCode.Byte:
-                    lTopBitNum = 7;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
@@ -9226,7 +9219,6 @@ break;
                     mProc.regs.setFlagSF(lOp1Value.OpByte);
                     break;
                 case TypeCode.UInt16:
-                    lTopBitNum = 15;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
@@ -9238,7 +9230,6 @@ break;
                     mProc.regs.setFlagSF(lOp1Value.OpWord);
                     break;
                 case TypeCode.UInt32:
-                    lTopBitNum = 31;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
@@ -9250,7 +9241,6 @@ break;
                     mProc.regs.setFlagSF(lOp1Value.OpDWord);
                     break;
                 case TypeCode.UInt64:
-                    lTopBitNum = 63;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
@@ -9400,7 +9390,6 @@ break;
     public class SCASD : Instruct
     {
         DWord lSource = 0;
-        DWord lDest = 0;
         sOpVal lPreVal1;
         DWord lLoopCounter = 0;
         public SCASD()

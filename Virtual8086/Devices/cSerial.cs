@@ -60,11 +60,7 @@ namespace VirtualProcessor.Devices
         mouse_buffer mouse_internal_buffer;
         public serial_t[] serialPorts;
         int detect_mouse;
-        int mouse_port;
         mouseTypes mouse_type;
-        int mouse_delayed_dx;
-        int mouse_delayed_dy;
-        int mouse_delayed_dz;
         UInt16[] ports;
         char[] name;
         char[] pname;
@@ -86,15 +82,12 @@ namespace VirtualProcessor.Devices
             ports = new UInt16[SERIAL_MAXDEV] { 0x03f8, 0x02f8, 0x03e8, 0x02e8 };
             name = new char[16];
             pname = new char[20];
-            mouse_port = -1;
             mouse_type = mouseTypes.MOUSE_TYPE_NONE;
             mouse_internal_buffer = new mouse_buffer(0);
             mouse_internal_buffer.num_elements = 0;
             for (i = 0; i < MOUSE_BUFF_SIZE - 1; i++)
                 mouse_internal_buffer.buffer[i] = (char)0;
             mouse_internal_buffer.head = 0;
-            mouse_delayed_dx = 0;
-            mouse_delayed_dy = 0;
             mIOHandlers = new sIOHandler[N_SERIAL_PORTS * 8];
             if (N_SERIAL_PORTS > 0)
                 serialPorts[0].io_mode = SER_MODE_FILE;

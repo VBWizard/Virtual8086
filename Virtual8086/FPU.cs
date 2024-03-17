@@ -58,7 +58,6 @@ namespace VirtualProcessor
     {
         public bool Infinity, PrecisionMask, UnderflowMask, OverflowMask, ZeroDivideMask, DenormalOpMask, InvalidOpMask;
         public byte Rounding, Precision, Bit15, Bit14, Bit13, Bit7, Bit6;
-        private Word mValue;
 
         public void Parse(Word Value)
         {
@@ -157,7 +156,6 @@ namespace VirtualProcessor
             return mDataReg[index];
         }
         internal FPUControl mControlReg;
-        internal double mInternalResultRegister;
         internal FPUTagReg mTagReg;
         internal FPUStatus mStatusReg;
         public FPUStatus StatusReg

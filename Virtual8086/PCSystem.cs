@@ -122,7 +122,6 @@ namespace VirtualProcessor
             }
         }
         public int mAddressBreakpointCount = 0;
-        internal UInt32[] mInterruptBreakpoint;
         internal int mInterruptBreakpointCount = 0;
         internal uint mTaskNameOffset = 0;
         public uint TaskNameOffset
@@ -182,6 +181,7 @@ namespace VirtualProcessor
                     mProc = null;
                     mProc = new Processor_80x86(this, mTotalMemory, mProcType);
                     mResettingSystem = false;
+                    Console.Clear();
                 }
                 if (!Directory.Exists(mDebugFilePath))
                     throw new Exception("Debugging path '+ value + ' does not exist.  Ensure that the debug path exists or change the DebugFilePath property and try again");

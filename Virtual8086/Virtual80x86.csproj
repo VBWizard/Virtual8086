@@ -17,14 +17,14 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG</DefineConstants>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG;DECODE_MAKE_STRINGS</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>embedded</DebugType>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
-    <DefineConstants>RELEASE DOTRIES STACK_FFFF_HACK DISABLE_STACK_OVERFLOW USE_JMP_FOR_COMPARISONS MEM_PERF_ENHANCEMENTS</DefineConstants>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE</DefineConstants>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <ConsolePause>false</ConsolePause>

@@ -64,7 +64,6 @@ namespace VirtualProcessor.Devices
         public cPS2 mPS2;
         public cPIT mPIT;
         public cVGA mVGA;
-        cTestDevice mPICTest;
 
         //For now we'll create 64k ... later we can refine it if we don't need so many
         //Each device/port/direction gets 1 handler
@@ -73,8 +72,6 @@ namespace VirtualProcessor.Devices
 
         private Word mPortsHandledCount = 0;
         #endregion
-        private Thread mWorkerThread;
-        private Type mWorkerThreadCurrentClass;
         
         public cDeviceBlock ( PCSystem System )
         {
@@ -249,7 +246,6 @@ namespace VirtualProcessor.Devices
         {//i.e. Write from Memory to Device
             if (Channel == 2)
             {
-                sInstruction sIns = new sInstruction();
                 mFloppy.DMARead(mProc.mem.pMemory(mProc, MemAddr));
             }
         }

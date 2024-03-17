@@ -1276,14 +1276,6 @@ namespace VirtualProcessor.Devices
             public byte error_register;
             public byte head_no;
             public byte sector_count;
-            public struct interrupt_reason
-            {
-                private uint reason;
-                uint c_d { get { return reason & 0x01; } }
-                uint i_o { get { return reason & 0x02; } }
-                uint rel { get { return reason & 0x04; } }
-                uint tag { get { return reason & 0xF8; } }
-            }
             public byte sector_no;
             public ulong cylinder_no, byte_count;
             public byte[] buffer;
@@ -1311,10 +1303,10 @@ namespace VirtualProcessor.Devices
         struct sense_info_t
         {
             _sense sense_key;
-            struct information
+            struct sInformation
             {
                 byte[] arr;
-                information(int dummy)
+                sInformation(int dummy)
                 { arr = new byte[4]; }
             }
             struct specific_inf

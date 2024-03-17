@@ -347,7 +347,7 @@ namespace WindowsFormsApplication1
                     ConsoleKeyInfo lKey = Console.ReadKey(true);
                     HandleDisplayKeystroke(sender, lKey);
                 }
-                Thread.Sleep(75);
+                Thread.Sleep(10);
                 if (mExitMainDisplayThread)
                 {
                     return;
@@ -685,7 +685,7 @@ namespace WindowsFormsApplication1
             Instruct i;
             for (uint cnt=0;cnt< Processor_80x86.Instructions.Count;cnt++)
             {
-                i = Processor_80x86.Instructions[cnt];
+                i = Processor_80x86.Instructions.instructList[cnt];
                 if (i != null)
                 {
                     m.AppendFormat("\t{0}\t{1}\t{2}\t", i.Name, i.UsageCount, System.Math.Round(i.TotalTimeInInstruct, 3));

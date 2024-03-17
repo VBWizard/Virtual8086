@@ -15,9 +15,6 @@ namespace VirtualProcessor.Devices
         FileStream mCMOSFile;
         //TODO: Making protected incase other classes need to review.  If this turns out not to be the case (ports used only to access) then change to private
         protected byte[] mCMOS = new byte[CMOS_SIZE];
-        int periodic_timer_index;
-        int periodic_interval_usec;
-        int one_second_timer_index;
         DateTime timeval;
         byte cmos_mem_address;
         Boolean mOneSecondTimerActive = false, mPeriodicTimerActive = false;
@@ -73,14 +70,12 @@ namespace VirtualProcessor.Devices
                 // No Periodic Interrupt Rate when 0, deactivate timer
                 //bx_pc_system.deactivate_timer(periodic_timer_index);
                 mPeriodicTimerActive = false;
-                periodic_interval_usec = -1; // max value
             }
             else
             {
                 // values 0001b and 0010b are the same as 1000b and 1001b
                 if (nibble <= 2)
                     nibble += 7;
-                periodic_interval_usec = (int)(1000000.0 / (32768.0 / (1 << (nibble - 1))));
 
                  //if Periodic Interrupt Enable bit set, activate timer
                 if ((mCMOS[0x0b] & 0x40) > 0)

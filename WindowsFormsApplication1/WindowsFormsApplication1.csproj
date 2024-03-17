@@ -86,6 +86,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>full</DebugType>
     <Optimize>True</Optimize>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Westwind.Utilities.Configuration">

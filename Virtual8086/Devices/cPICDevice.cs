@@ -336,7 +336,6 @@ namespace VirtualProcessor.Devices
                                 if (mParent.mSystem.Debuggies.DebugPIC)
                                     mParent.mSystem.PrintDebugMsg(eDebuggieNames.PIC, "        offset = INT " + s.master_pic.interrupt_offset.ToString("X2"));
                                 return;
-                                break;
                             case 3:
                                 if (mParent.mSystem.Debuggies.DebugPIC)
                                     mParent.mSystem.PrintDebugMsg(eDebuggieNames.PIC, "master: init command 3 = " + IO.Value.ToString("X2"));
@@ -349,7 +348,6 @@ namespace VirtualProcessor.Devices
                                     s.master_pic.init.in_init = false;
                                 }
                                 return;
-                                break;
                             case 4:
                                 if (mParent.mSystem.Debuggies.DebugPIC)
                                     mParent.mSystem.PrintDebugMsg(eDebuggieNames.PIC, "master: init command 4 = " + IO.Value.ToString("X2"));

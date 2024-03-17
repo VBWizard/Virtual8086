@@ -16,7 +16,6 @@ namespace VirtualProcessor
         internal static bool mLastAddressWrite = false;
         internal static UInt32 mLastLogicalAddress = 0;
         internal static UInt32 mLastPhysicalAddress = 0;
-        internal int mPrivCheckSize;
 
         //// The 'priv_check' array is used to decide if the current access
         //// has the proper paging permissions.  An index is formed, based
@@ -46,7 +45,7 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
             mCHangedBlocks = new byte[RAMSize / 4096];
 #endif
-            //InitializeMem(0x69);
+            InitializeMem(0x00);
             if (mProc.ProcType <= eProcTypes.i80386)
                 mPrivCheck = new byte[16] { 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1 };
             else
@@ -101,7 +100,7 @@ namespace VirtualProcessor
             {
                 PhysicalMem.mMemBytes[mChangeAddress[cnt]] = mChanges[cnt];
 #if CALCULATE_PAGE_MEMORY_USAGE
-                 BlockChanged (mProc, mChangeAddress[cnt],true);
+                BlockChanged(mProc, mChangeAddress[cnt], true);
 #endif
             }
             mChangesPending = 0;
@@ -368,27 +367,20 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
         public static void BlockChanged(Processor_80x86 mProc, UInt32 Address, bool Writing)
         {
-            try
+            UInt32 block = Address / 4096;
+            if (Writing)
             {
-                UInt32 block = Address / 4096;
-                if (Writing)
-                {
-                    if (mProc.mem.mCHangedBlocks[block] == 1)
-                        mProc.mem.mCHangedBlocks[block] = 2;
-                    else
-                        mProc.mem.mCHangedBlocks[block] = 1;
-                }
+                if (mProc.mem.mCHangedBlocks[block] == 1)
+                    mProc.mem.mCHangedBlocks[block] = 2;
                 else
-                {
-                    if (mProc.mem.mCHangedBlocks[block] == 4)
-                        mProc.mem.mCHangedBlocks[block] = 5;
-                    else
-                        mProc.mem.mCHangedBlocks[block] = 4;
-                }
+                    mProc.mem.mCHangedBlocks[block] = 1;
             }
-            catch (Exception e)
+            else
             {
-                int a = 0;
+                if (mProc.mem.mCHangedBlocks[block] == 4)
+                    mProc.mem.mCHangedBlocks[block] = 5;
+                else
+                    mProc.mem.mCHangedBlocks[block] = 4;
             }
         }
 #endif
@@ -567,7 +559,6 @@ namespace VirtualProcessor
             {
                 int initialCount = (int)(((beginSeg + 0x1000) - Location) & 0xFFFF);
                 int secondCount = (int)(Count - initialCount);
-                sInstruction myIns = new sInstruction();
                 Array.Copy(mMemBytes, ResolveAddress(mProc, ref sIns, Location), lReturn, 0, initialCount);
                 Array.Copy(mMemBytes, ResolveAddress(mProc, ref sIns, Location + (UInt32)initialCount), lReturn, initialCount, secondCount);
                 //if (sIns.ExceptionThrown)
@@ -602,7 +593,6 @@ namespace VirtualProcessor
                     return mProc.regs.DL;
                 default:
                     throw new Exception("GetByteRegisterValue: Unidentified byte register!");
-                    break;
             }
             //if (Location == Processor_80x86.RAH)
             //    return mProc.regs.AH;
@@ -795,70 +785,21 @@ namespace VirtualProcessor
         {
             switch (Location)
             {
-                case Processor_80x86.RAX:
-                    return mProc.regs.AX;
-                    break;
-
-                case Processor_80x86.RBX:
-                    return mProc.regs.BX;
-                    break;
-
-                case Processor_80x86.RCX:
-                    return mProc.regs.CX;
-                    break;
-
-                case Processor_80x86.RDX:
-                    return mProc.regs.DX;
-                    break;
-
-                case Processor_80x86.RSI:
-                    return mProc.regs.SI;
-                    break;
-
-                case Processor_80x86.RDI:
-                    return mProc.regs.DI;
-                    break;
-
-                case Processor_80x86.RBP:
-                    return mProc.regs.BP;
-                    break;
-
-                case Processor_80x86.RSP:
-                    return mProc.regs.SP;
-                    break;
-
-                case Processor_80x86.RIP:
-                    return mProc.regs.IP;
-                    break;
-
-                case Processor_80x86.RFL:
-                    return mProc.regs.FLAGS;
-                    break;
-
-                case Processor_80x86.RCS:
-                    return (UInt16)mProc.regs.CS.Value;
-                    break;
-
-                case Processor_80x86.RDS:
-                    return (UInt16)mProc.regs.DS.Value;
-                    break;
-
-                case Processor_80x86.RES:
-                    return (UInt16)mProc.regs.ES.Value;
-                    break;
-
-                case Processor_80x86.RFS:
-                    return (UInt16)mProc.regs.FS.Value;
-                    break;
-
-                case Processor_80x86.RGS:
-                    return (UInt16)mProc.regs.GS.Value;
-                    break;
-
-                case Processor_80x86.RSS:
-                    return (UInt16)mProc.regs.SS.Value;
-                    break;
-
+                case Processor_80x86.RAX: return mProc.regs.AX;
+                case Processor_80x86.RBX: return mProc.regs.BX;
+                case Processor_80x86.RCX: return mProc.regs.CX;
+                case Processor_80x86.RDX: return mProc.regs.DX;
+                case Processor_80x86.RSI: return mProc.regs.SI;
+                case Processor_80x86.RDI: return mProc.regs.DI;
+                case Processor_80x86.RBP: return mProc.regs.BP;
+                case Processor_80x86.RSP: return mProc.regs.SP;
+                case Processor_80x86.RIP: return mProc.regs.IP; case Processor_80x86.RFL: return mProc.regs.FLAGS;
+                case Processor_80x86.RCS: return (UInt16)mProc.regs.CS.Value;
+                case Processor_80x86.RDS: return (UInt16)mProc.regs.DS.Value;
+                case Processor_80x86.RES: return (UInt16)mProc.regs.ES.Value;
+                case Processor_80x86.RFS: return (UInt16)mProc.regs.FS.Value;
+                case Processor_80x86.RGS: return (UInt16)mProc.regs.GS.Value;
+                case Processor_80x86.RSS: return (UInt16)mProc.regs.SS.Value;
                 default:
                     throw new Exception("GetWordRegisterValue: Unidentified Word register at location " + Location.ToString("X8"));
             }
@@ -1109,7 +1050,6 @@ namespace VirtualProcessor
 
                 default:
                     throw new Exception("GetByteRegisterValue: Unidentified byte register!");
-                    break;
             }
             //if (Location == Processor_80x86.RAH)
             //    mProc.regs.AH = Value;
