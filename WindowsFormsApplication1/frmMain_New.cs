@@ -587,7 +587,7 @@ namespace WindowsFormsApplication1
                 theIns = "";
                 ListViewItem lvi = new ListViewItem(lCS.ToString("X8") + ":" + lEIP.ToString("X8") + " ");
                 for (int cnt2 = 0; cnt2 < sIns.BytesUsed; cnt2++)
-                    theIns += sInstruction.bytes[cnt2].ToString("X2");
+                    theIns += ((Processor_80x86)sender).sCurrentDecode.bytes[cnt2].ToString("X2");
                 //Subitem 1
                 lvi.SubItems.Add(theIns);
                 //Subitem 2

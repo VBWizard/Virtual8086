@@ -69,7 +69,7 @@
       <Value Profile="(Default)">52</Value>
     </Setting>
     <Setting Name="MiscROMPathAndFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">D:\Emulator Stuff\from_flash_ubuntu\v86media\ibm-basic-1.10.rom</Value>/>
     </Setting>
     <Setting Name="MiscROMLoadAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>

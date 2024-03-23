@@ -51,6 +51,10 @@ namespace VirtualProcessor
 
                 return lValue;
             }
+            set
+            {
+                Parse(value);
+            }
         }
     }
 
@@ -174,6 +178,7 @@ namespace VirtualProcessor
         {
             mParent = mProc;
             PowerOnReset();
+            mStatusReg.Value = 0;
             FPUThreadStart = new ThreadStart(ExecutionThread);
             FPUProcessingThread = new Thread(FPUThreadStart);
             FPUProcessingThread.Name = "FPUThread";

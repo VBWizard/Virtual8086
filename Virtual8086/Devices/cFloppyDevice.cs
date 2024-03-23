@@ -487,9 +487,13 @@ namespace VirtualProcessor.Devices
                     break;
             }
             // open media file (image file or device)
+            if (media.fd != null)
+                media.fd.Close();
             media.fd = new FileStream(path, FileMode.Open);
             media.Filename = path;
             media.sectors = (Word)(media.heads * media.tracks * media.sectors_per_track);
+            if (mParent.mSystem.Debuggies.DebugFDC)
+                mParent.mSystem.PrintDebugMsg(eDebuggieNames.Floppy, $"evaluate_media completed for floppy disk {path} of type {type.ToString()}");
             return (true); // success
             /*    }
 
@@ -675,6 +679,7 @@ namespace VirtualProcessor.Devices
         {
             floppy_t test = new floppy_t();
             floppy_t test2 = new floppy_t();
+
             if (DriveNum == 1)
             {
                 if (s.media[0].type == eFloppyType.FLOPPY_NONE)
@@ -685,9 +690,9 @@ namespace VirtualProcessor.Devices
             }
             else
             {
-                if (s.media[0].type == eFloppyType.FLOPPY_NONE)
+                if (s.media[1].type == eFloppyType.FLOPPY_NONE)
                     s.num_supported_floppies++;
-                evaluate_media(mParent.mSystem.FloppyACapacity, mParent.mSystem.FloppyBFile, ref test2);
+                evaluate_media(mParent.mSystem.FloppyBCapacity, mParent.mSystem.FloppyBFile, ref test2);
                 s.media[1] = test2;
                 s.media_present[1] = true;
             }

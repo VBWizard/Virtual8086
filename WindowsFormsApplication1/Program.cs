@@ -56,7 +56,6 @@ namespace WindowsFormsApplication1
         static bool StartEmulatorThreadActive = false;
         static string[] MapFileEntries = new string[10000];
         static UInt32[] MapFileAddresses = new UInt32[10000];
-        static UInt32[] MapFileAddressesSorted = new UInt32[10000];
         static int MapFileEntryCount = 0;
         static bool mShiftDown = false, mCtrlDown = false, mAltDown = false;
         static UInt32 mExceptionErrorCode;
@@ -195,7 +194,7 @@ namespace WindowsFormsApplication1
                 {
 #endif
             mSystem.TaskNameOffset = default_set.Default.TaskNameOffset;
-            mSystem.Debuggies = new sDebugComponents(false, false, false, false, false, false, false, false, false, false, true, false, false);
+            mSystem.Debuggies = new sDebugComponents(false, true, false, true, false, false, false, false, false, false, true, false, false);
             mSystem.OSType = eOpSysType.Linux;
             mSystem.FPUEnabled(true);
             mSystem.ColdBoot();
@@ -232,14 +231,14 @@ namespace WindowsFormsApplication1
             TimeSpan TotalTime;
             bool bSuccess;
             long lResult;
-            Encoding enc = Encoding.GetEncoding("us-ascii",
-                                                      new EncoderExceptionFallback(),
-                                                      new DecoderExceptionFallback());
+            Encoding enc = new UTF8Encoding();
+            Console.OutputEncoding = enc; 
             byte lByte;
             char lChar;
             byte lAttrib;
             int lCursorPos = 0;
 
+            sInstruction sIns = new sInstruction();
 
             while (1 == 1)
             {
@@ -1131,9 +1130,9 @@ namespace WindowsFormsApplication1
                 lOutput.AppendFormat(":" + lIP.ToString("X8") + " (" + sender.mTLB.ShallowTranslate(sender, ref sender.sCurrentDecode, (DWord)(sender.regs.CS.Value + sender.regs.EIP), false, ePrivLvl.Kernel_Ring_0).ToString("X8") + ") ");
             }
             lOutput.Append("\t");
-            /*if (sender.sCurrentDecode.bytes != null)
+            if (sender.sCurrentDecode.bytes != null)
                 for (int cnt = 0; cnt < sender.sCurrentDecode.bytes.Count(); cnt++)
-                    bytes.Append(String.Format("{0:x}", sender.sCurrentDecode.bytes[cnt]).ToUpper().PadLeft(2, '0'));*/
+                    bytes.Append(String.Format("{0:x}", sender.sCurrentDecode.bytes[cnt]).ToUpper().PadLeft(2, '0'));
             lOutput.AppendFormat(bytes.ToString().PadRight(15, ' '));
             lInstrOutput.AppendFormat(bytes.ToString().PadRight(15, ' '));
             if (sender.sCurrentDecode.OverrideSegment != eGeneralRegister.DS &&
@@ -1334,36 +1333,32 @@ namespace WindowsFormsApplication1
             StreamReader r = new StreamReader(default_set.Default.MapFile);
             string lTemp;
             int cnt = 0;
-            for (int cnt2 = 0; cnt2 < 10000; cnt2++)
-                MapFileAddressesSorted[cnt2] = 0xFFFFFFFF;
             while (!r.EndOfStream)
             {
                 lTemp = r.ReadLine();
                 MapFileAddresses[cnt] = (UInt32)int.Parse(lTemp.Substring(0, lTemp.IndexOf(" ")), System.Globalization.NumberStyles.HexNumber);
                 if (MapFileAddresses[cnt] < 0xc0000000)
                     MapFileAddresses[cnt] += 0xc0000000;
-                MapFileAddressesSorted[cnt] = MapFileAddresses[cnt];
                 MapFileEntries[cnt++] = lTemp.Substring(lTemp.LastIndexOf(" ") + 1, lTemp.Length - lTemp.LastIndexOf(" ") - 1);
             }
-            MapFileEntryCount = cnt;
-            Array.Sort(MapFileAddressesSorted);
+            MapFileEntryCount = cnt-1;
         }
         public static string GetMapFileValue(UInt32 Value)
         {
             //temporarily returning, screwing up paging again!
             //return "";
-            if (!default_set.Default.MapFile_Use && ( Value < 0xc0000000 || Value > 0xCFFFFFFF) )
+            if (!default_set.Default.MapFile_Use ) //&& ( Value < 0xc0000000 || Value > 0xCFFFFFFF) )
                 return "";
             for (int cnt = 0; cnt < MapFileEntryCount; cnt++)
-                if (MapFileAddressesSorted[cnt] == Value)
-                    return GetMapFileEntryUnsorted(MapFileAddressesSorted[cnt]);
-                else if (MapFileAddressesSorted[cnt] > Value)
+                if (MapFileAddresses[cnt] == Value)
+                    return GetMapFileEntryUnsorted(MapFileAddresses[cnt]);
+                else if (MapFileAddresses[cnt] > Value)
                 {
                     if (cnt == 0)
                         return "";
                     if (MapFileEntries[cnt - 1] == "gcc2_compiled.")
-                        return GetMapFileEntryUnsorted(MapFileAddressesSorted[cnt - 2]);
-                    return GetMapFileEntryUnsorted(MapFileAddressesSorted[cnt - 1]);
+                        return GetMapFileEntryUnsorted(MapFileAddresses[cnt - 2]);
+                    return GetMapFileEntryUnsorted(MapFileAddresses[cnt - 1]);
                 }
             return "";
         }

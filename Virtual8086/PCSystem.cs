@@ -298,7 +298,7 @@ namespace VirtualProcessor
                 FloppyBFile = PathAndFilename;
                 FloppyBCapacity = lTemp;
                 if (DeviceBlock != null && DeviceBlock.mFloppy != null)
-                    DeviceBlock.mFloppy.LoadDrive(1);
+                    DeviceBlock.mFloppy.LoadDrive(2);
             }
             else
                 throw new Exception("System only supports 2 floppies!");
@@ -441,7 +441,7 @@ namespace VirtualProcessor
         }
         public void AddTaskNameBreakpoint(String pTaskName, bool DisableOnHit, bool ToScreen, bool ToFile)
         {
-            BreakpointInfo.Add(new cBreakpoint(pTaskName, DisableOnHit, ToScreen, ToFile));
+            BreakpointInfo.Add(new cBreakpoint(pTaskName, true, ToScreen, ToFile));
         }
         public void RemoveAddressBreakpoint(cBreakpoint b)
         {

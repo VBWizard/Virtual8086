@@ -41,7 +41,7 @@ namespace VirtualProcessor
         public UInt32 InstructionEIP;
         public Instruct mChosenInstruction;
         public sOpCode ChosenOpCode;
-        public static byte[] bytes;
+        public byte[] bytes;
         public string Operand1SValue, Operand2SValue, Operand3SValue, CombinedSValue;
         public bool Operand1IsRef, Operand2IsRef, Operand3IsRef;
         public TypeCode Op1TypeCode, Op2TypeCode, Op3TypeCode;
@@ -208,13 +208,11 @@ namespace VirtualProcessor
                 mInstruction.InstructionEIP = mProc.regs.EIP;
             }
             else
-                mInstruction.InstructionEIP = mInstructionEIP;
-
-            if (mDecodeOffset == 0x15A561)
             {
-                int a = 0;
-                a += 1 - 1 + a - 25;
+                mInstruction.InstructionEIP = mInstructionEIP;
+                mDecodeOffset = mInstructionEIP;
             }
+
             mInitialDecodeOffset = mDecodeOffset;
             mInstruction.InstructionAddress = mInitialDecodeOffset;
             #endregion
@@ -222,9 +220,10 @@ namespace VirtualProcessor
             //Get any prefixes
             mMemBytesReadAddr = mDecodeOffset;
             instrCache = PhysicalMem.GetBytes(mProc, ref mInstruction, mDecodeOffset, BYTES_PER_READ);
-            if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
             instrCachePtr = 0;
 
+//            if (mDecodeOffset == 0x90C4)
+//                System.Diagnostics.Debugger.Break();
             while (lPrefixFound)
             {
                 lPrefixFound = false;
@@ -289,7 +288,6 @@ namespace VirtualProcessor
                 }
             }
 
-            if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
             #region Opcode Processing
             //Get the OpCode
             if (mTempPrefixByteUsed)
@@ -301,14 +299,12 @@ namespace VirtualProcessor
                 InstrCachePtr++;
             }
 
-            if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
             mInstruction.BytesUsed++;
 
             if ((mInstruction.OpCode == 0x0F) || (mInstruction.OpCode >= 0xD8 && mInstruction.OpCode <= 0xDF))
             {
                 //                mNextByte = PhysicalMem.GetByte(mProc, ref mInstruction, mDecodeOffset);
                 mNextByte = instrCache[InstrCachePtr];
-                if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                 //FPU instructions that have a MODRM > 0xBF use the MODRM as the 2nd byte of the instruction, which consumes the byte
                 //All other FPU instructions use bits 5,4,3 as an extension to the instruction, and do NOT consume the byte (which will later be used as the Mod/RM)
                 if (mInstruction.OpCode == 0x0F || (mNextByte > 0xBF))
@@ -358,7 +354,6 @@ namespace VirtualProcessor
                     else if (mInstruction.OpCode == 0x0f01)
                         mInstruction.OpCode = 0xAF;
                     mInstruction.OpCode = (mInstruction.OpCode << 8) | (byte)((instrCache[InstrCachePtr] >> 3) & 0x07);
-                    if (mInstruction.ExceptionThrown) { if (!mTriggerExceptions) mInstruction.ExceptionThrown = false; mValidDecode = false; return; }
                     break;
             }
 
@@ -391,7 +386,10 @@ namespace VirtualProcessor
                 mOpFound = false;
 
             if (!mOpFound)
+            {
+                mProc.mSystem.PrintDebugMsg(eDebuggieNames.CPU, $"Could not find correct version of instruction for OpCode: {mInstruction.OpCode.ToString("x")}");
                 throw new Exception("Could not find correct version of instruction for OpCode: " + mInstruction.OpCode.ToString("x"));
+            }
             #endregion
 
             mInstruction.OpSizeBit = ((mInstruction.RealOpCode & 0x01) == 0x01);
@@ -920,9 +918,9 @@ namespace VirtualProcessor
             //All done, return the result!
             mInstruction.BytesUsed = (char)(mDecodeOffset - mInitialDecodeOffset);
 #if DEBUG
-            sInstruction.bytes = new byte[/*16*/mInstruction.BytesUsed];
+            mProc.sCurrentDecode.bytes = new byte[/*16*/mInstruction.BytesUsed];
             for (cnt = mInitialDecodeOffset; cnt < mDecodeOffset/*16*/; cnt++)
-                sInstruction.bytes[cnt - mInitialDecodeOffset] = PhysicalMem.GetByte(mProc, ref mInstruction, (uint)cnt);
+                mProc.sCurrentDecode.bytes[cnt - mInitialDecodeOffset] = PhysicalMem.GetByte(mProc, ref mInstruction, (uint)cnt);
 #endif
             //System.Diagnostics.Debug.WriteLine("");
             mInstruction.InstructionOpSize16 = !mInstruction.OpSizePrefixFound;

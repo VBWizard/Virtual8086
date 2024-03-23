@@ -171,7 +171,7 @@ namespace VirtualProcessor
                 }
             }
             catch { }
-            return lJobName;
+            return lJobName.Trim();
 
         }
 
@@ -203,7 +203,7 @@ namespace VirtualProcessor
                 }
             }
             catch { }
-            return lJobName;
+            return lJobName.Trim();
         }
     }
 

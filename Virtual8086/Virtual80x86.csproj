@@ -17,14 +17,13 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG;DECODE_MAKE_STRINGS</DefineConstants>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG;DEBUGGER_FEATURE;DECODE_MAKE_STRINGS;PAGING_USE_LAST_PASSED_ADDRESS_LOGIC</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
-    <DebugType>embedded</DebugType>
+    <DebugType>full</DebugType>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE</DefineConstants>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <ConsolePause>false</ConsolePause>
@@ -33,6 +32,7 @@
     <BaseAddress>2424336480</BaseAddress>
     <RegisterForComInterop>false</RegisterForComInterop>
     <IsAotCompatible>True</IsAotCompatible>
+    <DefineConstants>$(DefineConstants);PAGING_USE_LAST_PASSED_ADDRESS_LOGIC</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Without Tries|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -28,1054 +28,1043 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbFD2Capacity = new System.Windows.Forms.ComboBox();
-            this.cbFD1Capacity = new System.Windows.Forms.ComboBox();
-            this.ckFD2Enabled = new System.Windows.Forms.CheckBox();
-            this.ckFD1Enabled = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cmdGetFile2 = new System.Windows.Forms.Button();
-            this.ckHD2Installed = new System.Windows.Forms.CheckBox();
-            this.txtSPT2 = new System.Windows.Forms.TextBox();
-            this.txtHeads2 = new System.Windows.Forms.TextBox();
-            this.txtCyl2 = new System.Windows.Forms.TextBox();
-            this.txtHD2Filename = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmdGetFile1 = new System.Windows.Forms.Button();
-            this.ckHD1Installed = new System.Windows.Forms.CheckBox();
-            this.txtSPT1 = new System.Windows.Forms.TextBox();
-            this.txtHeads1 = new System.Windows.Forms.TextBox();
-            this.txtHD1Filename = new System.Windows.Forms.TextBox();
-            this.txtCyl1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cmdGetVidBIOSFile = new System.Windows.Forms.Button();
-            this.cmdGetFD2 = new System.Windows.Forms.Button();
-            this.cmdGetBIOSFile = new System.Windows.Forms.Button();
-            this.cmdGetFD1 = new System.Windows.Forms.Button();
-            this.cmdGetCMOSFile = new System.Windows.Forms.Button();
-            this.txtVidBIOSFilename = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtFD2Filename = new System.Windows.Forms.TextBox();
-            this.txtBIOSFilename = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtFD1Filename = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtCMOSFilename = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tbMemory = new System.Windows.Forms.TrackBar();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtMemoryAmt = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.ofdHD1 = new System.Windows.Forms.OpenFileDialog();
-            this.cmdOK = new System.Windows.Forms.Button();
-            this.cmdCancel = new System.Windows.Forms.Button();
-            this.clbOptions = new System.Windows.Forms.CheckedListBox();
-            this.txtDebugAtCS = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.grpDebugAt = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtDebugAtEIP = new System.Windows.Forms.TextBox();
-            this.grpDieAt = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtDieAtEIP = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtDieAtCS = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cboBootDevice = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtMaxDbgFileSize = new System.Windows.Forms.TextBox();
-            this.txtDebugPath = new System.Windows.Forms.TextBox();
-            this.fb1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtTimerTick = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cmdSwapHDs = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtTaskNameOffset = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.txtDumpAtEIP = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtDumpAtCS = new System.Windows.Forms.TextBox();
-            this.cmdSwapFDs = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMemory)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.grpDebugAt.SuspendLayout();
-            this.grpDieAt.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            cbFD2Capacity = new System.Windows.Forms.ComboBox();
+            cbFD1Capacity = new System.Windows.Forms.ComboBox();
+            ckFD2Enabled = new System.Windows.Forms.CheckBox();
+            ckFD1Enabled = new System.Windows.Forms.CheckBox();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            cmdGetFile2 = new System.Windows.Forms.Button();
+            ckHD2Installed = new System.Windows.Forms.CheckBox();
+            txtSPT2 = new System.Windows.Forms.TextBox();
+            txtHeads2 = new System.Windows.Forms.TextBox();
+            txtCyl2 = new System.Windows.Forms.TextBox();
+            txtHD2Filename = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            groupBox4 = new System.Windows.Forms.GroupBox();
+            cmdGetFile1 = new System.Windows.Forms.Button();
+            ckHD1Installed = new System.Windows.Forms.CheckBox();
+            txtSPT1 = new System.Windows.Forms.TextBox();
+            txtHeads1 = new System.Windows.Forms.TextBox();
+            txtHD1Filename = new System.Windows.Forms.TextBox();
+            txtCyl1 = new System.Windows.Forms.TextBox();
+            label6 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            cmdGetVidBIOSFile = new System.Windows.Forms.Button();
+            cmdGetFD2 = new System.Windows.Forms.Button();
+            cmdGetBIOSFile = new System.Windows.Forms.Button();
+            cmdGetFD1 = new System.Windows.Forms.Button();
+            cmdGetCMOSFile = new System.Windows.Forms.Button();
+            txtVidBIOSFilename = new System.Windows.Forms.TextBox();
+            label15 = new System.Windows.Forms.Label();
+            txtFD2Filename = new System.Windows.Forms.TextBox();
+            txtBIOSFilename = new System.Windows.Forms.TextBox();
+            label17 = new System.Windows.Forms.Label();
+            label14 = new System.Windows.Forms.Label();
+            txtFD1Filename = new System.Windows.Forms.TextBox();
+            label16 = new System.Windows.Forms.Label();
+            txtCMOSFilename = new System.Windows.Forms.TextBox();
+            label9 = new System.Windows.Forms.Label();
+            tbMemory = new System.Windows.Forms.TrackBar();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            label24 = new System.Windows.Forms.Label();
+            txtMemoryAmt = new System.Windows.Forms.TextBox();
+            label23 = new System.Windows.Forms.Label();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            ofdHD1 = new System.Windows.Forms.OpenFileDialog();
+            cmdOK = new System.Windows.Forms.Button();
+            cmdCancel = new System.Windows.Forms.Button();
+            clbOptions = new System.Windows.Forms.CheckedListBox();
+            txtDebugAtCS = new System.Windows.Forms.TextBox();
+            label10 = new System.Windows.Forms.Label();
+            grpDebugAt = new System.Windows.Forms.GroupBox();
+            label11 = new System.Windows.Forms.Label();
+            txtDebugAtEIP = new System.Windows.Forms.TextBox();
+            grpDieAt = new System.Windows.Forms.GroupBox();
+            label12 = new System.Windows.Forms.Label();
+            txtDieAtEIP = new System.Windows.Forms.TextBox();
+            label13 = new System.Windows.Forms.Label();
+            txtDieAtCS = new System.Windows.Forms.TextBox();
+            groupBox5 = new System.Windows.Forms.GroupBox();
+            cboBootDevice = new System.Windows.Forms.ComboBox();
+            button1 = new System.Windows.Forms.Button();
+            label20 = new System.Windows.Forms.Label();
+            label19 = new System.Windows.Forms.Label();
+            label18 = new System.Windows.Forms.Label();
+            txtMaxDbgFileSize = new System.Windows.Forms.TextBox();
+            txtDebugPath = new System.Windows.Forms.TextBox();
+            fb1 = new System.Windows.Forms.FolderBrowserDialog();
+            label21 = new System.Windows.Forms.Label();
+            txtTimerTick = new System.Windows.Forms.TextBox();
+            label22 = new System.Windows.Forms.Label();
+            cmdSwapHDs = new System.Windows.Forms.Button();
+            label25 = new System.Windows.Forms.Label();
+            txtTaskNameOffset = new System.Windows.Forms.TextBox();
+            groupBox6 = new System.Windows.Forms.GroupBox();
+            label26 = new System.Windows.Forms.Label();
+            txtDumpAtEIP = new System.Windows.Forms.TextBox();
+            label27 = new System.Windows.Forms.Label();
+            txtDumpAtCS = new System.Windows.Forms.TextBox();
+            cmdSwapFDs = new System.Windows.Forms.Button();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbMemory).BeginInit();
+            groupBox2.SuspendLayout();
+            grpDebugAt.SuspendLayout();
+            grpDieAt.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox6.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 26);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Filename";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(32, 26);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(69, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Filename";
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.groupBox1.Controls.Add(this.cbFD2Capacity);
-            this.groupBox1.Controls.Add(this.cbFD1Capacity);
-            this.groupBox1.Controls.Add(this.ckFD2Enabled);
-            this.groupBox1.Controls.Add(this.ckFD1Enabled);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Controls.Add(this.cmdGetVidBIOSFile);
-            this.groupBox1.Controls.Add(this.cmdGetFD2);
-            this.groupBox1.Controls.Add(this.cmdGetBIOSFile);
-            this.groupBox1.Controls.Add(this.cmdGetFD1);
-            this.groupBox1.Controls.Add(this.cmdGetCMOSFile);
-            this.groupBox1.Controls.Add(this.txtVidBIOSFilename);
-            this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.txtFD2Filename);
-            this.groupBox1.Controls.Add(this.txtBIOSFilename);
-            this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.txtFD1Filename);
-            this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.txtCMOSFilename);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(40, 18);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(938, 462);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Files";
+            groupBox1.BackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            groupBox1.Controls.Add(cbFD2Capacity);
+            groupBox1.Controls.Add(cbFD1Capacity);
+            groupBox1.Controls.Add(ckFD2Enabled);
+            groupBox1.Controls.Add(ckFD1Enabled);
+            groupBox1.Controls.Add(groupBox3);
+            groupBox1.Controls.Add(groupBox4);
+            groupBox1.Controls.Add(cmdGetVidBIOSFile);
+            groupBox1.Controls.Add(cmdGetFD2);
+            groupBox1.Controls.Add(cmdGetBIOSFile);
+            groupBox1.Controls.Add(cmdGetFD1);
+            groupBox1.Controls.Add(cmdGetCMOSFile);
+            groupBox1.Controls.Add(txtVidBIOSFilename);
+            groupBox1.Controls.Add(label15);
+            groupBox1.Controls.Add(txtFD2Filename);
+            groupBox1.Controls.Add(txtBIOSFilename);
+            groupBox1.Controls.Add(label17);
+            groupBox1.Controls.Add(label14);
+            groupBox1.Controls.Add(txtFD1Filename);
+            groupBox1.Controls.Add(label16);
+            groupBox1.Controls.Add(txtCMOSFilename);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Location = new System.Drawing.Point(36, 18);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox1.Size = new System.Drawing.Size(834, 453);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Files";
             // 
             // cbFD2Capacity
             // 
-            this.cbFD2Capacity.FormattingEnabled = true;
-            this.cbFD2Capacity.Items.AddRange(new object[] {
-            "720K",
-            "1_2M",
-            "1_44M",
-            "2_88M"});
-            this.cbFD2Capacity.Location = new System.Drawing.Point(732, 282);
-            this.cbFD2Capacity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbFD2Capacity.Name = "cbFD2Capacity";
-            this.cbFD2Capacity.Size = new System.Drawing.Size(98, 28);
-            this.cbFD2Capacity.TabIndex = 9;
+            cbFD2Capacity.FormattingEnabled = true;
+            cbFD2Capacity.Items.AddRange(new object[] { "720K", "1_2M", "1_44M", "2_88M" });
+            cbFD2Capacity.Location = new System.Drawing.Point(651, 282);
+            cbFD2Capacity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbFD2Capacity.Name = "cbFD2Capacity";
+            cbFD2Capacity.Size = new System.Drawing.Size(88, 28);
+            cbFD2Capacity.TabIndex = 9;
             // 
             // cbFD1Capacity
             // 
-            this.cbFD1Capacity.FormattingEnabled = true;
-            this.cbFD1Capacity.Items.AddRange(new object[] {
-            "720K",
-            "1_2M",
-            "1_44M",
-            "2_88M"});
-            this.cbFD1Capacity.Location = new System.Drawing.Point(732, 245);
-            this.cbFD1Capacity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbFD1Capacity.Name = "cbFD1Capacity";
-            this.cbFD1Capacity.Size = new System.Drawing.Size(100, 28);
-            this.cbFD1Capacity.TabIndex = 5;
+            cbFD1Capacity.FormattingEnabled = true;
+            cbFD1Capacity.Items.AddRange(new object[] { "720K", "1_2M", "1_44M", "2_88M" });
+            cbFD1Capacity.Location = new System.Drawing.Point(651, 245);
+            cbFD1Capacity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbFD1Capacity.Name = "cbFD1Capacity";
+            cbFD1Capacity.Size = new System.Drawing.Size(89, 28);
+            cbFD1Capacity.TabIndex = 5;
             // 
             // ckFD2Enabled
             // 
-            this.ckFD2Enabled.AutoSize = true;
-            this.ckFD2Enabled.Location = new System.Drawing.Point(842, 282);
-            this.ckFD2Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ckFD2Enabled.Name = "ckFD2Enabled";
-            this.ckFD2Enabled.Size = new System.Drawing.Size(94, 24);
-            this.ckFD2Enabled.TabIndex = 10;
-            this.ckFD2Enabled.Text = "Inserted";
-            this.ckFD2Enabled.UseVisualStyleBackColor = true;
+            ckFD2Enabled.AutoSize = true;
+            ckFD2Enabled.Location = new System.Drawing.Point(748, 282);
+            ckFD2Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckFD2Enabled.Name = "ckFD2Enabled";
+            ckFD2Enabled.Size = new System.Drawing.Size(84, 24);
+            ckFD2Enabled.TabIndex = 10;
+            ckFD2Enabled.Text = "Inserted";
+            ckFD2Enabled.UseVisualStyleBackColor = true;
             // 
             // ckFD1Enabled
             // 
-            this.ckFD1Enabled.AutoSize = true;
-            this.ckFD1Enabled.Location = new System.Drawing.Point(842, 249);
-            this.ckFD1Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ckFD1Enabled.Name = "ckFD1Enabled";
-            this.ckFD1Enabled.Size = new System.Drawing.Size(94, 24);
-            this.ckFD1Enabled.TabIndex = 6;
-            this.ckFD1Enabled.Text = "Inserted";
-            this.ckFD1Enabled.UseVisualStyleBackColor = true;
+            ckFD1Enabled.AutoSize = true;
+            ckFD1Enabled.Location = new System.Drawing.Point(748, 249);
+            ckFD1Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckFD1Enabled.Name = "ckFD1Enabled";
+            ckFD1Enabled.Size = new System.Drawing.Size(84, 24);
+            ckFD1Enabled.TabIndex = 6;
+            ckFD1Enabled.Text = "Inserted";
+            ckFD1Enabled.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.cmdGetFile2);
-            this.groupBox3.Controls.Add(this.ckHD2Installed);
-            this.groupBox3.Controls.Add(this.txtSPT2);
-            this.groupBox3.Controls.Add(this.txtHeads2);
-            this.groupBox3.Controls.Add(this.txtCyl2);
-            this.groupBox3.Controls.Add(this.txtHD2Filename);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(15, 128);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(914, 106);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Hard Drive 2";
+            groupBox3.Controls.Add(cmdGetFile2);
+            groupBox3.Controls.Add(ckHD2Installed);
+            groupBox3.Controls.Add(txtSPT2);
+            groupBox3.Controls.Add(txtHeads2);
+            groupBox3.Controls.Add(txtCyl2);
+            groupBox3.Controls.Add(txtHD2Filename);
+            groupBox3.Controls.Add(label5);
+            groupBox3.Controls.Add(label4);
+            groupBox3.Controls.Add(label3);
+            groupBox3.Controls.Add(label2);
+            groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            groupBox3.Location = new System.Drawing.Point(13, 128);
+            groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox3.Size = new System.Drawing.Size(812, 106);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Hard Drive 2";
             // 
             // cmdGetFile2
             // 
-            this.cmdGetFile2.Location = new System.Drawing.Point(855, 20);
-            this.cmdGetFile2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetFile2.Name = "cmdGetFile2";
-            this.cmdGetFile2.Size = new System.Drawing.Size(44, 34);
-            this.cmdGetFile2.TabIndex = 2;
-            this.cmdGetFile2.Text = "...";
-            this.cmdGetFile2.UseVisualStyleBackColor = true;
-            this.cmdGetFile2.Click += new System.EventHandler(this.cmdGetFile2_Click);
+            cmdGetFile2.Location = new System.Drawing.Point(760, 20);
+            cmdGetFile2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetFile2.Name = "cmdGetFile2";
+            cmdGetFile2.Size = new System.Drawing.Size(39, 34);
+            cmdGetFile2.TabIndex = 2;
+            cmdGetFile2.Text = "...";
+            cmdGetFile2.UseVisualStyleBackColor = true;
+            cmdGetFile2.Click += cmdGetFile2_Click;
             // 
             // ckHD2Installed
             // 
-            this.ckHD2Installed.AutoSize = true;
-            this.ckHD2Installed.Location = new System.Drawing.Point(585, 57);
-            this.ckHD2Installed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ckHD2Installed.Name = "ckHD2Installed";
-            this.ckHD2Installed.Size = new System.Drawing.Size(97, 24);
-            this.ckHD2Installed.TabIndex = 6;
-            this.ckHD2Installed.Text = "Installed";
-            this.ckHD2Installed.UseVisualStyleBackColor = true;
+            ckHD2Installed.AutoSize = true;
+            ckHD2Installed.Location = new System.Drawing.Point(520, 57);
+            ckHD2Installed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckHD2Installed.Name = "ckHD2Installed";
+            ckHD2Installed.Size = new System.Drawing.Size(82, 21);
+            ckHD2Installed.TabIndex = 6;
+            ckHD2Installed.Text = "Installed";
+            ckHD2Installed.UseVisualStyleBackColor = true;
             // 
             // txtSPT2
             // 
-            this.txtSPT2.Location = new System.Drawing.Point(462, 57);
-            this.txtSPT2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtSPT2.Name = "txtSPT2";
-            this.txtSPT2.Size = new System.Drawing.Size(82, 26);
-            this.txtSPT2.TabIndex = 5;
-            this.txtSPT2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtSPT2.Location = new System.Drawing.Point(411, 57);
+            txtSPT2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtSPT2.Name = "txtSPT2";
+            txtSPT2.Size = new System.Drawing.Size(73, 23);
+            txtSPT2.TabIndex = 5;
+            txtSPT2.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // txtHeads2
             // 
-            this.txtHeads2.Location = new System.Drawing.Point(285, 57);
-            this.txtHeads2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtHeads2.Name = "txtHeads2";
-            this.txtHeads2.Size = new System.Drawing.Size(82, 26);
-            this.txtHeads2.TabIndex = 4;
-            this.txtHeads2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtHeads2.Location = new System.Drawing.Point(253, 57);
+            txtHeads2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtHeads2.Name = "txtHeads2";
+            txtHeads2.Size = new System.Drawing.Size(73, 23);
+            txtHeads2.TabIndex = 4;
+            txtHeads2.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // txtCyl2
             // 
-            this.txtCyl2.Location = new System.Drawing.Point(112, 57);
-            this.txtCyl2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCyl2.Name = "txtCyl2";
-            this.txtCyl2.Size = new System.Drawing.Size(82, 26);
-            this.txtCyl2.TabIndex = 3;
-            this.txtCyl2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtCyl2.Location = new System.Drawing.Point(100, 57);
+            txtCyl2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCyl2.Name = "txtCyl2";
+            txtCyl2.Size = new System.Drawing.Size(73, 23);
+            txtCyl2.TabIndex = 3;
+            txtCyl2.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // txtHD2Filename
             // 
-            this.txtHD2Filename.Location = new System.Drawing.Point(112, 22);
-            this.txtHD2Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtHD2Filename.Name = "txtHD2Filename";
-            this.txtHD2Filename.Size = new System.Drawing.Size(784, 26);
-            this.txtHD2Filename.TabIndex = 1;
-            this.txtHD2Filename.Validating += new System.ComponentModel.CancelEventHandler(this.txtHD2Filename_Validating);
+            txtHD2Filename.Location = new System.Drawing.Point(100, 22);
+            txtHD2Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtHD2Filename.Name = "txtHD2Filename";
+            txtHD2Filename.Size = new System.Drawing.Size(697, 23);
+            txtHD2Filename.TabIndex = 1;
+            txtHD2Filename.Validating += txtHD2Filename_Validating;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(396, 63);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "SPT";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(352, 63);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(35, 17);
+            label5.TabIndex = 3;
+            label5.Text = "SPT";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(219, 63);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 20);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Heads";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(195, 63);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(49, 17);
+            label4.TabIndex = 3;
+            label4.Text = "Heads";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 63);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Cylinders";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(32, 63);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(66, 17);
+            label3.TabIndex = 3;
+            label3.Text = "Cylinders";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 31);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 20);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Filename";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(32, 31);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(65, 17);
+            label2.TabIndex = 3;
+            label2.Text = "Filename";
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cmdGetFile1);
-            this.groupBox4.Controls.Add(this.ckHD1Installed);
-            this.groupBox4.Controls.Add(this.txtSPT1);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.txtHeads1);
-            this.groupBox4.Controls.Add(this.txtHD1Filename);
-            this.groupBox4.Controls.Add(this.txtCyl1);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Location = new System.Drawing.Point(15, 25);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox4.Size = new System.Drawing.Size(914, 102);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Hard Drive 1";
+            groupBox4.Controls.Add(cmdGetFile1);
+            groupBox4.Controls.Add(ckHD1Installed);
+            groupBox4.Controls.Add(txtSPT1);
+            groupBox4.Controls.Add(label1);
+            groupBox4.Controls.Add(txtHeads1);
+            groupBox4.Controls.Add(txtHD1Filename);
+            groupBox4.Controls.Add(txtCyl1);
+            groupBox4.Controls.Add(label6);
+            groupBox4.Controls.Add(label8);
+            groupBox4.Controls.Add(label7);
+            groupBox4.Location = new System.Drawing.Point(13, 25);
+            groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox4.Size = new System.Drawing.Size(812, 102);
+            groupBox4.TabIndex = 1;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Hard Drive 1";
             // 
             // cmdGetFile1
             // 
-            this.cmdGetFile1.Location = new System.Drawing.Point(855, 20);
-            this.cmdGetFile1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetFile1.Name = "cmdGetFile1";
-            this.cmdGetFile1.Size = new System.Drawing.Size(44, 34);
-            this.cmdGetFile1.TabIndex = 2;
-            this.cmdGetFile1.Text = "...";
-            this.cmdGetFile1.UseVisualStyleBackColor = true;
-            this.cmdGetFile1.Click += new System.EventHandler(this.button1_Click);
+            cmdGetFile1.Location = new System.Drawing.Point(760, 20);
+            cmdGetFile1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetFile1.Name = "cmdGetFile1";
+            cmdGetFile1.Size = new System.Drawing.Size(39, 34);
+            cmdGetFile1.TabIndex = 2;
+            cmdGetFile1.Text = "...";
+            cmdGetFile1.UseVisualStyleBackColor = true;
+            cmdGetFile1.Click += button1_Click;
             // 
             // ckHD1Installed
             // 
-            this.ckHD1Installed.AutoSize = true;
-            this.ckHD1Installed.Location = new System.Drawing.Point(585, 60);
-            this.ckHD1Installed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ckHD1Installed.Name = "ckHD1Installed";
-            this.ckHD1Installed.Size = new System.Drawing.Size(95, 24);
-            this.ckHD1Installed.TabIndex = 6;
-            this.ckHD1Installed.Text = "Installed";
-            this.ckHD1Installed.UseVisualStyleBackColor = true;
+            ckHD1Installed.AutoSize = true;
+            ckHD1Installed.Location = new System.Drawing.Point(520, 60);
+            ckHD1Installed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckHD1Installed.Name = "ckHD1Installed";
+            ckHD1Installed.Size = new System.Drawing.Size(87, 24);
+            ckHD1Installed.TabIndex = 6;
+            ckHD1Installed.Text = "Installed";
+            ckHD1Installed.UseVisualStyleBackColor = true;
             // 
             // txtSPT1
             // 
-            this.txtSPT1.Location = new System.Drawing.Point(462, 57);
-            this.txtSPT1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtSPT1.Name = "txtSPT1";
-            this.txtSPT1.Size = new System.Drawing.Size(82, 26);
-            this.txtSPT1.TabIndex = 5;
-            this.txtSPT1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtSPT1.Location = new System.Drawing.Point(411, 57);
+            txtSPT1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtSPT1.Name = "txtSPT1";
+            txtSPT1.Size = new System.Drawing.Size(73, 27);
+            txtSPT1.TabIndex = 5;
+            txtSPT1.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // txtHeads1
             // 
-            this.txtHeads1.Location = new System.Drawing.Point(285, 57);
-            this.txtHeads1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtHeads1.Name = "txtHeads1";
-            this.txtHeads1.Size = new System.Drawing.Size(82, 26);
-            this.txtHeads1.TabIndex = 4;
-            this.txtHeads1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtHeads1.Location = new System.Drawing.Point(253, 57);
+            txtHeads1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtHeads1.Name = "txtHeads1";
+            txtHeads1.Size = new System.Drawing.Size(73, 27);
+            txtHeads1.TabIndex = 4;
+            txtHeads1.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // txtHD1Filename
             // 
-            this.txtHD1Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtHD1Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtHD1Filename.Location = new System.Drawing.Point(112, 22);
-            this.txtHD1Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtHD1Filename.Name = "txtHD1Filename";
-            this.txtHD1Filename.Size = new System.Drawing.Size(784, 26);
-            this.txtHD1Filename.TabIndex = 1;
-            this.txtHD1Filename.Validating += new System.ComponentModel.CancelEventHandler(this.txtHD1Filename_Validating);
+            txtHD1Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtHD1Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtHD1Filename.Location = new System.Drawing.Point(100, 22);
+            txtHD1Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtHD1Filename.Name = "txtHD1Filename";
+            txtHD1Filename.Size = new System.Drawing.Size(697, 27);
+            txtHD1Filename.TabIndex = 1;
+            txtHD1Filename.Validating += txtHD1Filename_Validating;
             // 
             // txtCyl1
             // 
-            this.txtCyl1.Location = new System.Drawing.Point(112, 57);
-            this.txtCyl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCyl1.Name = "txtCyl1";
-            this.txtCyl1.Size = new System.Drawing.Size(82, 26);
-            this.txtCyl1.TabIndex = 3;
-            this.txtCyl1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtCyl1.Location = new System.Drawing.Point(100, 57);
+            txtCyl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCyl1.Name = "txtCyl1";
+            txtCyl1.Size = new System.Drawing.Size(73, 27);
+            txtCyl1.TabIndex = 3;
+            txtCyl1.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(36, 63);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 20);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Cylinders";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(32, 63);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(69, 20);
+            label6.TabIndex = 3;
+            label6.Text = "Cylinders";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(396, 63);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 20);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "SPT";
+            label8.AutoSize = true;
+            label8.Location = new System.Drawing.Point(352, 63);
+            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(33, 20);
+            label8.TabIndex = 3;
+            label8.Text = "SPT";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(219, 63);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 20);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Heads";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(195, 63);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(51, 20);
+            label7.TabIndex = 3;
+            label7.Text = "Heads";
             // 
             // cmdGetVidBIOSFile
             // 
-            this.cmdGetVidBIOSFile.Location = new System.Drawing.Point(855, 405);
-            this.cmdGetVidBIOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetVidBIOSFile.Name = "cmdGetVidBIOSFile";
-            this.cmdGetVidBIOSFile.Size = new System.Drawing.Size(44, 34);
-            this.cmdGetVidBIOSFile.TabIndex = 16;
-            this.cmdGetVidBIOSFile.Text = "...";
-            this.cmdGetVidBIOSFile.UseVisualStyleBackColor = true;
-            this.cmdGetVidBIOSFile.Click += new System.EventHandler(this.cmdGetVidBIOSFile_Click);
+            cmdGetVidBIOSFile.Location = new System.Drawing.Point(760, 405);
+            cmdGetVidBIOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetVidBIOSFile.Name = "cmdGetVidBIOSFile";
+            cmdGetVidBIOSFile.Size = new System.Drawing.Size(39, 34);
+            cmdGetVidBIOSFile.TabIndex = 16;
+            cmdGetVidBIOSFile.Text = "...";
+            cmdGetVidBIOSFile.UseVisualStyleBackColor = true;
+            cmdGetVidBIOSFile.Click += cmdGetVidBIOSFile_Click;
             // 
             // cmdGetFD2
             // 
-            this.cmdGetFD2.AutoSize = true;
-            this.cmdGetFD2.Location = new System.Drawing.Point(670, 282);
-            this.cmdGetFD2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetFD2.Name = "cmdGetFD2";
-            this.cmdGetFD2.Size = new System.Drawing.Size(46, 46);
-            this.cmdGetFD2.TabIndex = 8;
-            this.cmdGetFD2.Text = "...";
-            this.cmdGetFD2.UseVisualStyleBackColor = true;
-            this.cmdGetFD2.Click += new System.EventHandler(this.cmdGetFD2_Click);
+            cmdGetFD2.AutoSize = true;
+            cmdGetFD2.Location = new System.Drawing.Point(596, 282);
+            cmdGetFD2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetFD2.Name = "cmdGetFD2";
+            cmdGetFD2.Size = new System.Drawing.Size(41, 46);
+            cmdGetFD2.TabIndex = 8;
+            cmdGetFD2.Text = "...";
+            cmdGetFD2.UseVisualStyleBackColor = true;
+            cmdGetFD2.Click += cmdGetFD2_Click;
             // 
             // cmdGetBIOSFile
             // 
-            this.cmdGetBIOSFile.Location = new System.Drawing.Point(855, 365);
-            this.cmdGetBIOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetBIOSFile.Name = "cmdGetBIOSFile";
-            this.cmdGetBIOSFile.Size = new System.Drawing.Size(44, 34);
-            this.cmdGetBIOSFile.TabIndex = 14;
-            this.cmdGetBIOSFile.Text = "...";
-            this.cmdGetBIOSFile.UseVisualStyleBackColor = true;
-            this.cmdGetBIOSFile.Click += new System.EventHandler(this.cmdGetBIOSFile_Click);
+            cmdGetBIOSFile.Location = new System.Drawing.Point(760, 365);
+            cmdGetBIOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetBIOSFile.Name = "cmdGetBIOSFile";
+            cmdGetBIOSFile.Size = new System.Drawing.Size(39, 34);
+            cmdGetBIOSFile.TabIndex = 14;
+            cmdGetBIOSFile.Text = "...";
+            cmdGetBIOSFile.UseVisualStyleBackColor = true;
+            cmdGetBIOSFile.Click += cmdGetBIOSFile_Click;
             // 
             // cmdGetFD1
             // 
-            this.cmdGetFD1.AutoSize = true;
-            this.cmdGetFD1.Location = new System.Drawing.Point(670, 243);
-            this.cmdGetFD1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetFD1.Name = "cmdGetFD1";
-            this.cmdGetFD1.Size = new System.Drawing.Size(46, 46);
-            this.cmdGetFD1.TabIndex = 4;
-            this.cmdGetFD1.Text = "...";
-            this.cmdGetFD1.UseVisualStyleBackColor = true;
-            this.cmdGetFD1.Click += new System.EventHandler(this.cmdGetFD1_Click);
+            cmdGetFD1.AutoSize = true;
+            cmdGetFD1.Location = new System.Drawing.Point(596, 243);
+            cmdGetFD1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetFD1.Name = "cmdGetFD1";
+            cmdGetFD1.Size = new System.Drawing.Size(41, 46);
+            cmdGetFD1.TabIndex = 4;
+            cmdGetFD1.Text = "...";
+            cmdGetFD1.UseVisualStyleBackColor = true;
+            cmdGetFD1.Click += cmdGetFD1_Click;
             // 
             // cmdGetCMOSFile
             // 
-            this.cmdGetCMOSFile.Location = new System.Drawing.Point(855, 325);
-            this.cmdGetCMOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdGetCMOSFile.Name = "cmdGetCMOSFile";
-            this.cmdGetCMOSFile.Size = new System.Drawing.Size(44, 34);
-            this.cmdGetCMOSFile.TabIndex = 12;
-            this.cmdGetCMOSFile.Text = "...";
-            this.cmdGetCMOSFile.UseVisualStyleBackColor = true;
-            this.cmdGetCMOSFile.Click += new System.EventHandler(this.cmdGetCMOSFile_Click);
+            cmdGetCMOSFile.Location = new System.Drawing.Point(760, 325);
+            cmdGetCMOSFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdGetCMOSFile.Name = "cmdGetCMOSFile";
+            cmdGetCMOSFile.Size = new System.Drawing.Size(39, 34);
+            cmdGetCMOSFile.TabIndex = 12;
+            cmdGetCMOSFile.Text = "...";
+            cmdGetCMOSFile.UseVisualStyleBackColor = true;
+            cmdGetCMOSFile.Click += cmdGetCMOSFile_Click;
             // 
             // txtVidBIOSFilename
             // 
-            this.txtVidBIOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtVidBIOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtVidBIOSFilename.Location = new System.Drawing.Point(120, 406);
-            this.txtVidBIOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtVidBIOSFilename.Name = "txtVidBIOSFilename";
-            this.txtVidBIOSFilename.Size = new System.Drawing.Size(776, 26);
-            this.txtVidBIOSFilename.TabIndex = 15;
+            txtVidBIOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtVidBIOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtVidBIOSFilename.Location = new System.Drawing.Point(107, 406);
+            txtVidBIOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtVidBIOSFilename.Name = "txtVidBIOSFilename";
+            txtVidBIOSFilename.Size = new System.Drawing.Size(690, 27);
+            txtVidBIOSFilename.TabIndex = 15;
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(22, 411);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(93, 20);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "Video BIOS";
+            label15.AutoSize = true;
+            label15.Location = new System.Drawing.Point(20, 411);
+            label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new System.Drawing.Size(84, 20);
+            label15.TabIndex = 7;
+            label15.Text = "Video BIOS";
             // 
             // txtFD2Filename
             // 
-            this.txtFD2Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtFD2Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtFD2Filename.Location = new System.Drawing.Point(120, 285);
-            this.txtFD2Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFD2Filename.Name = "txtFD2Filename";
-            this.txtFD2Filename.Size = new System.Drawing.Size(590, 26);
-            this.txtFD2Filename.TabIndex = 7;
+            txtFD2Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtFD2Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtFD2Filename.Location = new System.Drawing.Point(107, 285);
+            txtFD2Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtFD2Filename.Name = "txtFD2Filename";
+            txtFD2Filename.Size = new System.Drawing.Size(525, 27);
+            txtFD2Filename.TabIndex = 7;
             // 
             // txtBIOSFilename
             // 
-            this.txtBIOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtBIOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtBIOSFilename.Location = new System.Drawing.Point(120, 366);
-            this.txtBIOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtBIOSFilename.Name = "txtBIOSFilename";
-            this.txtBIOSFilename.Size = new System.Drawing.Size(776, 26);
-            this.txtBIOSFilename.TabIndex = 13;
+            txtBIOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtBIOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtBIOSFilename.Location = new System.Drawing.Point(107, 366);
+            txtBIOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtBIOSFilename.Name = "txtBIOSFilename";
+            txtBIOSFilename.Size = new System.Drawing.Size(690, 27);
+            txtBIOSFilename.TabIndex = 13;
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(45, 289);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(69, 20);
-            this.label17.TabIndex = 7;
-            this.label17.Text = "Floppy 2";
+            label17.AutoSize = true;
+            label17.Location = new System.Drawing.Point(40, 289);
+            label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new System.Drawing.Size(66, 20);
+            label17.TabIndex = 7;
+            label17.Text = "Floppy 2";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(68, 371);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(48, 20);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "BIOS";
+            label14.AutoSize = true;
+            label14.Location = new System.Drawing.Point(60, 371);
+            label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label14.Name = "label14";
+            label14.Size = new System.Drawing.Size(41, 20);
+            label14.TabIndex = 7;
+            label14.Text = "BIOS";
             // 
             // txtFD1Filename
             // 
-            this.txtFD1Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtFD1Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtFD1Filename.Location = new System.Drawing.Point(120, 245);
-            this.txtFD1Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFD1Filename.Name = "txtFD1Filename";
-            this.txtFD1Filename.Size = new System.Drawing.Size(590, 26);
-            this.txtFD1Filename.TabIndex = 3;
-            this.txtFD1Filename.TextChanged += new System.EventHandler(this.txtFD1Filename_TextChanged);
+            txtFD1Filename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtFD1Filename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtFD1Filename.Location = new System.Drawing.Point(107, 245);
+            txtFD1Filename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtFD1Filename.Name = "txtFD1Filename";
+            txtFD1Filename.Size = new System.Drawing.Size(525, 27);
+            txtFD1Filename.TabIndex = 3;
+            txtFD1Filename.TextChanged += txtFD1Filename_TextChanged;
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(45, 249);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(69, 20);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "Floppy 1";
+            label16.AutoSize = true;
+            label16.Location = new System.Drawing.Point(40, 249);
+            label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(66, 20);
+            label16.TabIndex = 7;
+            label16.Text = "Floppy 1";
             // 
             // txtCMOSFilename
             // 
-            this.txtCMOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtCMOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtCMOSFilename.Location = new System.Drawing.Point(120, 326);
-            this.txtCMOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCMOSFilename.Name = "txtCMOSFilename";
-            this.txtCMOSFilename.Size = new System.Drawing.Size(776, 26);
-            this.txtCMOSFilename.TabIndex = 11;
+            txtCMOSFilename.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtCMOSFilename.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtCMOSFilename.Location = new System.Drawing.Point(107, 326);
+            txtCMOSFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCMOSFilename.Name = "txtCMOSFilename";
+            txtCMOSFilename.Size = new System.Drawing.Size(690, 27);
+            txtCMOSFilename.TabIndex = 11;
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(58, 331);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 20);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "CMOS";
+            label9.AutoSize = true;
+            label9.Location = new System.Drawing.Point(52, 331);
+            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(50, 20);
+            label9.TabIndex = 7;
+            label9.Text = "CMOS";
             // 
             // tbMemory
             // 
-            this.tbMemory.LargeChange = 10;
-            this.tbMemory.Location = new System.Drawing.Point(9, 26);
-            this.tbMemory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbMemory.Maximum = 2048;
-            this.tbMemory.Minimum = 1;
-            this.tbMemory.Name = "tbMemory";
-            this.tbMemory.Size = new System.Drawing.Size(218, 69);
-            this.tbMemory.TabIndex = 1;
-            this.tbMemory.TickFrequency = 100;
-            this.tbMemory.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.tbMemory.Value = 2048;
-            this.tbMemory.Scroll += new System.EventHandler(this.tbMemory_Scroll);
+            tbMemory.LargeChange = 10;
+            tbMemory.Location = new System.Drawing.Point(8, 26);
+            tbMemory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbMemory.Maximum = 2048;
+            tbMemory.Minimum = 1;
+            tbMemory.Name = "tbMemory";
+            tbMemory.Size = new System.Drawing.Size(194, 56);
+            tbMemory.TabIndex = 1;
+            tbMemory.TickFrequency = 100;
+            tbMemory.TickStyle = System.Windows.Forms.TickStyle.Both;
+            tbMemory.Value = 2048;
+            tbMemory.Scroll += tbMemory_Scroll;
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.txtMemoryAmt);
-            this.groupBox2.Controls.Add(this.tbMemory);
-            this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Location = new System.Drawing.Point(1082, 18);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(354, 109);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Memory";
+            groupBox2.BackColor = System.Drawing.Color.FromArgb(192, 192, 255);
+            groupBox2.Controls.Add(label24);
+            groupBox2.Controls.Add(txtMemoryAmt);
+            groupBox2.Controls.Add(tbMemory);
+            groupBox2.Controls.Add(label23);
+            groupBox2.Location = new System.Drawing.Point(962, 18);
+            groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox2.Size = new System.Drawing.Size(315, 109);
+            groupBox2.TabIndex = 21;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Memory";
             // 
             // label24
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(21, 78);
-            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(273, 20);
-            this.label24.TabIndex = 12;
-            this.label24.Text = "(memory amount Includes base 1MB)";
+            label24.AutoSize = true;
+            label24.Location = new System.Drawing.Point(19, 78);
+            label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label24.Name = "label24";
+            label24.Size = new System.Drawing.Size(256, 20);
+            label24.TabIndex = 12;
+            label24.Text = "(memory amount Includes base 1MB)";
             // 
             // txtMemoryAmt
             // 
-            this.txtMemoryAmt.Location = new System.Drawing.Point(230, 43);
-            this.txtMemoryAmt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtMemoryAmt.Name = "txtMemoryAmt";
-            this.txtMemoryAmt.Size = new System.Drawing.Size(54, 26);
-            this.txtMemoryAmt.TabIndex = 2;
-            this.txtMemoryAmt.Text = "0000";
-            this.txtMemoryAmt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
-            this.txtMemoryAmt.Leave += new System.EventHandler(this.txtMemoryAmt_Leave);
+            txtMemoryAmt.Location = new System.Drawing.Point(204, 43);
+            txtMemoryAmt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtMemoryAmt.Name = "txtMemoryAmt";
+            txtMemoryAmt.Size = new System.Drawing.Size(48, 27);
+            txtMemoryAmt.TabIndex = 2;
+            txtMemoryAmt.Text = "0000";
+            txtMemoryAmt.KeyPress += NumericOnly_KeyPress_Handler;
+            txtMemoryAmt.Leave += txtMemoryAmt_Leave;
             // 
             // label23
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(294, 48);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(33, 20);
-            this.label23.TabIndex = 3;
-            this.label23.Text = "MB";
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(261, 48);
+            label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(31, 20);
+            label23.TabIndex = 3;
+            label23.Text = "MB";
             // 
             // ofdHD1
             // 
-            this.ofdHD1.CheckPathExists = false;
-            this.ofdHD1.DefaultExt = "img";
-            this.ofdHD1.FileName = "*.img";
+            ofdHD1.CheckPathExists = false;
+            ofdHD1.DefaultExt = "img";
+            ofdHD1.FileName = "*.img";
             // 
             // cmdOK
             // 
-            this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(1191, 752);
-            this.cmdOK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(112, 35);
-            this.cmdOK.TabIndex = 31;
-            this.cmdOK.Text = "&Ok";
-            this.cmdOK.UseVisualStyleBackColor = true;
-            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            cmdOK.Location = new System.Drawing.Point(1059, 752);
+            cmdOK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdOK.Name = "cmdOK";
+            cmdOK.Size = new System.Drawing.Size(100, 35);
+            cmdOK.TabIndex = 31;
+            cmdOK.Text = "&Ok";
+            cmdOK.UseVisualStyleBackColor = true;
+            cmdOK.Click += cmdOK_Click;
             // 
             // cmdCancel
             // 
-            this.cmdCancel.CausesValidation = false;
-            this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(1312, 752);
-            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(112, 35);
-            this.cmdCancel.TabIndex = 32;
-            this.cmdCancel.Text = "&Cancel";
-            this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            cmdCancel.CausesValidation = false;
+            cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cmdCancel.Location = new System.Drawing.Point(1166, 752);
+            cmdCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdCancel.Name = "cmdCancel";
+            cmdCancel.Size = new System.Drawing.Size(100, 35);
+            cmdCancel.TabIndex = 32;
+            cmdCancel.Text = "&Cancel";
+            cmdCancel.UseVisualStyleBackColor = true;
+            cmdCancel.Click += cmdCancel_Click;
             // 
             // clbOptions
             // 
-            this.clbOptions.BackColor = System.Drawing.Color.AliceBlue;
-            this.clbOptions.CheckOnClick = true;
-            this.clbOptions.FormattingEnabled = true;
-            this.clbOptions.Location = new System.Drawing.Point(1082, 137);
-            this.clbOptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.clbOptions.Name = "clbOptions";
-            this.clbOptions.Size = new System.Drawing.Size(272, 280);
-            this.clbOptions.TabIndex = 22;
-            this.clbOptions.ThreeDCheckBoxes = true;
-            this.clbOptions.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
+            clbOptions.BackColor = System.Drawing.Color.AliceBlue;
+            clbOptions.CheckOnClick = true;
+            clbOptions.FormattingEnabled = true;
+            clbOptions.Location = new System.Drawing.Point(962, 137);
+            clbOptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            clbOptions.Name = "clbOptions";
+            clbOptions.Size = new System.Drawing.Size(242, 268);
+            clbOptions.TabIndex = 22;
+            clbOptions.ThreeDCheckBoxes = true;
+            clbOptions.ItemCheck += checkedListBox1_ItemCheck;
             // 
             // txtDebugAtCS
             // 
-            this.txtDebugAtCS.Location = new System.Drawing.Point(62, 25);
-            this.txtDebugAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDebugAtCS.Name = "txtDebugAtCS";
-            this.txtDebugAtCS.Size = new System.Drawing.Size(85, 26);
-            this.txtDebugAtCS.TabIndex = 25;
+            txtDebugAtCS.Location = new System.Drawing.Point(55, 25);
+            txtDebugAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDebugAtCS.Name = "txtDebugAtCS";
+            txtDebugAtCS.Size = new System.Drawing.Size(76, 27);
+            txtDebugAtCS.TabIndex = 25;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(21, 31);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 20);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "CS";
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(19, 31);
+            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(26, 20);
+            label10.TabIndex = 10;
+            label10.Text = "CS";
             // 
             // grpDebugAt
             // 
-            this.grpDebugAt.Controls.Add(this.label11);
-            this.grpDebugAt.Controls.Add(this.txtDebugAtEIP);
-            this.grpDebugAt.Controls.Add(this.label10);
-            this.grpDebugAt.Controls.Add(this.txtDebugAtCS);
-            this.grpDebugAt.Location = new System.Drawing.Point(1080, 523);
-            this.grpDebugAt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpDebugAt.Name = "grpDebugAt";
-            this.grpDebugAt.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpDebugAt.Size = new System.Drawing.Size(354, 72);
-            this.grpDebugAt.TabIndex = 12;
-            this.grpDebugAt.TabStop = false;
-            this.grpDebugAt.Text = "Debug-At";
+            grpDebugAt.Controls.Add(label11);
+            grpDebugAt.Controls.Add(txtDebugAtEIP);
+            grpDebugAt.Controls.Add(label10);
+            grpDebugAt.Controls.Add(txtDebugAtCS);
+            grpDebugAt.Location = new System.Drawing.Point(960, 523);
+            grpDebugAt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            grpDebugAt.Name = "grpDebugAt";
+            grpDebugAt.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            grpDebugAt.Size = new System.Drawing.Size(315, 72);
+            grpDebugAt.TabIndex = 12;
+            grpDebugAt.TabStop = false;
+            grpDebugAt.Text = "Debug-At";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(188, 31);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 20);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "EIP";
+            label11.AutoSize = true;
+            label11.Location = new System.Drawing.Point(167, 31);
+            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(29, 20);
+            label11.TabIndex = 10;
+            label11.Text = "EIP";
             // 
             // txtDebugAtEIP
             // 
-            this.txtDebugAtEIP.Location = new System.Drawing.Point(228, 25);
-            this.txtDebugAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDebugAtEIP.Name = "txtDebugAtEIP";
-            this.txtDebugAtEIP.Size = new System.Drawing.Size(85, 26);
-            this.txtDebugAtEIP.TabIndex = 26;
+            txtDebugAtEIP.Location = new System.Drawing.Point(203, 25);
+            txtDebugAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDebugAtEIP.Name = "txtDebugAtEIP";
+            txtDebugAtEIP.Size = new System.Drawing.Size(76, 27);
+            txtDebugAtEIP.TabIndex = 26;
             // 
             // grpDieAt
             // 
-            this.grpDieAt.Controls.Add(this.label12);
-            this.grpDieAt.Controls.Add(this.txtDieAtEIP);
-            this.grpDieAt.Controls.Add(this.label13);
-            this.grpDieAt.Controls.Add(this.txtDieAtCS);
-            this.grpDieAt.Location = new System.Drawing.Point(1082, 589);
-            this.grpDieAt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpDieAt.Name = "grpDieAt";
-            this.grpDieAt.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpDieAt.Size = new System.Drawing.Size(354, 72);
-            this.grpDieAt.TabIndex = 12;
-            this.grpDieAt.TabStop = false;
-            this.grpDieAt.Text = "Die-At";
+            grpDieAt.Controls.Add(label12);
+            grpDieAt.Controls.Add(txtDieAtEIP);
+            grpDieAt.Controls.Add(label13);
+            grpDieAt.Controls.Add(txtDieAtCS);
+            grpDieAt.Location = new System.Drawing.Point(962, 589);
+            grpDieAt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            grpDieAt.Name = "grpDieAt";
+            grpDieAt.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            grpDieAt.Size = new System.Drawing.Size(315, 72);
+            grpDieAt.TabIndex = 12;
+            grpDieAt.TabStop = false;
+            grpDieAt.Text = "Die-At";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(188, 31);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(35, 20);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "EIP";
+            label12.AutoSize = true;
+            label12.Location = new System.Drawing.Point(167, 31);
+            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(29, 20);
+            label12.TabIndex = 10;
+            label12.Text = "EIP";
             // 
             // txtDieAtEIP
             // 
-            this.txtDieAtEIP.Location = new System.Drawing.Point(228, 25);
-            this.txtDieAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDieAtEIP.Name = "txtDieAtEIP";
-            this.txtDieAtEIP.Size = new System.Drawing.Size(85, 26);
-            this.txtDieAtEIP.TabIndex = 28;
+            txtDieAtEIP.Location = new System.Drawing.Point(203, 25);
+            txtDieAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDieAtEIP.Name = "txtDieAtEIP";
+            txtDieAtEIP.Size = new System.Drawing.Size(76, 27);
+            txtDieAtEIP.TabIndex = 28;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(21, 31);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(31, 20);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "CS";
+            label13.AutoSize = true;
+            label13.Location = new System.Drawing.Point(19, 31);
+            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(26, 20);
+            label13.TabIndex = 10;
+            label13.Text = "CS";
             // 
             // txtDieAtCS
             // 
-            this.txtDieAtCS.Location = new System.Drawing.Point(62, 25);
-            this.txtDieAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDieAtCS.Name = "txtDieAtCS";
-            this.txtDieAtCS.Size = new System.Drawing.Size(85, 26);
-            this.txtDieAtCS.TabIndex = 27;
+            txtDieAtCS.Location = new System.Drawing.Point(55, 25);
+            txtDieAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDieAtCS.Name = "txtDieAtCS";
+            txtDieAtCS.Size = new System.Drawing.Size(76, 27);
+            txtDieAtCS.TabIndex = 27;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.cboBootDevice);
-            this.groupBox5.Controls.Add(this.button1);
-            this.groupBox5.Controls.Add(this.label20);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.txtMaxDbgFileSize);
-            this.groupBox5.Controls.Add(this.txtDebugPath);
-            this.groupBox5.Location = new System.Drawing.Point(40, 508);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox5.Size = new System.Drawing.Size(752, 212);
-            this.groupBox5.TabIndex = 13;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Debug";
+            groupBox5.Controls.Add(cboBootDevice);
+            groupBox5.Controls.Add(button1);
+            groupBox5.Controls.Add(label20);
+            groupBox5.Controls.Add(label19);
+            groupBox5.Controls.Add(label18);
+            groupBox5.Controls.Add(txtMaxDbgFileSize);
+            groupBox5.Controls.Add(txtDebugPath);
+            groupBox5.Location = new System.Drawing.Point(36, 508);
+            groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox5.Size = new System.Drawing.Size(668, 212);
+            groupBox5.TabIndex = 13;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Debug";
             // 
             // cboBootDevice
             // 
-            this.cboBootDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBootDevice.Items.AddRange(new object[] {
-            "Floppy",
-            "Hard Drive"});
-            this.cboBootDevice.Location = new System.Drawing.Point(118, 106);
-            this.cboBootDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cboBootDevice.Name = "cboBootDevice";
-            this.cboBootDevice.Size = new System.Drawing.Size(180, 28);
-            this.cboBootDevice.TabIndex = 20;
-            this.cboBootDevice.SelectionChangeCommitted += new System.EventHandler(this.cboBootDevice_SelectionChangeCommitted);
+            cboBootDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboBootDevice.Items.AddRange(new object[] { "Floppy", "Hard Drive" });
+            cboBootDevice.Location = new System.Drawing.Point(105, 106);
+            cboBootDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cboBootDevice.Name = "cboBootDevice";
+            cboBootDevice.Size = new System.Drawing.Size(160, 28);
+            cboBootDevice.TabIndex = 20;
+            cboBootDevice.SelectionChangeCommitted += cboBootDevice_SelectionChangeCommitted;
             // 
             // button1
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(669, 18);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 34);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            button1.Location = new System.Drawing.Point(595, 18);
+            button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(39, 34);
+            button1.TabIndex = 18;
+            button1.Text = "...";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(4, 111);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(84, 20);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "Boot From";
+            label20.AutoSize = true;
+            label20.Location = new System.Drawing.Point(4, 111);
+            label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label20.Name = "label20";
+            label20.Size = new System.Drawing.Size(79, 20);
+            label20.TabIndex = 0;
+            label20.Text = "Boot From";
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(4, 68);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(102, 20);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "Max File Size";
+            label19.AutoSize = true;
+            label19.Location = new System.Drawing.Point(4, 68);
+            label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(95, 20);
+            label19.TabIndex = 0;
+            label19.Text = "Max File Size";
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(66, 25);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(42, 20);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Path";
+            label18.AutoSize = true;
+            label18.Location = new System.Drawing.Point(59, 25);
+            label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label18.Name = "label18";
+            label18.Size = new System.Drawing.Size(37, 20);
+            label18.TabIndex = 0;
+            label18.Text = "Path";
             // 
             // txtMaxDbgFileSize
             // 
-            this.txtMaxDbgFileSize.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtMaxDbgFileSize.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtMaxDbgFileSize.Location = new System.Drawing.Point(118, 63);
-            this.txtMaxDbgFileSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtMaxDbgFileSize.Name = "txtMaxDbgFileSize";
-            this.txtMaxDbgFileSize.Size = new System.Drawing.Size(138, 26);
-            this.txtMaxDbgFileSize.TabIndex = 19;
-            this.txtMaxDbgFileSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
-            this.txtMaxDbgFileSize.Validating += new System.ComponentModel.CancelEventHandler(this.txtMaxDbgFileSize_Validating);
+            txtMaxDbgFileSize.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtMaxDbgFileSize.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtMaxDbgFileSize.Location = new System.Drawing.Point(105, 63);
+            txtMaxDbgFileSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtMaxDbgFileSize.Name = "txtMaxDbgFileSize";
+            txtMaxDbgFileSize.Size = new System.Drawing.Size(123, 27);
+            txtMaxDbgFileSize.TabIndex = 19;
+            txtMaxDbgFileSize.KeyPress += NumericOnly_KeyPress_Handler;
+            txtMaxDbgFileSize.Validating += txtMaxDbgFileSize_Validating;
             // 
             // txtDebugPath
             // 
-            this.txtDebugPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtDebugPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtDebugPath.Location = new System.Drawing.Point(118, 20);
-            this.txtDebugPath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDebugPath.Name = "txtDebugPath";
-            this.txtDebugPath.Size = new System.Drawing.Size(592, 26);
-            this.txtDebugPath.TabIndex = 17;
+            txtDebugPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            txtDebugPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            txtDebugPath.Location = new System.Drawing.Point(105, 20);
+            txtDebugPath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDebugPath.Name = "txtDebugPath";
+            txtDebugPath.Size = new System.Drawing.Size(527, 27);
+            txtDebugPath.TabIndex = 17;
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(1076, 435);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(156, 20);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "Timer Tick Slowdown";
+            label21.AutoSize = true;
+            label21.Location = new System.Drawing.Point(956, 435);
+            label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(150, 20);
+            label21.TabIndex = 3;
+            label21.Text = "Timer Tick Slowdown";
             // 
             // txtTimerTick
             // 
-            this.txtTimerTick.Location = new System.Drawing.Point(1240, 429);
-            this.txtTimerTick.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtTimerTick.Name = "txtTimerTick";
-            this.txtTimerTick.Size = new System.Drawing.Size(82, 26);
-            this.txtTimerTick.TabIndex = 23;
-            this.txtTimerTick.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtTimerTick.Location = new System.Drawing.Point(1102, 429);
+            txtTimerTick.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTimerTick.Name = "txtTimerTick";
+            txtTimerTick.Size = new System.Drawing.Size(73, 27);
+            txtTimerTick.TabIndex = 23;
+            txtTimerTick.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(1328, 435);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(40, 20);
-            this.label22.TabIndex = 3;
-            this.label22.Text = "(ms)";
+            label22.AutoSize = true;
+            label22.Location = new System.Drawing.Point(1180, 435);
+            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(38, 20);
+            label22.TabIndex = 3;
+            label22.Text = "(ms)";
             // 
             // cmdSwapHDs
             // 
-            this.cmdSwapHDs.Location = new System.Drawing.Point(978, 103);
-            this.cmdSwapHDs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdSwapHDs.Name = "cmdSwapHDs";
-            this.cmdSwapHDs.Size = new System.Drawing.Size(88, 74);
-            this.cmdSwapHDs.TabIndex = 5;
-            this.cmdSwapHDs.Text = "Swap HDs";
-            this.cmdSwapHDs.UseVisualStyleBackColor = true;
-            this.cmdSwapHDs.Click += new System.EventHandler(this.cmdSwapHDs_Click);
+            cmdSwapHDs.Location = new System.Drawing.Point(869, 103);
+            cmdSwapHDs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdSwapHDs.Name = "cmdSwapHDs";
+            cmdSwapHDs.Size = new System.Drawing.Size(78, 74);
+            cmdSwapHDs.TabIndex = 5;
+            cmdSwapHDs.Text = "Swap HDs";
+            cmdSwapHDs.UseVisualStyleBackColor = true;
+            cmdSwapHDs.Click += cmdSwapHDs_Click;
             // 
             // label25
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(1088, 474);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(137, 20);
-            this.label25.TabIndex = 3;
-            this.label25.Text = "Task Name Offset";
+            label25.AutoSize = true;
+            label25.Location = new System.Drawing.Point(967, 474);
+            label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label25.Name = "label25";
+            label25.Size = new System.Drawing.Size(124, 20);
+            label25.TabIndex = 3;
+            label25.Text = "Task Name Offset";
             // 
             // txtTaskNameOffset
             // 
-            this.txtTaskNameOffset.Location = new System.Drawing.Point(1240, 468);
-            this.txtTaskNameOffset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtTaskNameOffset.Name = "txtTaskNameOffset";
-            this.txtTaskNameOffset.Size = new System.Drawing.Size(82, 26);
-            this.txtTaskNameOffset.TabIndex = 24;
-            this.txtTaskNameOffset.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericOnly_KeyPress_Handler);
+            txtTaskNameOffset.Location = new System.Drawing.Point(1102, 468);
+            txtTaskNameOffset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTaskNameOffset.Name = "txtTaskNameOffset";
+            txtTaskNameOffset.Size = new System.Drawing.Size(73, 27);
+            txtTaskNameOffset.TabIndex = 24;
+            txtTaskNameOffset.KeyPress += NumericOnly_KeyPress_Handler;
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label26);
-            this.groupBox6.Controls.Add(this.txtDumpAtEIP);
-            this.groupBox6.Controls.Add(this.label27);
-            this.groupBox6.Controls.Add(this.txtDumpAtCS);
-            this.groupBox6.Location = new System.Drawing.Point(1082, 657);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox6.Size = new System.Drawing.Size(354, 72);
-            this.groupBox6.TabIndex = 12;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Dump Mem At";
+            groupBox6.Controls.Add(label26);
+            groupBox6.Controls.Add(txtDumpAtEIP);
+            groupBox6.Controls.Add(label27);
+            groupBox6.Controls.Add(txtDumpAtCS);
+            groupBox6.Location = new System.Drawing.Point(962, 657);
+            groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox6.Size = new System.Drawing.Size(315, 72);
+            groupBox6.TabIndex = 12;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Dump Mem At";
             // 
             // label26
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(188, 31);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(35, 20);
-            this.label26.TabIndex = 10;
-            this.label26.Text = "EIP";
+            label26.AutoSize = true;
+            label26.Location = new System.Drawing.Point(167, 31);
+            label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label26.Name = "label26";
+            label26.Size = new System.Drawing.Size(29, 20);
+            label26.TabIndex = 10;
+            label26.Text = "EIP";
             // 
             // txtDumpAtEIP
             // 
-            this.txtDumpAtEIP.Location = new System.Drawing.Point(228, 25);
-            this.txtDumpAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDumpAtEIP.Name = "txtDumpAtEIP";
-            this.txtDumpAtEIP.Size = new System.Drawing.Size(85, 26);
-            this.txtDumpAtEIP.TabIndex = 30;
+            txtDumpAtEIP.Location = new System.Drawing.Point(203, 25);
+            txtDumpAtEIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDumpAtEIP.Name = "txtDumpAtEIP";
+            txtDumpAtEIP.Size = new System.Drawing.Size(76, 27);
+            txtDumpAtEIP.TabIndex = 30;
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(21, 31);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(31, 20);
-            this.label27.TabIndex = 10;
-            this.label27.Text = "CS";
+            label27.AutoSize = true;
+            label27.Location = new System.Drawing.Point(19, 31);
+            label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label27.Name = "label27";
+            label27.Size = new System.Drawing.Size(26, 20);
+            label27.TabIndex = 10;
+            label27.Text = "CS";
             // 
             // txtDumpAtCS
             // 
-            this.txtDumpAtCS.Location = new System.Drawing.Point(62, 25);
-            this.txtDumpAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDumpAtCS.Name = "txtDumpAtCS";
-            this.txtDumpAtCS.Size = new System.Drawing.Size(85, 26);
-            this.txtDumpAtCS.TabIndex = 29;
+            txtDumpAtCS.Location = new System.Drawing.Point(55, 25);
+            txtDumpAtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDumpAtCS.Name = "txtDumpAtCS";
+            txtDumpAtCS.Size = new System.Drawing.Size(76, 27);
+            txtDumpAtCS.TabIndex = 29;
             // 
             // cmdSwapFDs
             // 
-            this.cmdSwapFDs.Location = new System.Drawing.Point(978, 254);
-            this.cmdSwapFDs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmdSwapFDs.Name = "cmdSwapFDs";
-            this.cmdSwapFDs.Size = new System.Drawing.Size(88, 74);
-            this.cmdSwapFDs.TabIndex = 5;
-            this.cmdSwapFDs.Text = "Swap FDs";
-            this.cmdSwapFDs.UseVisualStyleBackColor = true;
-            this.cmdSwapFDs.Click += new System.EventHandler(this.cmdSwapFDs_Click);
+            cmdSwapFDs.Location = new System.Drawing.Point(869, 254);
+            cmdSwapFDs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdSwapFDs.Name = "cmdSwapFDs";
+            cmdSwapFDs.Size = new System.Drawing.Size(78, 74);
+            cmdSwapFDs.TabIndex = 5;
+            cmdSwapFDs.Text = "Swap FDs";
+            cmdSwapFDs.UseVisualStyleBackColor = true;
+            cmdSwapFDs.Click += cmdSwapFDs_Click;
             // 
             // frmConfig
             // 
-            this.AcceptButton = this.cmdOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(1449, 806);
-            this.Controls.Add(this.cmdSwapFDs);
-            this.Controls.Add(this.cmdSwapHDs);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.grpDieAt);
-            this.Controls.Add(this.grpDebugAt);
-            this.Controls.Add(this.clbOptions);
-            this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.txtTaskNameOffset);
-            this.Controls.Add(this.txtTimerTick);
-            this.Controls.Add(this.label25);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.cmdOK);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "frmConfig";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Emulator Settings";
-            this.Load += new System.EventHandler(this.frmConfig_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMemory)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.grpDebugAt.ResumeLayout(false);
-            this.grpDebugAt.PerformLayout();
-            this.grpDieAt.ResumeLayout(false);
-            this.grpDieAt.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AcceptButton = cmdOK;
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            CancelButton = cmdCancel;
+            ClientSize = new System.Drawing.Size(1288, 806);
+            Controls.Add(cmdSwapFDs);
+            Controls.Add(cmdSwapHDs);
+            Controls.Add(groupBox5);
+            Controls.Add(groupBox6);
+            Controls.Add(grpDieAt);
+            Controls.Add(grpDebugAt);
+            Controls.Add(clbOptions);
+            Controls.Add(cmdCancel);
+            Controls.Add(txtTaskNameOffset);
+            Controls.Add(txtTimerTick);
+            Controls.Add(label25);
+            Controls.Add(label22);
+            Controls.Add(label21);
+            Controls.Add(cmdOK);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            Name = "frmConfig";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Emulator Settings";
+            Load += frmConfig_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tbMemory).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            grpDebugAt.ResumeLayout(false);
+            grpDebugAt.PerformLayout();
+            grpDieAt.ResumeLayout(false);
+            grpDieAt.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

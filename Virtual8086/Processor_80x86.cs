@@ -350,10 +350,10 @@ namespace VirtualProcessor
             while (!PowerOff)
             {
             //Lets go execute ROM BASIC! :-)
-            //if (regs.CS.Value == 0x0000 & regs.IP == 0x7c00)
-            //{
-            //    regs.CS.Value = 0xD000; regs.IP = 0x0000;
-            //}
+            /*if (regs.CS.Value == 0x0000 & regs.IP == 0x7c00)
+            {
+                regs.CS.Value = 0xD000; regs.IP = 0x0000;
+            }*/
             Top:
                 if (PowerOff)
                     break;
@@ -621,7 +621,7 @@ namespace VirtualProcessor
                     if (mSystem.AddressBreakpointCount() > 0 && !mSingleStep)
                     {
                         foreach (cBreakpoint b in mSystem.BreakpointInfo.Where(u => u.InterruptNum == 0 && u.Enabled))
-                            if (b.CS == regs.CS.Value && (b.EIP == regs.EIP || b.EIP == 0xFFFFFFFF) && !(b.CS==0 && b.EIP == 0))
+                            if ((b.CS == regs.CS.Value || b.CS == 0xFFFFFFFF) && (b.EIP == regs.EIP || b.EIP == 0xFFFFFFFF) && !(b.CS==0 && b.EIP == 0))
                             {
                                 if (b.DisableOnHit)
                                     b.Enabled = false;

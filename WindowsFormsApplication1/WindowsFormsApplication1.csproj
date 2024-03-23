@@ -41,6 +41,7 @@
   <PropertyGroup>
     <StartupObject>WindowsFormsApplication1.Program</StartupObject>
     <PlatformTarget>x64</PlatformTarget>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '32-bit|x86'">
     <OutputPath>bin\x86\32-bit\</OutputPath>
@@ -81,12 +82,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE</DefineConstants>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE;WIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>full</DebugType>
     <Optimize>True</Optimize>
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE</DefineConstants>
+    <DefineConstants>$(DefineConstants);WIN</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Westwind.Utilities.Configuration">
@@ -124,5 +125,18 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

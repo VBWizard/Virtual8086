@@ -190,7 +190,7 @@ namespace VirtualProcessor
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            if (sInstruction.bytes.Length > 1)
+            if (CurrentDecode.bytes.Length > 1)
                 mProc.regs.AH = (byte)(mProc.regs.AL / CurrentDecode.Op1Value.OpByte);
             else
                 mProc.regs.AH = (byte)(mProc.regs.AL / 10);
@@ -3649,7 +3649,7 @@ break;
             mProc80486 = true;
             mProcPentium = true;
             mProcPentiumPro = true;
-            mDescription = "FPU: Store Floating Point Value";
+            mDescription = "FPU: Store Floating Point State";
             mModFlags = 0;
             FPUInstruction = true;
         }
@@ -7811,6 +7811,11 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
+            if (CurrentDecode.OpCode == 0x0F0B)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = 0x6;
+            }
             //todo: Make this call XCHG AX,AX once XCHG is coded
             //Naah, we'll just simulate the length the instructon would take to execute
             //System.Threading.Thread.Sleep(1);
@@ -10603,18 +10608,31 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            sInstruction ins = CurrentDecode;
+            sInstruction tempOp1 = CurrentDecode;
 
-            ins.Op1TypeCode = CurrentDecode.Op2TypeCode;
-            ins.Op2TypeCode = CurrentDecode.Op1TypeCode;
-            ins.Operand1IsRef = CurrentDecode.Operand2IsRef;
-            ins.Operand2IsRef = CurrentDecode.Operand1IsRef;
-            ins.Op1Value = CurrentDecode.Op2Value;
-            ins.Op1Add = CurrentDecode.Op2Add;
-            ins.Op2Value = CurrentDecode.Op1Value;
-            ins.Op2Add = CurrentDecode.Op1Add;
-            mProc.ADD.Impl(ref ins);
-            CurrentDecode = ins;
+            tempOp1.Op1TypeCode = CurrentDecode.Op1TypeCode;
+            tempOp1.Operand1IsRef = CurrentDecode.Operand1IsRef;
+            tempOp1.Op1Value = CurrentDecode.Op1Value;
+            tempOp1.Op1Add = CurrentDecode.Op1Add;
+
+            mProc.ADD.Impl(ref CurrentDecode);
+
+            switch (CurrentDecode.Op1TypeCode)
+            {
+                case TypeCode.Byte:
+                    mProc.mem.SetByte(mProc, ref CurrentDecode, CurrentDecode.Op2Add, tempOp1.Op1Value.OpByte);
+                    break;
+                case TypeCode.UInt16:
+                    mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op2Add, tempOp1.Op1Value.OpWord);
+                    break;
+                case TypeCode.UInt32:
+                    mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op2Add, tempOp1.Op1Value.OpDWord);
+                    break;
+                case TypeCode.UInt64:
+                    mProc.mem.SetQWord(mProc, ref CurrentDecode, CurrentDecode.Op2Add, tempOp1.Op1Value.OpQWord);
+                    break;
+            }
+
         }
     }
     public class XCHG : Instruct

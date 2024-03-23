@@ -39,6 +39,8 @@ namespace VirtualProcessor
             UInt32 lDirEntry = 0, lPageEntry = 0, lFoundPhys = 0;
             bool lFound = false;
             UInt16 lFoundType = 0;
+            UInt32 LastAddress = 0;
+            UInt32 LastReply = 0;
 
 #if PAGING_USE_LAST_PASSED_ADDRESS_LOGIC
             if ((LastAddress & 0xFFFFF000) == (inAddr & 0xFFFFF000))
@@ -180,218 +182,234 @@ namespace VirtualProcessor
                 mCurrEntryPtr = 1;
 
             switch (mCurrEntryPtr++)
-                {
-                    case 1:
-                        mLogicalAddr1 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr1 = lPage & 0xFFFFF000;
-                        mType1 = (UInt16)(lPage & 0x00000FFF);
-                        mValid1 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType1 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType1 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr1 | (inAddr & 0x00000FFF);
-                    case 2:
-                        mLogicalAddr2 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr2 = lPage & 0xFFFFF000;
-                        mType2 = (UInt16)(lPage & 0x00000FFF);
-                        mValid2 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType2 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType2 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr2 | (inAddr & 0x00000FFF);
-                    case 3:
-                        mLogicalAddr3 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr3 = lPage & 0xFFFFF000;
-                        mType3 = (UInt16)(lPage & 0x00000FFF);
-                        mValid3 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType3 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType3 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr3 | (inAddr & 0x00000FFF);
-                    case 4:
-                        mLogicalAddr4 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr4 = lPage & 0xFFFFF000;
-                        mType4 = (UInt16)(lPage & 0x00000FFF);
-                        mValid4 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType4 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType4 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr4 | (inAddr & 0x00000FFF);
-                    case 5:
-                        mLogicalAddr5 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr5 = lPage & 0xFFFFF000;
-                        mType5 = (UInt16)(lPage & 0x00000FFF);
-                        mValid5 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType5 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType5 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr5 | (inAddr & 0x00000FFF);
-                    case 6:
-                        mLogicalAddr6 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr6 = lPage & 0xFFFFF000;
-                        mType6 = (UInt16)(lPage & 0x00000FFF);
-                        mValid6 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType6 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType6 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr6 | (inAddr & 0x00000FFF);
-                    case 7:
-                        mLogicalAddr7 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr7 = lPage & 0xFFFFF000;
-                        mType7 = (UInt16)(lPage & 0x00000FFF);
-                        mValid7 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType7 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType7 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr7 | (inAddr & 0x00000FFF);
-                    case 8:
-                        mLogicalAddr8 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr8 = lPage & 0xFFFFF000;
-                        mType8 = (UInt16)(lPage & 0x00000FFF);
-                        mValid8 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType8 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType8 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr8 | (inAddr & 0x00000FFF);
-                    case 9:
-                        mLogicalAddr9 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr9 = lPage & 0xFFFFF000;
-                        mType9 = (UInt16)(lPage & 0x00000FFF);
-                        mValid9 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType9 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType9 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr9 | (inAddr & 0x00000FFF);
-                    case 10:
-                        mLogicalAddr10 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr10 = lPage & 0xFFFFF000;
-                        mType10 = (UInt16)(lPage & 0x00000FFF);
-                        mValid10 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType10 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType10 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr10 | (inAddr & 0x00000FFF);
-                    case 11:
-                        mLogicalAddr11 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr11 = lPage & 0xFFFFF000;
-                        mType11 = (UInt16)(lPage & 0x00000FFF);
-                        mValid11 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType11 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType11 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr11 | (inAddr & 0x00000FFF);
-                    case 12:
-                        mLogicalAddr12 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr12 = lPage & 0xFFFFF000;
-                        mType12 = (UInt16)(lPage & 0x00000FFF);
-                        mValid12 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType12 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType12 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr12 | (inAddr & 0x00000FFF);
-                    case 13:
-                        mLogicalAddr13 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr13 = lPage & 0xFFFFF000;
-                        mType13 = (UInt16)(lPage & 0x00000FFF);
-                        mValid13 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType13 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType13 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr13 | (inAddr & 0x00000FFF);
-                    case 14:
-                        mLogicalAddr14 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr14 = lPage & 0xFFFFF000;
-                        mType14 = (UInt16)(lPage & 0x00000FFF);
-                        mValid14 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType14 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType14 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr14 | (inAddr & 0x00000FFF);
-                    case 15:
-                        mLogicalAddr15 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr15 = lPage & 0xFFFFF000;
-                        mType15 = (UInt16)(lPage & 0x00000FFF);
-                        mValid15 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType15 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType15 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr15 | (inAddr & 0x00000FFF);
-                    default:
-                        mLogicalAddr16 = inAddr & 0xFFFFF000;
-                        mPhysicalAddr16 = lPage & 0xFFFFF000;
-                        mType16 = (UInt16)(lPage & 0x00000FFF);
-                        mValid16 = true;
-                        // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
-                        // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
-                        if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
-                            mType16 &= 0xFFB;
-                        if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
-                            mType16 &= 0xFFD;
-                        mMisses++;
-                        return mPhysicalAddr16 | (inAddr & 0x00000FFF);
-                }
+            {
+                case 1:
+                    mLogicalAddr1 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr1 = lPage & 0xFFFFF000;
+                    mType1 = (UInt16)(lPage & 0x00000FFF);
+                    mValid1 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType1 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType1 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr1 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 2:
+                    mLogicalAddr2 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr2 = lPage & 0xFFFFF000;
+                    mType2 = (UInt16)(lPage & 0x00000FFF);
+                    mValid2 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType2 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType2 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr2 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 3:
+                    mLogicalAddr3 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr3 = lPage & 0xFFFFF000;
+                    mType3 = (UInt16)(lPage & 0x00000FFF);
+                    mValid3 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType3 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType3 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr3 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 4:
+                    mLogicalAddr4 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr4 = lPage & 0xFFFFF000;
+                    mType4 = (UInt16)(lPage & 0x00000FFF);
+                    mValid4 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType4 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType4 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr4 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 5:
+                    mLogicalAddr5 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr5 = lPage & 0xFFFFF000;
+                    mType5 = (UInt16)(lPage & 0x00000FFF);
+                    mValid5 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType5 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType5 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr5 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 6:
+                    mLogicalAddr6 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr6 = lPage & 0xFFFFF000;
+                    mType6 = (UInt16)(lPage & 0x00000FFF);
+                    mValid6 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType6 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType6 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr6 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 7:
+                    mLogicalAddr7 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr7 = lPage & 0xFFFFF000;
+                    mType7 = (UInt16)(lPage & 0x00000FFF);
+                    mValid7 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType7 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType7 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr7 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 8:
+                    mLogicalAddr8 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr8 = lPage & 0xFFFFF000;
+                    mType8 = (UInt16)(lPage & 0x00000FFF);
+                    mValid8 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType8 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType8 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr8 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 9:
+                    mLogicalAddr9 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr9 = lPage & 0xFFFFF000;
+                    mType9 = (UInt16)(lPage & 0x00000FFF);
+                    mValid9 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType9 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType9 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr9 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 10:
+                    mLogicalAddr10 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr10 = lPage & 0xFFFFF000;
+                    mType10 = (UInt16)(lPage & 0x00000FFF);
+                    mValid10 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType10 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType10 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr10 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 11:
+                    mLogicalAddr11 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr11 = lPage & 0xFFFFF000;
+                    mType11 = (UInt16)(lPage & 0x00000FFF);
+                    mValid11 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType11 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType11 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr11 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 12:
+                    mLogicalAddr12 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr12 = lPage & 0xFFFFF000;
+                    mType12 = (UInt16)(lPage & 0x00000FFF);
+                    mValid12 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType12 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType12 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr12 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 13:
+                    mLogicalAddr13 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr13 = lPage & 0xFFFFF000;
+                    mType13 = (UInt16)(lPage & 0x00000FFF);
+                    mValid13 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType13 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType13 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr13 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 14:
+                    mLogicalAddr14 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr14 = lPage & 0xFFFFF000;
+                    mType14 = (UInt16)(lPage & 0x00000FFF);
+                    mValid14 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType14 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType14 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr14 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                case 15:
+                    mLogicalAddr15 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr15 = lPage & 0xFFFFF000;
+                    mType15 = (UInt16)(lPage & 0x00000FFF);
+                    mValid15 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType15 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType15 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr15 | (inAddr & 0x00000FFF);
+                    return LastReply;
+                default:
+                    mLogicalAddr16 = inAddr & 0xFFFFF000;
+                    mPhysicalAddr16 = lPage & 0xFFFFF000;
+                    mType16 = (UInt16)(lPage & 0x00000FFF);
+                    mValid16 = true;
+                    // For a page directory entry, the user bit controls access to all the pages referenced by the page directory entry. Therefore if you wish to make 
+                    // a page a user page, you must set the user bit in the relevant page directory entry as well as the page table entry. 
+                    if ((lDirEntry & 0x4) != 0x4 || (lPageEntry & 0x4) != 0x4)
+                        mType16 &= 0xFFB;
+                    if ((lDirEntry & 0x2) != 0x2 || (lPageEntry & 0x2) != 0x2)
+                        mType16 &= 0xFFD;
+                    mMisses++;
+                    LastReply = mPhysicalAddr16 | (inAddr & 0x00000FFF);
+                    return LastReply;
+            }
         }
-    
+
 
 
         /// <summary>
@@ -482,7 +500,7 @@ namespace VirtualProcessor
                 if ((mType15 & 0x100) == 0x100)
                     mValid15 = false;
                 if ((mType16 & 0x100) == 0x100)
-                    mValid6 = false;
+                    mValid16 = false;
             }
             PhysicalMem.mLastAddressWrite = true;
             PhysicalMem.mLastLogicalAddress = 0xFFFFFFFF;
@@ -491,7 +509,7 @@ namespace VirtualProcessor
             //If global pages enabled, exit now so that we don't invalidate EVERYTHING or set the current entry pointer back to 1
             if ((mProc.regs.CR4 & 0x80) == 0x80)
                 return;
-            mValid1 = mValid2 = mValid3 = mValid4 = mValid5 = mValid6 = mValid7 = mValid8 = 
+            mValid1 = mValid2 = mValid3 = mValid4 = mValid5 = mValid6 = mValid7 = mValid8 =
                 mValid9 = mValid10 = mValid11 = mValid12 = mValid13 = mValid14 = mValid15 = mValid16 = false;
             mCurrEntryPtr = 1;
         }
@@ -499,69 +517,101 @@ namespace VirtualProcessor
         internal static void InvalidatePage(Processor_80x86 mProc, UInt32 Address)
         {
             if (mLogicalAddr1 <= Address && mLogicalAddr1 + 0xfff >= Address)
+            {
                 mValid1 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr1.ToString("X8") + " --> physical page " + mPhysicalAddr1.ToString("X8"));
+            }
             else if (mLogicalAddr2 <= Address && mLogicalAddr2 + 0xfff >= Address)
+            {
                 mValid2 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr2.ToString("X8") + " --> physical page " + mPhysicalAddr2.ToString("X8"));
-                else if (mLogicalAddr3 <= Address && mLogicalAddr3 + 0xfff >= Address)
-                    mValid3 = false;
+            }
+            else if (mLogicalAddr3 <= Address && mLogicalAddr3 + 0xfff >= Address)
+            {
+                mValid3 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr3.ToString("X8") + " --> physical page " + mPhysicalAddr3.ToString("X8"));
-                else if (mLogicalAddr4 <= Address && mLogicalAddr4 + 0xfff >= Address)
-                    mValid4 = false;
+            }
+            else if (mLogicalAddr4 <= Address && mLogicalAddr4 + 0xfff >= Address)
+            {
+                mValid4 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr4.ToString("X8") + " --> physical page " + mPhysicalAddr4.ToString("X8"));
-                else if (mLogicalAddr5 <= Address && mLogicalAddr5 + 0xfff >= Address)
-                    mValid5 = false;
+            }
+            else if (mLogicalAddr5 <= Address && mLogicalAddr5 + 0xfff >= Address)
+            {
+                mValid5 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr5.ToString("X8") + " --> physical page " + mPhysicalAddr5.ToString("X8"));
-                else if (mLogicalAddr6 <= Address && mLogicalAddr6 + 0xfff >= Address)
-                    mValid6 = false;
+            }
+            else if (mLogicalAddr6 <= Address && mLogicalAddr6 + 0xfff >= Address)
+            {
+                mValid6 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr6.ToString("X8") + " --> physical page " + mPhysicalAddr6.ToString("X8"));
-                else if (mLogicalAddr7 <= Address && mLogicalAddr7 + 0xfff >= Address)
-                    mValid7 = false;
+            }
+            else if (mLogicalAddr7 <= Address && mLogicalAddr7 + 0xfff >= Address)
+            {
+                mValid7 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr7.ToString("X8") + " --> physical page " + mPhysicalAddr7.ToString("X8"));
-                else if (mLogicalAddr8 <= Address && mLogicalAddr8 + 0xfff >= Address)
-                    mValid8 = false;
+            }
+            else if (mLogicalAddr8 <= Address && mLogicalAddr8 + 0xfff >= Address)
+            {
+                mValid8 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr8.ToString("X8") + " --> physical page " + mPhysicalAddr8.ToString("X8"));
-                else if (mLogicalAddr9 <= Address && mLogicalAddr9 + 0xfff >= Address)
-                    mValid9 = false;
+            }
+            else if (mLogicalAddr9 <= Address && mLogicalAddr9 + 0xfff >= Address)
+            {
+                mValid9 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr9.ToString("X8") + " --> physical page " + mPhysicalAddr9.ToString("X8"));
-                else if (mLogicalAddr10 <= Address && mLogicalAddr10 + 0xfff >= Address)
-                    mValid10 = false;
+            }
+            else if (mLogicalAddr10 <= Address && mLogicalAddr10 + 0xfff >= Address)
+            {
+                mValid10 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr10.ToString("X8") + " --> physical page " + mPhysicalAddr10.ToString("X8"));
-                else if (mLogicalAddr11 <= Address && mLogicalAddr11 + 0xfff >= Address)
-                    mValid11 = false;
+            }
+            else if (mLogicalAddr11 <= Address && mLogicalAddr11 + 0xfff >= Address)
+            {
+                mValid11 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr11.ToString("X8") + " --> physical page " + mPhysicalAddr11.ToString("X8"));
-                else if (mLogicalAddr12 <= Address && mLogicalAddr12 + 0xfff >= Address)
-                    mValid12 = false;
+            }
+            else if (mLogicalAddr12 <= Address && mLogicalAddr12 + 0xfff >= Address)
+            {
+                mValid12 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr12.ToString("X8") + " --> physical page " + mPhysicalAddr12.ToString("X8"));
-                else if (mLogicalAddr13 <= Address && mLogicalAddr13 + 0xfff >= Address)
-                    mValid13 = false;
+            }
+            else if (mLogicalAddr13 <= Address && mLogicalAddr13 + 0xfff >= Address)
+            {
+                mValid13 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr13.ToString("X8") + " --> physical page " + mPhysicalAddr13.ToString("X8"));
-                else if (mLogicalAddr14 <= Address && mLogicalAddr14 + 0xfff >= Address)
-                    mValid14 = false;
+            }
+            else if (mLogicalAddr14 <= Address && mLogicalAddr14 + 0xfff >= Address)
+            {
+                mValid14 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr14.ToString("X8") + " --> physical page " + mPhysicalAddr14.ToString("X8"));
-                else if (mLogicalAddr15 <= Address && mLogicalAddr15 + 0xfff >= Address)
-                    mValid15 = false;
+            }
+            else if (mLogicalAddr15 <= Address && mLogicalAddr15 + 0xfff >= Address)
+            {
+                mValid15 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr15.ToString("X8") + " --> physical page " + mPhysicalAddr15.ToString("X8"));
-                else if (mLogicalAddr16 <= Address && mLogicalAddr16 + 0xfff >= Address)
-                    mValid16 = false;
+            }
+            else if (mLogicalAddr16 <= Address && mLogicalAddr16 + 0xfff >= Address)
+            {
+                mValid16 = false;
                 if (mProc.mSystem.Debuggies.DebugMemPaging)
                     mProc.mSystem.PrintDebugMsg(eDebuggieNames.MemoryPaging, "INVLPG request, parameter = " + Address.ToString("X8") + " - Removing TLB Entry = logical page " + mLogicalAddr16.ToString("X8") + " --> physical page " + mPhysicalAddr16.ToString("X8"));
+            }
         }
 
     }
