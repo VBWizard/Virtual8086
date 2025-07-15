@@ -33,10 +33,6 @@ namespace VirtualProcessor
         private static byte[] mPrivCheck;
 
         private static UInt32 mPhysicalMemoryAddress, lMemAddr3;
-        byte[] mChunkPhysicalArray = new byte[1];
-        byte[] mChunkArray = new byte[1];
-        static UInt64[] mQWChunkPhysicalArray = new UInt64[1];
-        static UInt64[] mQWChunkArray = new UInt64[1];
 
         public PhysicalMem(Processor_80x86 mProc, UInt32 RAMSize)
         {
@@ -525,21 +521,21 @@ namespace VirtualProcessor
         public byte[] Chunk(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Segment, UInt32 Offset, UInt32 NumberOfBytes)
         {
             UInt32 lLocation = GetLocForSegOfs(mProc, Segment, Offset);
-            Array.Resize(ref mChunkArray, (int)NumberOfBytes);
+            byte[] chunk = new byte[NumberOfBytes];
 
             for (int cnt = 0; cnt < NumberOfBytes; cnt++)
-                mChunkArray[cnt] = GetByte(mProc, ref sIns, lLocation++);  //proc.mem.mMemBytes[lLocation++]; // GetByte(proc, lLocation++);
-            return mChunkArray;
+                chunk[cnt] = GetByte(mProc, ref sIns, lLocation++);  //proc.mem.mMemBytes[lLocation++]; // GetByte(proc, lLocation++);
+            return chunk;
         }
 
         public byte[] ChunkPhysical(Processor_80x86 proc, UInt32 Segment, UInt32 Offset, UInt32 NumberOfBytes)
         {
             UInt32 lLocation = GetLocForSegOfs(proc, Segment, Offset);
-            Array.Resize(ref mChunkPhysicalArray, (int)NumberOfBytes);
+            byte[] chunk = new byte[NumberOfBytes];
 
             for (int cnt = 0; cnt < NumberOfBytes; cnt++)
-                mChunkPhysicalArray[cnt] = mMemBytes[lLocation++];//GetByte(proc, lLocation++);  //proc.mem.mMemBytes[lLocation++]; // GetByte(proc, lLocation++);
-            return mChunkPhysicalArray;
+                chunk[cnt] = mMemBytes[lLocation++];//GetByte(proc, lLocation++);  //proc.mem.mMemBytes[lLocation++]; // GetByte(proc, lLocation++);
+            return chunk;
         }
 
         public static byte GetByte(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location)
@@ -847,39 +843,39 @@ namespace VirtualProcessor
             //Hackarooni ... to get around trinux booting problem
             //Offset = Offset & 0x00FFFFFF;
 
-            Array.Resize(ref mQWChunkArray, (int)NumberOfEntries);
+            UInt64[] chunk = new UInt64[NumberOfEntries];
             for (int entry = 0; entry <= NumberOfEntries; entry++)
             {
-                mQWChunkArray[entry] = GetByte(mProc, ref sIns, Offset + 7);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 6);  //PhysicalMem.mMemBytes[Offset + 6]; //GetByte(mProc, Offset + 6);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 5);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 4);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 3);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 2);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset + 1);
-                mQWChunkArray[entry] = (mQWChunkArray[entry] << 8) + GetByte(mProc, ref sIns, Offset);
+                chunk[entry] = GetByte(mProc, ref sIns, Offset + 7);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 6);  //PhysicalMem.mMemBytes[Offset + 6]; //GetByte(mProc, Offset + 6);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 5);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 4);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 3);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 2);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset + 1);
+                chunk[entry] = (chunk[entry] << 8) + GetByte(mProc, ref sIns, Offset);
                 Offset += 8;
             }
-            return mQWChunkArray;
+            return chunk;
         }
 
         public static UInt64[] QWChunkPhysical(byte[] mem, UInt32 NumberOfEntries)
         {
             int lOffset = 0;
-            Array.Resize(ref mQWChunkPhysicalArray, (int)NumberOfEntries);
+            UInt64[] chunk = new UInt64[NumberOfEntries];
             for (int entry = 0; entry < NumberOfEntries; entry++)
             {
-                mQWChunkPhysicalArray[entry] = mem[lOffset + 7];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 6];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 5];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 4];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 3];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 2];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset + 1];
-                mQWChunkPhysicalArray[entry] = (mQWChunkPhysicalArray[entry] << 8) + mem[lOffset];
+                chunk[entry] = mem[lOffset + 7];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 6];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 5];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 4];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 3];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 2];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset + 1];
+                chunk[entry] = (chunk[entry] << 8) + mem[lOffset];
                 lOffset += 8;
             }
-            return mQWChunkPhysicalArray;
+            return chunk;
         }
 
         public void RefreshIfRequired(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, UInt64 Value, TypeCode ValueType)
