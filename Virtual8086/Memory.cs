@@ -440,6 +440,9 @@ namespace VirtualProcessor
 //                System.Diagnostics.Debugger.Break();
             if (sIns.ExceptionThrown) return;
 
+            if (MemAddr == 0x44CBE)
+                System.Diagnostics.Debugger.Break();
+
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000)
             {
                 UInt32 mPME = PagedMemoryAddress(mProc, ref sIns, MemAddr, true);

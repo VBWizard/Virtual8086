@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>VirtualProcessor</RootNamespace>
@@ -17,7 +17,7 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG;DEBUGGER_FEATURE;DECODE_MAKE_STRINGS;PAGING_USE_LAST_PASSED_ADDRESS_LOGIC</DefineConstants>
+    <DefineConstants>$(DefineConstants);CALCULATE_PAGE_MEMORY_USAGE ;DEBUG;DEBUGGER_FEATURE;DECODE_MAKE_STRINGS</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>full</DebugType>
     <IsAotCompatible>True</IsAotCompatible>
@@ -32,7 +32,7 @@
     <BaseAddress>2424336480</BaseAddress>
     <RegisterForComInterop>false</RegisterForComInterop>
     <IsAotCompatible>True</IsAotCompatible>
-    <DefineConstants>$(DefineConstants);PAGING_USE_LAST_PASSED_ADDRESS_LOGIC</DefineConstants>
+    <DefineConstants>$(DefineConstants);MEM_PERF_ENHANCEMENTS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Without Tries|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

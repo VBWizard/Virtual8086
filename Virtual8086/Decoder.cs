@@ -222,8 +222,8 @@ namespace VirtualProcessor
             instrCache = PhysicalMem.GetBytes(mProc, ref mInstruction, mDecodeOffset, BYTES_PER_READ);
             instrCachePtr = 0;
 
-//            if (mDecodeOffset == 0x90C4)
-//                System.Diagnostics.Debugger.Break();
+            if (mDecodeOffset == 0x357A7)
+                System.Diagnostics.Debugger.Break();
             while (lPrefixFound)
             {
                 lPrefixFound = false;

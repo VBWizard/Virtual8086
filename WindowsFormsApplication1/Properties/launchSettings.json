@@ -2,7 +2,6 @@
   "profiles": {
     "WindowsFormsApplication1": {
       "commandName": "Project",
-      "workingDirectory": "D:\\Virtual8086_active\\WindowsFormsApplication1\\bin\\Debug\\net7.0-windows10.0.22621.0",
       "nativeDebugging": false,
       "hotReloadEnabled": false
     }

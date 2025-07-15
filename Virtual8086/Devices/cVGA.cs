@@ -122,6 +122,13 @@ namespace VirtualProcessor.Devices
                 case 0x03D4:
                     //invalid
                     break;
+                case 0x3D5:
+                    if (s.CRTC.address != ADDRESS_EMPTY && s.CRTC.address < 0x19)
+                    {
+                        IO.Value = s.CRTC.reg[s.CRTC.address];
+                        s.CRTC.address = ADDRESS_EMPTY;
+                    }
+                    break;
                 case 0x3da:
                     if (port_3da_lastvalue == 0)
                         port_3da_lastvalue = 8;
@@ -325,5 +332,9 @@ namespace VirtualProcessor.Devices
             public bx_bool vga_override;
             //bx_nonvga_device_c* nvgadev;
         }  // state information
+        public int GetTextStartOffset()
+        {
+            return ((s.CRTC.reg[0x0C] << 8 | s.CRTC.reg[0x0D])) * 2;
+        }
     }
 }

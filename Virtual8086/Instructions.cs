@@ -8913,7 +8913,7 @@ break;
             mProc.POP.Impl(ref ins);
             ins.Op1Add = 0x0;
             //TODO: Need to update for StackSize=32
-            mProc.regs.SP += (UInt16)(CurrentDecode.Op1Value.OpWord & 0xFFFF);
+                mProc.regs.SP += (UInt16)(CurrentDecode.Op1Value.OpWord & 0xFFFF);
             #region Instructions
             #endregion
         }

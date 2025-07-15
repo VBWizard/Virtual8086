@@ -240,13 +240,27 @@ namespace WindowsFormsApplication1
 
             sInstruction sIns = new sInstruction();
 
+            try
+            {
+                // Set the console window and buffer size
+                Console.SetWindowSize(80, 25);     // 80x25 visible region
+                Console.SetBufferSize(80, 1000);    // Enough scrollback to support deeper Linux views
+            }
+            catch (Exception ex)
+            {
+                // Some terminals may throw if resized too small or already in use
+                Debug.WriteLine("Failed to set console size: " + ex.Message);
+            }
+            
             while (1 == 1)
             {
-                Thread.Sleep(10);
+                Console.CursorVisible = true;
+                Thread.Sleep(50);
+                Console.CursorVisible = false;
                 lBPage = 0;  //mSystem.PhysicalMem.GetByte(sender, 0x400 + 0x62);
                 while (mSystem.DeviceBlock == null)
                 { }
-                try { lBSOffset = ((mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xC] << 8) | mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xD]) * 2; }// = mSystem.mProc.mem.GetWord(sender, 0x400 + 0x4e);
+                try { lBSOffset = ((mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xC] << 8) | mSystem.DeviceBlock.mVGA.s.CRTC.reg[0xD]) * 2; }
                 catch { }
                 lBPageSize = 0; // mSystem.mProc.mem.GetWord(sender, 0x400 + 0x4c);
                 if (lBPageSize == 0)
@@ -333,6 +347,14 @@ namespace WindowsFormsApplication1
                 }
                 catch { }*/
                 //Application.DoEvents();
+                ushort startOffset = (ushort)((mSystem.DeviceBlock.mVGA.s.CRTC.reg[0x0C] << 8) | mSystem.DeviceBlock.mVGA.s.CRTC.reg[0x0D]);
+                ushort cursorOffset = (ushort)((mSystem.DeviceBlock.mVGA.s.CRTC.reg[0x0E] << 8) | mSystem.DeviceBlock.mVGA.s.CRTC.reg[0x0F]);
+
+                int byteOffset = startOffset * 2;
+                int cursorX = (cursorOffset - startOffset) % 80;
+                int cursorY = (cursorOffset - startOffset) / 80;
+
+                // Optional: show info at top-left corner
             }
         }
         public static void HandleDisplayKeyboard()
@@ -346,7 +368,7 @@ namespace WindowsFormsApplication1
                     ConsoleKeyInfo lKey = Console.ReadKey(true);
                     HandleDisplayKeystroke(sender, lKey);
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(5);
                 if (mExitMainDisplayThread)
                 {
                     return;
@@ -1291,12 +1313,9 @@ namespace WindowsFormsApplication1
             StreamWriter standardOutput = new StreamWriter(fileStream);
             standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
-            //Console.OutputEncoding = encoding;
             Console.TreatControlCAsInput = true;
             Console.Title = "VirtualProcessor - Teminal";
             Console.WriteLine("Press <POWER> button to start the emulation.!");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             //Main form related
             mMainForm = new frmMain_New();
             //hConsole = Utility.FindWindow(IntPtr.Zero,"VirtualProcessor - Teminal");       

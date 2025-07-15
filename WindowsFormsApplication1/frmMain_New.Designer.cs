@@ -193,6 +193,7 @@
             label18 = new System.Windows.Forms.Label();
             label10 = new System.Windows.Forms.Label();
             lblTaskNo = new System.Windows.Forms.Label();
+            txtScreenOffsetInfo = new System.Windows.Forms.TextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox6.SuspendLayout();
@@ -219,7 +220,6 @@
             // timer1
             // 
             timer1.Enabled = true;
-            timer1.Interval = 100;
             timer1.Tick += timer1_Tick;
             // 
             // groupBox1
@@ -1617,6 +1617,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(txtScreenOffsetInfo);
             tabPage1.Controls.Add(pnlTLB);
             tabPage1.Controls.Add(pnlCPU1);
             tabPage1.Controls.Add(pnlButtons);
@@ -1968,6 +1969,18 @@
             lblTaskNo.Size = new System.Drawing.Size(133, 35);
             lblTaskNo.TabIndex = 45;
             // 
+            // txtScreenOffsetInfo
+            // 
+            txtScreenOffsetInfo.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtScreenOffsetInfo.Location = new System.Drawing.Point(8, 965);
+            txtScreenOffsetInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtScreenOffsetInfo.Name = "txtScreenOffsetInfo";
+            txtScreenOffsetInfo.Size = new System.Drawing.Size(596, 22);
+            txtScreenOffsetInfo.TabIndex = 44;
+            txtScreenOffsetInfo.TabStop = false;
+            txtScreenOffsetInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtScreenOffsetInfo, "Instructions executed Per Second");
+            // 
             // frmMain_New
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -2012,6 +2025,7 @@
             pnlCPU1.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -2182,6 +2196,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button cmdBreak;
         private System.Windows.Forms.Button cmdResetIPS;
+        private System.Windows.Forms.TextBox txtScreenOffsetInfo;
     }
 }
 
