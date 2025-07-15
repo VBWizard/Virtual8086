@@ -365,7 +365,6 @@ namespace VirtualProcessor.Devices
 
                 case 0xfe:  // resend. aiiee.
                     throw new Exception(("got 0xFE (resend)"));
-                    break;
 
                 case 0xff:  // reset: internal keyboard reset and afterwards the BAT
                     if (mParent.mProc.mSystem.Debuggies.DebugKbd)

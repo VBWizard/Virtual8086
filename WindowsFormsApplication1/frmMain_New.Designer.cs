@@ -28,1891 +28,2013 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain_New));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtTaskNumber = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtUpTime = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtTIE = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtCSIP = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtIPS = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtCurrJob = new System.Windows.Forms.TextBox();
-            this.lblFloppyDriveLED = new System.Windows.Forms.Label();
-            this.lblTask = new System.Windows.Forms.Label();
-            this.lblPortActivity = new System.Windows.Forms.Label();
-            this.lblHardDriveLED = new System.Windows.Forms.Label();
-            this.lblInactiveLED = new System.Windows.Forms.Label();
-            this.lblIntsEnabled = new System.Windows.Forms.Label();
-            this.lblCPUMode = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.lblS0CTS = new System.Windows.Forms.Label();
-            this.lblS0RTS = new System.Windows.Forms.Label();
-            this.lblS0SND = new System.Windows.Forms.Label();
-            this.lblS0RCV = new System.Windows.Forms.Label();
-            this.cmdPickFD2 = new System.Windows.Forms.Button();
-            this.cmdPickFD1 = new System.Windows.Forms.Button();
-            this.ckFD2Enabled = new System.Windows.Forms.CheckBox();
-            this.ckFD1Enabled = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ckMemDump = new System.Windows.Forms.CheckBox();
-            this.ckEchotoTty = new System.Windows.Forms.CheckBox();
-            this.ckShowAllGDT = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lvTLBCacheEntries = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtTLBEntryCount = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmdUpdateTLB = new System.Windows.Forms.Button();
-            this.txtTLBFlushes = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtTLBMisses = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtTLBHits = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbCursor = new System.Windows.Forms.CheckBox();
-            this.pnlButtons = new System.Windows.Forms.Panel();
-            this.cmdDumpMemNow = new System.Windows.Forms.Button();
-            this.cmdConfigure = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cmdPowerOff = new System.Windows.Forms.Button();
-            this.cmdReset = new System.Windows.Forms.Button();
-            this.cmdShutdown = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cmdStepOver = new System.Windows.Forms.Button();
-            this.cmdStepInto = new System.Windows.Forms.Button();
-            this.txtOp1Value = new System.Windows.Forms.TextBox();
-            this.txtOp2Value = new System.Windows.Forms.TextBox();
-            this.lbInstructions = new System.Windows.Forms.ListView();
-            this.ch1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtFlagsValue = new System.Windows.Forms.TextBox();
-            this.lblOFInd = new System.Windows.Forms.Label();
-            this.lblDFInd = new System.Windows.Forms.Label();
-            this.lblIFInd = new System.Windows.Forms.Label();
-            this.lblTFInd = new System.Windows.Forms.Label();
-            this.lblSFInd = new System.Windows.Forms.Label();
-            this.lblZFInd = new System.Windows.Forms.Label();
-            this.lblAFInd = new System.Windows.Forms.Label();
-            this.lblPFInd = new System.Windows.Forms.Label();
-            this.lblCFInd = new System.Windows.Forms.Label();
-            this.txtAtESP = new System.Windows.Forms.TextBox();
-            this.txtESP = new System.Windows.Forms.TextBox();
-            this.txtEBP = new System.Windows.Forms.TextBox();
-            this.txtEDI = new System.Windows.Forms.TextBox();
-            this.txtESI = new System.Windows.Forms.TextBox();
-            this.txtSS = new System.Windows.Forms.TextBox();
-            this.txtFS = new System.Windows.Forms.TextBox();
-            this.txtEDX = new System.Windows.Forms.TextBox();
-            this.txtGS = new System.Windows.Forms.TextBox();
-            this.txtES = new System.Windows.Forms.TextBox();
-            this.txtECX = new System.Windows.Forms.TextBox();
-            this.txtDS = new System.Windows.Forms.TextBox();
-            this.txtEBX = new System.Windows.Forms.TextBox();
-            this.txtCS = new System.Windows.Forms.TextBox();
-            this.txtEAX = new System.Windows.Forms.TextBox();
-            this.dgGDT = new System.Windows.Forms.DataGridView();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Present = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Base = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Limit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrivLvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SegType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SystemDescType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OpSize32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tmrGDT = new System.Windows.Forms.Timer(this.components);
-            this.ofd1 = new System.Windows.Forms.OpenFileDialog();
-            this.cmdContinue = new System.Windows.Forms.Button();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.breakpointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.memoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.memWindowForOperand1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tmrSuperFast = new System.Windows.Forms.Timer(this.components);
-            this.pnlSerial1 = new System.Windows.Forms.Panel();
-            this.pnlDebug = new System.Windows.Forms.Panel();
-            this.cmdBreak = new System.Windows.Forms.Button();
-            this.pnlTLB = new System.Windows.Forms.Panel();
-            this.pnlGDTEntries = new System.Windows.Forms.Panel();
-            this.pnlHiddenStuff = new System.Windows.Forms.Panel();
-            this.pnlCPU1 = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtCR3 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtCR2 = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtGDT = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.txtCR0 = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblTaskNo = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.pnlButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgGDT)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            this.pnlSerial1.SuspendLayout();
-            this.pnlDebug.SuspendLayout();
-            this.pnlTLB.SuspendLayout();
-            this.pnlGDTEntries.SuspendLayout();
-            this.pnlHiddenStuff.SuspendLayout();
-            this.pnlCPU1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.SuspendLayout();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            timer1 = new System.Windows.Forms.Timer(components);
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            txtTaskNumber = new System.Windows.Forms.TextBox();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            cmdResetIPS = new System.Windows.Forms.Button();
+            txtUpTime = new System.Windows.Forms.TextBox();
+            label9 = new System.Windows.Forms.Label();
+            txtTIE = new System.Windows.Forms.TextBox();
+            label4 = new System.Windows.Forms.Label();
+            txtCSIP = new System.Windows.Forms.TextBox();
+            label2 = new System.Windows.Forms.Label();
+            txtIPS = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            txtCurrJob = new System.Windows.Forms.TextBox();
+            lblFloppyDriveLED = new System.Windows.Forms.Label();
+            lblTask = new System.Windows.Forms.Label();
+            lblPortActivity = new System.Windows.Forms.Label();
+            lblHardDriveLED = new System.Windows.Forms.Label();
+            lblInactiveLED = new System.Windows.Forms.Label();
+            lblIntsEnabled = new System.Windows.Forms.Label();
+            lblCPUMode = new System.Windows.Forms.Label();
+            groupBox6 = new System.Windows.Forms.GroupBox();
+            lblS0RTS = new System.Windows.Forms.Label();
+            lblS0SND = new System.Windows.Forms.Label();
+            lblS0RCV = new System.Windows.Forms.Label();
+            lblS0CTS = new System.Windows.Forms.Label();
+            cmdPickFD2 = new System.Windows.Forms.Button();
+            cmdPickFD1 = new System.Windows.Forms.Button();
+            ckFD2Enabled = new System.Windows.Forms.CheckBox();
+            ckFD1Enabled = new System.Windows.Forms.CheckBox();
+            textBox2 = new System.Windows.Forms.TextBox();
+            textBox1 = new System.Windows.Forms.TextBox();
+            ckMemDump = new System.Windows.Forms.CheckBox();
+            ckEchotoTty = new System.Windows.Forms.CheckBox();
+            ckShowAllGDT = new System.Windows.Forms.CheckBox();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            lvTLBCacheEntries = new System.Windows.Forms.ListView();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            txtTLBEntryCount = new System.Windows.Forms.TextBox();
+            label8 = new System.Windows.Forms.Label();
+            cmdUpdateTLB = new System.Windows.Forms.Button();
+            txtTLBFlushes = new System.Windows.Forms.TextBox();
+            label7 = new System.Windows.Forms.Label();
+            txtTLBMisses = new System.Windows.Forms.TextBox();
+            label6 = new System.Windows.Forms.Label();
+            txtTLBHits = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            cbCursor = new System.Windows.Forms.CheckBox();
+            pnlButtons = new System.Windows.Forms.Panel();
+            cmdDumpMemNow = new System.Windows.Forms.Button();
+            cmdConfigure = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
+            cmdPowerOff = new System.Windows.Forms.Button();
+            cmdReset = new System.Windows.Forms.Button();
+            cmdShutdown = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            cmdStepOver = new System.Windows.Forms.Button();
+            cmdStepInto = new System.Windows.Forms.Button();
+            txtOp1Value = new System.Windows.Forms.TextBox();
+            txtOp2Value = new System.Windows.Forms.TextBox();
+            lbInstructions = new System.Windows.Forms.ListView();
+            ch1 = new System.Windows.Forms.ColumnHeader();
+            columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            txtFlagsValue = new System.Windows.Forms.TextBox();
+            lblOFInd = new System.Windows.Forms.Label();
+            lblDFInd = new System.Windows.Forms.Label();
+            lblIFInd = new System.Windows.Forms.Label();
+            lblTFInd = new System.Windows.Forms.Label();
+            lblSFInd = new System.Windows.Forms.Label();
+            lblZFInd = new System.Windows.Forms.Label();
+            lblAFInd = new System.Windows.Forms.Label();
+            lblPFInd = new System.Windows.Forms.Label();
+            lblCFInd = new System.Windows.Forms.Label();
+            txtAtESP = new System.Windows.Forms.TextBox();
+            txtESP = new System.Windows.Forms.TextBox();
+            txtEBP = new System.Windows.Forms.TextBox();
+            txtEDI = new System.Windows.Forms.TextBox();
+            txtESI = new System.Windows.Forms.TextBox();
+            txtSS = new System.Windows.Forms.TextBox();
+            txtFS = new System.Windows.Forms.TextBox();
+            txtEDX = new System.Windows.Forms.TextBox();
+            txtGS = new System.Windows.Forms.TextBox();
+            txtES = new System.Windows.Forms.TextBox();
+            txtECX = new System.Windows.Forms.TextBox();
+            txtDS = new System.Windows.Forms.TextBox();
+            txtEBX = new System.Windows.Forms.TextBox();
+            txtCS = new System.Windows.Forms.TextBox();
+            txtEAX = new System.Windows.Forms.TextBox();
+            dgGDT = new System.Windows.Forms.DataGridView();
+            Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            mName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Present = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Base = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Limit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            PrivLvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            SegType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            SystemDescType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            OpSize32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            tmrGDT = new System.Windows.Forms.Timer(components);
+            ofd1 = new System.Windows.Forms.OpenFileDialog();
+            cmdContinue = new System.Windows.Forms.Button();
+            label28 = new System.Windows.Forms.Label();
+            label27 = new System.Windows.Forms.Label();
+            label26 = new System.Windows.Forms.Label();
+            menuStrip1 = new System.Windows.Forms.MenuStrip();
+            fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            breakpointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            memoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            memWindowForOperand1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            dIsplayMemoryWindowForOperand2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tmrSuperFast = new System.Windows.Forms.Timer(components);
+            pnlSerial1 = new System.Windows.Forms.Panel();
+            pnlDebug = new System.Windows.Forms.Panel();
+            cmdBreak = new System.Windows.Forms.Button();
+            pnlTLB = new System.Windows.Forms.Panel();
+            pnlGDTEntries = new System.Windows.Forms.Panel();
+            pnlHiddenStuff = new System.Windows.Forms.Panel();
+            pnlCPU1 = new System.Windows.Forms.Panel();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            tabPage3 = new System.Windows.Forms.TabPage();
+            panel3 = new System.Windows.Forms.Panel();
+            groupBox5 = new System.Windows.Forms.GroupBox();
+            groupBox4 = new System.Windows.Forms.GroupBox();
+            label25 = new System.Windows.Forms.Label();
+            label14 = new System.Windows.Forms.Label();
+            label15 = new System.Windows.Forms.Label();
+            label16 = new System.Windows.Forms.Label();
+            label17 = new System.Windows.Forms.Label();
+            label23 = new System.Windows.Forms.Label();
+            label21 = new System.Windows.Forms.Label();
+            label13 = new System.Windows.Forms.Label();
+            txtCR3 = new System.Windows.Forms.TextBox();
+            label22 = new System.Windows.Forms.Label();
+            label31 = new System.Windows.Forms.Label();
+            label20 = new System.Windows.Forms.Label();
+            label12 = new System.Windows.Forms.Label();
+            txtCR2 = new System.Windows.Forms.TextBox();
+            label30 = new System.Windows.Forms.Label();
+            label19 = new System.Windows.Forms.Label();
+            label11 = new System.Windows.Forms.Label();
+            txtGDT = new System.Windows.Forms.TextBox();
+            label32 = new System.Windows.Forms.Label();
+            txtCR0 = new System.Windows.Forms.TextBox();
+            label29 = new System.Windows.Forms.Label();
+            label18 = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
+            lblTaskNo = new System.Windows.Forms.Label();
+            txtScreenOffsetInfo = new System.Windows.Forms.TextBox();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox6.SuspendLayout();
+            groupBox3.SuspendLayout();
+            pnlButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgGDT).BeginInit();
+            menuStrip1.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            pnlSerial1.SuspendLayout();
+            pnlDebug.SuspendLayout();
+            pnlTLB.SuspendLayout();
+            pnlGDTEntries.SuspendLayout();
+            pnlHiddenStuff.SuspendLayout();
+            pnlCPU1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            panel3.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox4.SuspendLayout();
+            SuspendLayout();
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 150;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.groupBox1.Controls.Add(this.txtTaskNumber);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.txtCurrJob);
-            this.groupBox1.Controls.Add(this.lblFloppyDriveLED);
-            this.groupBox1.Controls.Add(this.lblTask);
-            this.groupBox1.Controls.Add(this.lblPortActivity);
-            this.groupBox1.Controls.Add(this.lblHardDriveLED);
-            this.groupBox1.Controls.Add(this.lblInactiveLED);
-            this.groupBox1.Controls.Add(this.lblIntsEnabled);
-            this.groupBox1.Controls.Add(this.lblCPUMode);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.groupBox1.Location = new System.Drawing.Point(11, -6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(243, 188);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
+            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            groupBox1.Controls.Add(txtTaskNumber);
+            groupBox1.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(txtCurrJob);
+            groupBox1.Controls.Add(lblFloppyDriveLED);
+            groupBox1.Controls.Add(lblTask);
+            groupBox1.Controls.Add(lblPortActivity);
+            groupBox1.Controls.Add(lblHardDriveLED);
+            groupBox1.Controls.Add(lblInactiveLED);
+            groupBox1.Controls.Add(lblIntsEnabled);
+            groupBox1.Controls.Add(lblCPUMode);
+            groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            groupBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            groupBox1.Location = new System.Drawing.Point(4, 5);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox1.Size = new System.Drawing.Size(361, 289);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
             // 
             // txtTaskNumber
             // 
-            this.txtTaskNumber.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskNumber.Location = new System.Drawing.Point(70, 13);
-            this.txtTaskNumber.Name = "txtTaskNumber";
-            this.txtTaskNumber.Size = new System.Drawing.Size(47, 19);
-            this.txtTaskNumber.TabIndex = 35;
-            this.txtTaskNumber.TabStop = false;
-            this.txtTaskNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTaskNumber, "Task Number: This is the value of the Task Register (TR) of the CPU");
+            txtTaskNumber.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTaskNumber.Location = new System.Drawing.Point(93, 20);
+            txtTaskNumber.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTaskNumber.Name = "txtTaskNumber";
+            txtTaskNumber.Size = new System.Drawing.Size(61, 22);
+            txtTaskNumber.TabIndex = 35;
+            txtTaskNumber.TabStop = false;
+            txtTaskNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTaskNumber, "Task Number: This is the value of the Task Register (TR) of the CPU");
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.txtUpTime);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.txtTIE);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.txtCSIP);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.txtIPS);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(16, 56);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(217, 124);
-            this.groupBox2.TabIndex = 19;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "CPU";
+            groupBox2.Controls.Add(cmdResetIPS);
+            groupBox2.Controls.Add(txtUpTime);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(txtTIE);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(txtCSIP);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(txtIPS);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Location = new System.Drawing.Point(21, 86);
+            groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox2.Size = new System.Drawing.Size(340, 191);
+            groupBox2.TabIndex = 19;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "CPU";
+            // 
+            // cmdResetIPS
+            // 
+            cmdResetIPS.Location = new System.Drawing.Point(251, 142);
+            cmdResetIPS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            cmdResetIPS.Name = "cmdResetIPS";
+            cmdResetIPS.Size = new System.Drawing.Size(75, 29);
+            cmdResetIPS.TabIndex = 32;
+            cmdResetIPS.Text = "Reset";
+            cmdResetIPS.UseVisualStyleBackColor = true;
+            cmdResetIPS.Click += cmdResetIPS_Click;
             // 
             // txtUpTime
             // 
-            this.txtUpTime.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUpTime.Location = new System.Drawing.Point(55, 19);
-            this.txtUpTime.Name = "txtUpTime";
-            this.txtUpTime.Size = new System.Drawing.Size(128, 19);
-            this.txtUpTime.TabIndex = 31;
-            this.txtUpTime.TabStop = false;
-            this.txtUpTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtUpTime, "CPU Uptime in days, hours, minutes and seconds");
+            txtUpTime.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtUpTime.Location = new System.Drawing.Point(73, 29);
+            txtUpTime.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtUpTime.Name = "txtUpTime";
+            txtUpTime.Size = new System.Drawing.Size(169, 22);
+            txtUpTime.TabIndex = 31;
+            txtUpTime.TabStop = false;
+            txtUpTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtUpTime, "CPU Uptime in days, hours, minutes and seconds");
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 22);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 13);
-            this.label9.TabIndex = 30;
-            this.label9.Text = "UpTime";
+            label9.AutoSize = true;
+            label9.Location = new System.Drawing.Point(16, 34);
+            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(61, 20);
+            label9.TabIndex = 30;
+            label9.Text = "UpTime";
             // 
             // txtTIE
             // 
-            this.txtTIE.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTIE.Location = new System.Drawing.Point(83, 68);
-            this.txtTIE.Name = "txtTIE";
-            this.txtTIE.Size = new System.Drawing.Size(100, 19);
-            this.txtTIE.TabIndex = 24;
-            this.txtTIE.TabStop = false;
-            this.txtTIE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTIE, "Total Instructions Executed");
+            txtTIE.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTIE.Location = new System.Drawing.Point(111, 105);
+            txtTIE.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTIE.Name = "txtTIE";
+            txtTIE.Size = new System.Drawing.Size(132, 22);
+            txtTIE.TabIndex = 24;
+            txtTIE.TabStop = false;
+            txtTIE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTIE, "Total Instructions Executed");
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Tot Ins Exe";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(28, 109);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(79, 20);
+            label4.TabIndex = 23;
+            label4.Text = "Tot Ins Exe";
             // 
             // txtCSIP
             // 
-            this.txtCSIP.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCSIP.Location = new System.Drawing.Point(55, 44);
-            this.txtCSIP.Name = "txtCSIP";
-            this.txtCSIP.Size = new System.Drawing.Size(128, 19);
-            this.txtCSIP.TabIndex = 22;
-            this.txtCSIP.TabStop = false;
-            this.txtCSIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtCSIP, "Code Segment (CS) and Instruction Pointer (IP) values for the instruction being e" +
-                    "xecuted");
+            txtCSIP.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCSIP.Location = new System.Drawing.Point(73, 68);
+            txtCSIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCSIP.Name = "txtCSIP";
+            txtCSIP.Size = new System.Drawing.Size(169, 22);
+            txtCSIP.TabIndex = 22;
+            txtCSIP.TabStop = false;
+            txtCSIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtCSIP, "Code Segment (CS) and Instruction Pointer (IP) values for the instruction being executed");
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "CS:EIP";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(20, 69);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(49, 20);
+            label2.TabIndex = 21;
+            label2.Text = "CS:EIP";
             // 
             // txtIPS
             // 
-            this.txtIPS.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIPS.Location = new System.Drawing.Point(83, 93);
-            this.txtIPS.Name = "txtIPS";
-            this.txtIPS.Size = new System.Drawing.Size(100, 19);
-            this.txtIPS.TabIndex = 20;
-            this.txtIPS.TabStop = false;
-            this.txtIPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtIPS, "Instructions executed Per Second");
+            txtIPS.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtIPS.Location = new System.Drawing.Point(111, 142);
+            txtIPS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtIPS.Name = "txtIPS";
+            txtIPS.Size = new System.Drawing.Size(132, 22);
+            txtIPS.TabIndex = 20;
+            txtIPS.TabStop = false;
+            txtIPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtIPS, "Instructions executed Per Second");
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 96);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 13);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "IPS";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(77, 148);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(29, 20);
+            label1.TabIndex = 19;
+            label1.Text = "IPS";
             // 
             // txtCurrJob
             // 
-            this.txtCurrJob.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrJob.Location = new System.Drawing.Point(126, 13);
-            this.txtCurrJob.Name = "txtCurrJob";
-            this.txtCurrJob.Size = new System.Drawing.Size(90, 19);
-            this.txtCurrJob.TabIndex = 34;
-            this.txtCurrJob.TabStop = false;
-            this.txtCurrJob.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtCurrJob, resources.GetString("txtCurrJob.ToolTip"));
+            txtCurrJob.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCurrJob.Location = new System.Drawing.Point(168, 20);
+            txtCurrJob.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCurrJob.Name = "txtCurrJob";
+            txtCurrJob.Size = new System.Drawing.Size(119, 22);
+            txtCurrJob.TabIndex = 34;
+            txtCurrJob.TabStop = false;
+            txtCurrJob.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtCurrJob, resources.GetString("txtCurrJob.ToolTip"));
             // 
             // lblFloppyDriveLED
             // 
-            this.lblFloppyDriveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblFloppyDriveLED.Location = new System.Drawing.Point(109, 38);
-            this.lblFloppyDriveLED.Name = "lblFloppyDriveLED";
-            this.lblFloppyDriveLED.Size = new System.Drawing.Size(23, 15);
-            this.lblFloppyDriveLED.TabIndex = 8;
-            this.lblFloppyDriveLED.Text = "FD";
-            this.toolTip1.SetToolTip(this.lblFloppyDriveLED, "Floppy drive activity");
+            lblFloppyDriveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblFloppyDriveLED.Location = new System.Drawing.Point(145, 59);
+            lblFloppyDriveLED.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFloppyDriveLED.Name = "lblFloppyDriveLED";
+            lblFloppyDriveLED.Size = new System.Drawing.Size(31, 22);
+            lblFloppyDriveLED.TabIndex = 8;
+            lblFloppyDriveLED.Text = "FD";
+            toolTip1.SetToolTip(lblFloppyDriveLED, "Floppy drive activity");
             // 
             // lblTask
             // 
-            this.lblTask.AutoSize = true;
-            this.lblTask.Location = new System.Drawing.Point(25, 17);
-            this.lblTask.Name = "lblTask";
-            this.lblTask.Size = new System.Drawing.Size(31, 13);
-            this.lblTask.TabIndex = 33;
-            this.lblTask.Text = "Task";
+            lblTask.AutoSize = true;
+            lblTask.Location = new System.Drawing.Point(33, 26);
+            lblTask.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTask.Name = "lblTask";
+            lblTask.Size = new System.Drawing.Size(36, 20);
+            lblTask.TabIndex = 33;
+            lblTask.Text = "Task";
             // 
             // lblPortActivity
             // 
-            this.lblPortActivity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblPortActivity.Location = new System.Drawing.Point(182, 38);
-            this.lblPortActivity.Name = "lblPortActivity";
-            this.lblPortActivity.Size = new System.Drawing.Size(50, 18);
-            this.lblPortActivity.TabIndex = 34;
-            this.lblPortActivity.Text = "B";
-            this.lblPortActivity.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblPortActivity, "Interrupts Enabled");
+            lblPortActivity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblPortActivity.Location = new System.Drawing.Point(243, 59);
+            lblPortActivity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPortActivity.Name = "lblPortActivity";
+            lblPortActivity.Size = new System.Drawing.Size(67, 28);
+            lblPortActivity.TabIndex = 34;
+            lblPortActivity.Text = "B";
+            lblPortActivity.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblPortActivity, "Interrupts Enabled");
             // 
             // lblHardDriveLED
             // 
-            this.lblHardDriveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblHardDriveLED.Location = new System.Drawing.Point(138, 38);
-            this.lblHardDriveLED.Name = "lblHardDriveLED";
-            this.lblHardDriveLED.Size = new System.Drawing.Size(28, 15);
-            this.lblHardDriveLED.TabIndex = 7;
-            this.lblHardDriveLED.Text = "HD";
-            this.toolTip1.SetToolTip(this.lblHardDriveLED, "Hard drive activity");
+            lblHardDriveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblHardDriveLED.Location = new System.Drawing.Point(184, 59);
+            lblHardDriveLED.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHardDriveLED.Name = "lblHardDriveLED";
+            lblHardDriveLED.Size = new System.Drawing.Size(37, 22);
+            lblHardDriveLED.TabIndex = 7;
+            lblHardDriveLED.Text = "HD";
+            toolTip1.SetToolTip(lblHardDriveLED, "Hard drive activity");
             // 
             // lblInactiveLED
             // 
-            this.lblInactiveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblInactiveLED.Location = new System.Drawing.Point(15, 38);
-            this.lblInactiveLED.Name = "lblInactiveLED";
-            this.lblInactiveLED.Size = new System.Drawing.Size(23, 15);
-            this.lblInactiveLED.TabIndex = 27;
-            this.lblInactiveLED.Text = "A";
-            this.toolTip1.SetToolTip(this.lblInactiveLED, "CPU Activity");
+            lblInactiveLED.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblInactiveLED.Location = new System.Drawing.Point(20, 59);
+            lblInactiveLED.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblInactiveLED.Name = "lblInactiveLED";
+            lblInactiveLED.Size = new System.Drawing.Size(31, 22);
+            lblInactiveLED.TabIndex = 27;
+            lblInactiveLED.Text = "A";
+            toolTip1.SetToolTip(lblInactiveLED, "CPU Activity");
             // 
             // lblIntsEnabled
             // 
-            this.lblIntsEnabled.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIntsEnabled.Location = new System.Drawing.Point(44, 38);
-            this.lblIntsEnabled.Name = "lblIntsEnabled";
-            this.lblIntsEnabled.Size = new System.Drawing.Size(23, 15);
-            this.lblIntsEnabled.TabIndex = 33;
-            this.lblIntsEnabled.Text = "I";
-            this.toolTip1.SetToolTip(this.lblIntsEnabled, "Interrupts Enabled");
+            lblIntsEnabled.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblIntsEnabled.Location = new System.Drawing.Point(59, 59);
+            lblIntsEnabled.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblIntsEnabled.Name = "lblIntsEnabled";
+            lblIntsEnabled.Size = new System.Drawing.Size(31, 22);
+            lblIntsEnabled.TabIndex = 33;
+            lblIntsEnabled.Text = "I";
+            toolTip1.SetToolTip(lblIntsEnabled, "Interrupts Enabled");
             // 
             // lblCPUMode
             // 
-            this.lblCPUMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCPUMode.Location = new System.Drawing.Point(70, 38);
-            this.lblCPUMode.Name = "lblCPUMode";
-            this.lblCPUMode.Size = new System.Drawing.Size(23, 15);
-            this.lblCPUMode.TabIndex = 28;
-            this.lblCPUMode.Text = "R";
-            this.toolTip1.SetToolTip(this.lblCPUMode, "CPU Mode");
+            lblCPUMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblCPUMode.Location = new System.Drawing.Point(93, 59);
+            lblCPUMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCPUMode.Name = "lblCPUMode";
+            lblCPUMode.Size = new System.Drawing.Size(31, 22);
+            lblCPUMode.TabIndex = 28;
+            lblCPUMode.Text = "R";
+            toolTip1.SetToolTip(lblCPUMode, "CPU Mode");
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox6.Controls.Add(this.lblS0CTS);
-            this.groupBox6.Controls.Add(this.lblS0RTS);
-            this.groupBox6.Controls.Add(this.lblS0SND);
-            this.groupBox6.Controls.Add(this.lblS0RCV);
-            this.groupBox6.Location = new System.Drawing.Point(14, 3);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(203, 43);
-            this.groupBox6.TabIndex = 37;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Serial Port 1";
-            // 
-            // lblS0CTS
-            // 
-            this.lblS0CTS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblS0CTS.Location = new System.Drawing.Point(10, 16);
-            this.lblS0CTS.Name = "lblS0CTS";
-            this.lblS0CTS.Size = new System.Drawing.Size(45, 13);
-            this.lblS0CTS.TabIndex = 35;
-            this.lblS0CTS.Text = "CTS";
-            this.lblS0CTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblS0CTS, resources.GetString("lblS0CTS.ToolTip"));
+            groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            groupBox6.Controls.Add(lblS0RTS);
+            groupBox6.Controls.Add(lblS0SND);
+            groupBox6.Controls.Add(lblS0RCV);
+            groupBox6.Controls.Add(lblS0CTS);
+            groupBox6.Location = new System.Drawing.Point(19, 5);
+            groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox6.Size = new System.Drawing.Size(271, 66);
+            groupBox6.TabIndex = 37;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Serial Port 1";
             // 
             // lblS0RTS
             // 
-            this.lblS0RTS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblS0RTS.Location = new System.Drawing.Point(55, 16);
-            this.lblS0RTS.Name = "lblS0RTS";
-            this.lblS0RTS.Size = new System.Drawing.Size(45, 13);
-            this.lblS0RTS.TabIndex = 35;
-            this.lblS0RTS.Text = "RTS";
-            this.lblS0RTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblS0RTS, resources.GetString("lblS0RTS.ToolTip"));
+            lblS0RTS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblS0RTS.Location = new System.Drawing.Point(73, 25);
+            lblS0RTS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblS0RTS.Name = "lblS0RTS";
+            lblS0RTS.Size = new System.Drawing.Size(60, 20);
+            lblS0RTS.TabIndex = 35;
+            lblS0RTS.Text = "RTS";
+            lblS0RTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblS0RTS, resources.GetString("lblS0RTS.ToolTip"));
             // 
             // lblS0SND
             // 
-            this.lblS0SND.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblS0SND.Location = new System.Drawing.Point(102, 16);
-            this.lblS0SND.Name = "lblS0SND";
-            this.lblS0SND.Size = new System.Drawing.Size(45, 13);
-            this.lblS0SND.TabIndex = 35;
-            this.lblS0SND.Text = "Send";
-            this.lblS0SND.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblS0SND, resources.GetString("lblS0SND.ToolTip"));
+            lblS0SND.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblS0SND.Location = new System.Drawing.Point(136, 25);
+            lblS0SND.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblS0SND.Name = "lblS0SND";
+            lblS0SND.Size = new System.Drawing.Size(60, 20);
+            lblS0SND.TabIndex = 35;
+            lblS0SND.Text = "Send";
+            lblS0SND.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblS0SND, resources.GetString("lblS0SND.ToolTip"));
             // 
             // lblS0RCV
             // 
-            this.lblS0RCV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblS0RCV.Location = new System.Drawing.Point(148, 16);
-            this.lblS0RCV.Name = "lblS0RCV";
-            this.lblS0RCV.Size = new System.Drawing.Size(45, 13);
-            this.lblS0RCV.TabIndex = 35;
-            this.lblS0RCV.Text = "Rcv";
-            this.lblS0RCV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblS0RCV, resources.GetString("lblS0RCV.ToolTip"));
+            lblS0RCV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblS0RCV.Location = new System.Drawing.Point(197, 25);
+            lblS0RCV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblS0RCV.Name = "lblS0RCV";
+            lblS0RCV.Size = new System.Drawing.Size(60, 20);
+            lblS0RCV.TabIndex = 35;
+            lblS0RCV.Text = "Rcv";
+            lblS0RCV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblS0RCV, resources.GetString("lblS0RCV.ToolTip"));
+            // 
+            // lblS0CTS
+            // 
+            lblS0CTS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblS0CTS.Location = new System.Drawing.Point(13, 25);
+            lblS0CTS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblS0CTS.Name = "lblS0CTS";
+            lblS0CTS.Size = new System.Drawing.Size(60, 20);
+            lblS0CTS.TabIndex = 35;
+            lblS0CTS.Text = "CTS";
+            lblS0CTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblS0CTS, resources.GetString("lblS0CTS.ToolTip"));
             // 
             // cmdPickFD2
             // 
-            this.cmdPickFD2.Location = new System.Drawing.Point(161, 66);
-            this.cmdPickFD2.Name = "cmdPickFD2";
-            this.cmdPickFD2.Size = new System.Drawing.Size(29, 21);
-            this.cmdPickFD2.TabIndex = 36;
-            this.cmdPickFD2.Text = "...";
-            this.cmdPickFD2.UseVisualStyleBackColor = true;
-            this.cmdPickFD2.Click += new System.EventHandler(this.cmdPickFD2_Click);
+            cmdPickFD2.Location = new System.Drawing.Point(215, 101);
+            cmdPickFD2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdPickFD2.Name = "cmdPickFD2";
+            cmdPickFD2.Size = new System.Drawing.Size(39, 32);
+            cmdPickFD2.TabIndex = 36;
+            cmdPickFD2.Text = "...";
+            cmdPickFD2.UseVisualStyleBackColor = true;
+            cmdPickFD2.Click += cmdPickFD2_Click;
             // 
             // cmdPickFD1
             // 
-            this.cmdPickFD1.Location = new System.Drawing.Point(161, 33);
-            this.cmdPickFD1.Name = "cmdPickFD1";
-            this.cmdPickFD1.Size = new System.Drawing.Size(29, 21);
-            this.cmdPickFD1.TabIndex = 36;
-            this.cmdPickFD1.Text = "...";
-            this.cmdPickFD1.UseVisualStyleBackColor = true;
-            this.cmdPickFD1.Click += new System.EventHandler(this.cmdPickFD1_Click);
+            cmdPickFD1.Location = new System.Drawing.Point(215, 51);
+            cmdPickFD1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdPickFD1.Name = "cmdPickFD1";
+            cmdPickFD1.Size = new System.Drawing.Size(39, 32);
+            cmdPickFD1.TabIndex = 36;
+            cmdPickFD1.Text = "...";
+            cmdPickFD1.UseVisualStyleBackColor = true;
+            cmdPickFD1.Click += cmdPickFD1_Click;
             // 
             // ckFD2Enabled
             // 
-            this.ckFD2Enabled.AutoSize = true;
-            this.ckFD2Enabled.Location = new System.Drawing.Point(196, 70);
-            this.ckFD2Enabled.Name = "ckFD2Enabled";
-            this.ckFD2Enabled.Size = new System.Drawing.Size(64, 17);
-            this.ckFD2Enabled.TabIndex = 13;
-            this.ckFD2Enabled.Text = "Inserted";
-            this.ckFD2Enabled.UseVisualStyleBackColor = true;
+            ckFD2Enabled.AutoSize = true;
+            ckFD2Enabled.Location = new System.Drawing.Point(261, 108);
+            ckFD2Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckFD2Enabled.Name = "ckFD2Enabled";
+            ckFD2Enabled.Size = new System.Drawing.Size(84, 24);
+            ckFD2Enabled.TabIndex = 13;
+            ckFD2Enabled.Text = "Inserted";
+            ckFD2Enabled.UseVisualStyleBackColor = true;
             // 
             // ckFD1Enabled
             // 
-            this.ckFD1Enabled.AutoSize = true;
-            this.ckFD1Enabled.Location = new System.Drawing.Point(196, 37);
-            this.ckFD1Enabled.Name = "ckFD1Enabled";
-            this.ckFD1Enabled.Size = new System.Drawing.Size(64, 17);
-            this.ckFD1Enabled.TabIndex = 14;
-            this.ckFD1Enabled.Text = "Inserted";
-            this.ckFD1Enabled.UseVisualStyleBackColor = true;
+            ckFD1Enabled.AutoSize = true;
+            ckFD1Enabled.Location = new System.Drawing.Point(261, 58);
+            ckFD1Enabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckFD1Enabled.Name = "ckFD1Enabled";
+            ckFD1Enabled.Size = new System.Drawing.Size(84, 24);
+            ckFD1Enabled.TabIndex = 14;
+            ckFD1Enabled.Text = "Inserted";
+            ckFD1Enabled.UseVisualStyleBackColor = true;
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(35, 68);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(154, 19);
-            this.textBox2.TabIndex = 29;
-            this.textBox2.TabStop = false;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox2.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textBox2.Location = new System.Drawing.Point(47, 105);
+            textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new System.Drawing.Size(204, 22);
+            textBox2.TabIndex = 29;
+            textBox2.TabStop = false;
+            textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(36, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(154, 19);
-            this.textBox1.TabIndex = 29;
-            this.textBox1.TabStop = false;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox1.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textBox1.Location = new System.Drawing.Point(48, 54);
+            textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(204, 22);
+            textBox1.TabIndex = 29;
+            textBox1.TabStop = false;
+            textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // ckMemDump
             // 
-            this.ckMemDump.AutoSize = true;
-            this.ckMemDump.Checked = true;
-            this.ckMemDump.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckMemDump.Location = new System.Drawing.Point(203, 99);
-            this.ckMemDump.Name = "ckMemDump";
-            this.ckMemDump.Size = new System.Drawing.Size(112, 17);
-            this.ckMemDump.TabIndex = 30;
-            this.ckMemDump.Text = "MemDump on Exit";
-            this.toolTip1.SetToolTip(this.ckMemDump, "Dump machine memory to file whenever the emulator is stopped");
-            this.ckMemDump.UseVisualStyleBackColor = true;
-            this.ckMemDump.CheckedChanged += new System.EventHandler(this.ckMemDump_CheckedChanged);
+            ckMemDump.AutoSize = true;
+            ckMemDump.Checked = true;
+            ckMemDump.CheckState = System.Windows.Forms.CheckState.Checked;
+            ckMemDump.Location = new System.Drawing.Point(271, 152);
+            ckMemDump.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckMemDump.Name = "ckMemDump";
+            ckMemDump.Size = new System.Drawing.Size(155, 24);
+            ckMemDump.TabIndex = 30;
+            ckMemDump.Text = "MemDump on Exit";
+            toolTip1.SetToolTip(ckMemDump, "Dump machine memory to file whenever the emulator is stopped");
+            ckMemDump.UseVisualStyleBackColor = true;
+            ckMemDump.CheckedChanged += ckMemDump_CheckedChanged;
             // 
             // ckEchotoTty
             // 
-            this.ckEchotoTty.AutoSize = true;
-            this.ckEchotoTty.Location = new System.Drawing.Point(203, 121);
-            this.ckEchotoTty.Name = "ckEchotoTty";
-            this.ckEchotoTty.Size = new System.Drawing.Size(75, 17);
-            this.ckEchotoTty.TabIndex = 33;
-            this.ckEchotoTty.Text = "Steal keys";
-            this.ckEchotoTty.UseVisualStyleBackColor = true;
-            this.ckEchotoTty.Visible = false;
-            this.ckEchotoTty.CheckedChanged += new System.EventHandler(this.ckShowAllGDT_CheckedChanged);
+            ckEchotoTty.AutoSize = true;
+            ckEchotoTty.Location = new System.Drawing.Point(271, 186);
+            ckEchotoTty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckEchotoTty.Name = "ckEchotoTty";
+            ckEchotoTty.Size = new System.Drawing.Size(96, 24);
+            ckEchotoTty.TabIndex = 33;
+            ckEchotoTty.Text = "Steal keys";
+            ckEchotoTty.UseVisualStyleBackColor = true;
+            ckEchotoTty.Visible = false;
+            ckEchotoTty.CheckedChanged += ckShowAllGDT_CheckedChanged;
             // 
             // ckShowAllGDT
             // 
-            this.ckShowAllGDT.AutoSize = true;
-            this.ckShowAllGDT.Location = new System.Drawing.Point(104, 98);
-            this.ckShowAllGDT.Name = "ckShowAllGDT";
-            this.ckShowAllGDT.Size = new System.Drawing.Size(93, 17);
-            this.ckShowAllGDT.TabIndex = 33;
-            this.ckShowAllGDT.Text = "Show All GDT";
-            this.toolTip1.SetToolTip(this.ckShowAllGDT, "Show all GDT entries in the list.  (This will slow the system down)");
-            this.ckShowAllGDT.UseVisualStyleBackColor = true;
-            this.ckShowAllGDT.CheckedChanged += new System.EventHandler(this.ckShowAllGDT_CheckedChanged);
+            ckShowAllGDT.AutoSize = true;
+            ckShowAllGDT.Location = new System.Drawing.Point(139, 151);
+            ckShowAllGDT.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            ckShowAllGDT.Name = "ckShowAllGDT";
+            ckShowAllGDT.Size = new System.Drawing.Size(121, 24);
+            ckShowAllGDT.TabIndex = 33;
+            ckShowAllGDT.Text = "Show All GDT";
+            toolTip1.SetToolTip(ckShowAllGDT, "Show all GDT entries in the list.  (This will slow the system down)");
+            ckShowAllGDT.UseVisualStyleBackColor = true;
+            ckShowAllGDT.CheckedChanged += ckShowAllGDT_CheckedChanged;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lvTLBCacheEntries);
-            this.groupBox3.Controls.Add(this.txtTLBEntryCount);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.cmdUpdateTLB);
-            this.groupBox3.Controls.Add(this.txtTLBFlushes);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.txtTLBMisses);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.txtTLBHits);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(18, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(385, 297);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "TLBs";
+            groupBox3.Controls.Add(lvTLBCacheEntries);
+            groupBox3.Controls.Add(txtTLBEntryCount);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(cmdUpdateTLB);
+            groupBox3.Controls.Add(txtTLBFlushes);
+            groupBox3.Controls.Add(label7);
+            groupBox3.Controls.Add(txtTLBMisses);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(txtTLBHits);
+            groupBox3.Controls.Add(label5);
+            groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
+            groupBox3.Location = new System.Drawing.Point(24, 5);
+            groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox3.Size = new System.Drawing.Size(513, 458);
+            groupBox3.TabIndex = 20;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "TLBs";
             // 
             // lvTLBCacheEntries
             // 
-            this.lvTLBCacheEntries.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.lvTLBCacheEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.lvTLBCacheEntries.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvTLBCacheEntries.LabelWrap = false;
-            this.lvTLBCacheEntries.Location = new System.Drawing.Point(16, 19);
-            this.lvTLBCacheEntries.MultiSelect = false;
-            this.lvTLBCacheEntries.Name = "lvTLBCacheEntries";
-            this.lvTLBCacheEntries.ShowItemToolTips = true;
-            this.lvTLBCacheEntries.Size = new System.Drawing.Size(197, 273);
-            this.lvTLBCacheEntries.TabIndex = 32;
-            this.lvTLBCacheEntries.UseCompatibleStateImageBehavior = false;
-            this.lvTLBCacheEntries.View = System.Windows.Forms.View.List;
+            lvTLBCacheEntries.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            lvTLBCacheEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2 });
+            lvTLBCacheEntries.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            lvTLBCacheEntries.LabelWrap = false;
+            lvTLBCacheEntries.Location = new System.Drawing.Point(21, 29);
+            lvTLBCacheEntries.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            lvTLBCacheEntries.MultiSelect = false;
+            lvTLBCacheEntries.Name = "lvTLBCacheEntries";
+            lvTLBCacheEntries.ShowItemToolTips = true;
+            lvTLBCacheEntries.Size = new System.Drawing.Size(261, 418);
+            lvTLBCacheEntries.TabIndex = 32;
+            lvTLBCacheEntries.UseCompatibleStateImageBehavior = false;
+            lvTLBCacheEntries.View = System.Windows.Forms.View.List;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Logical";
-            this.columnHeader1.Width = 70;
+            columnHeader1.Text = "Logical";
+            columnHeader1.Width = 70;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Physical";
-            this.columnHeader2.Width = 70;
+            columnHeader2.Text = "Physical";
+            columnHeader2.Width = 70;
             // 
             // txtTLBEntryCount
             // 
-            this.txtTLBEntryCount.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTLBEntryCount.Location = new System.Drawing.Point(269, 19);
-            this.txtTLBEntryCount.Name = "txtTLBEntryCount";
-            this.txtTLBEntryCount.Size = new System.Drawing.Size(100, 19);
-            this.txtTLBEntryCount.TabIndex = 29;
-            this.txtTLBEntryCount.TabStop = false;
-            this.txtTLBEntryCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTLBEntryCount, "Number of TLB entries");
+            txtTLBEntryCount.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTLBEntryCount.Location = new System.Drawing.Point(359, 29);
+            txtTLBEntryCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTLBEntryCount.Name = "txtTLBEntryCount";
+            txtTLBEntryCount.Size = new System.Drawing.Size(132, 22);
+            txtTLBEntryCount.TabIndex = 29;
+            txtTLBEntryCount.TabStop = false;
+            txtTLBEntryCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTLBEntryCount, "Number of TLB entries");
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(220, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 13);
-            this.label8.TabIndex = 28;
-            this.label8.Text = "Entries";
+            label8.AutoSize = true;
+            label8.Location = new System.Drawing.Point(293, 34);
+            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(53, 20);
+            label8.TabIndex = 28;
+            label8.Text = "Entries";
             // 
             // cmdUpdateTLB
             // 
-            this.cmdUpdateTLB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdUpdateTLB.Location = new System.Drawing.Point(219, 268);
-            this.cmdUpdateTLB.Name = "cmdUpdateTLB";
-            this.cmdUpdateTLB.Size = new System.Drawing.Size(146, 23);
-            this.cmdUpdateTLB.TabIndex = 27;
-            this.cmdUpdateTLB.TabStop = false;
-            this.cmdUpdateTLB.Text = "Refresh TLB Entry Table";
-            this.toolTip1.SetToolTip(this.cmdUpdateTLB, "Click to update the TLB Entries above");
-            this.cmdUpdateTLB.UseVisualStyleBackColor = true;
-            this.cmdUpdateTLB.Click += new System.EventHandler(this.cmdUpdateTLB_Click);
+            cmdUpdateTLB.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdUpdateTLB.Location = new System.Drawing.Point(292, 412);
+            cmdUpdateTLB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdUpdateTLB.Name = "cmdUpdateTLB";
+            cmdUpdateTLB.Size = new System.Drawing.Size(195, 35);
+            cmdUpdateTLB.TabIndex = 27;
+            cmdUpdateTLB.TabStop = false;
+            cmdUpdateTLB.Text = "Refresh TLB Entry Table";
+            toolTip1.SetToolTip(cmdUpdateTLB, "Click to update the TLB Entries above");
+            cmdUpdateTLB.UseVisualStyleBackColor = true;
+            cmdUpdateTLB.Click += cmdUpdateTLB_Click;
             // 
             // txtTLBFlushes
             // 
-            this.txtTLBFlushes.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTLBFlushes.Location = new System.Drawing.Point(269, 94);
-            this.txtTLBFlushes.Name = "txtTLBFlushes";
-            this.txtTLBFlushes.Size = new System.Drawing.Size(100, 19);
-            this.txtTLBFlushes.TabIndex = 26;
-            this.txtTLBFlushes.TabStop = false;
-            this.txtTLBFlushes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTLBFlushes, "Number of TLB flushes");
+            txtTLBFlushes.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTLBFlushes.Location = new System.Drawing.Point(359, 145);
+            txtTLBFlushes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTLBFlushes.Name = "txtTLBFlushes";
+            txtTLBFlushes.Size = new System.Drawing.Size(132, 22);
+            txtTLBFlushes.TabIndex = 26;
+            txtTLBFlushes.TabStop = false;
+            txtTLBFlushes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTLBFlushes, "Number of TLB flushes");
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(220, 97);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "Flushes";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(293, 149);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(56, 20);
+            label7.TabIndex = 25;
+            label7.Text = "Flushes";
             // 
             // txtTLBMisses
             // 
-            this.txtTLBMisses.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTLBMisses.Location = new System.Drawing.Point(269, 69);
-            this.txtTLBMisses.Name = "txtTLBMisses";
-            this.txtTLBMisses.Size = new System.Drawing.Size(100, 19);
-            this.txtTLBMisses.TabIndex = 24;
-            this.txtTLBMisses.TabStop = false;
-            this.txtTLBMisses.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTLBMisses, "Number of TLB misses");
+            txtTLBMisses.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTLBMisses.Location = new System.Drawing.Point(359, 106);
+            txtTLBMisses.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTLBMisses.Name = "txtTLBMisses";
+            txtTLBMisses.Size = new System.Drawing.Size(132, 22);
+            txtTLBMisses.TabIndex = 24;
+            txtTLBMisses.TabStop = false;
+            txtTLBMisses.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTLBMisses, "Number of TLB misses");
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(224, 72);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Misses";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(299, 111);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(52, 20);
+            label6.TabIndex = 23;
+            label6.Text = "Misses";
             // 
             // txtTLBHits
             // 
-            this.txtTLBHits.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTLBHits.Location = new System.Drawing.Point(269, 44);
-            this.txtTLBHits.Name = "txtTLBHits";
-            this.txtTLBHits.Size = new System.Drawing.Size(100, 19);
-            this.txtTLBHits.TabIndex = 22;
-            this.txtTLBHits.TabStop = false;
-            this.txtTLBHits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.txtTLBHits, "Number of TLB hits");
+            txtTLBHits.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTLBHits.Location = new System.Drawing.Point(359, 68);
+            txtTLBHits.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtTLBHits.Name = "txtTLBHits";
+            txtTLBHits.Size = new System.Drawing.Size(132, 22);
+            txtTLBHits.TabIndex = 22;
+            txtTLBHits.TabStop = false;
+            txtTLBHits.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtTLBHits, "Number of TLB hits");
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(238, 47);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Hits";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(317, 72);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(35, 20);
+            label5.TabIndex = 21;
+            label5.Text = "Hits";
             // 
             // cbCursor
             // 
-            this.cbCursor.AutoSize = true;
-            this.cbCursor.Checked = true;
-            this.cbCursor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCursor.Location = new System.Drawing.Point(104, 121);
-            this.cbCursor.Name = "cbCursor";
-            this.cbCursor.Size = new System.Drawing.Size(86, 17);
-            this.cbCursor.TabIndex = 10;
-            this.cbCursor.Text = "Show Cursor";
-            this.toolTip1.SetToolTip(this.cbCursor, "Show the cursor on the screen");
-            this.cbCursor.UseVisualStyleBackColor = true;
-            this.cbCursor.CheckedChanged += new System.EventHandler(this.cbCursor_CheckedChanged);
+            cbCursor.AutoSize = true;
+            cbCursor.Checked = true;
+            cbCursor.CheckState = System.Windows.Forms.CheckState.Checked;
+            cbCursor.Location = new System.Drawing.Point(139, 186);
+            cbCursor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbCursor.Name = "cbCursor";
+            cbCursor.Size = new System.Drawing.Size(113, 24);
+            cbCursor.TabIndex = 10;
+            cbCursor.Text = "Show Cursor";
+            toolTip1.SetToolTip(cbCursor, "Show the cursor on the screen");
+            cbCursor.UseVisualStyleBackColor = true;
+            cbCursor.CheckedChanged += cbCursor_CheckedChanged;
             // 
             // pnlButtons
             // 
-            this.pnlButtons.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlButtons.Controls.Add(this.cmdDumpMemNow);
-            this.pnlButtons.Controls.Add(this.cmdConfigure);
-            this.pnlButtons.Controls.Add(this.ckMemDump);
-            this.pnlButtons.Controls.Add(this.button1);
-            this.pnlButtons.Controls.Add(this.ckEchotoTty);
-            this.pnlButtons.Controls.Add(this.cmdPowerOff);
-            this.pnlButtons.Controls.Add(this.ckShowAllGDT);
-            this.pnlButtons.Controls.Add(this.cmdReset);
-            this.pnlButtons.Controls.Add(this.cmdShutdown);
-            this.pnlButtons.Controls.Add(this.cbCursor);
-            this.pnlButtons.Location = new System.Drawing.Point(683, 695);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(384, 152);
-            this.pnlButtons.TabIndex = 38;
+            pnlButtons.Anchor = System.Windows.Forms.AnchorStyles.None;
+            pnlButtons.Controls.Add(cmdDumpMemNow);
+            pnlButtons.Controls.Add(cmdConfigure);
+            pnlButtons.Controls.Add(ckMemDump);
+            pnlButtons.Controls.Add(button1);
+            pnlButtons.Controls.Add(ckEchotoTty);
+            pnlButtons.Controls.Add(cmdPowerOff);
+            pnlButtons.Controls.Add(ckShowAllGDT);
+            pnlButtons.Controls.Add(cmdReset);
+            pnlButtons.Controls.Add(cmdShutdown);
+            pnlButtons.Controls.Add(cbCursor);
+            pnlButtons.Location = new System.Drawing.Point(861, 752);
+            pnlButtons.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlButtons.Name = "pnlButtons";
+            pnlButtons.Size = new System.Drawing.Size(512, 234);
+            pnlButtons.TabIndex = 38;
             // 
             // cmdDumpMemNow
             // 
-            this.cmdDumpMemNow.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdDumpMemNow.Location = new System.Drawing.Point(3, 36);
-            this.cmdDumpMemNow.Name = "cmdDumpMemNow";
-            this.cmdDumpMemNow.Size = new System.Drawing.Size(168, 23);
-            this.cmdDumpMemNow.TabIndex = 34;
-            this.cmdDumpMemNow.Text = "Dump Memory NOW";
-            this.cmdDumpMemNow.UseVisualStyleBackColor = true;
-            this.cmdDumpMemNow.Click += new System.EventHandler(this.cmdDumpMemNow_Click);
+            cmdDumpMemNow.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdDumpMemNow.Location = new System.Drawing.Point(4, 55);
+            cmdDumpMemNow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdDumpMemNow.Name = "cmdDumpMemNow";
+            cmdDumpMemNow.Size = new System.Drawing.Size(224, 35);
+            cmdDumpMemNow.TabIndex = 34;
+            cmdDumpMemNow.Text = "Dump Memory NOW";
+            cmdDumpMemNow.UseVisualStyleBackColor = true;
+            cmdDumpMemNow.Click += cmdDumpMemNow_Click;
             // 
             // cmdConfigure
             // 
-            this.cmdConfigure.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdConfigure.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cmdConfigure.FlatAppearance.BorderSize = 25;
-            this.cmdConfigure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdConfigure.Location = new System.Drawing.Point(203, 7);
-            this.cmdConfigure.Name = "cmdConfigure";
-            this.cmdConfigure.Size = new System.Drawing.Size(168, 23);
-            this.cmdConfigure.TabIndex = 33;
-            this.cmdConfigure.TabStop = false;
-            this.cmdConfigure.Text = "Configure";
-            this.toolTip1.SetToolTip(this.cmdConfigure, "Configure the emulator");
-            this.cmdConfigure.UseVisualStyleBackColor = true;
-            this.cmdConfigure.Click += new System.EventHandler(this.cmdConfigure_Click);
+            cmdConfigure.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdConfigure.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            cmdConfigure.FlatAppearance.BorderSize = 25;
+            cmdConfigure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            cmdConfigure.Location = new System.Drawing.Point(271, 11);
+            cmdConfigure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdConfigure.Name = "cmdConfigure";
+            cmdConfigure.Size = new System.Drawing.Size(224, 35);
+            cmdConfigure.TabIndex = 33;
+            cmdConfigure.TabStop = false;
+            cmdConfigure.Text = "Configure";
+            toolTip1.SetToolTip(cmdConfigure, "Configure the emulator");
+            cmdConfigure.UseVisualStyleBackColor = true;
+            cmdConfigure.Click += cmdConfigure_Click;
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.Location = new System.Drawing.Point(3, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 23);
-            this.button1.TabIndex = 34;
-            this.button1.Text = "Mem Usage Map";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.cmdShowMemUsage_Click);
+            button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            button1.Location = new System.Drawing.Point(4, 11);
+            button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(224, 35);
+            button1.TabIndex = 34;
+            button1.Text = "Mem Usage Map";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += cmdShowMemUsage_Click;
             // 
             // cmdPowerOff
             // 
-            this.cmdPowerOff.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdPowerOff.BackColor = System.Drawing.Color.Red;
-            this.cmdPowerOff.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cmdPowerOff.FlatAppearance.BorderSize = 25;
-            this.cmdPowerOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdPowerOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPowerOff.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cmdPowerOff.Location = new System.Drawing.Point(3, 63);
-            this.cmdPowerOff.Name = "cmdPowerOff";
-            this.cmdPowerOff.Size = new System.Drawing.Size(168, 23);
-            this.cmdPowerOff.TabIndex = 16;
-            this.cmdPowerOff.TabStop = false;
-            this.cmdPowerOff.Text = "POWER";
-            this.toolTip1.SetToolTip(this.cmdPowerOff, "Emulator power on/off");
-            this.cmdPowerOff.UseVisualStyleBackColor = false;
-            this.cmdPowerOff.Click += new System.EventHandler(this.cmdPowerOff_Click);
+            cmdPowerOff.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdPowerOff.BackColor = System.Drawing.Color.Red;
+            cmdPowerOff.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            cmdPowerOff.FlatAppearance.BorderSize = 25;
+            cmdPowerOff.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            cmdPowerOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cmdPowerOff.ForeColor = System.Drawing.SystemColors.ControlText;
+            cmdPowerOff.Location = new System.Drawing.Point(4, 98);
+            cmdPowerOff.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdPowerOff.Name = "cmdPowerOff";
+            cmdPowerOff.Size = new System.Drawing.Size(224, 35);
+            cmdPowerOff.TabIndex = 16;
+            cmdPowerOff.TabStop = false;
+            cmdPowerOff.Text = "POWER";
+            toolTip1.SetToolTip(cmdPowerOff, "Emulator power on/off");
+            cmdPowerOff.UseVisualStyleBackColor = false;
+            cmdPowerOff.Click += cmdPowerOff_Click;
             // 
             // cmdReset
             // 
-            this.cmdReset.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdReset.Enabled = false;
-            this.cmdReset.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cmdReset.FlatAppearance.BorderSize = 25;
-            this.cmdReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdReset.Location = new System.Drawing.Point(203, 36);
-            this.cmdReset.Name = "cmdReset";
-            this.cmdReset.Size = new System.Drawing.Size(168, 23);
-            this.cmdReset.TabIndex = 14;
-            this.cmdReset.TabStop = false;
-            this.cmdReset.Text = "RESET";
-            this.toolTip1.SetToolTip(this.cmdReset, "Reset the emulation");
-            this.cmdReset.UseVisualStyleBackColor = true;
-            this.cmdReset.Click += new System.EventHandler(this.cmdReset_Click);
+            cmdReset.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdReset.Enabled = false;
+            cmdReset.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            cmdReset.FlatAppearance.BorderSize = 25;
+            cmdReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            cmdReset.Location = new System.Drawing.Point(271, 55);
+            cmdReset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdReset.Name = "cmdReset";
+            cmdReset.Size = new System.Drawing.Size(224, 35);
+            cmdReset.TabIndex = 14;
+            cmdReset.TabStop = false;
+            cmdReset.Text = "RESET";
+            toolTip1.SetToolTip(cmdReset, "Reset the emulation");
+            cmdReset.UseVisualStyleBackColor = true;
+            cmdReset.Click += cmdReset_Click;
             // 
             // cmdShutdown
             // 
-            this.cmdShutdown.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cmdShutdown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cmdShutdown.FlatAppearance.BorderSize = 25;
-            this.cmdShutdown.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdShutdown.Location = new System.Drawing.Point(203, 63);
-            this.cmdShutdown.Name = "cmdShutdown";
-            this.cmdShutdown.Size = new System.Drawing.Size(168, 23);
-            this.cmdShutdown.TabIndex = 15;
-            this.cmdShutdown.TabStop = false;
-            this.cmdShutdown.Text = "EXIT";
-            this.toolTip1.SetToolTip(this.cmdShutdown, "Power off and exit");
-            this.cmdShutdown.UseVisualStyleBackColor = true;
-            this.cmdShutdown.Click += new System.EventHandler(this.cmdShutdown_Click);
+            cmdShutdown.Anchor = System.Windows.Forms.AnchorStyles.None;
+            cmdShutdown.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            cmdShutdown.FlatAppearance.BorderSize = 25;
+            cmdShutdown.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            cmdShutdown.Location = new System.Drawing.Point(271, 98);
+            cmdShutdown.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdShutdown.Name = "cmdShutdown";
+            cmdShutdown.Size = new System.Drawing.Size(224, 35);
+            cmdShutdown.TabIndex = 15;
+            cmdShutdown.TabStop = false;
+            cmdShutdown.Text = "EXIT";
+            toolTip1.SetToolTip(cmdShutdown, "Power off and exit");
+            cmdShutdown.UseVisualStyleBackColor = true;
+            cmdShutdown.Click += cmdShutdown_Click;
             // 
             // toolTip1
             // 
-            this.toolTip1.AutoPopDelay = 30000;
-            this.toolTip1.InitialDelay = 500;
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ReshowDelay = 100;
-            this.toolTip1.UseAnimation = false;
-            this.toolTip1.UseFading = false;
+            toolTip1.AutoPopDelay = 30000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.IsBalloon = true;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.UseAnimation = false;
+            toolTip1.UseFading = false;
             // 
             // cmdStepOver
             // 
-            this.cmdStepOver.Location = new System.Drawing.Point(556, 3);
-            this.cmdStepOver.Name = "cmdStepOver";
-            this.cmdStepOver.Size = new System.Drawing.Size(75, 23);
-            this.cmdStepOver.TabIndex = 35;
-            this.cmdStepOver.Text = "Step &Over";
-            this.toolTip1.SetToolTip(this.cmdStepOver, "Execute until returning from the call/interrupt (when applicable)");
-            this.cmdStepOver.UseVisualStyleBackColor = true;
-            this.cmdStepOver.Click += new System.EventHandler(this.cmdStepOver_Click);
+            cmdStepOver.Location = new System.Drawing.Point(741, 5);
+            cmdStepOver.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdStepOver.Name = "cmdStepOver";
+            cmdStepOver.Size = new System.Drawing.Size(100, 35);
+            cmdStepOver.TabIndex = 35;
+            cmdStepOver.Text = "Step &Over";
+            toolTip1.SetToolTip(cmdStepOver, "Execute until returning from the call/interrupt (when applicable)");
+            cmdStepOver.UseVisualStyleBackColor = true;
+            cmdStepOver.Click += cmdStepOver_Click;
             // 
             // cmdStepInto
             // 
-            this.cmdStepInto.Location = new System.Drawing.Point(475, 3);
-            this.cmdStepInto.Name = "cmdStepInto";
-            this.cmdStepInto.Size = new System.Drawing.Size(75, 23);
-            this.cmdStepInto.TabIndex = 35;
-            this.cmdStepInto.Text = "Step &Into";
-            this.toolTip1.SetToolTip(this.cmdStepInto, "Execute the current instruction");
-            this.cmdStepInto.UseVisualStyleBackColor = true;
-            this.cmdStepInto.Click += new System.EventHandler(this.cmdStep_Click);
+            cmdStepInto.Location = new System.Drawing.Point(633, 5);
+            cmdStepInto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdStepInto.Name = "cmdStepInto";
+            cmdStepInto.Size = new System.Drawing.Size(100, 35);
+            cmdStepInto.TabIndex = 35;
+            cmdStepInto.Text = "Step &Into";
+            toolTip1.SetToolTip(cmdStepInto, "Execute the current instruction");
+            cmdStepInto.UseVisualStyleBackColor = true;
+            cmdStepInto.Click += cmdStep_Click;
             // 
             // txtOp1Value
             // 
-            this.txtOp1Value.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOp1Value.Location = new System.Drawing.Point(133, 3);
-            this.txtOp1Value.Name = "txtOp1Value";
-            this.txtOp1Value.Size = new System.Drawing.Size(100, 23);
-            this.txtOp1Value.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtOp1Value, "Value of the reference in Operand 1 (when applicable)  Note that since the emulat" +
-                    "or\'s registers are stored in the computer\'s \"memory\", they are considered refere" +
-                    "nces as well.");
+            txtOp1Value.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtOp1Value.Location = new System.Drawing.Point(177, 5);
+            txtOp1Value.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtOp1Value.Name = "txtOp1Value";
+            txtOp1Value.Size = new System.Drawing.Size(132, 27);
+            txtOp1Value.TabIndex = 1;
+            toolTip1.SetToolTip(txtOp1Value, "Value of the reference in Operand 1 (when applicable)  Note that since the emulator's registers are stored in the computer's \"memory\", they are considered references as well.");
             // 
             // txtOp2Value
             // 
-            this.txtOp2Value.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOp2Value.Location = new System.Drawing.Point(275, 3);
-            this.txtOp2Value.Name = "txtOp2Value";
-            this.txtOp2Value.Size = new System.Drawing.Size(100, 23);
-            this.txtOp2Value.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtOp2Value, "Value of the reference in Operand 2 (when applicable)  Note that since the emulat" +
-                    "or\'s registers are stored in the computer\'s \"memory\", they are considered refere" +
-                    "nces as well.");
+            txtOp2Value.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtOp2Value.Location = new System.Drawing.Point(367, 5);
+            txtOp2Value.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtOp2Value.Name = "txtOp2Value";
+            txtOp2Value.Size = new System.Drawing.Size(132, 27);
+            txtOp2Value.TabIndex = 1;
+            toolTip1.SetToolTip(txtOp2Value, "Value of the reference in Operand 2 (when applicable)  Note that since the emulator's registers are stored in the computer's \"memory\", they are considered references as well.");
             // 
             // lbInstructions
             // 
-            this.lbInstructions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ch1,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7});
-            this.lbInstructions.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInstructions.FullRowSelect = true;
-            this.lbInstructions.HideSelection = false;
-            this.lbInstructions.Location = new System.Drawing.Point(19, 21);
-            this.lbInstructions.Name = "lbInstructions";
-            this.lbInstructions.ShowItemToolTips = true;
-            this.lbInstructions.Size = new System.Drawing.Size(730, 253);
-            this.lbInstructions.TabIndex = 41;
-            this.toolTip1.SetToolTip(this.lbInstructions, "Instruction Window");
-            this.lbInstructions.UseCompatibleStateImageBehavior = false;
-            this.lbInstructions.View = System.Windows.Forms.View.Details;
+            lbInstructions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { ch1, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
+            lbInstructions.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbInstructions.FullRowSelect = true;
+            lbInstructions.Location = new System.Drawing.Point(25, 32);
+            lbInstructions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            lbInstructions.Name = "lbInstructions";
+            lbInstructions.ShowItemToolTips = true;
+            lbInstructions.Size = new System.Drawing.Size(972, 386);
+            lbInstructions.TabIndex = 41;
+            toolTip1.SetToolTip(lbInstructions, "Instruction Window");
+            lbInstructions.UseCompatibleStateImageBehavior = false;
+            lbInstructions.View = System.Windows.Forms.View.Details;
             // 
             // ch1
             // 
-            this.ch1.Text = "Address";
+            ch1.Text = "Address";
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Bytes";
+            columnHeader3.Text = "Bytes";
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Instruction";
+            columnHeader4.Text = "Instruction";
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "CS";
-            this.columnHeader5.Width = 0;
+            columnHeader5.Text = "CS";
+            columnHeader5.Width = 0;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "EIP";
-            this.columnHeader6.Width = 0;
+            columnHeader6.Text = "EIP";
+            columnHeader6.Width = 0;
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "Function";
-            this.columnHeader7.Width = 200;
+            columnHeader7.Text = "Function";
+            columnHeader7.Width = 200;
             // 
             // txtFlagsValue
             // 
-            this.txtFlagsValue.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFlagsValue.Location = new System.Drawing.Point(302, 10);
-            this.txtFlagsValue.Name = "txtFlagsValue";
-            this.txtFlagsValue.Size = new System.Drawing.Size(100, 23);
-            this.txtFlagsValue.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.txtFlagsValue, resources.GetString("txtFlagsValue.ToolTip"));
+            txtFlagsValue.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtFlagsValue.Location = new System.Drawing.Point(403, 15);
+            txtFlagsValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtFlagsValue.Name = "txtFlagsValue";
+            txtFlagsValue.Size = new System.Drawing.Size(132, 27);
+            txtFlagsValue.TabIndex = 36;
+            toolTip1.SetToolTip(txtFlagsValue, resources.GetString("txtFlagsValue.ToolTip"));
             // 
             // lblOFInd
             // 
-            this.lblOFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblOFInd.Location = new System.Drawing.Point(14, 16);
-            this.lblOFInd.Name = "lblOFInd";
-            this.lblOFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblOFInd.TabIndex = 35;
-            this.lblOFInd.Text = "OF";
-            this.lblOFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblOFInd, resources.GetString("lblOFInd.ToolTip"));
+            lblOFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblOFInd.Location = new System.Drawing.Point(19, 25);
+            lblOFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblOFInd.Name = "lblOFInd";
+            lblOFInd.Size = new System.Drawing.Size(35, 22);
+            lblOFInd.TabIndex = 35;
+            lblOFInd.Text = "OF";
+            lblOFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblOFInd, resources.GetString("lblOFInd.ToolTip"));
             // 
             // lblDFInd
             // 
-            this.lblDFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblDFInd.Location = new System.Drawing.Point(46, 16);
-            this.lblDFInd.Name = "lblDFInd";
-            this.lblDFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblDFInd.TabIndex = 35;
-            this.lblDFInd.Text = "DF";
-            this.lblDFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblDFInd, resources.GetString("lblDFInd.ToolTip"));
+            lblDFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblDFInd.Location = new System.Drawing.Point(61, 25);
+            lblDFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDFInd.Name = "lblDFInd";
+            lblDFInd.Size = new System.Drawing.Size(35, 22);
+            lblDFInd.TabIndex = 35;
+            lblDFInd.Text = "DF";
+            lblDFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblDFInd, resources.GetString("lblDFInd.ToolTip"));
             // 
             // lblIFInd
             // 
-            this.lblIFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIFInd.Location = new System.Drawing.Point(78, 16);
-            this.lblIFInd.Name = "lblIFInd";
-            this.lblIFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblIFInd.TabIndex = 35;
-            this.lblIFInd.Text = "IF";
-            this.lblIFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblIFInd, resources.GetString("lblIFInd.ToolTip"));
+            lblIFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblIFInd.Location = new System.Drawing.Point(104, 25);
+            lblIFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblIFInd.Name = "lblIFInd";
+            lblIFInd.Size = new System.Drawing.Size(35, 22);
+            lblIFInd.TabIndex = 35;
+            lblIFInd.Text = "IF";
+            lblIFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblIFInd, resources.GetString("lblIFInd.ToolTip"));
             // 
             // lblTFInd
             // 
-            this.lblTFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTFInd.Location = new System.Drawing.Point(110, 16);
-            this.lblTFInd.Name = "lblTFInd";
-            this.lblTFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblTFInd.TabIndex = 35;
-            this.lblTFInd.Text = "TF";
-            this.lblTFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblTFInd, resources.GetString("lblTFInd.ToolTip"));
+            lblTFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblTFInd.Location = new System.Drawing.Point(147, 25);
+            lblTFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTFInd.Name = "lblTFInd";
+            lblTFInd.Size = new System.Drawing.Size(35, 22);
+            lblTFInd.TabIndex = 35;
+            lblTFInd.Text = "TF";
+            lblTFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblTFInd, resources.GetString("lblTFInd.ToolTip"));
             // 
             // lblSFInd
             // 
-            this.lblSFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSFInd.Location = new System.Drawing.Point(142, 16);
-            this.lblSFInd.Name = "lblSFInd";
-            this.lblSFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblSFInd.TabIndex = 35;
-            this.lblSFInd.Text = "SF";
-            this.lblSFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblSFInd, "Sign flag: Indicates that the result of the last arithmetic instruction was negat" +
-                    "ive.  Negative numbers are identified by the Most Signifigant Bit (MSB) of the n" +
-                    "umber being a 1.");
+            lblSFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblSFInd.Location = new System.Drawing.Point(189, 25);
+            lblSFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSFInd.Name = "lblSFInd";
+            lblSFInd.Size = new System.Drawing.Size(35, 22);
+            lblSFInd.TabIndex = 35;
+            lblSFInd.Text = "SF";
+            lblSFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblSFInd, "Sign flag: Indicates that the result of the last arithmetic instruction was negative.  Negative numbers are identified by the Most Signifigant Bit (MSB) of the number being a 1.");
             // 
             // lblZFInd
             // 
-            this.lblZFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblZFInd.Location = new System.Drawing.Point(174, 16);
-            this.lblZFInd.Name = "lblZFInd";
-            this.lblZFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblZFInd.TabIndex = 35;
-            this.lblZFInd.Text = "ZF";
-            this.lblZFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblZFInd, "Zero flag: Indicates that the result of the last arithmetic instruction was zero." +
-                    "  Used in many JCC (conditional jump) , several LOOP, the JCXZ (Jump if CX is ze" +
-                    "ro) and other instructions");
+            lblZFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblZFInd.Location = new System.Drawing.Point(232, 25);
+            lblZFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblZFInd.Name = "lblZFInd";
+            lblZFInd.Size = new System.Drawing.Size(35, 22);
+            lblZFInd.TabIndex = 35;
+            lblZFInd.Text = "ZF";
+            lblZFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblZFInd, "Zero flag: Indicates that the result of the last arithmetic instruction was zero.  Used in many JCC (conditional jump) , several LOOP, the JCXZ (Jump if CX is zero) and other instructions");
             // 
             // lblAFInd
             // 
-            this.lblAFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblAFInd.Location = new System.Drawing.Point(206, 16);
-            this.lblAFInd.Name = "lblAFInd";
-            this.lblAFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblAFInd.TabIndex = 35;
-            this.lblAFInd.Text = "AF";
-            this.lblAFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblAFInd, "Adjust flag (aka Auxiliary flag): Indicates that the last arithmetic instruction " +
-                    "resulted in a carry out of the 4 least signifigant bits. It is primarily used in" +
-                    " Binary Coded Decimal (BCD) arithmetic.");
+            lblAFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblAFInd.Location = new System.Drawing.Point(275, 25);
+            lblAFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAFInd.Name = "lblAFInd";
+            lblAFInd.Size = new System.Drawing.Size(35, 22);
+            lblAFInd.TabIndex = 35;
+            lblAFInd.Text = "AF";
+            lblAFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblAFInd, "Adjust flag (aka Auxiliary flag): Indicates that the last arithmetic instruction resulted in a carry out of the 4 least signifigant bits. It is primarily used in Binary Coded Decimal (BCD) arithmetic.");
             // 
             // lblPFInd
             // 
-            this.lblPFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblPFInd.Location = new System.Drawing.Point(238, 16);
-            this.lblPFInd.Name = "lblPFInd";
-            this.lblPFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblPFInd.TabIndex = 35;
-            this.lblPFInd.Text = "PF";
-            this.lblPFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblPFInd, resources.GetString("lblPFInd.ToolTip"));
+            lblPFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblPFInd.Location = new System.Drawing.Point(317, 25);
+            lblPFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPFInd.Name = "lblPFInd";
+            lblPFInd.Size = new System.Drawing.Size(35, 22);
+            lblPFInd.TabIndex = 35;
+            lblPFInd.Text = "PF";
+            lblPFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblPFInd, resources.GetString("lblPFInd.ToolTip"));
             // 
             // lblCFInd
             // 
-            this.lblCFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCFInd.Location = new System.Drawing.Point(270, 16);
-            this.lblCFInd.Name = "lblCFInd";
-            this.lblCFInd.Size = new System.Drawing.Size(26, 15);
-            this.lblCFInd.TabIndex = 35;
-            this.lblCFInd.Text = "CF";
-            this.lblCFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.lblCFInd, "Carry flag: Used by the JCC  (conditional jump) instructions JC/JNC/JA/JAE/JB/JBE" +
-                    "/JNA/JNAE/JNB/JNBE");
+            lblCFInd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblCFInd.Location = new System.Drawing.Point(360, 25);
+            lblCFInd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCFInd.Name = "lblCFInd";
+            lblCFInd.Size = new System.Drawing.Size(35, 22);
+            lblCFInd.TabIndex = 35;
+            lblCFInd.Text = "CF";
+            lblCFInd.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            toolTip1.SetToolTip(lblCFInd, "Carry flag: Used by the JCC  (conditional jump) instructions JC/JNC/JA/JAE/JB/JBE/JNA/JNAE/JNB/JNBE");
             // 
             // txtAtESP
             // 
-            this.txtAtESP.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAtESP.Location = new System.Drawing.Point(519, 112);
-            this.txtAtESP.Multiline = true;
-            this.txtAtESP.Name = "txtAtESP";
-            this.txtAtESP.Size = new System.Drawing.Size(100, 113);
-            this.txtAtESP.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.txtAtESP, "These are the last values saved on the stack (at  SS:SP or SS;ESP).  Values are a" +
-                    "lways pushed onto the top and popped off the top of the stack.");
+            txtAtESP.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtAtESP.Location = new System.Drawing.Point(692, 172);
+            txtAtESP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtAtESP.Multiline = true;
+            txtAtESP.Name = "txtAtESP";
+            txtAtESP.Size = new System.Drawing.Size(132, 172);
+            txtAtESP.TabIndex = 17;
+            toolTip1.SetToolTip(txtAtESP, "These are the last values saved on the stack (at  SS:SP or SS;ESP).  Values are always pushed onto the top and popped off the top of the stack.");
             // 
             // txtESP
             // 
-            this.txtESP.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtESP.Location = new System.Drawing.Point(519, 45);
-            this.txtESP.Name = "txtESP";
-            this.txtESP.Size = new System.Drawing.Size(100, 23);
-            this.txtESP.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.txtESP, resources.GetString("txtESP.ToolTip"));
+            txtESP.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtESP.Location = new System.Drawing.Point(692, 69);
+            txtESP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtESP.Name = "txtESP";
+            txtESP.Size = new System.Drawing.Size(132, 27);
+            txtESP.TabIndex = 15;
+            toolTip1.SetToolTip(txtESP, resources.GetString("txtESP.ToolTip"));
             // 
             // txtEBP
             // 
-            this.txtEBP.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEBP.Location = new System.Drawing.Point(357, 45);
-            this.txtEBP.Name = "txtEBP";
-            this.txtEBP.Size = new System.Drawing.Size(100, 23);
-            this.txtEBP.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.txtEBP, resources.GetString("txtEBP.ToolTip"));
+            txtEBP.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEBP.Location = new System.Drawing.Point(476, 69);
+            txtEBP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtEBP.Name = "txtEBP";
+            txtEBP.Size = new System.Drawing.Size(132, 27);
+            txtEBP.TabIndex = 13;
+            toolTip1.SetToolTip(txtEBP, resources.GetString("txtEBP.ToolTip"));
             // 
             // txtEDI
             // 
-            this.txtEDI.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEDI.Location = new System.Drawing.Point(219, 45);
-            this.txtEDI.Name = "txtEDI";
-            this.txtEDI.Size = new System.Drawing.Size(100, 23);
-            this.txtEDI.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.txtEDI, resources.GetString("txtEDI.ToolTip"));
+            txtEDI.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEDI.Location = new System.Drawing.Point(292, 69);
+            txtEDI.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtEDI.Name = "txtEDI";
+            txtEDI.Size = new System.Drawing.Size(132, 27);
+            txtEDI.TabIndex = 11;
+            toolTip1.SetToolTip(txtEDI, resources.GetString("txtEDI.ToolTip"));
             // 
             // txtESI
             // 
-            this.txtESI.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtESI.Location = new System.Drawing.Point(68, 45);
-            this.txtESI.Name = "txtESI";
-            this.txtESI.Size = new System.Drawing.Size(100, 23);
-            this.txtESI.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.txtESI, resources.GetString("txtESI.ToolTip"));
+            txtESI.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtESI.Location = new System.Drawing.Point(91, 69);
+            txtESI.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtESI.Name = "txtESI";
+            txtESI.Size = new System.Drawing.Size(132, 27);
+            txtESI.TabIndex = 9;
+            toolTip1.SetToolTip(txtESI, resources.GetString("txtESI.ToolTip"));
             // 
             // txtSS
             // 
-            this.txtSS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSS.Location = new System.Drawing.Point(219, 181);
-            this.txtSS.Name = "txtSS";
-            this.txtSS.Size = new System.Drawing.Size(100, 23);
-            this.txtSS.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.txtSS, "Stack Segment: Points to the segment that is currently being used for the stack. " +
-                    "  This segment combined with the offset provided by the (E)SP register point at " +
-                    "the top of the stack.");
+            txtSS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtSS.Location = new System.Drawing.Point(292, 279);
+            txtSS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtSS.Name = "txtSS";
+            txtSS.Size = new System.Drawing.Size(132, 27);
+            txtSS.TabIndex = 7;
+            toolTip1.SetToolTip(txtSS, "Stack Segment: Points to the segment that is currently being used for the stack.   This segment combined with the offset provided by the (E)SP register point at the top of the stack.");
             // 
             // txtFS
             // 
-            this.txtFS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFS.Location = new System.Drawing.Point(219, 129);
-            this.txtFS.Name = "txtFS";
-            this.txtFS.Size = new System.Drawing.Size(100, 23);
-            this.txtFS.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.txtFS, "Extra Extra Segment register: Points to another segment that is used as an \"E\"xtr" +
-                    "a data segment");
+            txtFS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtFS.Location = new System.Drawing.Point(292, 199);
+            txtFS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtFS.Name = "txtFS";
+            txtFS.Size = new System.Drawing.Size(132, 27);
+            txtFS.TabIndex = 7;
+            toolTip1.SetToolTip(txtFS, "Extra Extra Segment register: Points to another segment that is used as an \"E\"xtra data segment");
             // 
             // txtEDX
             // 
-            this.txtEDX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEDX.Location = new System.Drawing.Point(519, 13);
-            this.txtEDX.Name = "txtEDX";
-            this.txtEDX.Size = new System.Drawing.Size(100, 23);
-            this.txtEDX.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.txtEDX, resources.GetString("txtEDX.ToolTip"));
+            txtEDX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEDX.Location = new System.Drawing.Point(692, 20);
+            txtEDX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtEDX.Name = "txtEDX";
+            txtEDX.Size = new System.Drawing.Size(132, 27);
+            txtEDX.TabIndex = 7;
+            toolTip1.SetToolTip(txtEDX, resources.GetString("txtEDX.ToolTip"));
             // 
             // txtGS
             // 
-            this.txtGS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGS.Location = new System.Drawing.Point(219, 155);
-            this.txtGS.Name = "txtGS";
-            this.txtGS.Size = new System.Drawing.Size(100, 23);
-            this.txtGS.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.txtGS, "Extra Extra Extra Segment register: Points to yet another segment that is used as" +
-                    " an \"E\"xtra data segment");
+            txtGS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtGS.Location = new System.Drawing.Point(292, 239);
+            txtGS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtGS.Name = "txtGS";
+            txtGS.Size = new System.Drawing.Size(132, 27);
+            txtGS.TabIndex = 5;
+            toolTip1.SetToolTip(txtGS, "Extra Extra Extra Segment register: Points to yet another segment that is used as an \"E\"xtra data segment");
             // 
             // txtES
             // 
-            this.txtES.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtES.Location = new System.Drawing.Point(72, 181);
-            this.txtES.Name = "txtES";
-            this.txtES.Size = new System.Drawing.Size(100, 23);
-            this.txtES.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.txtES, "Extra Segment register: Points to a segment that is used as an \"E\"xtra data segme" +
-                    "nt.  Often used with the (E)DI register as a pointer to the \"destination\" data o" +
-                    "f an instruction");
+            txtES.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtES.Location = new System.Drawing.Point(96, 279);
+            txtES.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtES.Name = "txtES";
+            txtES.Size = new System.Drawing.Size(132, 27);
+            txtES.TabIndex = 5;
+            toolTip1.SetToolTip(txtES, "Extra Segment register: Points to a segment that is used as an \"E\"xtra data segment.  Often used with the (E)DI register as a pointer to the \"destination\" data of an instruction");
             // 
             // txtECX
             // 
-            this.txtECX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtECX.Location = new System.Drawing.Point(357, 13);
-            this.txtECX.Name = "txtECX";
-            this.txtECX.Size = new System.Drawing.Size(100, 23);
-            this.txtECX.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.txtECX, resources.GetString("txtECX.ToolTip"));
+            txtECX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtECX.Location = new System.Drawing.Point(476, 20);
+            txtECX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtECX.Name = "txtECX";
+            txtECX.Size = new System.Drawing.Size(132, 27);
+            txtECX.TabIndex = 5;
+            toolTip1.SetToolTip(txtECX, resources.GetString("txtECX.ToolTip"));
             // 
             // txtDS
             // 
-            this.txtDS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDS.Location = new System.Drawing.Point(72, 155);
-            this.txtDS.Name = "txtDS";
-            this.txtDS.Size = new System.Drawing.Size(100, 23);
-            this.txtDS.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.txtDS, "Data Segment register: Points to the segment which is currently being used as the" +
-                    " default data segment.  Often used with the (E)SI register as a pointer to the \"" +
-                    "source\" data for the instruction");
+            txtDS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtDS.Location = new System.Drawing.Point(96, 239);
+            txtDS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtDS.Name = "txtDS";
+            txtDS.Size = new System.Drawing.Size(132, 27);
+            txtDS.TabIndex = 3;
+            toolTip1.SetToolTip(txtDS, "Data Segment register: Points to the segment which is currently being used as the default data segment.  Often used with the (E)SI register as a pointer to the \"source\" data for the instruction");
             // 
             // txtEBX
             // 
-            this.txtEBX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEBX.Location = new System.Drawing.Point(219, 13);
-            this.txtEBX.Name = "txtEBX";
-            this.txtEBX.Size = new System.Drawing.Size(100, 23);
-            this.txtEBX.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.txtEBX, resources.GetString("txtEBX.ToolTip"));
+            txtEBX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEBX.Location = new System.Drawing.Point(292, 20);
+            txtEBX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtEBX.Name = "txtEBX";
+            txtEBX.Size = new System.Drawing.Size(132, 27);
+            txtEBX.TabIndex = 3;
+            toolTip1.SetToolTip(txtEBX, resources.GetString("txtEBX.ToolTip"));
             // 
             // txtCS
             // 
-            this.txtCS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCS.Location = new System.Drawing.Point(72, 129);
-            this.txtCS.Name = "txtCS";
-            this.txtCS.Size = new System.Drawing.Size(100, 23);
-            this.txtCS.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtCS, "Code Segment register: Points to the current segment that code is executing in.  " +
-                    "This segment combined with the offset provided by the (E)IP register point at cu" +
-                    "rrent instruction to be executed.");
+            txtCS.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCS.Location = new System.Drawing.Point(96, 199);
+            txtCS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCS.Name = "txtCS";
+            txtCS.Size = new System.Drawing.Size(132, 27);
+            txtCS.TabIndex = 1;
+            toolTip1.SetToolTip(txtCS, "Code Segment register: Points to the current segment that code is executing in.  This segment combined with the offset provided by the (E)IP register point at current instruction to be executed.");
             // 
             // txtEAX
             // 
-            this.txtEAX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEAX.Location = new System.Drawing.Point(68, 13);
-            this.txtEAX.Name = "txtEAX";
-            this.txtEAX.Size = new System.Drawing.Size(100, 23);
-            this.txtEAX.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtEAX, resources.GetString("txtEAX.ToolTip"));
+            txtEAX.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtEAX.Location = new System.Drawing.Point(91, 20);
+            txtEAX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtEAX.Name = "txtEAX";
+            txtEAX.Size = new System.Drawing.Size(132, 27);
+            txtEAX.TabIndex = 1;
+            toolTip1.SetToolTip(txtEAX, resources.GetString("txtEAX.ToolTip"));
             // 
             // dgGDT
             // 
-            this.dgGDT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgGDT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgGDT.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgGDT.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgGDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgGDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Number,
-            this.mName,
-            this.Present,
-            this.Base,
-            this.Limit,
-            this.PrivLvl,
-            this.SegType,
-            this.SystemDescType,
-            this.OpSize32,
-            this.Value});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgGDT.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgGDT.Location = new System.Drawing.Point(12, 12);
-            this.dgGDT.MultiSelect = false;
-            this.dgGDT.Name = "dgGDT";
-            this.dgGDT.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgGDT.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgGDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgGDT.Size = new System.Drawing.Size(997, 625);
-            this.dgGDT.TabIndex = 7;
+            dgGDT.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgGDT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgGDT.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgGDT.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dgGDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgGDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Number, mName, Present, Base, Limit, PrivLvl, SegType, SystemDescType, OpSize32, Value });
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dgGDT.DefaultCellStyle = dataGridViewCellStyle11;
+            dgGDT.Location = new System.Drawing.Point(16, 19);
+            dgGDT.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            dgGDT.MultiSelect = false;
+            dgGDT.Name = "dgGDT";
+            dgGDT.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgGDT.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dgGDT.RowHeadersWidth = 51;
+            dgGDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dgGDT.Size = new System.Drawing.Size(1329, 961);
+            dgGDT.TabIndex = 7;
             // 
             // Number
             // 
-            this.Number.DataPropertyName = "Number";
-            this.Number.HeaderText = "Number";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
+            Number.DataPropertyName = "Number";
+            Number.HeaderText = "Number";
+            Number.MinimumWidth = 6;
+            Number.Name = "Number";
+            Number.ReadOnly = true;
             // 
             // mName
             // 
-            this.mName.DataPropertyName = "Name";
-            this.mName.HeaderText = "Name";
-            this.mName.Name = "mName";
-            this.mName.ReadOnly = true;
+            mName.DataPropertyName = "Name";
+            mName.HeaderText = "Name";
+            mName.MinimumWidth = 6;
+            mName.Name = "mName";
+            mName.ReadOnly = true;
             // 
             // Present
             // 
-            this.Present.DataPropertyName = "Present";
-            this.Present.HeaderText = "Present";
-            this.Present.Name = "Present";
-            this.Present.ReadOnly = true;
+            Present.DataPropertyName = "Present";
+            Present.HeaderText = "Present";
+            Present.MinimumWidth = 6;
+            Present.Name = "Present";
+            Present.ReadOnly = true;
             // 
             // Base
             // 
-            this.Base.DataPropertyName = "Base";
-            dataGridViewCellStyle2.Format = "X08";
-            this.Base.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Base.HeaderText = "Base";
-            this.Base.Name = "Base";
-            this.Base.ReadOnly = true;
+            Base.DataPropertyName = "Base";
+            dataGridViewCellStyle8.Format = "X08";
+            Base.DefaultCellStyle = dataGridViewCellStyle8;
+            Base.HeaderText = "Base";
+            Base.MinimumWidth = 6;
+            Base.Name = "Base";
+            Base.ReadOnly = true;
             // 
             // Limit
             // 
-            this.Limit.DataPropertyName = "Limit";
-            dataGridViewCellStyle3.Format = "X08";
-            this.Limit.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Limit.HeaderText = "Limit";
-            this.Limit.Name = "Limit";
-            this.Limit.ReadOnly = true;
+            Limit.DataPropertyName = "Limit";
+            dataGridViewCellStyle9.Format = "X08";
+            Limit.DefaultCellStyle = dataGridViewCellStyle9;
+            Limit.HeaderText = "Limit";
+            Limit.MinimumWidth = 6;
+            Limit.Name = "Limit";
+            Limit.ReadOnly = true;
             // 
             // PrivLvl
             // 
-            this.PrivLvl.DataPropertyName = "PrivLvl";
-            this.PrivLvl.HeaderText = "PrivLvl";
-            this.PrivLvl.Name = "PrivLvl";
-            this.PrivLvl.ReadOnly = true;
+            PrivLvl.DataPropertyName = "PrivLvl";
+            PrivLvl.HeaderText = "PrivLvl";
+            PrivLvl.MinimumWidth = 6;
+            PrivLvl.Name = "PrivLvl";
+            PrivLvl.ReadOnly = true;
             // 
             // SegType
             // 
-            this.SegType.DataPropertyName = "SegType";
-            this.SegType.HeaderText = "SegType";
-            this.SegType.Name = "SegType";
-            this.SegType.ReadOnly = true;
+            SegType.DataPropertyName = "SegType";
+            SegType.HeaderText = "SegType";
+            SegType.MinimumWidth = 6;
+            SegType.Name = "SegType";
+            SegType.ReadOnly = true;
             // 
             // SystemDescType
             // 
-            this.SystemDescType.DataPropertyName = "SystemDescType";
-            this.SystemDescType.HeaderText = "SystemDescType";
-            this.SystemDescType.Name = "SystemDescType";
-            this.SystemDescType.ReadOnly = true;
+            SystemDescType.DataPropertyName = "SystemDescType";
+            SystemDescType.HeaderText = "SystemDescType";
+            SystemDescType.MinimumWidth = 6;
+            SystemDescType.Name = "SystemDescType";
+            SystemDescType.ReadOnly = true;
             // 
             // OpSize32
             // 
-            this.OpSize32.DataPropertyName = "OpSize32";
-            this.OpSize32.HeaderText = "OpSize32";
-            this.OpSize32.Name = "OpSize32";
-            this.OpSize32.ReadOnly = true;
+            OpSize32.DataPropertyName = "OpSize32";
+            OpSize32.HeaderText = "OpSize32";
+            OpSize32.MinimumWidth = 6;
+            OpSize32.Name = "OpSize32";
+            OpSize32.ReadOnly = true;
             // 
             // Value
             // 
-            this.Value.DataPropertyName = "Value";
-            dataGridViewCellStyle4.Format = "X08";
-            this.Value.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.ReadOnly = true;
-            this.Value.Visible = false;
+            Value.DataPropertyName = "Value";
+            dataGridViewCellStyle10.Format = "X08";
+            Value.DefaultCellStyle = dataGridViewCellStyle10;
+            Value.HeaderText = "Value";
+            Value.MinimumWidth = 6;
+            Value.Name = "Value";
+            Value.ReadOnly = true;
+            Value.Visible = false;
             // 
             // tmrGDT
             // 
-            this.tmrGDT.Enabled = true;
-            this.tmrGDT.Interval = 1000;
-            this.tmrGDT.Tick += new System.EventHandler(this.tmrGDT_Tick);
+            tmrGDT.Enabled = true;
+            tmrGDT.Interval = 1000;
+            tmrGDT.Tick += tmrGDT_Tick;
             // 
             // ofd1
             // 
-            this.ofd1.FileName = "openFileDialog1";
+            ofd1.FileName = "openFileDialog1";
             // 
             // cmdContinue
             // 
-            this.cmdContinue.Location = new System.Drawing.Point(637, 3);
-            this.cmdContinue.Name = "cmdContinue";
-            this.cmdContinue.Size = new System.Drawing.Size(75, 23);
-            this.cmdContinue.TabIndex = 35;
-            this.cmdContinue.Text = "&Continue";
-            this.cmdContinue.UseVisualStyleBackColor = true;
-            this.cmdContinue.Click += new System.EventHandler(this.cmdContinue_Click);
+            cmdContinue.Location = new System.Drawing.Point(849, 5);
+            cmdContinue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdContinue.Name = "cmdContinue";
+            cmdContinue.Size = new System.Drawing.Size(100, 35);
+            cmdContinue.TabIndex = 35;
+            cmdContinue.Text = "&Continue";
+            cmdContinue.UseVisualStyleBackColor = true;
+            cmdContinue.Click += cmdContinue_Click;
             // 
             // label28
             // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(242, 8);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(27, 13);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "Op2";
+            label28.AutoSize = true;
+            label28.Location = new System.Drawing.Point(323, 12);
+            label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label28.Name = "label28";
+            label28.Size = new System.Drawing.Size(37, 20);
+            label28.TabIndex = 0;
+            label28.Text = "Op2";
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(242, 8);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(27, 13);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Op2";
+            label27.AutoSize = true;
+            label27.Location = new System.Drawing.Point(323, 12);
+            label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label27.Name = "label27";
+            label27.Size = new System.Drawing.Size(37, 20);
+            label27.TabIndex = 0;
+            label27.Text = "Op2";
             // 
             // label26
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(100, 8);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(27, 13);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "Op1";
+            label26.AutoSize = true;
+            label26.Location = new System.Drawing.Point(133, 12);
+            label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label26.Name = "label26";
+            label26.Size = new System.Drawing.Size(37, 20);
+            label26.TabIndex = 0;
+            label26.Text = "Op1";
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1174, 24);
-            this.menuStrip1.TabIndex = 9;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem });
+            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new System.Drawing.Size(1430, 28);
+            menuStrip1.TabIndex = 9;
+            menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            fileToolStripMenuItem.Text = "&File";
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.breakpointsToolStripMenuItem,
-            this.memoryToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "&View";
+            viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { breakpointsToolStripMenuItem, memoryToolStripMenuItem });
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            viewToolStripMenuItem.Text = "&View";
             // 
             // breakpointsToolStripMenuItem
             // 
-            this.breakpointsToolStripMenuItem.Name = "breakpointsToolStripMenuItem";
-            this.breakpointsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.breakpointsToolStripMenuItem.Text = "Breakpoints";
-            this.breakpointsToolStripMenuItem.Click += new System.EventHandler(this.breakpointsToolStripMenuItem_Click);
+            breakpointsToolStripMenuItem.Name = "breakpointsToolStripMenuItem";
+            breakpointsToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            breakpointsToolStripMenuItem.Text = "Breakpoints";
+            breakpointsToolStripMenuItem.Click += breakpointsToolStripMenuItem_Click;
             // 
             // memoryToolStripMenuItem
             // 
-            this.memoryToolStripMenuItem.Name = "memoryToolStripMenuItem";
-            this.memoryToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.memoryToolStripMenuItem.Text = "Memory";
-            this.memoryToolStripMenuItem.Click += new System.EventHandler(this.memoryToolStripMenuItem_Click);
+            memoryToolStripMenuItem.Name = "memoryToolStripMenuItem";
+            memoryToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            memoryToolStripMenuItem.Text = "Memory";
+            memoryToolStripMenuItem.Click += memoryToolStripMenuItem_Click;
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.memWindowForOperand1ToolStripMenuItem,
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(280, 48);
+            contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { memWindowForOperand1ToolStripMenuItem, dIsplayMemoryWindowForOperand2ToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(338, 52);
             // 
             // memWindowForOperand1ToolStripMenuItem
             // 
-            this.memWindowForOperand1ToolStripMenuItem.Name = "memWindowForOperand1ToolStripMenuItem";
-            this.memWindowForOperand1ToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
-            this.memWindowForOperand1ToolStripMenuItem.Text = "DIsplay memory window for operand 1";
-            this.memWindowForOperand1ToolStripMenuItem.Click += new System.EventHandler(this.memWindowForOperand1ToolStripMenuItem_Click);
+            memWindowForOperand1ToolStripMenuItem.Name = "memWindowForOperand1ToolStripMenuItem";
+            memWindowForOperand1ToolStripMenuItem.Size = new System.Drawing.Size(337, 24);
+            memWindowForOperand1ToolStripMenuItem.Text = "DIsplay memory window for operand 1";
+            memWindowForOperand1ToolStripMenuItem.Click += memWindowForOperand1ToolStripMenuItem_Click;
             // 
             // dIsplayMemoryWindowForOperand2ToolStripMenuItem
             // 
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem.Name = "dIsplayMemoryWindowForOperand2ToolStripMenuItem";
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem.Text = "DIsplay memory window for operand 2";
-            this.dIsplayMemoryWindowForOperand2ToolStripMenuItem.Click += new System.EventHandler(this.dIsplayMemoryWindowForOperand2ToolStripMenuItem_Click);
+            dIsplayMemoryWindowForOperand2ToolStripMenuItem.Name = "dIsplayMemoryWindowForOperand2ToolStripMenuItem";
+            dIsplayMemoryWindowForOperand2ToolStripMenuItem.Size = new System.Drawing.Size(337, 24);
+            dIsplayMemoryWindowForOperand2ToolStripMenuItem.Text = "DIsplay memory window for operand 2";
+            dIsplayMemoryWindowForOperand2ToolStripMenuItem.Click += dIsplayMemoryWindowForOperand2ToolStripMenuItem_Click;
             // 
             // tmrSuperFast
             // 
-            this.tmrSuperFast.Interval = 75;
-            this.tmrSuperFast.Tick += new System.EventHandler(this.tmrSuperFast_Tick);
+            tmrSuperFast.Interval = 5;
+            tmrSuperFast.Tick += tmrSuperFast_Tick;
             // 
             // pnlSerial1
             // 
-            this.pnlSerial1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlSerial1.Controls.Add(this.groupBox6);
-            this.pnlSerial1.Location = new System.Drawing.Point(478, 326);
-            this.pnlSerial1.Name = "pnlSerial1";
-            this.pnlSerial1.Size = new System.Drawing.Size(232, 53);
-            this.pnlSerial1.TabIndex = 39;
+            pnlSerial1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            pnlSerial1.Controls.Add(groupBox6);
+            pnlSerial1.Location = new System.Drawing.Point(570, 366);
+            pnlSerial1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlSerial1.Name = "pnlSerial1";
+            pnlSerial1.Size = new System.Drawing.Size(309, 81);
+            pnlSerial1.TabIndex = 39;
             // 
             // pnlDebug
             // 
-            this.pnlDebug.Controls.Add(this.txtOp1Value);
-            this.pnlDebug.Controls.Add(this.cmdContinue);
-            this.pnlDebug.Controls.Add(this.txtOp2Value);
-            this.pnlDebug.Controls.Add(this.cmdStepOver);
-            this.pnlDebug.Controls.Add(this.label26);
-            this.pnlDebug.Controls.Add(this.cmdBreak);
-            this.pnlDebug.Controls.Add(this.cmdStepInto);
-            this.pnlDebug.Controls.Add(this.label27);
-            this.pnlDebug.Controls.Add(this.label28);
-            this.pnlDebug.Location = new System.Drawing.Point(19, 277);
-            this.pnlDebug.Name = "pnlDebug";
-            this.pnlDebug.Size = new System.Drawing.Size(730, 40);
-            this.pnlDebug.TabIndex = 39;
+            pnlDebug.Controls.Add(txtOp1Value);
+            pnlDebug.Controls.Add(cmdContinue);
+            pnlDebug.Controls.Add(txtOp2Value);
+            pnlDebug.Controls.Add(cmdStepOver);
+            pnlDebug.Controls.Add(label26);
+            pnlDebug.Controls.Add(cmdBreak);
+            pnlDebug.Controls.Add(cmdStepInto);
+            pnlDebug.Controls.Add(label27);
+            pnlDebug.Controls.Add(label28);
+            pnlDebug.Location = new System.Drawing.Point(25, 426);
+            pnlDebug.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlDebug.Name = "pnlDebug";
+            pnlDebug.Size = new System.Drawing.Size(973, 61);
+            pnlDebug.TabIndex = 39;
             // 
             // cmdBreak
             // 
-            this.cmdBreak.Location = new System.Drawing.Point(394, 3);
-            this.cmdBreak.Name = "cmdBreak";
-            this.cmdBreak.Size = new System.Drawing.Size(75, 23);
-            this.cmdBreak.TabIndex = 35;
-            this.cmdBreak.Text = "&Break";
-            this.cmdBreak.UseVisualStyleBackColor = true;
-            this.cmdBreak.Click += new System.EventHandler(this.cmdBreak_Click);
+            cmdBreak.Location = new System.Drawing.Point(525, 5);
+            cmdBreak.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cmdBreak.Name = "cmdBreak";
+            cmdBreak.Size = new System.Drawing.Size(100, 35);
+            cmdBreak.TabIndex = 35;
+            cmdBreak.Text = "&Break";
+            cmdBreak.UseVisualStyleBackColor = true;
+            cmdBreak.Click += cmdBreak_Click;
             // 
             // pnlTLB
             // 
-            this.pnlTLB.Controls.Add(this.groupBox3);
-            this.pnlTLB.Location = new System.Drawing.Point(39, 16);
-            this.pnlTLB.Name = "pnlTLB";
-            this.pnlTLB.Size = new System.Drawing.Size(414, 309);
-            this.pnlTLB.TabIndex = 40;
+            pnlTLB.Controls.Add(groupBox3);
+            pnlTLB.Location = new System.Drawing.Point(52, 25);
+            pnlTLB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlTLB.Name = "pnlTLB";
+            pnlTLB.Size = new System.Drawing.Size(552, 475);
+            pnlTLB.TabIndex = 40;
             // 
             // pnlGDTEntries
             // 
-            this.pnlGDTEntries.Controls.Add(this.dgGDT);
-            this.pnlGDTEntries.Location = new System.Drawing.Point(12, 6);
-            this.pnlGDTEntries.Name = "pnlGDTEntries";
-            this.pnlGDTEntries.Size = new System.Drawing.Size(1014, 666);
-            this.pnlGDTEntries.TabIndex = 41;
+            pnlGDTEntries.Controls.Add(dgGDT);
+            pnlGDTEntries.Location = new System.Drawing.Point(16, 9);
+            pnlGDTEntries.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlGDTEntries.Name = "pnlGDTEntries";
+            pnlGDTEntries.Size = new System.Drawing.Size(1352, 1025);
+            pnlGDTEntries.TabIndex = 41;
             // 
             // pnlHiddenStuff
             // 
-            this.pnlHiddenStuff.Controls.Add(this.cmdPickFD2);
-            this.pnlHiddenStuff.Controls.Add(this.textBox1);
-            this.pnlHiddenStuff.Controls.Add(this.cmdPickFD1);
-            this.pnlHiddenStuff.Controls.Add(this.textBox2);
-            this.pnlHiddenStuff.Controls.Add(this.ckFD2Enabled);
-            this.pnlHiddenStuff.Controls.Add(this.ckFD1Enabled);
-            this.pnlHiddenStuff.Location = new System.Drawing.Point(462, 940);
-            this.pnlHiddenStuff.Name = "pnlHiddenStuff";
-            this.pnlHiddenStuff.Size = new System.Drawing.Size(328, 118);
-            this.pnlHiddenStuff.TabIndex = 42;
-            this.pnlHiddenStuff.Visible = false;
+            pnlHiddenStuff.Controls.Add(cmdPickFD2);
+            pnlHiddenStuff.Controls.Add(textBox1);
+            pnlHiddenStuff.Controls.Add(cmdPickFD1);
+            pnlHiddenStuff.Controls.Add(textBox2);
+            pnlHiddenStuff.Controls.Add(ckFD2Enabled);
+            pnlHiddenStuff.Controls.Add(ckFD1Enabled);
+            pnlHiddenStuff.Location = new System.Drawing.Point(616, 1446);
+            pnlHiddenStuff.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlHiddenStuff.Name = "pnlHiddenStuff";
+            pnlHiddenStuff.Size = new System.Drawing.Size(437, 181);
+            pnlHiddenStuff.TabIndex = 42;
+            pnlHiddenStuff.Visible = false;
             // 
             // pnlCPU1
             // 
-            this.pnlCPU1.Controls.Add(this.groupBox1);
-            this.pnlCPU1.Location = new System.Drawing.Point(470, 16);
-            this.pnlCPU1.Name = "pnlCPU1";
-            this.pnlCPU1.Size = new System.Drawing.Size(267, 214);
-            this.pnlCPU1.TabIndex = 43;
+            pnlCPU1.Controls.Add(groupBox1);
+            pnlCPU1.Location = new System.Drawing.Point(627, 25);
+            pnlCPU1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlCPU1.Name = "pnlCPU1";
+            pnlCPU1.Size = new System.Drawing.Size(390, 339);
+            pnlCPU1.TabIndex = 43;
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(29, 27);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1042, 669);
-            this.tabControl1.TabIndex = 44;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Location = new System.Drawing.Point(39, 41);
+            tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(1389, 1029);
+            tabControl1.TabIndex = 44;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.pnlTLB);
-            this.tabPage1.Controls.Add(this.pnlCPU1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1034, 643);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Basic";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(txtScreenOffsetInfo);
+            tabPage1.Controls.Add(pnlTLB);
+            tabPage1.Controls.Add(pnlCPU1);
+            tabPage1.Controls.Add(pnlButtons);
+            tabPage1.Location = new System.Drawing.Point(4, 29);
+            tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage1.Size = new System.Drawing.Size(1381, 996);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Basic";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.pnlGDTEntries);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1034, 643);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "GDT";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(pnlGDTEntries);
+            tabPage2.Location = new System.Drawing.Point(4, 29);
+            tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage2.Size = new System.Drawing.Size(1381, 996);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "GDT";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.panel3);
-            this.tabPage3.Controls.Add(this.lbInstructions);
-            this.tabPage3.Controls.Add(this.pnlDebug);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1034, 643);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Debug";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(panel3);
+            tabPage3.Controls.Add(lbInstructions);
+            tabPage3.Controls.Add(pnlDebug);
+            tabPage3.Location = new System.Drawing.Point(4, 29);
+            tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new System.Drawing.Size(1381, 996);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Debug";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.groupBox5);
-            this.panel3.Controls.Add(this.groupBox4);
-            this.panel3.Location = new System.Drawing.Point(59, 323);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(657, 293);
-            this.panel3.TabIndex = 42;
+            panel3.Controls.Add(groupBox5);
+            panel3.Controls.Add(groupBox4);
+            panel3.Location = new System.Drawing.Point(79, 498);
+            panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(876, 451);
+            panel3.TabIndex = 42;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.txtFlagsValue);
-            this.groupBox5.Controls.Add(this.lblOFInd);
-            this.groupBox5.Controls.Add(this.lblDFInd);
-            this.groupBox5.Controls.Add(this.lblIFInd);
-            this.groupBox5.Controls.Add(this.lblTFInd);
-            this.groupBox5.Controls.Add(this.lblSFInd);
-            this.groupBox5.Controls.Add(this.lblZFInd);
-            this.groupBox5.Controls.Add(this.lblAFInd);
-            this.groupBox5.Controls.Add(this.lblPFInd);
-            this.groupBox5.Controls.Add(this.lblCFInd);
-            this.groupBox5.Location = new System.Drawing.Point(27, 83);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(417, 43);
-            this.groupBox5.TabIndex = 18;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Flags";
+            groupBox5.Controls.Add(txtFlagsValue);
+            groupBox5.Controls.Add(lblOFInd);
+            groupBox5.Controls.Add(lblDFInd);
+            groupBox5.Controls.Add(lblIFInd);
+            groupBox5.Controls.Add(lblTFInd);
+            groupBox5.Controls.Add(lblSFInd);
+            groupBox5.Controls.Add(lblZFInd);
+            groupBox5.Controls.Add(lblAFInd);
+            groupBox5.Controls.Add(lblPFInd);
+            groupBox5.Controls.Add(lblCFInd);
+            groupBox5.Location = new System.Drawing.Point(36, 128);
+            groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox5.Size = new System.Drawing.Size(556, 66);
+            groupBox5.TabIndex = 18;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Flags";
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.txtAtESP);
-            this.groupBox4.Controls.Add(this.label25);
-            this.groupBox4.Controls.Add(this.txtESP);
-            this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.txtEBP);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.txtEDI);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.txtESI);
-            this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Controls.Add(this.txtSS);
-            this.groupBox4.Controls.Add(this.txtFS);
-            this.groupBox4.Controls.Add(this.txtEDX);
-            this.groupBox4.Controls.Add(this.label23);
-            this.groupBox4.Controls.Add(this.label21);
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Controls.Add(this.txtGS);
-            this.groupBox4.Controls.Add(this.txtCR3);
-            this.groupBox4.Controls.Add(this.txtES);
-            this.groupBox4.Controls.Add(this.txtECX);
-            this.groupBox4.Controls.Add(this.label22);
-            this.groupBox4.Controls.Add(this.label31);
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.txtCR2);
-            this.groupBox4.Controls.Add(this.txtDS);
-            this.groupBox4.Controls.Add(this.txtEBX);
-            this.groupBox4.Controls.Add(this.label30);
-            this.groupBox4.Controls.Add(this.label19);
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.txtGDT);
-            this.groupBox4.Controls.Add(this.label32);
-            this.groupBox4.Controls.Add(this.txtCR0);
-            this.groupBox4.Controls.Add(this.label29);
-            this.groupBox4.Controls.Add(this.txtCS);
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Controls.Add(this.txtEAX);
-            this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Location = new System.Drawing.Point(14, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(633, 247);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Registers";
+            groupBox4.Controls.Add(txtAtESP);
+            groupBox4.Controls.Add(label25);
+            groupBox4.Controls.Add(txtESP);
+            groupBox4.Controls.Add(label14);
+            groupBox4.Controls.Add(txtEBP);
+            groupBox4.Controls.Add(label15);
+            groupBox4.Controls.Add(txtEDI);
+            groupBox4.Controls.Add(label16);
+            groupBox4.Controls.Add(txtESI);
+            groupBox4.Controls.Add(label17);
+            groupBox4.Controls.Add(txtSS);
+            groupBox4.Controls.Add(txtFS);
+            groupBox4.Controls.Add(txtEDX);
+            groupBox4.Controls.Add(label23);
+            groupBox4.Controls.Add(label21);
+            groupBox4.Controls.Add(label13);
+            groupBox4.Controls.Add(txtGS);
+            groupBox4.Controls.Add(txtCR3);
+            groupBox4.Controls.Add(txtES);
+            groupBox4.Controls.Add(txtECX);
+            groupBox4.Controls.Add(label22);
+            groupBox4.Controls.Add(label31);
+            groupBox4.Controls.Add(label20);
+            groupBox4.Controls.Add(label12);
+            groupBox4.Controls.Add(txtCR2);
+            groupBox4.Controls.Add(txtDS);
+            groupBox4.Controls.Add(txtEBX);
+            groupBox4.Controls.Add(label30);
+            groupBox4.Controls.Add(label19);
+            groupBox4.Controls.Add(label11);
+            groupBox4.Controls.Add(txtGDT);
+            groupBox4.Controls.Add(label32);
+            groupBox4.Controls.Add(txtCR0);
+            groupBox4.Controls.Add(label29);
+            groupBox4.Controls.Add(txtCS);
+            groupBox4.Controls.Add(label18);
+            groupBox4.Controls.Add(txtEAX);
+            groupBox4.Controls.Add(label10);
+            groupBox4.Location = new System.Drawing.Point(19, 5);
+            groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox4.Size = new System.Drawing.Size(844, 380);
+            groupBox4.TabIndex = 1;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Registers";
             // 
             // label25
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(475, 119);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(42, 13);
-            this.label25.TabIndex = 16;
-            this.label25.Text = "@ ESP";
+            label25.AutoSize = true;
+            label25.Location = new System.Drawing.Point(633, 182);
+            label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label25.Name = "label25";
+            label25.Size = new System.Drawing.Size(51, 20);
+            label25.TabIndex = 16;
+            label25.Text = "@ ESP";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(483, 52);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(28, 13);
-            this.label14.TabIndex = 14;
-            this.label14.Text = "ESP";
+            label14.AutoSize = true;
+            label14.Location = new System.Drawing.Point(644, 80);
+            label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label14.Name = "label14";
+            label14.Size = new System.Drawing.Size(33, 20);
+            label14.TabIndex = 14;
+            label14.Text = "ESP";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(321, 52);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(28, 13);
-            this.label15.TabIndex = 12;
-            this.label15.Text = "EBP";
+            label15.AutoSize = true;
+            label15.Location = new System.Drawing.Point(428, 80);
+            label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new System.Drawing.Size(34, 20);
+            label15.TabIndex = 12;
+            label15.Text = "EBP";
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(183, 52);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(25, 13);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "EDI";
+            label16.AutoSize = true;
+            label16.Location = new System.Drawing.Point(244, 80);
+            label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(32, 20);
+            label16.TabIndex = 10;
+            label16.Text = "EDI";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(32, 52);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(24, 13);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "ESI";
+            label17.AutoSize = true;
+            label17.Location = new System.Drawing.Point(43, 80);
+            label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new System.Drawing.Size(29, 20);
+            label17.TabIndex = 8;
+            label17.Text = "ESI";
             // 
             // label23
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(183, 188);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(21, 13);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "SS";
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(244, 289);
+            label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(25, 20);
+            label23.TabIndex = 6;
+            label23.Text = "SS";
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(183, 136);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(20, 13);
-            this.label21.TabIndex = 6;
-            this.label21.Text = "FS";
+            label21.AutoSize = true;
+            label21.Location = new System.Drawing.Point(244, 209);
+            label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(24, 20);
+            label21.TabIndex = 6;
+            label21.Text = "FS";
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(483, 20);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "EDX";
+            label13.AutoSize = true;
+            label13.Location = new System.Drawing.Point(644, 31);
+            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(37, 20);
+            label13.TabIndex = 6;
+            label13.Text = "EDX";
             // 
             // txtCR3
             // 
-            this.txtCR3.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCR3.Location = new System.Drawing.Point(361, 181);
-            this.txtCR3.Name = "txtCR3";
-            this.txtCR3.Size = new System.Drawing.Size(100, 23);
-            this.txtCR3.TabIndex = 5;
+            txtCR3.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCR3.Location = new System.Drawing.Point(481, 279);
+            txtCR3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCR3.Name = "txtCR3";
+            txtCR3.Size = new System.Drawing.Size(132, 27);
+            txtCR3.TabIndex = 5;
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(183, 162);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(22, 13);
-            this.label22.TabIndex = 4;
-            this.label22.Text = "GS";
+            label22.AutoSize = true;
+            label22.Location = new System.Drawing.Point(244, 249);
+            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(27, 20);
+            label22.TabIndex = 4;
+            label22.Text = "GS";
             // 
             // label31
             // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(325, 188);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(28, 13);
-            this.label31.TabIndex = 4;
-            this.label31.Text = "CR3";
+            label31.AutoSize = true;
+            label31.Location = new System.Drawing.Point(433, 289);
+            label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label31.Name = "label31";
+            label31.Size = new System.Drawing.Size(35, 20);
+            label31.TabIndex = 4;
+            label31.Text = "CR3";
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(36, 188);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(21, 13);
-            this.label20.TabIndex = 4;
-            this.label20.Text = "ES";
+            label20.AutoSize = true;
+            label20.Location = new System.Drawing.Point(48, 289);
+            label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label20.Name = "label20";
+            label20.Size = new System.Drawing.Size(25, 20);
+            label20.TabIndex = 4;
+            label20.Text = "ES";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(321, 20);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(28, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "ECX";
+            label12.AutoSize = true;
+            label12.Location = new System.Drawing.Point(428, 31);
+            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(35, 20);
+            label12.TabIndex = 4;
+            label12.Text = "ECX";
             // 
             // txtCR2
             // 
-            this.txtCR2.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCR2.Location = new System.Drawing.Point(361, 155);
-            this.txtCR2.Name = "txtCR2";
-            this.txtCR2.Size = new System.Drawing.Size(100, 23);
-            this.txtCR2.TabIndex = 3;
+            txtCR2.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCR2.Location = new System.Drawing.Point(481, 239);
+            txtCR2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCR2.Name = "txtCR2";
+            txtCR2.Size = new System.Drawing.Size(132, 27);
+            txtCR2.TabIndex = 3;
             // 
             // label30
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(325, 162);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(28, 13);
-            this.label30.TabIndex = 2;
-            this.label30.Text = "CR2";
+            label30.AutoSize = true;
+            label30.Location = new System.Drawing.Point(433, 249);
+            label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label30.Name = "label30";
+            label30.Size = new System.Drawing.Size(35, 20);
+            label30.TabIndex = 2;
+            label30.Text = "CR2";
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(36, 162);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(22, 13);
-            this.label19.TabIndex = 2;
-            this.label19.Text = "DS";
+            label19.AutoSize = true;
+            label19.Location = new System.Drawing.Point(48, 249);
+            label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(28, 20);
+            label19.TabIndex = 2;
+            label19.Text = "DS";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(183, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(28, 13);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "EBX";
+            label11.AutoSize = true;
+            label11.Location = new System.Drawing.Point(244, 31);
+            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(35, 20);
+            label11.TabIndex = 2;
+            label11.Text = "EBX";
             // 
             // txtGDT
             // 
-            this.txtGDT.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGDT.Location = new System.Drawing.Point(72, 219);
-            this.txtGDT.Name = "txtGDT";
-            this.txtGDT.Size = new System.Drawing.Size(100, 23);
-            this.txtGDT.TabIndex = 1;
+            txtGDT.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtGDT.Location = new System.Drawing.Point(96, 338);
+            txtGDT.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtGDT.Name = "txtGDT";
+            txtGDT.Size = new System.Drawing.Size(132, 27);
+            txtGDT.TabIndex = 1;
             // 
             // label32
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(5, 226);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(56, 13);
-            this.label32.TabIndex = 0;
-            this.label32.Text = "GDT base";
+            label32.AutoSize = true;
+            label32.Location = new System.Drawing.Point(7, 348);
+            label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label32.Name = "label32";
+            label32.Size = new System.Drawing.Size(72, 20);
+            label32.TabIndex = 0;
+            label32.Text = "GDT base";
             // 
             // txtCR0
             // 
-            this.txtCR0.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCR0.Location = new System.Drawing.Point(361, 129);
-            this.txtCR0.Name = "txtCR0";
-            this.txtCR0.Size = new System.Drawing.Size(100, 23);
-            this.txtCR0.TabIndex = 1;
+            txtCR0.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCR0.Location = new System.Drawing.Point(481, 199);
+            txtCR0.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtCR0.Name = "txtCR0";
+            txtCR0.Size = new System.Drawing.Size(132, 27);
+            txtCR0.TabIndex = 1;
             // 
             // label29
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(325, 136);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(28, 13);
-            this.label29.TabIndex = 0;
-            this.label29.Text = "CR0";
+            label29.AutoSize = true;
+            label29.Location = new System.Drawing.Point(433, 209);
+            label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label29.Name = "label29";
+            label29.Size = new System.Drawing.Size(35, 20);
+            label29.TabIndex = 0;
+            label29.Text = "CR0";
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(36, 136);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(21, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "CS";
+            label18.AutoSize = true;
+            label18.Location = new System.Drawing.Point(48, 209);
+            label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label18.Name = "label18";
+            label18.Size = new System.Drawing.Size(26, 20);
+            label18.TabIndex = 0;
+            label18.Text = "CS";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(32, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(28, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "EAX";
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(43, 31);
+            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(36, 20);
+            label10.TabIndex = 0;
+            label10.Text = "EAX";
             // 
             // lblTaskNo
             // 
-            this.lblTaskNo.Location = new System.Drawing.Point(1087, 49);
-            this.lblTaskNo.Name = "lblTaskNo";
-            this.lblTaskNo.Size = new System.Drawing.Size(100, 23);
-            this.lblTaskNo.TabIndex = 45;
+            lblTaskNo.Location = new System.Drawing.Point(1449, 75);
+            lblTaskNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTaskNo.Name = "lblTaskNo";
+            lblTaskNo.Size = new System.Drawing.Size(133, 35);
+            lblTaskNo.TabIndex = 45;
+            // 
+            // txtScreenOffsetInfo
+            // 
+            txtScreenOffsetInfo.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtScreenOffsetInfo.Location = new System.Drawing.Point(8, 965);
+            txtScreenOffsetInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            txtScreenOffsetInfo.Name = "txtScreenOffsetInfo";
+            txtScreenOffsetInfo.Size = new System.Drawing.Size(596, 22);
+            txtScreenOffsetInfo.TabIndex = 44;
+            txtScreenOffsetInfo.TabStop = false;
+            txtScreenOffsetInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            toolTip1.SetToolTip(txtScreenOffsetInfo, "Instructions executed Per Second");
             // 
             // frmMain_New
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1174, 871);
-            this.Controls.Add(this.lblTaskNo);
-            this.Controls.Add(this.pnlButtons);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.pnlHiddenStuff);
-            this.Controls.Add(this.pnlSerial1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "frmMain_New";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "VirtualProcessor";
-            this.Activated += new System.EventHandler(this.Form1_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Enter += new System.EventHandler(this.Form1_Enter);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.pnlButtons.ResumeLayout(false);
-            this.pnlButtons.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgGDT)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.pnlSerial1.ResumeLayout(false);
-            this.pnlDebug.ResumeLayout(false);
-            this.pnlDebug.PerformLayout();
-            this.pnlTLB.ResumeLayout(false);
-            this.pnlGDTEntries.ResumeLayout(false);
-            this.pnlHiddenStuff.ResumeLayout(false);
-            this.pnlHiddenStuff.PerformLayout();
-            this.pnlCPU1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            ClientSize = new System.Drawing.Size(1430, 1071);
+            Controls.Add(lblTaskNo);
+            Controls.Add(tabControl1);
+            Controls.Add(pnlHiddenStuff);
+            Controls.Add(pnlSerial1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            Name = "frmMain_New";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "VirtualProcessor";
+            Activated += Form1_Activated;
+            FormClosing += Form1_FormClosing;
+            Load += Form1_Load;
+            Enter += Form1_Enter;
+            Resize += Form1_Resize;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            pnlButtons.ResumeLayout(false);
+            pnlButtons.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgGDT).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            contextMenuStrip1.ResumeLayout(false);
+            pnlSerial1.ResumeLayout(false);
+            pnlDebug.ResumeLayout(false);
+            pnlDebug.PerformLayout();
+            pnlTLB.ResumeLayout(false);
+            pnlGDTEntries.ResumeLayout(false);
+            pnlHiddenStuff.ResumeLayout(false);
+            pnlHiddenStuff.PerformLayout();
+            pnlCPU1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -2073,8 +2195,8 @@
         private System.Windows.Forms.TextBox txtEAX;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button cmdBreak;
-
-
+        private System.Windows.Forms.Button cmdResetIPS;
+        private System.Windows.Forms.TextBox txtScreenOffsetInfo;
     }
 }
 

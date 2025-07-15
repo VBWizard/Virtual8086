@@ -4,8 +4,8 @@ namespace VirtualProcessor
 {
     public class PhysicalMem
     {
-        public UInt32[] mChangeAddress = new UInt32[67108864];
-        public byte[] mChanges = new byte[67108864];
+        public static UInt32[] mChangeAddress = new UInt32[67108864];
+        public static byte[] mChanges = new byte[67108864];
         public static long mChangesPending = 0;
         public static byte[] mMemBytes;
         public bool mUsePaging = true;
@@ -13,10 +13,9 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
         public byte[] mCHangedBlocks;
 #endif
-        internal bool mLastAddressWrite = false;
-        internal UInt32 mLastLogicalAddress = 0;
-        internal UInt32 mLastPhysicalAddress = 0;
-        internal int mPrivCheckSize;
+        internal static bool mLastAddressWrite = false;
+        internal static UInt32 mLastLogicalAddress = 0;
+        internal static UInt32 mLastPhysicalAddress = 0;
 
         //// The 'priv_check' array is used to decide if the current access
         //// has the proper paging permissions.  An index is formed, based
@@ -33,7 +32,7 @@ namespace VirtualProcessor
         ////    +---------------> Current CR0.WP value
         private static byte[] mPrivCheck;
 
-        private UInt32 mPagedMemoryAddress, lMemAddr3;
+        private static UInt32 mPhysicalMemoryAddress, lMemAddr3;
         byte[] mChunkPhysicalArray = new byte[1];
         byte[] mChunkArray = new byte[1];
         static UInt64[] mQWChunkPhysicalArray = new UInt64[1];
@@ -46,7 +45,7 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
             mCHangedBlocks = new byte[RAMSize / 4096];
 #endif
-            //InitializeMem(0x69);
+            InitializeMem(0x00);
             if (mProc.ProcType <= eProcTypes.i80386)
                 mPrivCheck = new byte[16] { 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1 };
             else
@@ -87,19 +86,27 @@ namespace VirtualProcessor
             return (UInt16)(MemLocation >> 16);
         }
 
+        //Added this due to CPU test.
+        //This was called by CALL, but didn't work correctly so I 
+        //removed it from CALL
+        public static UInt16 GetSegForLoc(Processor_80x86 mProc, UInt64 MemLocation)
+        {
+            return (UInt16)(MemLocation >> 32);
+        }
+
         public static void Commit(Processor_80x86 mProc, uint[] mChangeAddress, byte[] mChanges)
         {
             for (int cnt = 0; cnt < PhysicalMem.mChangesPending; cnt++)
             {
                 PhysicalMem.mMemBytes[mChangeAddress[cnt]] = mChanges[cnt];
 #if CALCULATE_PAGE_MEMORY_USAGE
-                 BlockChanged (mProc, mChangeAddress[cnt],true);
+                BlockChanged(mProc, mChangeAddress[cnt], true);
 #endif
             }
             mChangesPending = 0;
         }
 
-        public UInt32 GetPageTableEntry(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, ref UInt32 PDE, ref UInt32 PTE, bool Writing)
+        public static UInt32 GetPageTableEntry(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, ref UInt32 PDE, ref UInt32 PTE, bool Writing)
         {
             UInt32 mLocalExceptionErrorCode = 0xFF;
 
@@ -220,10 +227,11 @@ namespace VirtualProcessor
         /// <param name="ValueToInit">Value to initialize each byte to</param>
         public void InitializeMem(byte ValueToInit)
         {
-            for (int loc = 0; loc < 0xb8000; loc++)
+            for (int loc = 0; loc < 0xa0000; loc++)
                 mMemBytes[loc] = ValueToInit;
-            for (int loc = 0xb9000; loc < mMemBytes.Length - 1; loc++)
-                mMemBytes[loc] = ValueToInit;
+            if (mMemBytes.Length > 0x100000)
+                for (int loc = 0x100000; loc < mMemBytes.Length - 1; loc++)
+                    mMemBytes[loc] = ValueToInit;
         }
 
         public void InitializeVideoMem()
@@ -236,7 +244,7 @@ namespace VirtualProcessor
             }
         }
 
-        public bool PageAccessWillCausePF(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
+        public static bool PageAccessWillCausePF(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
         {
             UInt32 lResult;
 
@@ -247,7 +255,7 @@ namespace VirtualProcessor
                 return false;
             if ((Address & 0xFFFFF000) == mLastLogicalAddress && (Writing == mLastAddressWrite || !Writing && mLastAddressWrite))
                 return false;
-            lResult = mProc.mTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
+            lResult = cTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
             if (!sIns.ExceptionThrown)
             {
                 mLastLogicalAddress = Address & 0xFFFFF000;
@@ -263,7 +271,7 @@ namespace VirtualProcessor
             return sIns.ExceptionThrown;
         }
 
-        public UInt32 PagedMemoryAddress(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
+        public static UInt32 PagedMemoryAddress(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Address, bool Writing)
         {
             UInt32 lResult;
 
@@ -272,7 +280,7 @@ namespace VirtualProcessor
             //if ((Address & 0xFFFFF000) == mLastLogicalAddress && (mLastAddressWrite || !Writing))
             if ((Address & 0xFFFFF000) == mLastLogicalAddress && (Writing == mLastAddressWrite || !Writing && mLastAddressWrite))
                 return (mLastPhysicalAddress) | (Address & 0x00000FFF);
-            lResult = mProc.mTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
+            lResult = cTLB.Translate(mProc, ref sIns, Address, Writing, mProc.regs.CPL);
 
             if (sIns.ExceptionThrown)
                 return 0xF0f0f0f0;
@@ -359,7 +367,7 @@ namespace VirtualProcessor
 #if CALCULATE_PAGE_MEMORY_USAGE
         public static void BlockChanged(Processor_80x86 mProc, UInt32 Address, bool Writing)
         {
-                UInt32 block = Address / 4096;
+            UInt32 block = Address / 4096;
             if (Writing)
             {
                 if (mProc.mem.mCHangedBlocks[block] == 1)
@@ -377,13 +385,11 @@ namespace VirtualProcessor
         }
 #endif
 
-        private byte Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr)
+        private static UInt32 ResolveAddress(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr)
         {
-
-            if (sIns.ExceptionThrown) return 0;
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000)
             {
-                mPagedMemoryAddress = PagedMemoryAddress(mProc, ref sIns, MemAddr, false);
+                mPhysicalMemoryAddress = PagedMemoryAddress(mProc, ref sIns, MemAddr, false);
                 if (sIns.ExceptionThrown)
                     return 0xF3;
 #if USE_MAPPED_IO
@@ -395,11 +401,11 @@ namespace VirtualProcessor
                 }
 #endif
 #if CALCULATE_PAGE_MEMORY_USAGE
-                BlockChanged(mProc, mPagedMemoryAddress, false);
+                BlockChanged(mProc, mPhysicalMemoryAddress, false);
 #endif
-                if (mPagedMemoryAddress > mMemBytes.Length)
-                    mProc.mSystem.PrintDebugMsg(eDebuggieNames.System, "Error in 'byte Memory()'.  Attempt to read from virtual physical address 0x" + mPagedMemoryAddress.ToString("X8") + ", virtual address 0x" + MemAddr.ToString("X8"));
-                return mMemBytes[mPagedMemoryAddress];
+                if (mPhysicalMemoryAddress > mMemBytes.Length)
+                    mProc.mSystem.PrintDebugMsg(eDebuggieNames.System, "Error in 'byte Memory()'.  Attempt to read from virtual physical address 0x" + mPhysicalMemoryAddress.ToString("X8") + ", virtual address 0x" + MemAddr.ToString("X8"));
+                return mPhysicalMemoryAddress;
             }
             else
             {
@@ -417,21 +423,25 @@ namespace VirtualProcessor
                 }
 #endif
                 //If we get here there was no memory handler hit
-                // throw new Exception("CS:IP " + mProc.regs.CS.Value.ToString("X8") + ":" + mProc.regs.EIP.ToString("X8") + " - Attempt to access memory address " + MemAddr.ToString("X") + " which is above the limit of " + mMemBytes.Length);
-                return mMemBytes[MemAddr];
+                return MemAddr;
             }
         }
-
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, byte Value)
+        private static byte Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr)
         {
+
+            if (sIns.ExceptionThrown) return 0;
+            return mMemBytes[ResolveAddress(mProc, ref sIns, MemAddr)];
+        }
+ 
+
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, byte Value)
+        {
+//            if (MemAddr == 0x1D408)
+//                System.Diagnostics.Debugger.Break();
             if (sIns.ExceptionThrown) return;
 
-            int a = 0;
-            if (MemAddr == 0x004BCA2C)
-            {
-                a += 1;
-                a -= 1 + 1 - 2 + 2;
-            }
+            if (MemAddr == 0x44CBE)
+                System.Diagnostics.Debugger.Break();
 
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000)
             {
@@ -475,10 +485,10 @@ namespace VirtualProcessor
             }
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt16 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt16 Value)
         {
 #if MEM_PERF_ENHANCEMENTS
-            this.SetWordP(mProc, ref sIns, MemAddr, Value);
+            PhysicalMem.SetWordP(mProc, ref sIns, MemAddr, Value);
             return;
 #else
             Memory(mProc, ref sIns, MemAddr, (byte)(Value));
@@ -487,10 +497,10 @@ namespace VirtualProcessor
 #endif
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt32 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt32 Value)
         {
 #if MEM_PERF_ENHANCEMENTS
-            this.SetDWordP(mProc, ref sIns, MemAddr, Value);
+            SetDWordP(mProc, ref sIns, MemAddr, Value);
             return;
 #else
             UInt16 lHiWord = (UInt16)(Value >> 16);
@@ -504,7 +514,7 @@ namespace VirtualProcessor
 #endif
         }
 
-        private void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt64 Value)
+        private static void Memory(Processor_80x86 mProc, ref sInstruction sIns, UInt32 MemAddr, UInt64 Value)
         {
             Memory(mProc, ref sIns, MemAddr, (UInt32)Value);
             Memory(mProc, ref sIns, MemAddr + 4,(UInt32)(Value>>32));
@@ -532,12 +542,36 @@ namespace VirtualProcessor
             return mChunkPhysicalArray;
         }
 
-        public byte GetByte(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location)
+        public static byte GetByte(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location)
         {
             if (Location >= Processor_80x86.REGADDRBASE && Location <= Processor_80x86.REGADDRBASE + Processor_80x86.RDHOFS)
                 return GetByteRegisterValue(mProc, Location);
             else
                 return Memory(mProc, ref sIns, Location);
+        }
+
+        public static byte[] GetBytes(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, int Count)
+        {
+            byte[] lReturn = new byte[Count];
+            if (Location >= Processor_80x86.REGADDRBASE && Location <= Processor_80x86.REGADDRBASE + Processor_80x86.RDHOFS)
+                throw new Exception("GetBytes: Register address passed.  This is invalid.");
+
+            UInt32 beginSeg = Location & 0x0000F000;
+            UInt32 endSeg = (Location + (UInt32)(Count)) & 0x0000F000;
+            if (/*Location > 0xFFFF0 &&*/ beginSeg != endSeg)
+            {
+                int initialCount = (int)(((beginSeg + 0x1000) - Location) & 0xFFFF);
+                int secondCount = (int)(Count - initialCount);
+                Array.Copy(mMemBytes, ResolveAddress(mProc, ref sIns, Location), lReturn, 0, initialCount);
+                Array.Copy(mMemBytes, ResolveAddress(mProc, ref sIns, Location + (UInt32)initialCount), lReturn, initialCount, secondCount);
+                //if (sIns.ExceptionThrown)
+                //    throw new Exception("Frack");
+            }
+            else
+                Array.Copy(mMemBytes, ResolveAddress(mProc, ref sIns, Location), lReturn, 0, Count);
+            
+            return lReturn;
+
         }
 
         public static byte GetByteRegisterValue(Processor_80x86 mProc, UInt32 Location)
@@ -562,7 +596,6 @@ namespace VirtualProcessor
                     return mProc.regs.DL;
                 default:
                     throw new Exception("GetByteRegisterValue: Unidentified byte register!");
-                    break;
             }
             //if (Location == Processor_80x86.RAH)
             //    return mProc.regs.AH;
@@ -755,70 +788,21 @@ namespace VirtualProcessor
         {
             switch (Location)
             {
-                case Processor_80x86.RAX:
-                    return mProc.regs.AX;
-                    break;
-
-                case Processor_80x86.RBX:
-                    return mProc.regs.BX;
-                    break;
-
-                case Processor_80x86.RCX:
-                    return mProc.regs.CX;
-                    break;
-
-                case Processor_80x86.RDX:
-                    return mProc.regs.DX;
-                    break;
-
-                case Processor_80x86.RSI:
-                    return mProc.regs.SI;
-                    break;
-
-                case Processor_80x86.RDI:
-                    return mProc.regs.DI;
-                    break;
-
-                case Processor_80x86.RBP:
-                    return mProc.regs.BP;
-                    break;
-
-                case Processor_80x86.RSP:
-                    return mProc.regs.SP;
-                    break;
-
-                case Processor_80x86.RIP:
-                    return mProc.regs.IP;
-                    break;
-
-                case Processor_80x86.RFL:
-                    return mProc.regs.FLAGS;
-                    break;
-
-                case Processor_80x86.RCS:
-                    return (UInt16)mProc.regs.CS.Value;
-                    break;
-
-                case Processor_80x86.RDS:
-                    return (UInt16)mProc.regs.DS.Value;
-                    break;
-
-                case Processor_80x86.RES:
-                    return (UInt16)mProc.regs.ES.Value;
-                    break;
-
-                case Processor_80x86.RFS:
-                    return (UInt16)mProc.regs.FS.Value;
-                    break;
-
-                case Processor_80x86.RGS:
-                    return (UInt16)mProc.regs.GS.Value;
-                    break;
-
-                case Processor_80x86.RSS:
-                    return (UInt16)mProc.regs.SS.Value;
-                    break;
-
+                case Processor_80x86.RAX: return mProc.regs.AX;
+                case Processor_80x86.RBX: return mProc.regs.BX;
+                case Processor_80x86.RCX: return mProc.regs.CX;
+                case Processor_80x86.RDX: return mProc.regs.DX;
+                case Processor_80x86.RSI: return mProc.regs.SI;
+                case Processor_80x86.RDI: return mProc.regs.DI;
+                case Processor_80x86.RBP: return mProc.regs.BP;
+                case Processor_80x86.RSP: return mProc.regs.SP;
+                case Processor_80x86.RIP: return mProc.regs.IP; case Processor_80x86.RFL: return mProc.regs.FLAGS;
+                case Processor_80x86.RCS: return (UInt16)mProc.regs.CS.Value;
+                case Processor_80x86.RDS: return (UInt16)mProc.regs.DS.Value;
+                case Processor_80x86.RES: return (UInt16)mProc.regs.ES.Value;
+                case Processor_80x86.RFS: return (UInt16)mProc.regs.FS.Value;
+                case Processor_80x86.RGS: return (UInt16)mProc.regs.GS.Value;
+                case Processor_80x86.RSS: return (UInt16)mProc.regs.SS.Value;
                 default:
                     throw new Exception("GetWordRegisterValue: Unidentified Word register at location " + Location.ToString("X8"));
             }
@@ -972,7 +956,7 @@ namespace VirtualProcessor
             //            case TypeCode.Byte:
             //                if (mProc.regs.TR.lCache[lLoc - mProc.regs.TR.Base] != (Byte)Value)
             //                    mProc.mCurrTSS = new sTSS(mProc.mem.ChunkPhysical(mProc, 0, mProc.regs.TR.mBase, 104),
-            //                        mProc.mGDTCache[mProc.regs.TR.mSegSel >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Av || mProc.mGDTCache[mProc.regs.TR.mSegSel >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Bu);
+            //                        mProc.mGDTCache[mProc.regs.TR.mSegSel >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Av  || mProc.mGDTCache[mProc.regs.TR.mSegSel >> 3].access.SystemDescType == eSystemOrGateDescType.TSS_32_Bu);
             //                break;
             //            case TypeCode.UInt16:
             //                if ((mProc.regs.TR.lCache[lLoc - mProc.regs.TR.Base + 1] << 8) + mProc.regs.TR.lCache[lLoc - mProc.regs.TR.Base] != (UInt16)Value)
@@ -1069,7 +1053,6 @@ namespace VirtualProcessor
 
                 default:
                     throw new Exception("GetByteRegisterValue: Unidentified byte register!");
-                    break;
             }
             //if (Location == Processor_80x86.RAH)
             //    mProc.regs.AH = Value;
@@ -1115,7 +1098,7 @@ namespace VirtualProcessor
                 RefreshIfRequired(mProc, ref sIns, Location, Value, TypeCode.UInt32);
         }
 
-        public void SetWordP(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, UInt16 Value)
+        public static void SetWordP(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, UInt16 Value)
         {
             UInt32 lMemAddr3 = 0;
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 /*&& mProc.regs.CS.DescriptorNum > 0*/) //07/13/2013 - removed, caused FreeDOS to fail
@@ -1135,7 +1118,7 @@ namespace VirtualProcessor
             mMemBytes[lMemAddr3++] = (byte)(Value & 0xFF);
         }
 
-        public void SetDWordP(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, UInt32 Value)
+        public static void SetDWordP(Processor_80x86 mProc, ref sInstruction sIns, UInt32 Location, UInt32 Value)
         {
             UInt32 lMemAddr3 = 0;
             if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 /*&& mProc.regs.CS.DescriptorNum > 0*/) //07/13/2013 - removed, caused FreeDOS to fail
@@ -1333,7 +1316,7 @@ namespace VirtualProcessor
             }
             else
 #if MEM_PERF_ENHANCEMENTS
-                if ((Location & 0xFFF) == 0xFFF)
+                if ((Location & 0xFFF) >= 0xFFD)
                     //Setting a DWord at the requested location will cross a page boundary, so do it the old fashioned slow way
                     //so that we get each byte from the proper page.
 #endif
@@ -1347,10 +1330,6 @@ namespace VirtualProcessor
                 RefreshIfRequired(mProc, ref sIns, Location, Value, TypeCode.UInt16);
         }
 
-#if MEM_PERF_ENHANCEMENTS
-#endif
-#if MEM_PERF_ENHANCEMENTS
-#endif
 
         public static void SetWordRegisterValue(Processor_80x86 mProc, UInt32 Location, UInt16 Value)
         {

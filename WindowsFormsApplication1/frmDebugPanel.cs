@@ -30,6 +30,9 @@ namespace WindowsFormsApplication1
             ListViewItem lvi;
             lvBreakpoints.Items.Clear();
 
+            if (Program.mSystem == null)
+                return;
+
             foreach (cBreakpoint b in Program.mSystem.BreakpointInfo)
             {
                 lvi = new ListViewItem("");
@@ -45,7 +48,7 @@ namespace WindowsFormsApplication1
                 lvBreakpoints.Items.Add(lvi);
             }
             clbBreakOnOptions.Items.Clear();
-            clbBreakOnOptions.Items.Add("Mode switch (Real/V8086/Protected)", Program.mSystem.mModeBreakpointSet);
+            clbBreakOnOptions.Items.Add("Mode switch (Real/V8086/Protected)", Program.mSystem.ModeBreakpoint);
             clbBreakOnOptions.Items.Add("Task switch (TR register changed)", Program.mSystem.mTaskSwitchBreakpointSet);
             clbBreakOnOptions.Items.Add("Switch to CPL 0 (Supervisor)", Program.mSystem.mCPL0SwitchBreakpointSet);
             clbBreakOnOptions.Items.Add("Switch to CPL 3 (User)", Program.mSystem.mCPL3SwitchBreakpointSet);
@@ -177,5 +180,9 @@ namespace WindowsFormsApplication1
             this.Close();
         }
 
+        private void clbBreakOnOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -64,7 +64,6 @@ namespace VirtualProcessor.Devices
         public cPS2 mPS2;
         public cPIT mPIT;
         public cVGA mVGA;
-        cTestDevice mPICTest;
 
         //For now we'll create 64k ... later we can refine it if we don't need so many
         //Each device/port/direction gets 1 handler
@@ -73,8 +72,6 @@ namespace VirtualProcessor.Devices
 
         private Word mPortsHandledCount = 0;
         #endregion
-        private Thread mWorkerThread;
-        private Type mWorkerThreadCurrentClass;
         
         public cDeviceBlock ( PCSystem System )
         {
@@ -189,7 +186,7 @@ namespace VirtualProcessor.Devices
             mPIT.RequestShutdown();
             //Give each device a reasonable amount of time to stop and then kill it
             Thread.Sleep(100);
-            for (int c = 0; c < 20; c++)
+/*            for (int c = 0; c < 20; c++)
             {
                 if (mDeviceThreads[c]!=null)
                     if (mDeviceThreads[c].ThreadState != ThreadState.Stopped)
@@ -197,7 +194,7 @@ namespace VirtualProcessor.Devices
                     if (mDeviceThreads[c].ThreadState != ThreadState.Stopped)
                         mDeviceThreads[c].Abort();
                 }
-            }
+            }*/
 
             //Disable all device port handlers
             for (int c = 0; c < MAX_HANDLED_DEVICES; c++)
@@ -249,7 +246,6 @@ namespace VirtualProcessor.Devices
         {//i.e. Write from Memory to Device
             if (Channel == 2)
             {
-                sInstruction sIns = new sInstruction();
                 mFloppy.DMARead(mProc.mem.pMemory(mProc, MemAddr));
             }
         }

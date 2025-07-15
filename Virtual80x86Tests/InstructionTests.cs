@@ -13,27 +13,41 @@ namespace VirtualProcessor.Tests
     public class InstructionTests
     {
         //examples are here: http://www.gabrielececchetti.it/Teaching/CalcolatoriElettronici/Docs/i8086_instruction_set.pdf
-        [TestMethod()]
-        public void ImplTest()
+        
+        static sInstruction sIns;
+        static uint iTotalMemory = 1024 * 1024 * 128;
+        static eProcTypes mProcessorType = eProcTypes.i80386;
+        static PCSystem mSystem;
+        static Processor_80x86 mProc;
+        static AAA insAAA;
+        static AAD insAAD; 
+        static AAM insAAM;
+        static ADD insADD;
+        static AAS insAAS;
+        static ADC insADC;
+        static STC insSTC;
+        static CLC insCLC;
+
+
+        [AssemblyInitialize]
+        public static void AssemblyInit(TestContext context)
         {
-            sInstruction sIns;
-            uint iTotalMemory = 1024 * 1024 * 128;
-            eProcTypes mProcessorType = eProcTypes.i80386;
-            PCSystem mSystem = new PCSystem(iTotalMemory, mProcessorType, @"");
-            Processor_80x86 mProc = new Processor_80x86(mSystem, iTotalMemory, mProcessorType);
-
-            AAA insAAA = new AAA(); insAAA.mProc = mProc;
-            AAD insAAd = new AAD(); insAAd.mProc = mProc;
-            AAM insAAM = new AAM(); insAAM.mProc = mProc;
-            ADD insADD = new ADD(); insADD.mProc = mProc;
-            AAS insAAS = new AAS(); insAAS.mProc = mProc;
-            ADC insADC = new ADC(); insADC.mProc = mProc;
-
-            STC insSTC = new STC(); insSTC.mProc = mProc;
-            CLC insCLC = new CLC(); insCLC.mProc = mProc;
+            mSystem = new PCSystem(iTotalMemory, mProcessorType, @"");
+            mProc = new Processor_80x86(mSystem, iTotalMemory, mProcessorType);
             sIns = new sInstruction();
-            mProc.regs.AX = 0x06;
+            insAAA = new AAA() { mProc = mProc};
+            insAAD = new AAD() { mProc = mProc };
+            insAAM = new AAM() { mProc = mProc };
+            insADD = new ADD() { mProc = mProc };
+            insAAS = new AAS() { mProc = mProc };
+            insADC = new ADC() { mProc = mProc };
+            insSTC = new STC() { mProc = mProc };
+            insCLC = new CLC() { mProc = mProc };
+        }
 
+        [TestMethod()]
+        public void AAATests()
+        {
             ///TEST: AAA
             sIns.Op1Value.OpByte = 6;
             sIns.Op2Value.OpByte = 5;
@@ -43,18 +57,29 @@ namespace VirtualProcessor.Tests
             sIns.Op1Add = Processor_80x86.RAX;
             insADD.Impl(ref sIns);
             insAAA.Impl(ref sIns);
-            Assert.AreEqual(0x0101, mProc.regs.AX,"AAA test failed");
+            Assert.AreEqual(0x0101, mProc.regs.AX, "AAA test failed");
+
+        }
+
+        [TestMethod()]
+        public void ImplTest()
+        {
+            
+
+            sIns = new sInstruction();
+            mProc.regs.AX = 0x06;
+
 
             //TEST: AAD
             sIns = new sInstruction();
             sIns.Op1Value.OpByte = 0x0a;
             mProc.regs.AX = 0x1234;
-            insAAd.Impl(ref sIns);
+            insAAD.Impl(ref sIns);
             Assert.AreEqual(0xe8, mProc.regs.AX, "AAD test failed");
 
             //TEST: AAM
             sIns = new sInstruction();
-            sIns.bytes = new byte[2] { 0xd4, 0x0a };
+            sInstruction.bytes = new byte[2] { 0xd4, 0x0a };
             sIns.Op1Value.OpByte = 0x0a;
             mProc.regs.AX = 0x0f;
             insAAM.Impl(ref sIns);

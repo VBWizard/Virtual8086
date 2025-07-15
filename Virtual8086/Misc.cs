@@ -1203,7 +1203,6 @@ namespace VirtualProcessor
                 else return NullValue;
             else
                 throw new Exception("GetSelectorForSegment: Shouldn't get here!");
-                return 0xFFFFFFFF;
 
         }
 
@@ -1219,47 +1218,6 @@ namespace VirtualProcessor
         #endregion
 
         static Dictionary<Type, Delegate> _cachedIL = new Dictionary<Type, Delegate>();
-
-        public static T CloneObjectWithIL<T>(T myObject)
-        {
-            Delegate myExec = null;
-            if (!_cachedIL.TryGetValue(myObject.GetType(), out myExec))
-            {
-                // Create ILGenerator
-                DynamicMethod dymMethod = new DynamicMethod("DoClone", typeof(T), new Type[] { typeof(T) }, true);
-                ConstructorInfo cInfo = myObject.GetType().GetConstructor(new Type[] { });
-
-                ILGenerator generator = dymMethod.GetILGenerator();
-
-                LocalBuilder lbf = generator.DeclareLocal(typeof(T));
-                //lbf.SetLocalSymInfo("_temp");
-
-                generator.Emit(OpCodes.Newobj, cInfo);
-                generator.Emit(OpCodes.Stloc_0);
-                foreach (FieldInfo field in myObject.GetType().GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic))
-                {
-                    // Load the new object on the eval stack... (currently 1 item on eval stack)
-                    generator.Emit(OpCodes.Ldloc_0);
-                    // Load initial object (parameter)          (currently 2 items on eval stack)
-                    generator.Emit(OpCodes.Ldarg_0);
-                    // Replace value by field value             (still currently 2 items on eval stack)
-                    generator.Emit(OpCodes.Ldfld, field);
-                    // Store the value of the top on the eval stack into the object underneath that value on the value stack.
-                    //  (0 items on eval stack)
-                    generator.Emit(OpCodes.Stfld, field);
-                }
-
-                // Load new constructed obj on eval stack -> 1 item on stack
-                generator.Emit(OpCodes.Ldloc_0);
-                // Return constructed object.   --> 0 items on stack
-                generator.Emit(OpCodes.Ret);
-
-                myExec = dymMethod.CreateDelegate(typeof(Func<T, T>));
-                _cachedIL.Add(myObject.GetType(), myExec);
-            }
-            return ((Func<T, T>)myExec)(myObject);
-        }
-
 
     }
 

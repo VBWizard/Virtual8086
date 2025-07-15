@@ -32,6 +32,7 @@ namespace VirtualProcessor
 
         public void Out(UInt16 PortNum, UInt32 Value, TypeCode Size)
         {
+            CustomEventArgs eventArgs = new CustomEventArgs(PortNum, Value, Size);
             if (PortNum == 0x400 || PortNum == 0x401 /*|| PortNum == 0x402 || PortNum == 0x403*/)
             {
                 mSystem.PrintDebugMsg(eDebuggieNames.Exceptions, "BOCHS_MESSAGE " + (char)((byte)(Value)));
@@ -48,11 +49,11 @@ namespace VirtualProcessor
             //}
             //else
                 //Used by the processor to capture data OUT request
-                OnPortOutEvent(new CustomEventArgs(PortNum, Value, Size));
+                OnPortOutEvent(eventArgs);
             mOutCount++;
             //mPorts[Portnum] = Value.mDWord;
             //Used for debugging to display what was sent OUT
-           OnPortOutDoneEvent(new CustomEventArgs(PortNum, Value, Size));
+           OnPortOutDoneEvent(eventArgs);
             ActivePort = 0;
         }
 
@@ -71,6 +72,7 @@ namespace VirtualProcessor
         public UInt32 In(UInt16 PortNum, TypeCode Size)
         {
             UInt32 lValue = 0;
+            CustomEventArgs eventArgs = new CustomEventArgs(PortNum, lValue, Size);
 
             ActivePort = PortNum;
             //if (PortNum == 0x1f0 || PortNum == 0x1f1 || PortNum == 0x1f2 || PortNum == 0x1f3 || PortNum == 0x1f4 || PortNum == 0x1f5 || PortNum == 0x1f6 || PortNum == 0x1f7 || PortNum == 0x3f6)
@@ -83,12 +85,12 @@ namespace VirtualProcessor
             //}
             //else
                 //Used by devices to capture data IN request
-                OnPortInEvent(new CustomEventArgs(PortNum, lValue, Size));
+                OnPortInEvent(eventArgs);
 
             lValue = mPorts[PortNum];
 
             mInCount++;
-            OnPortInDoneEvent(new CustomEventArgs(PortNum, lValue, Size));
+            OnPortInDoneEvent(eventArgs);
             ActivePort = 0;
             return lValue;
         }

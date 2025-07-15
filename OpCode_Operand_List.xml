@@ -2897,8 +2897,71 @@
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
   </Op>
+  <Op OpCode="DE00">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE80">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE81">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE82">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE83">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE84">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE85">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE86">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE87">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
   <Op OpCode="DE07">
-    <Instruction>FDIVR</Instruction>
+    <Instruction>FADD</Instruction>
     <Operand1>Mw</Operand1>
     <Operand2>-1</Operand2>
     <Operand3>-1</Operand3>
@@ -2967,7 +3030,56 @@
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
   </Op>
+  <Op OpCode="DEF8">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
   <Op OpCode="DEF9">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFA">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFB">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFC">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFD">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFE">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFF">
     <Instruction>FDIV</Instruction>
     <Operand1>-1</Operand1>
     <Operand2>-1</Operand2>

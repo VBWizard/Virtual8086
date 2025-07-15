@@ -431,7 +431,6 @@ namespace VirtualProcessor.Devices
         }
         internal bool evaluate_media(eFloppyType type, string path, ref floppy_t media)
         {
-            bool ret = true;
             char[] sTemp = new char[1024];
 
             if (type == eFloppyType.FLOPPY_NONE)
@@ -488,9 +487,13 @@ namespace VirtualProcessor.Devices
                     break;
             }
             // open media file (image file or device)
+            if (media.fd != null)
+                media.fd.Close();
             media.fd = new FileStream(path, FileMode.Open);
             media.Filename = path;
             media.sectors = (Word)(media.heads * media.tracks * media.sectors_per_track);
+            if (mParent.mSystem.Debuggies.DebugFDC)
+                mParent.mSystem.PrintDebugMsg(eDebuggieNames.Floppy, $"evaluate_media completed for floppy disk {path} of type {type.ToString()}");
             return (true); // success
             /*    }
 
@@ -558,7 +561,7 @@ namespace VirtualProcessor.Devices
                 drive = (byte)(s.DOR & 0x03);
                 increment_sector(); // increment to next sector before retrieving next one
                 s.floppy_buffer_index = 0;
-                if (mParent.mProc.TC)
+                if (mParent.mProc.mTC)
                 { // Terminal Count line, done
                     s.pending_command = 0;
                     s.main_status_reg = FD_MS_MRQ | FD_MS_DIO | FD_MS_BUSY;
@@ -621,7 +624,7 @@ namespace VirtualProcessor.Devices
                 increment_sector();
                 s.floppy_buffer_index = 0;
                 //Skipped the next condition because I don't know what it is, so I just did the following unconditionally
-                if (mParent.mProc.TC)
+                if (mParent.mProc.mTC)
                 {
                     s.pending_command = 0;
                     s.main_status_reg = FD_MS_MRQ | FD_MS_DIO | FD_MS_BUSY;
@@ -676,6 +679,7 @@ namespace VirtualProcessor.Devices
         {
             floppy_t test = new floppy_t();
             floppy_t test2 = new floppy_t();
+
             if (DriveNum == 1)
             {
                 if (s.media[0].type == eFloppyType.FLOPPY_NONE)
@@ -686,9 +690,9 @@ namespace VirtualProcessor.Devices
             }
             else
             {
-                if (s.media[0].type == eFloppyType.FLOPPY_NONE)
+                if (s.media[1].type == eFloppyType.FLOPPY_NONE)
                     s.num_supported_floppies++;
-                evaluate_media(mParent.mSystem.FloppyACapacity, mParent.mSystem.FloppyBFile, ref test2);
+                evaluate_media(mParent.mSystem.FloppyBCapacity, mParent.mSystem.FloppyBFile, ref test2);
                 s.media[1] = test2;
                 s.media_present[1] = true;
             }
@@ -697,9 +701,6 @@ namespace VirtualProcessor.Devices
         #region cDevice Interface Related Methods
         public override void InitDevice()
         {
-            //TODO: Hard coding fd info for now.  Once CMOS is established, fix this!
-            floppy_t test = new floppy_t();
-            floppy_t test2 = new floppy_t();
             if (mParent.mSystem.FloppyAFile != "")
             {
                 LoadDrive(1);

@@ -109,7 +109,7 @@ namespace WindowsFormsApplication1
             if (txtHD1Filename.Text != "" && new FileInfo(txtHD1Filename.Text).Exists)
             {
                 ofdHD1.FileName = txtHD1Filename.Text;
-                ofdHD1.InitialDirectory = txtHD1Filename.Text.Substring(0,txtHD1Filename.Text.LastIndexOf("\\"));
+                ofdHD1.InitialDirectory = txtHD1Filename.Text.Substring(0, txtHD1Filename.Text.LastIndexOf("\\"));
             }
             else
                 ofdHD1.FileName = "";
@@ -218,7 +218,7 @@ namespace WindowsFormsApplication1
                         grpDieAt.Enabled = true;
                     break;
             }
-        
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -339,7 +339,7 @@ namespace WindowsFormsApplication1
             default_set.Default.HD2Installed = ckHD2Installed.Checked;
             default_set.Default.BootDevice = (string)cboBootDevice.SelectedItem;
             default_set.Default.DebugAtSegment = UInt32.Parse(txtDebugAtCS.Text, System.Globalization.NumberStyles.HexNumber);
-            default_set.Default.DebugAtAddress= UInt32.Parse(txtDebugAtEIP.Text, System.Globalization.NumberStyles.HexNumber);
+            default_set.Default.DebugAtAddress = UInt32.Parse(txtDebugAtEIP.Text, System.Globalization.NumberStyles.HexNumber);
             default_set.Default.DieAtSegment = UInt32.Parse(txtDieAtCS.Text, System.Globalization.NumberStyles.HexNumber);
             default_set.Default.DieAtAddress = UInt32.Parse(txtDieAtEIP.Text, System.Globalization.NumberStyles.HexNumber);
             default_set.Default.DumpAtSegment = UInt32.Parse(txtDumpAtCS.Text, System.Globalization.NumberStyles.HexNumber);
@@ -354,10 +354,10 @@ namespace WindowsFormsApplication1
                 Thread.Sleep(1000);
             }
             if (default_set.Default.BootDevice == "Floppy")
-                VirtualProcessor.GlobalRoutines.UpdateCMOS(default_set.Default.CMOSPathAndFile , 0x2d, 0x23);
+                VirtualProcessor.GlobalRoutines.UpdateCMOS(default_set.Default.CMOSPathAndFile, 0x2d, 0x23);
             else
                 VirtualProcessor.GlobalRoutines.UpdateCMOS(default_set.Default.CMOSPathAndFile, 0x2d, 0x03);
-            UInt16 lMemory = (UInt16)((default_set.Default.PhysicalMemoryAmount-(1024*1024)) / 1024);
+            UInt16 lMemory = (UInt16)((default_set.Default.PhysicalMemoryAmount - (1024 * 1024)) / 1024);
             VirtualProcessor.GlobalRoutines.UpdateCMOS(default_set.Default.CMOSPathAndFile, 0x17, (UInt16)(lMemory));
             VirtualProcessor.GlobalRoutines.UpdateCMOS(default_set.Default.CMOSPathAndFile, 0x30, (UInt16)(lMemory));
             if (Program.mSystem != null && Program.mSystem.DeviceBlock != null && Program.mSystem.DeviceBlock.mCMOS != null)
@@ -395,12 +395,17 @@ namespace WindowsFormsApplication1
         private void cmdSwapFDs_Click(object sender, EventArgs e)
         {
             String lTempFlp1 = txtFD1Filename.Text;
-            
+
             txtFD1Filename.Text = txtFD2Filename.Text;
             txtFD2Filename.Text = lTempFlp1;
         }
 
         private void txtFD1Filename_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label28_Click(object sender, EventArgs e)
         {
 
         }

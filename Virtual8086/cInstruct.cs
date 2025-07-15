@@ -1,4 +1,4 @@
-﻿using System; 
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -29,7 +29,7 @@ namespace VirtualProcessor
         }
     }
 
-    public class Instruct
+    public class Instruct : Object
     {
         #region Variables & Definitions
         public string mName;
@@ -46,7 +46,7 @@ namespace VirtualProcessor
         //From the decoder, set by the mProcessor just before calling us to execute
         //public sInstruction DecodedInstruction;
         //Ref booleans are set during decoding
-        public bool REPAble=false;
+        public bool REPAble = false;
         #region Valid Processors for instruction
         protected bool mProc8086 = false, mProc8088 = false, mProc80186 = false, mProc80286 = false,
            mProc80386 = false, mProc80486 = false, mProcPentium = false, mProcPentiumPro = false;
@@ -68,18 +68,12 @@ namespace VirtualProcessor
         /// </summary>
         internal bool mIntIsSoftware;
         internal bool valid = true;
-
-        bool FirstTimeThrough = true;
-
-        #region ResolveOp Variables
-        sOperand Operand = new sOperand(); //Don't want to initialize it but the compiler won't let me not init it
-        bool HasImmediateData = false, OpHasEffective = false;
-        #endregion
+        sOperand Operand;
 
         #endregion
 
-        public Instruct() 
-        { 
+        public Instruct()
+        {
         }
 
         public Instruct(Processor_80x86 pProc)
@@ -103,7 +97,6 @@ namespace VirtualProcessor
                 ResolveOp2(1, ref CurrentDecode.Op1Add, ref CurrentDecode.Op1Value, ref CurrentDecode.Op1TypeCode, /*ref CurrentDecode.Operand1SValue,*/ ref CurrentDecode);
                 if (CurrentDecode.ExceptionThrown)
                     return;
-                //CLR 03/28/2014 - doesn't make sense to ahve these but they may break CombinedSValue
 #if DEBUG
                 CurrentDecode.Op1Operand = Operand;
                 CurrentDecode.Op1Populated = true;
@@ -184,11 +177,14 @@ namespace VirtualProcessor
         protected string BuildOpString(int OpNum, sOperand Operand, DWord OpAdd, sOpVal Val, TypeCode OpTypeCode, ref sInstruction CurrentDecode)
         {
             StringBuilder lRetVal = new StringBuilder();
+            bool OpHasEffective = false;
+            sOpCodeAddressingMethod OcAM = sOpCodeAddressingMethod.None;
+            bool HasImmediateData = false;
 
             switch (OpNum)
             {
                 case 1:
-                    CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op1AM;
+                    OcAM = CurrentDecode.ChosenOpCode.Op1AM;
                     //OcOT = ChosenOpCode.Op1OT;
                     OpHasEffective = CurrentDecode.Op1.HasEffective;
                     //Operand = CurrentDecode.Op1;
@@ -199,7 +195,7 @@ namespace VirtualProcessor
                     //    Operand1IsRef = true;
                     break;
                 case 2:
-                    CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op2AM;
+                    OcAM = CurrentDecode.ChosenOpCode.Op2AM;
                     //OcOT = ChosenOpCode.Op2OT;
                     OpHasEffective = CurrentDecode.Op2.HasEffective;
                     //Operand = CurrentDecode.Op2;
@@ -210,7 +206,7 @@ namespace VirtualProcessor
                     //    Operand2IsRef = true;
                     break;
                 case 3:
-                    CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op3AM;
+                    OcAM = CurrentDecode.ChosenOpCode.Op3AM;
                     //OcOT = ChosenOpCode.Op3OT;
                     OpHasEffective = CurrentDecode.Op3.HasEffective;
                     //Operand = CurrentDecode.Op3;
@@ -223,7 +219,7 @@ namespace VirtualProcessor
             }
 
             //OpOffset
-            if (CurrentDecode.OcAM == sOpCodeAddressingMethod.OpOffset)
+            if (OcAM == sOpCodeAddressingMethod.OpOffset)
             {
                 if (Operand.HasImm16)
                     lRetVal.AppendFormat("[{0}]", OpAdd.ToString("X4"));
@@ -232,7 +228,7 @@ namespace VirtualProcessor
             }
             else if (HasImmediateData)
             {
-                if (CurrentDecode.OcAM == sOpCodeAddressingMethod.JmpRelOffset)
+                if (OcAM == sOpCodeAddressingMethod.JmpRelOffset)
                 {
                     UInt16 lTemp = (UInt16)CurrentDecode.InstructionEIP;
 
@@ -311,68 +307,69 @@ namespace VirtualProcessor
 
         protected void ResolveOp2(int OpNum, ref DWord OpAdd, ref sOpVal Val, ref TypeCode OpTypeCode, /*ref String OpVals, */ref sInstruction CurrentDecode)
         {
-            HasImmediateData = false;
+            bool OpHasEffective;
+            bool HasImmediateData;
             OpAdd = 0;
             Val.OpQWord = 0;
+
+            sOpCodeAddressingMethod OcAM = sOpCodeAddressingMethod.None;
+            sOpCodeOperandType OcOT = sOpCodeOperandType.None;
             #region Populate variables based on OpNum
             if (OpNum == 1)
             {
-                CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op1AM;
-                CurrentDecode.OcOT = CurrentDecode.ChosenOpCode.Op1OT;
-                    OpHasEffective = CurrentDecode.Op1.HasEffective;
-                    Operand = CurrentDecode.Op1;
-                    CurrentDecode.ChosenOpCode_Register = CurrentDecode.ChosenOpCode.Register1;
-                    HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp1;
-                    CurrentDecode.Operand1IsRef = !HasImmediateData;
-                    if (CurrentDecode.OcAM == sOpCodeAddressingMethod.OpOffset)
-                        CurrentDecode.Operand1IsRef = true;
+                OcAM = CurrentDecode.ChosenOpCode.Op1AM;
+                OcOT = CurrentDecode.ChosenOpCode.Op1OT;
+                OpHasEffective = CurrentDecode.Op1.HasEffective;
+                Operand = CurrentDecode.Op1;
+                HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp1;
+                CurrentDecode.Operand1IsRef = !HasImmediateData;
+                if (CurrentDecode.ChosenOpCode.Op1AM == sOpCodeAddressingMethod.OpOffset)
+                    CurrentDecode.Operand1IsRef = true;
             }
             else if (OpNum == 2)
             {
-                CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op2AM;
-                CurrentDecode.OcOT = CurrentDecode.ChosenOpCode.Op2OT;
-                    OpHasEffective = CurrentDecode.Op2.HasEffective;
-                    Operand = CurrentDecode.Op2;
-                    CurrentDecode.ChosenOpCode_Register = CurrentDecode.ChosenOpCode.Register2;
-                    HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp2;
-                    CurrentDecode.Operand2IsRef = !HasImmediateData;
-                    if (CurrentDecode.OcAM == sOpCodeAddressingMethod.OpOffset)
-                        CurrentDecode.Operand2IsRef = true;
+                OcAM = CurrentDecode.ChosenOpCode.Op2AM;
+                OcOT = CurrentDecode.ChosenOpCode.Op2OT;
+                OpHasEffective = CurrentDecode.Op2.HasEffective;
+                Operand = CurrentDecode.Op2;
+                HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp2;
+                CurrentDecode.Operand2IsRef = !HasImmediateData;
+                if (OcAM == sOpCodeAddressingMethod.OpOffset)
+                    CurrentDecode.Operand2IsRef = true;
             }
             else
             {
-                CurrentDecode.OcAM = CurrentDecode.ChosenOpCode.Op3AM;
-                CurrentDecode.OcOT = CurrentDecode.ChosenOpCode.Op3OT;
-                    OpHasEffective = CurrentDecode.Op3.HasEffective;
-                    Operand = CurrentDecode.Op3;
-                    CurrentDecode.ChosenOpCode_Register = CurrentDecode.ChosenOpCode.Register3;
-                    HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp3;
-                    CurrentDecode.Operand3IsRef = !HasImmediateData;
-                    if (CurrentDecode.OcAM == sOpCodeAddressingMethod.OpOffset)
-                        CurrentDecode.Operand3IsRef = true;
+                OcAM = CurrentDecode.ChosenOpCode.Op3AM;
+                OcOT = CurrentDecode.ChosenOpCode.Op3OT;
+                OpHasEffective = CurrentDecode.Op3.HasEffective;
+                Operand = CurrentDecode.Op3;
+                HasImmediateData = CurrentDecode.ChosenOpCode.ImmedOp3;
+                CurrentDecode.Operand3IsRef = !HasImmediateData;
+                if (OcAM == sOpCodeAddressingMethod.OpOffset)
+                    CurrentDecode.Operand3IsRef = true;
             }
             #endregion
             #region Fix up OpType
-            if (CurrentDecode.OcOT == sOpCodeOperandType.ByteOrWord)
+            if (OcOT == sOpCodeOperandType.ByteOrWord)
                 if (mProc.mCurrInstructOpSize16)
-                    CurrentDecode.OcOT = sOpCodeOperandType.Byte;
+                    OcOT = sOpCodeOperandType.Byte;
                 else
-                    CurrentDecode.OcOT = sOpCodeOperandType.Word;
-            else if (CurrentDecode.OcOT == sOpCodeOperandType.WordOrDWord)
+                    OcOT = sOpCodeOperandType.Word;
+            else if (OcOT == sOpCodeOperandType.WordOrDWord)
                 if (mProc.mCurrInstructOpSize16)
-                    CurrentDecode.OcOT = sOpCodeOperandType.Word;
+                    OcOT = sOpCodeOperandType.Word;
                 else
-                    CurrentDecode.OcOT = sOpCodeOperandType.DWord;
-            else if (CurrentDecode.OcOT == sOpCodeOperandType.Pointer)
+                    OcOT = sOpCodeOperandType.DWord;
+            else if (OcOT == sOpCodeOperandType.Pointer)
                 if (mProc.mCurrInstructOpSize16)
-                    CurrentDecode.OcOT = sOpCodeOperandType.DWord;
+                    OcOT = sOpCodeOperandType.DWord;
                 else
-                    CurrentDecode.OcOT = sOpCodeOperandType.QWord;
+                    OcOT = sOpCodeOperandType.QWord;
 
             #endregion
 
             #region OppOffset
-            if (CurrentDecode.OcAM == sOpCodeAddressingMethod.OpOffset)
+            if (OcAM == sOpCodeAddressingMethod.OpOffset)
             {
                 if (Operand.HasImm8)
                 {
@@ -412,14 +409,14 @@ namespace VirtualProcessor
                     }
                 }
                 #region Get Value for Address by OpType
-                if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && mProc.mem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
+                if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && PhysicalMem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
                 {
                     return;
                 }
                 else
-                    switch (CurrentDecode.OcOT)
+                    switch (OcOT)
                     {
-                        case sOpCodeOperandType.Byte: Val.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
+                        case sOpCodeOperandType.Byte: Val.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
                         case sOpCodeOperandType.Word: Val.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt16; break;
                         case sOpCodeOperandType.DWord: Val.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt32; break;
                         case sOpCodeOperandType.QWord: Val.OpQWord = mProc.mem.GetQWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt64; break;
@@ -545,9 +542,9 @@ namespace VirtualProcessor
                             lTempAddr32 -= Operand.Disp8;
                     else
                         if (CurrentDecode.lAddrSize16)
-                            lTempAddr16 += Operand.Disp8;
-                        else
-                            lTempAddr32 += Operand.Disp8;
+                        lTempAddr16 += Operand.Disp8;
+                    else
+                        lTempAddr32 += Operand.Disp8;
                 }
                 else if (Operand.HasDisp16)
                     if (CurrentDecode.lAddrSize16)
@@ -562,16 +559,19 @@ namespace VirtualProcessor
                             lTempAddr16 += (Word)Operand.Disp32;
                     else
                         if (Operand.DispIsNegative)
-                            lTempAddr32 += Operand.Disp32;
-                        else
-                            lTempAddr32 += Operand.Disp32;
+                        lTempAddr32 += Operand.Disp32;
+                    else
+                        lTempAddr32 += Operand.Disp32;
 
 
                 if (CurrentDecode.OverrideSegment != eGeneralRegister.NONE && CurrentDecode.RealOpCode != 0x8d)
                     OpAdd = mProc.GetDWordRegValueForRegEnum(CurrentDecode.OverrideSegment);
                 //if (mProc.OperatingMode != ProcessorMode.Protected)
                 if (Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected && mProc.regs.CS.mDescriptorNum > 0)
-                { }
+                {
+                    /*if (CurrentDecode.InstructionAddSize16) 
+                        OpAdd = OpAdd << 4;*/
+                }
                 else
                     OpAdd = OpAdd << 4;
                 if (CurrentDecode.lAddrSize16)
@@ -585,14 +585,14 @@ namespace VirtualProcessor
                 {
                     case 0x8d: Val.OpDWord = OpAdd; break;
                     default:
-                        if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && mProc.mem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
+                        if ((mProc.regs.CR0 & 0x80000000) == 0x80000000 && PhysicalMem.PageAccessWillCausePF(mProc, ref CurrentDecode, OpAdd, false))
                         {
                             return;
                         }
                         else
-                            switch (CurrentDecode.OcOT)
+                            switch (OcOT)
                             {
-                                case sOpCodeOperandType.Byte: Val.OpByte = mProc.mem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
+                                case sOpCodeOperandType.Byte: Val.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.Byte; break;
                                 case sOpCodeOperandType.Word: Val.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt16; break;
                                 case sOpCodeOperandType.DWord: Val.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt32; break;
                                 case sOpCodeOperandType.QWord: Val.OpQWord = mProc.mem.GetQWord(mProc, ref CurrentDecode, OpAdd); OpTypeCode = TypeCode.UInt64; break;
@@ -604,7 +604,7 @@ namespace VirtualProcessor
                 }
 
                 return;
-            #endregion
+                #endregion
             }
             throw new Exception("ResolveOp: If you got here, you missed something!");
         }
@@ -635,14 +635,14 @@ namespace VirtualProcessor
             }
             else
             {
-                    if ((Offset.OpByte & 0x80) == 0x80)
-                    {
-                        Offset.OpByte = (byte)((~Offset.OpByte) + 1);
-                        mProc.regs.EIP -= Offset.OpByte;
-                    }
-                    else
-                        mProc.regs.EIP += Offset.OpByte;
-                    return;
+                if ((Offset.OpByte & 0x80) == 0x80)
+                {
+                    Offset.OpByte = (byte)((~Offset.OpByte) + 1);
+                    mProc.regs.EIP -= Offset.OpByte;
+                }
+                else
+                    mProc.regs.EIP += Offset.OpByte;
+                return;
             }
         }
         internal static bool UpdateForNegativeAll(ref Processor_80x86 mProc, ref sOpVal Value, TypeCode OpType)
@@ -676,7 +676,6 @@ namespace VirtualProcessor
                         break;
                     default:
                         throw new Exception("D'oh!");
-                        break;
                 }
             }
             return false;
@@ -691,13 +690,13 @@ namespace VirtualProcessor
         }
         //Turn a reference into a value.
         internal UInt32 GetSegOverriddenAddress(Processor_80x86 mProc, UInt32 Addr)
-        { 
-            if ( (Addr >= Processor_80x86.REGADDRBASE) && (Addr <= Processor_80x86.REGADDRBASE + Processor_80x86.RSSOFS) || (mProc.mSegmentOverride == 0))
+        {
+            if ((Addr >= Processor_80x86.REGADDRBASE) && (Addr <= Processor_80x86.REGADDRBASE + Processor_80x86.RSSOFS) || (mProc.mSegmentOverride == 0))
                 return Addr;
             if (Processor_80x86.mCurrInstructOpMode == ProcessorMode.Protected)
             {
                 if (mProc.mSegmentOverride == Processor_80x86.RCS)
-                    return mProc.GetDWordRegValueForRegEnum(eGeneralRegister.CS)  + Addr;
+                    return mProc.GetDWordRegValueForRegEnum(eGeneralRegister.CS) + Addr;
                 else if (mProc.mSegmentOverride == Processor_80x86.RES)
                     return mProc.GetDWordRegValueForRegEnum(eGeneralRegister.ES) + Addr;
                 else if (mProc.mSegmentOverride == Processor_80x86.RSS)
@@ -729,41 +728,40 @@ namespace VirtualProcessor
         }
         internal void SetFlagsForSubtraction(Processor_80x86 mProc, sOpVal PreVal1, sOpVal PreVal2, sOpVal Op1Val, TypeCode Op1Type)
         {
-            mProc.regs.setFlagZF(Op1Val.OpQWord);
             switch (Op1Type)
             {
                 case TypeCode.Byte:
+                    mProc.regs.setFlagZF(Op1Val.OpByte);
                     mProc.regs.setFlagSF(Op1Val.OpByte);
-            mProc.regs.setFlagAF(PreVal1.OpByte, Op1Val.OpByte);
-            mProc.regs.setFlagPF(Op1Val.OpByte);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpByte, PreVal2.OpByte, Op1Val.OpByte);
+                    mProc.regs.setFlagAF(PreVal1.OpByte, Op1Val.OpByte);
+                    mProc.regs.setFlagPF(Op1Val.OpByte);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpByte, PreVal2.OpByte, Op1Val.OpByte);
                     break;
                 case TypeCode.UInt16:
+                    mProc.regs.setFlagZF(Op1Val.OpWord);
                     mProc.regs.setFlagSF(Op1Val.OpWord);
-            mProc.regs.setFlagAF(PreVal1.OpWord, Op1Val.OpWord);
-            mProc.regs.setFlagPF(Op1Val.OpWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpWord, PreVal2.OpWord, Op1Val.OpWord);
+                    mProc.regs.setFlagAF(PreVal1.OpWord, Op1Val.OpWord);
+                    mProc.regs.setFlagPF(Op1Val.OpWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpWord, PreVal2.OpWord, Op1Val.OpWord);
                     break;
                 case TypeCode.UInt32:
+                    mProc.regs.setFlagZF(Op1Val.OpDWord);
                     mProc.regs.setFlagSF(Op1Val.OpDWord);
-            mProc.regs.setFlagAF(PreVal1.OpDWord, Op1Val.OpDWord);
-            mProc.regs.setFlagPF(Op1Val.OpDWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpDWord, PreVal2.OpDWord, Op1Val.OpDWord);
+                    mProc.regs.setFlagAF(PreVal1.OpDWord, Op1Val.OpDWord);
+                    mProc.regs.setFlagPF(Op1Val.OpDWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpDWord, PreVal2.OpDWord, Op1Val.OpDWord);
                     break;
                 case TypeCode.UInt64:
+                    mProc.regs.setFlagZF(Op1Val.OpQWord);
                     mProc.regs.setFlagSF(Op1Val.OpQWord);
-            mProc.regs.setFlagAF(PreVal1.OpQWord, Op1Val.OpQWord);
-            mProc.regs.setFlagPF(Op1Val.OpQWord);
-            mProc.regs.setFlagOF_Sub(PreVal1.OpQWord, PreVal2.OpQWord, Op1Val.OpQWord);
+                    mProc.regs.setFlagAF(PreVal1.OpQWord, Op1Val.OpQWord);
+                    mProc.regs.setFlagPF(Op1Val.OpQWord);
+                    mProc.regs.setFlagOF_Sub(PreVal1.OpQWord, PreVal2.OpQWord, Op1Val.OpQWord);
                     break;
             }
         }
         internal void SetFlagsForAddition(Processor_80x86 mProc, sOpVal PreVal1, sOpVal PreVal2, sOpVal Op1ValSigned, sOpVal Op1ValUnsigned, TypeCode Op1Type)
         {
-            if (Op1ValSigned.OpQWord == 0)
-                mProc.regs.FLAGS |= 0x40;
-            else
-                mProc.regs.FLAGS &= 0xFFBF;
             mProc.regs.setFlagAF(Op1ValSigned.OpQWord, PreVal1.OpQWord);
             //mProc.regs.setFlagCF(Op1ValUnsigned.OpQWord, PreVal1.OpQWord, PreVal2.OpQWord);
             if (Misc.parity[Op1ValSigned.OpByte] == 0x1)
@@ -775,41 +773,34 @@ namespace VirtualProcessor
             switch (Op1Type)
             {
                 case TypeCode.Byte:
+                    mProc.regs.setFlagPF(Op1ValSigned.OpByte);
+                    mProc.regs.setFlagZF(Op1ValSigned.OpByte);
                     mProc.regs.setFlagOF_Add(PreVal1.OpByte, PreVal2.OpByte, Op1ValSigned.OpByte);
-                    
                     mProc.regs.setFlagSF(Op1ValSigned.OpByte);
                     break;
                 case TypeCode.UInt16:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpWord, PreVal2.OpWord, Op1ValSigned.OpWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpWord);
                     break;
                 case TypeCode.UInt32:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpDWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpDWord, PreVal2.OpDWord, Op1ValSigned.OpDWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpDWord);
                     break;
                 case TypeCode.UInt64:
+                    mProc.regs.setFlagZF(Op1ValSigned.OpQWord);
                     mProc.regs.setFlagOF_Add(PreVal1.OpQWord, PreVal2.OpQWord, Op1ValSigned.OpQWord);
                     mProc.regs.setFlagSF(Op1ValSigned.OpQWord);
                     break;
             }
 
-            
+
 
         }
-
-        public Instruct CopyOf()
+        internal static bool VerifyCPL0(Processor_80x86 mProc, ref sInstruction mIns)
         {
-            //Instruct wise;
-            //wise = (Instruct)MemberwiseClone();
-            //Instruct il;
-            //il = (Instruct)Misc.CloneObjectWithIL(this);
-            //return (Instruct)MemberwiseClone();
-            return Misc.CloneObjectWithIL(this);
-        }
-
-        internal static bool VerifyCPL0(Processor_80x86 mProc, ref sInstruction mIns )
-        {
-            if (mProc.regs.CPL != 0)
+            if (mProc.regs.CPL != 0 && mProc.OperatingMode != ProcessorMode.Virtual8086)
             {
                 mIns.ExceptionNumber = 0xD;
                 mIns.ExceptionThrown = true;

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WindowsFormsApplication1": {
+      "commandName": "Project",
+      "nativeDebugging": false,
+      "hotReloadEnabled": false
+    }
+  }
+}

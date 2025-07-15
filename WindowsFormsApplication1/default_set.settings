@@ -63,7 +63,7 @@
       <Value Profile="(Default)">63</Value>
     </Setting>
     <Setting Name="HD1DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
-      <Value Profile="(Default)">IDE_CDROM</Value>
+      <Value Profile="(Default)">IDE_DISK</Value>
     </Setting>
     <Setting Name="HD2DeviceType" Type="VirtualProcessor.Devices.device_type_t" Scope="User">
       <Value Profile="(Default)">IDE_DISK</Value>
@@ -186,7 +186,7 @@
       <Value Profile="(Default)">I:\virtual8086-temp_backup\3\Virtual8086\cmos.bin</Value>
     </Setting>
     <Setting Name="MapFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Emulator Stuff\from_flash_ubuntu\v86media\slackware3\Slackware.map</Value>
+      <Value Profile="(Default)">D:\Emulator Stuff\from_flash_ubuntu\v86media\RedHat\redhat6_map.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

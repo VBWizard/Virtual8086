@@ -1058,9 +1058,9 @@ namespace VirtualProcessor.Devices
                         break;
                     default:
                         throw new Exception("Mode not implemented.");
-                        counter[cnum].next_change_time = 0;
+/*                        counter[cnum].next_change_time = 0;
                         counter[cnum].triggerGATE = false;
-                        break;
+                        break;*/
                 }
             }
         }

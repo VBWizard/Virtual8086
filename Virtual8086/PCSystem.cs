@@ -122,7 +122,6 @@ namespace VirtualProcessor
             }
         }
         public int mAddressBreakpointCount = 0;
-        internal UInt32[] mInterruptBreakpoint;
         internal int mInterruptBreakpointCount = 0;
         internal uint mTaskNameOffset = 0;
         public uint TaskNameOffset
@@ -182,6 +181,7 @@ namespace VirtualProcessor
                     mProc = null;
                     mProc = new Processor_80x86(this, mTotalMemory, mProcType);
                     mResettingSystem = false;
+                    Console.Clear();
                 }
                 if (!Directory.Exists(mDebugFilePath))
                     throw new Exception("Debugging path '+ value + ' does not exist.  Ensure that the debug path exists or change the DebugFilePath property and try again");
@@ -298,7 +298,7 @@ namespace VirtualProcessor
                 FloppyBFile = PathAndFilename;
                 FloppyBCapacity = lTemp;
                 if (DeviceBlock != null && DeviceBlock.mFloppy != null)
-                    DeviceBlock.mFloppy.LoadDrive(1);
+                    DeviceBlock.mFloppy.LoadDrive(2);
             }
             else
                 throw new Exception("System only supports 2 floppies!");
@@ -321,7 +321,8 @@ namespace VirtualProcessor
             Drives[mDriveCount].Cylinders = Cylinders;
             Drives[mDriveCount].Heads = Heads;
             Drives[mDriveCount].SectorsPerTrack = SectorsPerTrack;
-            Drives[mDriveCount].DeviceType = DeviceType;
+            //04/01/2023 - Hacked thsi to get it to work b/c changing the config didn't affect this
+            Drives[mDriveCount].DeviceType = device_type_t.IDE_DISK;
             mDriveCount++;
         }
 
@@ -372,6 +373,7 @@ namespace VirtualProcessor
                 PrintDebugMsg(eDebuggieNames.System, lTemp.DeviceName + " - EXCEPTION (" + System.Threading.Thread.CurrentThread.Name + "): " + e.Message);
             else
                 PrintDebugMsg(eDebuggieNames.System, "EXCEPTION: (" + System.Threading.Thread.CurrentThread.Name + "): " + e.Message);
+                PrintDebugMsg(eDebuggieNames.System, "  call stack: " + e.StackTrace);
             ShutDown();
             throw e;
         }
@@ -439,7 +441,7 @@ namespace VirtualProcessor
         }
         public void AddTaskNameBreakpoint(String pTaskName, bool DisableOnHit, bool ToScreen, bool ToFile)
         {
-            BreakpointInfo.Add(new cBreakpoint(pTaskName, DisableOnHit, ToScreen, ToFile));
+            BreakpointInfo.Add(new cBreakpoint(pTaskName, true, ToScreen, ToFile));
         }
         public void RemoveAddressBreakpoint(cBreakpoint b)
         {

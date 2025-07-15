@@ -156,46 +156,54 @@ namespace VirtualProcessor
             //    return "Paging Error";
             lNameFound = false;
             DWord lStartAddr = mSystem.mProc.mGDTCache[(int)mSystem.mProc.regs.TR.SegSel >> 3].Base;
-            for (UInt32 cnt = lStartAddr - 100; cnt < lStartAddr; cnt++)
+            try
             {
-                byte lTemp = mSystem.mProc.mem.pMemory(mSystem.mProc, cnt & 0x0FFFFFFF );
-                if (lTemp > 31 && lTemp < 127)
+                for (UInt32 cnt = lStartAddr - 100; cnt < lStartAddr; cnt++)
                 {
-                    lJobName += (char)lTemp;
-                    lNameFound = true;
+                    byte lTemp = mSystem.mProc.mem.pMemory(mSystem.mProc, cnt & 0xFFFFFFF);
+                    if (lTemp > 31 && lTemp < 127)
+                    {
+                        lJobName += (char)lTemp;
+                        lNameFound = true;
+                    }
+                    else if (lNameFound)
+                        break;
                 }
-                else if (lNameFound)
-                    break;
             }
-            return lJobName;
+            catch { }
+            return lJobName.Trim();
+
         }
 
         public static string GetLinuxTSSTaskName(PCSystem mSystem, DWord TSSBase)
         {
             bool lNameFound = false;
-
             if (mSystem.OSType != eOpSysType.Linux)
                 return "None";
             string lJobName = "";
             if (TSSBase == 0)
                 return "None";
 
-            //UInt32 lstartAddr = mSystem.mProc.mTLB.ShallowTranslate(mSystem.mProc, ref sIns, TSSBase - mSystem.TaskNameOffset, false, ePrivLvl.Kernel_Ring_0);
+            //UInt32 lstartAddr = mSystem.mProc.mTLB.ShallowTranslate(mSystem.mProc, ref sIns, TSSBase - 100, false, ePrivLvl.Kernel_Ring_0);
             //if (lstartAddr == 0xf1f1f1f1 || sIns.ExceptionThrown)
             //    return "Paging Error";
             lNameFound = false;
-            for (UInt32 cnt = TSSBase - 100; cnt < TSSBase; cnt++)
+            try
             {
-                byte lTemp = mSystem.mProc.mem.pMemory(mSystem.mProc, cnt);
-                if (lTemp > 31 && lTemp < 127)
+                for (UInt32 cnt = TSSBase - 100; cnt < TSSBase; cnt++)
                 {
-                    lJobName += (char)lTemp;
-                    lNameFound = true;
+                    byte lTemp = mSystem.mProc.mem.pMemory(mSystem.mProc, cnt & 0xFFFFFFF);
+                    if (lTemp > 31 && lTemp < 127)
+                    {
+                        lJobName += (char)lTemp;
+                        lNameFound = true;
+                    }
+                    else if (lNameFound)
+                        break;
                 }
-                else if (lNameFound)
-                    break;
             }
-            return lJobName;
+            catch { }
+            return lJobName.Trim();
         }
     }
 

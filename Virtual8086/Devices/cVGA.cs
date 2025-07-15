@@ -8,7 +8,7 @@ using bx_bool = System.Boolean;
 using Bit8u = System.Byte;
 using Bit16u = System.UInt16;
 using Bit32u = System.UInt32;
-using unsigned = System.UInt64;
+using Unsigned = System.UInt64;
 
 namespace VirtualProcessor.Devices
 {
@@ -19,10 +19,6 @@ namespace VirtualProcessor.Devices
         private const int ADDRESS_EMPTY = 0xFF;
         public const int X_TILESIZE = 16;
         public const int Y_TILESIZE = 24;
-        int timer_id;
-        Bit32u update_interval;
-        bx_bool extension_init;
-        bx_bool pci_enabled;
         public s_vgaState s;
         #endregion
 
@@ -126,6 +122,13 @@ namespace VirtualProcessor.Devices
                 case 0x03D4:
                     //invalid
                     break;
+                case 0x3D5:
+                    if (s.CRTC.address != ADDRESS_EMPTY && s.CRTC.address < 0x19)
+                    {
+                        IO.Value = s.CRTC.reg[s.CRTC.address];
+                        s.CRTC.address = ADDRESS_EMPTY;
+                    }
+                    break;
                 case 0x3da:
                     if (port_3da_lastvalue == 0)
                         port_3da_lastvalue = 8;
@@ -203,7 +206,7 @@ namespace VirtualProcessor.Devices
         public struct s_attribute_ctrl
         {
             public bx_bool flip_flop; /* 0 = address, 1 = data-write */
-            public unsigned address;  /* register number */
+            public Unsigned address;  /* register number */
             public bx_bool video_enabled;
             public Bit8u[] palette_reg;       //16
             public Bit8u overscan_color;
@@ -291,10 +294,10 @@ namespace VirtualProcessor.Devices
             public s_attribute_ctrl attribute_ctrl;
             public bx_bool vga_enabled;
             public bx_bool vga_mem_updated;
-            public unsigned line_offset;
-            public unsigned line_compare;
-            public unsigned vertical_display_end;
-            public unsigned blink_counter;
+            public Unsigned line_offset;
+            public Unsigned line_compare;
+            public Unsigned vertical_display_end;
+            public Unsigned blink_counter;
             public bx_bool vga_tile_updated; //pointer
             public Bit8u[] memory;               //pointer
             public Bit32u memsize;
@@ -329,5 +332,9 @@ namespace VirtualProcessor.Devices
             public bx_bool vga_override;
             //bx_nonvga_device_c* nvgadev;
         }  // state information
+        public int GetTextStartOffset()
+        {
+            return ((s.CRTC.reg[0x0C] << 8 | s.CRTC.reg[0x0D])) * 2;
+        }
     }
 }

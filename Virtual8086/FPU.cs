@@ -51,6 +51,10 @@ namespace VirtualProcessor
 
                 return lValue;
             }
+            set
+            {
+                Parse(value);
+            }
         }
     }
 
@@ -58,7 +62,6 @@ namespace VirtualProcessor
     {
         public bool Infinity, PrecisionMask, UnderflowMask, OverflowMask, ZeroDivideMask, DenormalOpMask, InvalidOpMask;
         public byte Rounding, Precision, Bit15, Bit14, Bit13, Bit7, Bit6;
-        private Word mValue;
 
         public void Parse(Word Value)
         {
@@ -157,7 +160,6 @@ namespace VirtualProcessor
             return mDataReg[index];
         }
         internal FPUControl mControlReg;
-        internal double mInternalResultRegister;
         internal FPUTagReg mTagReg;
         internal FPUStatus mStatusReg;
         public FPUStatus StatusReg
@@ -176,6 +178,7 @@ namespace VirtualProcessor
         {
             mParent = mProc;
             PowerOnReset();
+            mStatusReg.Value = 0;
             FPUThreadStart = new ThreadStart(ExecutionThread);
             FPUProcessingThread = new Thread(FPUThreadStart);
             FPUProcessingThread.Name = "FPUThread";
@@ -236,7 +239,7 @@ namespace VirtualProcessor
             sInstruction lCurrInstruct;
             while (!m_shutDown)
             {
-                mNewCalc.WaitOne();
+                Thread.Sleep(1);
                 while (mInstructQueue.Count > 0)
                 {
                     mParent.Signals.BUSY = true;

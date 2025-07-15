@@ -91,14 +91,13 @@ namespace VirtualProcessor
         {
             get { return mProcType; }
         }
-        public RegStruct regs, savedRegs;
+        public RegStruct regs;
+        public RegStruct savedRegs;
         public Ports ports;
         public PhysicalMem mem;
         internal bool[] DRQ = new bool[8] { false, false, false, false, false, false, false, false };
         internal bool[] DACK = new bool[8] { false, false, false, false, false, false, false, false };
         internal bool mTC = false, mSTICalled, mSTIAfterNextInstr;
-        internal bool TC
-        { get { return mTC; } set { mTC = value; } }
         public bool mCurrInstructOpSize16, mCurrInstructAddrSize16;
         public bool OpSize16
         {
@@ -175,8 +174,8 @@ namespace VirtualProcessor
         /// <summary>
         /// List of instructions, used only to get the right sOpCode for a given instruction
         /// </summary>
-        public InstructionList<Instruct> Instructions = new InstructionList<Instruct>();
-        public sOpCodePointer[] OpCodeIndexer = new sOpCodePointer[0xFFFF];
+        public static InstructionList<Instruct> Instructions = new InstructionList<Instruct>();
+        public static sOpCodePointer[] OpCodeIndexer = new sOpCodePointer[0xFFFF];
         internal sSignals Signals;
         internal static bool mProtectedModeActive = false;
         internal bool mIncrementedEIP = false;
@@ -210,7 +209,7 @@ namespace VirtualProcessor
         { get { return mTimeInGDTRefresh; } }
         public double mMSinTimedSection = 0;
         public UInt64 InstructionsExecuted
-        { get { return mInsructionsExecuted; } }
+        { get { return mInsructionsExecuted; } set { mInsructionsExecuted = value; }  }
         public UInt64 GDTCacheResetsExecuted
         { get { return mGDTCacheResetsExecuted; } }
         public UInt64 InstructionsDecoded
@@ -218,7 +217,6 @@ namespace VirtualProcessor
         public DateTime StartedAt;
         public DateTime StoppedAt;
         public bool HaltProcessor = false, PowerOff = false, TrapNextInst = false, ServicingIRQ = false, mExportDebug = false;
-        private int mExceptionNumber = Global.CPU_NO_EXCEPTION;
         public UInt32 mLastInstructionAddress = 0, mCurrentInstructionAddress = 0, mExceptionTransferAddress = 0, mLastEIP = 0, mLastESP = 0;
         public int mTimerTickMSec = 52; //Default is just over 18 times per second (18.222)
         public cGDTCache mGDTCache, mLDTCache;
@@ -241,7 +239,6 @@ namespace VirtualProcessor
         internal eProcessorStatus mProcessorStatus = eProcessorStatus.Decoding;
         public eProcessorStatus ProcessorStatus { get { return mProcessorStatus; } }
         public bool mSingleStep = false;
-        CEAStartDebugging CAEStartDeb;
         public sInstruction sCurrentDecode;
 
         #endregion
@@ -256,7 +253,9 @@ namespace VirtualProcessor
             if (TotalMemory < 1024 * 1024)
                 throw new Exception("TOtal memory must be at least " + (1024 * 1024).ToString("0,000"));
             mem = new PhysicalMem(this,TotalMemory);
-            Init(TotalMemory, ProcessorType);
+            Instructions = new InstructionList<Instruct>();
+            OpCodeIndexer = new sOpCodePointer[0xFFFF];
+        Init(TotalMemory, ProcessorType);
         }
         public void Init(UInt32 TotalMemory, eProcTypes ProcessorType)
         {
@@ -351,17 +350,17 @@ namespace VirtualProcessor
             while (!PowerOff)
             {
             //Lets go execute ROM BASIC! :-)
-            //if (regs.CS.Value == 0x0000 & regs.IP == 0x7c00)
-            //{
-            //    regs.CS.Value = 0xD000; regs.IP = 0x0000;
-            //}
+            /*if (regs.CS.Value == 0x0000 & regs.IP == 0x7c00)
+            {
+                regs.CS.Value = 0xD000; regs.IP = 0x0000;
+            }*/
             Top:
                 if (PowerOff)
-                    return;
+                    break;
                 mLastEIP = regs.EIP;
                 mLastESP = regs.ESP;
                 if (PhysicalMem.mChangesPending > 0)
-                    PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                    PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                 mCurrInstructOpMode = OperatingMode;
                 mIncrementedEIP = false;
                 if (!HaltProcessor && !mExternalPauseActive)
@@ -372,7 +371,7 @@ namespace VirtualProcessor
                         mCacheMisses++;
                         if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
                             mProcessorStatus = eProcessorStatus.Decoding;
-                        if (((regs.CR0 & 0x80000000) == 0x80000000 && mCurrentInstructionAddress < Processor_80x86.REGADDRBASE) && mem.PageAccessWillCausePF(this, ref sCurrentDecode, mCurrentInstructionAddress, false))
+                        if (((regs.CR0 & 0x80000000) == 0x80000000 && mCurrentInstructionAddress < Processor_80x86.REGADDRBASE) && PhysicalMem.PageAccessWillCausePF(this, ref sCurrentDecode, mCurrentInstructionAddress, false))
                         {
                             mRepeatCondition = NOT_REPEAT;
                             mBranchHint = 0;
@@ -388,6 +387,7 @@ namespace VirtualProcessor
                         if (mLastInstructionAddress != mCurrentInstructionAddress)
                         {
                             mDecoder.Decode(ref sCurrentDecode);
+                            mInsructionsDecoded++;
                             mLastInstructionAddress = mCurrentInstructionAddress;
                         }
                         if (sCurrentDecode.ExceptionThrown)
@@ -407,7 +407,6 @@ namespace VirtualProcessor
                         }
                         if (sCurrentDecode.Lock)
                             Signals.LOCK = true;
-                        mInsructionsDecoded++;
                         //InstructionCache.Add(mCurrentInstruction);
 
                         if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
@@ -451,8 +450,6 @@ namespace VirtualProcessor
                         ExceptionHandler(this, ref sCurrentDecode);
                         goto Top;
                     }
-
-
                     if (mExportDebug)
                         OnParseCompleteEvent(new CustomEventArgs(this));
                     if (mProcessorStatus != eProcessorStatus.Resetting && mProcessorStatus != eProcessorStatus.ShuttingDown)
@@ -465,7 +462,8 @@ namespace VirtualProcessor
                         regs.EIP = mLastEIP;
                         if (PhysicalMem.mChangesPending > 0)
                             mem.Rollback();
-                        RestoreSavedRegisters();
+//20240309                        if ((regs.CR0 & 0x80000000) == 0x80000000)
+                            RestoreSavedRegisters();
                         mRepeatCondition = NOT_REPEAT;
                         mBranchHint = 0;
                         mOpSize16 = true;
@@ -477,7 +475,7 @@ namespace VirtualProcessor
                         goto Top;
                     }
                     if (PhysicalMem.mChangesPending > 0)
-                        PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                        PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                     //TimeStart = DateTime.Now;
                     //mMSinTimedSection += (DateTime.Now - TimeStart).TotalMilliseconds;
 
@@ -500,8 +498,6 @@ namespace VirtualProcessor
                             return;
 #endif
                     sCurrentDecode.mChosenInstruction.UsageCount++;
-                    if (PhysicalMem.mChangesPending > 0)
-                        PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
 #if !RELEASE
                     if (mExportDebug)
                         OnInstructCompleteEvent(new CustomEventArgs(this));
@@ -531,16 +527,6 @@ namespace VirtualProcessor
                     }
                     #endregion
                 }
-                else
-                {
-                    //mInsructionsExecuted++;
-                    //Thread.Sleep(1);
-                    //Thread.Yield();
-                    //NVM: We're in HALT which means the halt instruction was executed, so keep executing it to keep our instruction count correct
-                    //regs.EIP -= sCurrentDecode.BytesUsed;
-                    //HaltProcessor = false;
-
-                }
                 #region STI Handling
                 if (mSTIAfterNextInstr == true)
                 {
@@ -549,6 +535,7 @@ namespace VirtualProcessor
                 }
                 if (mSTICalled)
                 {
+//20240309                    regs.setFlagIF(true); //hack
                     mSTICalled = false;
                     mSTIAfterNextInstr = true;
                 }
@@ -572,8 +559,8 @@ namespace VirtualProcessor
                 #region INTR Pin Processing
                 //If the INTR pin is asserted AND interrupts are enabled (IF=1), service IRQ
                 //07/18/2013: Locking for obvious reasons
-                lock (mSystem.DeviceBlock.mPIC)
-                {
+//                lock (mSystem.DeviceBlock.mPIC)
+//                {
                     if (Signals.INTR)
                     {
                         if ((regs.FLAGS & 0x200) == 0x200)
@@ -581,7 +568,7 @@ namespace VirtualProcessor
                             HaltProcessor = false;
                             HandleNewIRQServiceRequest();
                         }
-                    }
+//                    }
                 }
                 #endregion
 
@@ -634,7 +621,7 @@ namespace VirtualProcessor
                     if (mSystem.AddressBreakpointCount() > 0 && !mSingleStep)
                     {
                         foreach (cBreakpoint b in mSystem.BreakpointInfo.Where(u => u.InterruptNum == 0 && u.Enabled))
-                            if (b.CS == regs.CS.Value && (b.EIP == regs.EIP || b.EIP == 0xFFFFFFFF) && !(b.CS==0 && b.EIP == 0))
+                            if ((b.CS == regs.CS.Value || b.CS == 0xFFFFFFFF) && (b.EIP == regs.EIP || b.EIP == 0xFFFFFFFF) && !(b.CS==0 && b.EIP == 0))
                             {
                                 if (b.DisableOnHit)
                                     b.Enabled = false;
@@ -690,7 +677,7 @@ namespace VirtualProcessor
 
 #endif
 #endif
-                    if (mSystem.mModeBreakpoint || mSystem.mCPL0SwitchBreakpoint || mSystem.mCPL3SwitchBreakpoint || mSystem.mTaskSwitchBreakpoint || mSystem.mPagingExceptionBreakpoint)
+                    if (mSystem.mModeBreakpointSet || mSystem.mCPL0SwitchBreakpointSet || mSystem.mCPL3SwitchBreakpoint || mSystem.mTaskSwitchBreakpoint || mSystem.mPagingExceptionBreakpoint)
                     {
                         mSystem.mModeBreakpoint = false;
                         mSystem.mCPL0SwitchBreakpoint = false;
@@ -706,7 +693,7 @@ namespace VirtualProcessor
                 {
                     mSystem.DeviceBlock.mPIT.mPICTimers[0].Stop();
                     OnSingleStepEvent(new CustomEventArgs(this));
-                    mSystem.DeviceBlock.mPIT.mPICTimers[0].Interval += mTimerTickMSec;
+                    //mSystem.DeviceBlock.mPIT.mPICTimers[0].Interval += mTimerTickMSec;
                     mSystem.DeviceBlock.mPIT.mPICTimers[0].Start();
                 }
             }
@@ -806,7 +793,7 @@ namespace VirtualProcessor
             if (sCurrentDecode.ExceptionThrown || Signals.HOLD || (Signals.INTR && (regs.FLAGS & 0x200) == 0x200) )
             {
                 if (PhysicalMem.mChangesPending > 0)
-                    PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                    PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
                 return true;
             }
             mInsructionsExecuted++;
@@ -853,7 +840,7 @@ namespace VirtualProcessor
                 return;
             }
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
         }
         public void HandleNewIRQServiceRequest()
         {
@@ -949,6 +936,8 @@ namespace VirtualProcessor
             //if (sIns.ExceptionNumber == 0)
             //    System.Diagnostics.Debugger.Break();
 
+//20240309            sIns.ExceptionThrown = false;
+
             if (mCurrInstructOpMode == ProcessorMode.Real)
             {
                 switch (sIns.ExceptionNumber)
@@ -985,9 +974,7 @@ namespace VirtualProcessor
                 if (mSystem.Debuggies.DebugExceptions || (mSystem.Debuggies.DebugCPU  && sIns.ExceptionNumber != 14))
                 {
                     StringBuilder lPrint = new StringBuilder('0');
-                    lPrint.AppendFormat("PMode EXCEPTION # {0}.  Executed instruction was: + " + sIns.mChosenInstruction.mName + ", transferring control from {1}",
-                        sIns.ExceptionNumber,
-                        ExceptionHappenedAtAddress.ToString("X8"));
+                    lPrint.AppendFormat($"PMode EXCEPTION # {sIns.ExceptionNumber} (phase={mProc.mProcessorStatus.ToString()}).  Executed instruction was: {sIns.mChosenInstruction.mName}, transferring control from {ExceptionHappenedAtAddress.ToString("X8")}"); 
                     mSystem.PrintDebugMsg(eDebuggieNames.Exceptions, lPrint.ToString());
                 }
                 if (sIns.ExceptionNumber == 0xE)
@@ -1018,7 +1005,7 @@ namespace VirtualProcessor
             sIns.ExceptionAddress = 0;
 
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
         }
 
         private void SaveRegisters()
@@ -1083,7 +1070,7 @@ namespace VirtualProcessor
 
             mGDTCacheResetsExecuted++;
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this,mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.GDTR.lCache = mem.ChunkPhysical(this, 0, regs.GDTR.Base, regs.GDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.GDTR.lCache, (UInt16)((regs.GDTR.Limit + 1) / 8));
             mGDTCache = new cGDTCache(PhysicalMem.QWChunkPhysical(regs.GDTR.lCache, (UInt16)((regs.GDTR.Limit + 1) / 8)), (UInt16)regs.GDTR.Limit);
@@ -1094,7 +1081,7 @@ namespace VirtualProcessor
         public void RefreshLDTCache()
         {
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.LDTR.lCache = mem.ChunkPhysical(this, 0, regs.LDTR.Base, regs.LDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.LDTR.lCache, (UInt16)((regs.LDTR.Limit + 1) / 8));
             mLDTCache = new cGDTCache(PhysicalMem.QWChunkPhysical(regs.LDTR.lCache, (UInt16)((regs.LDTR.Limit + 1) / 8)), (UInt16)regs.LDTR.Limit);
@@ -1104,7 +1091,7 @@ namespace VirtualProcessor
         public void RefreshIDTCache()
         {
             if (PhysicalMem.mChangesPending > 0)
-                PhysicalMem.Commit(this, mem.mChangeAddress, mem.mChanges);
+                PhysicalMem.Commit(this, PhysicalMem.mChangeAddress, PhysicalMem.mChanges);
             regs.IDTR.lCache = mem.ChunkPhysical(this, 0, regs.IDTR.Base, regs.IDTR.Limit + 1);
             //UInt64[] lCache = mem.QWChunkPhysical(regs.IDTR.lCache, (UInt16)((regs.IDTR.Limit + 1) / 8));
             mIDTCache = new cIDTCache(PhysicalMem.QWChunkPhysical(regs.IDTR.lCache, (UInt16)((regs.IDTR.Limit + 1) / 8)), mGDTCache);
@@ -1532,7 +1519,7 @@ namespace VirtualProcessor
             throw new Exception("GetRegcValueForRegEnum - Register address not found for: " + Register);
         }
 
-        internal UInt32 GetControlRegAddrForRegEnum(eGeneralRegister Register)
+        internal static UInt32 GetControlRegAddrForRegEnum(eGeneralRegister Register)
         {
             switch (Register)
             {
@@ -1555,7 +1542,7 @@ namespace VirtualProcessor
         internal UInt32 GetDebugRegAddrForRegEnum(eGeneralRegister Register)
         {
             throw new Exception("GetDebugRegAddrForRegEnum: Incomplete!");
-            switch (Register)
+            /*switch (Register)
             {
                 case eGeneralRegister.CR0:
                     return RCR0;
@@ -1566,7 +1553,7 @@ namespace VirtualProcessor
                 case eGeneralRegister.CR4:
                     return RCR4;
             }
-            throw new Exception("Cannot identify Debug Register: " + Register);
+            throw new Exception("Cannot identify Debug Register: " + Register);*/
         }
 
         #region Register Related Stuff
@@ -1978,199 +1965,27 @@ namespace VirtualProcessor
         //}
         #endregion
 
-        internal Instruct MOV;
-        internal Instruct CALL;
+        internal static Instruct MOV;
         internal Instruct ADD;
         internal Instruct PUSH;
-        internal Instruct INC;
         internal Instruct POP;
         internal Instruct JMP;
-        internal Instruct CMP;
-        internal Instruct CMPXCHG;
-        internal Instruct AND;
-        internal Instruct JA;
-        internal Instruct JB;
-        internal Instruct BSF;
-        internal Instruct BSR;
-        internal Instruct BSWAP;
-        internal Instruct BT;
-        internal Instruct BTC;
-        internal Instruct BTR;
-        internal Instruct BTS;
-        internal Instruct CALLF;
-        internal Instruct CBW;
-        internal Instruct CLC;
-        internal Instruct CLD;
-        internal Instruct CLI;
-        internal Instruct CLTS;
-        internal Instruct CMC;
-        internal Instruct CMOVcc;
-        internal Instruct CMPSB;
         internal Instruct CMPSD;
-        internal Instruct CMPSW;
-        internal Instruct CPUID;
-        internal Instruct CWD;
-        internal Instruct DAA;
-        internal Instruct DAS;
-        internal Instruct DEC;
-        internal Instruct DIV;
-        internal Instruct ENTER;
-        internal Instruct FADD;
-        internal Instruct FCLEX;
-        internal Instruct FDIVR;
-        internal Instruct FINIT;
-        internal Instruct FILD;
-        internal Instruct FIST;
-        internal Instruct FLDCW;
-        internal Instruct FLD1;
-        internal Instruct FLDZ;
-        internal Instruct FIMUL;
-        internal Instruct FRNDINT;
-        internal Instruct FMUL;
         internal Instruct FSTENV;
-        internal Instruct FSTCW;
-        internal Instruct FSTSW;
-        internal Instruct HLT;
-        internal Instruct ICEBP;
-        internal Instruct IDIV;
-        internal Instruct IMUL;
-        internal Instruct IN;
-        internal Instruct INS;
         internal Instruct INT;
-        internal Instruct INTO;
-        internal Instruct IRET;
-        internal Instruct JAE;
-        internal Instruct JBE;
-        internal Instruct JC;
-        internal Instruct JCXZ;
-        internal Instruct JE;
-        internal Instruct JG;
-        internal Instruct JGE;
-        internal Instruct JL;
-        internal Instruct JLE;
-        internal Instruct JMPF;
-        internal Instruct JNA;
-        internal Instruct JNAE;
-        internal Instruct JNB;
-        internal Instruct JNBE;
-        internal Instruct JNC;
-        internal Instruct JNE;
-        internal Instruct JNG;
-        internal Instruct JNGE;
-        internal Instruct JNLE;
-        internal Instruct JNO;
-        internal Instruct JNP;
-        internal Instruct JNS;
-        internal Instruct JNZ;
-        internal Instruct JO;
-        internal Instruct JP;
-        internal Instruct JPE;
-        internal Instruct JPO;
-        internal Instruct JS;
-        internal Instruct JZ;
-        internal Instruct LAHF;
-        internal Instruct LDS;
-        internal Instruct LEA;
-        internal Instruct LEAVE;
-        internal Instruct LES;
-        internal Instruct LFS;
-        internal Instruct LGS;
-        internal Instruct LIDT;
-        internal Instruct LLDT;
-        internal Instruct LGDT;
-        internal Instruct LMSW;
-        internal Instruct LTR;
-        /*internal Instruct LOCK = new LOCK(),this);*/
-        internal Instruct LODSB;
         internal Instruct LODSD;
-        internal Instruct LODSW;
-        internal Instruct LOOP;
         internal Instruct LOOPE;
         internal Instruct LOOPNE;
-        internal Instruct LOOPNZ;
-        internal Instruct LOOPZ;
-        internal Instruct LSS;
-        internal Instruct MOVSX;
-        internal Instruct MOVZX;
-        internal Instruct MOVSB;
         internal Instruct MOVSD;
-        internal Instruct MOVSW;
-        internal Instruct MUL;
-        internal Instruct NEG;
-        internal Instruct NOP;
-        internal Instruct NOT;
-        internal Instruct OR;
-        internal Instruct OUT;
-        internal Instruct OUTS;
-        internal Instruct POPA;
         internal Instruct POPF;
-        internal Instruct PUSHA;
-        internal Instruct PUSHAD;
-        internal Instruct PUSHF;
-        internal Instruct RCL;
-        internal Instruct RCR;
-        internal Instruct REP;
         internal Instruct REPZ;
-        internal Instruct REPE;
         internal Instruct REPNE;
-        internal Instruct REPNZ;
-        internal Instruct RET;
-        internal Instruct RETF;
-        internal Instruct RDTSC;
-        internal Instruct ROL;
-        internal Instruct ROR;
-        internal Instruct SAHF;
-        internal Instruct SBB;
-        internal Instruct SCASB;
         internal Instruct SCASD;
-        internal Instruct SCASW;
-        internal Instruct SAL;
-        internal Instruct SALC;
-        internal Instruct SAR;
-        internal Instruct SETcc;
-        internal Instruct SGDT;
         internal Instruct SHL;
-        internal Instruct SIDT;
-        internal Instruct SHLD;
-        internal Instruct SMSW;
         internal Instruct SHR;
-        internal Instruct SHRD;
-        internal Instruct STC;
-        internal Instruct STD;
-        internal Instruct STI;
-        internal Instruct STR;
-        internal Instruct STOSB;
         internal Instruct STOSD;
-        internal Instruct STOSW;
-        internal Instruct SUB;
-        internal Instruct TEST;
         internal Instruct FWAIT;
-        internal Instruct VERR;
-        internal Instruct VERW;
-        internal Instruct XCHG;
-        internal Instruct XLAT;
-        internal Instruct XLATB;
-        internal Instruct XOR;
-        internal Instruct GRP1;
-        internal Instruct GRP2;
-        internal Instruct GRP3a;
-        internal Instruct GRP3b;
-        internal Instruct GRP4;
-        internal Instruct GRP5;
-        internal Instruct GRP60;
-        internal Instruct GRP61;
-        internal Instruct GRP7;
-        internal Instruct GRP8;
-        internal Instruct GRPC0;
-        internal Instruct GRPC1;
-        internal Instruct GRPPUSH;
-        internal Instruct AAA;
-        internal Instruct AAD;
-        internal Instruct AAM;
-        internal Instruct AAS;
-        internal Instruct ADC;
-        internal Instruct ARPL;
-        internal Instruct BOUND;
+ 
 
     }
 

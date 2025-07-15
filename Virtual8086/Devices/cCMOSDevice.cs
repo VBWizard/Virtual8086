@@ -15,9 +15,6 @@ namespace VirtualProcessor.Devices
         FileStream mCMOSFile;
         //TODO: Making protected incase other classes need to review.  If this turns out not to be the case (ports used only to access) then change to private
         protected byte[] mCMOS = new byte[CMOS_SIZE];
-        int periodic_timer_index;
-        int periodic_interval_usec;
-        int one_second_timer_index;
         DateTime timeval;
         byte cmos_mem_address;
         Boolean mOneSecondTimerActive = false, mPeriodicTimerActive = false;
@@ -73,14 +70,12 @@ namespace VirtualProcessor.Devices
                 // No Periodic Interrupt Rate when 0, deactivate timer
                 //bx_pc_system.deactivate_timer(periodic_timer_index);
                 mPeriodicTimerActive = false;
-                periodic_interval_usec = -1; // max value
             }
             else
             {
                 // values 0001b and 0010b are the same as 1000b and 1001b
                 if (nibble <= 2)
                     nibble += 7;
-                periodic_interval_usec = (int)(1000000.0 / (32768.0 / (1 << (nibble - 1))));
 
                  //if Periodic Interrupt Enable bit set, activate timer
                 if ((mCMOS[0x0b] & 0x40) > 0)
@@ -163,12 +158,16 @@ namespace VirtualProcessor.Devices
 
             while (mPauseCMOSForUpdate)
                 Thread.Sleep(1);
+            if (IO.Portnum == 0x0a)
+                Ret8 = 0x1;
             //NOTE: No switch needed, we won't see anything IN on port 70 because we defined the IO handler as OUT only
             if (cmos_mem_address >= CMOS_SIZE)
                 mParent.mSystem.HandleException(this, new Exception("unsupported cmos io read, register " + cmos_mem_address.ToString("X2") + " = " + (Word)IO.Value));
             Ret8 = mCMOS[cmos_mem_address];
-            // all bits of Register C are cleared after a read occurs.
-            if (cmos_mem_address == 0x0c)
+            if (mParent.mSystem.Debuggies.DebugCMOS)
+                mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, $"DEBUG: Port 0xA = {mCMOS[cmos_mem_address].ToString("X2")}, Ret8 = {Ret8.ToString("X2")}");
+                                                                // all bits of Register C are cleared after a read occurs.
+                if (cmos_mem_address == 0x0c)
                 mCMOS[0x0c] = 0x00;
             mParent.mProc.ports.mPorts[DATA_PORT] = Ret8;
             if (mParent.mSystem.Debuggies.DebugCMOS)
@@ -179,6 +178,9 @@ namespace VirtualProcessor.Devices
         {
             while (mPauseCMOSForUpdate)
                 Thread.Sleep(1);
+            if (mParent.mSystem.Debuggies.DebugCMOS)
+                mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "write to address " + cmos_mem_address.ToString("X2") +
+                    ", value: " + IO.Value.ToString("X2"));
             switch (IO.Portnum)
             {
                 case INDEX_PORT: //0x70
@@ -205,6 +207,7 @@ namespace VirtualProcessor.Devices
                             if ((((byte)IO.Value >> 4) & 0x07) != 0x02)
                             {
                                 mCMOS[cmos_mem_address] = (byte)(IO.Value & 0x7f);
+                                mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, $"DEBUG: Storing {mCMOS[cmos_mem_address]} to 0xA");
                                 CRA_Change();
                             }
                             return;
@@ -255,35 +258,36 @@ namespace VirtualProcessor.Devices
                             {
                                 case 0x00: /* proceed with normal POST (soft reset) */
                                     if (mParent.mSystem.Debuggies.DebugCMOS)
-                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0F set to 0: shutdown action = normal POST");
+                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0F set to 0: shutdown action = normal POST");
                                     break;
                                 case 0x02: /* shutdown after memory test */
                                     if (mParent.mSystem.Debuggies.DebugCMOS)
-                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh: request to change shutdown action to shutdown after memory test");
+                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh: request to change shutdown action to shutdown after memory test");
                                     break;
                                 case 0x03:
-                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh(03) : Shutdown after memory test !");
+                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh(03) : Shutdown after memory test !");
                                     break;
                                 case 0x04: /* jump to disk bootstrap routine */
-                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh: request to change shutdown action to jump to disk bootstrap routine.");
+                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh: request to change shutdown action to jump to disk bootstrap routine.");
                                     break;
                                 case 0x06:
-                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh(06) : Shutdown after memory test !");
+                                    mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh(06) : Shutdown after memory test !");
                                     break;
                                 case 0x09: /* return to BIOS extended memory block move
                        (interrupt 15h, func 87h was in progress) */
                                     if (mParent.mSystem.Debuggies.DebugCMOS)
-                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh: request to change shutdown action to return to BIOS extended memory block move.");
+                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh: request to change shutdown action to return to BIOS extended memory block move.");
                                     break;
                                 case 0x0a: /* jump to DWORD pointer at 40:67 */
                                     if (mParent.mSystem.Debuggies.DebugCMOS)
-                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "ModRegRM_Reg 0Fh: request to change shutdown action to jump to DWORD at 40:67");
+                                        mParent.mSystem.PrintDebugMsg(eDebuggieNames.CMOS, "Port 0Fh: request to change shutdown action to jump to DWORD at 40:67");
                                     break;
                                 default:
                                     mParent.mSystem.HandleException(this, new Exception("unsupported cmos io write to reg F, case " + (byte)IO.Value + "!"));
                                     break;
                             }
-                            mCMOS[cmos_mem_address] = (byte)IO.Value;
+                            //CLR 03/17/2024 - Don't store the value if w didn't idntify it above
+                            //mCMOS[cmos_mem_address] = (byte)IO.Value;
                             break; //DATA_PORT
                     }
                     break;
@@ -373,6 +377,7 @@ namespace VirtualProcessor.Devices
         } //one_second_timer
         void PeriodicTimerHandler()
         {
+            return;  //the existing code doesn't work correctly ... it should raise IRQ ? and only based on the period specified
             if ((mCMOS[0x0b] & 0x40) > 0)
             {
                 mCMOS[0x0c] |= 0xc0;

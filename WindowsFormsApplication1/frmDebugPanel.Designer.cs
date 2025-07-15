@@ -35,13 +35,13 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chTaskName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdAddBP = new System.Windows.Forms.Button();
             this.cmdRemoveBP = new System.Windows.Forms.Button();
             this.clbBreakOnOptions = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdClose = new System.Windows.Forms.Button();
-            this.chTaskName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lvBreakpoints
@@ -57,10 +57,12 @@
             this.chTaskName,
             this.columnHeader4});
             this.lvBreakpoints.FullRowSelect = true;
-            this.lvBreakpoints.Location = new System.Drawing.Point(23, 24);
+            this.lvBreakpoints.HideSelection = false;
+            this.lvBreakpoints.Location = new System.Drawing.Point(31, 30);
+            this.lvBreakpoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvBreakpoints.MultiSelect = false;
             this.lvBreakpoints.Name = "lvBreakpoints";
-            this.lvBreakpoints.Size = new System.Drawing.Size(728, 251);
+            this.lvBreakpoints.Size = new System.Drawing.Size(969, 308);
             this.lvBreakpoints.TabIndex = 0;
             this.lvBreakpoints.UseCompatibleStateImageBehavior = false;
             this.lvBreakpoints.View = System.Windows.Forms.View.Details;
@@ -93,6 +95,11 @@
             // 
             this.columnHeader7.Text = "DOS Int";
             // 
+            // chTaskName
+            // 
+            this.chTaskName.Text = "Task Name";
+            this.chTaskName.Width = 143;
+            // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "RemoveOnHit";
@@ -100,9 +107,10 @@
             // 
             // cmdAddBP
             // 
-            this.cmdAddBP.Location = new System.Drawing.Point(476, 281);
+            this.cmdAddBP.Location = new System.Drawing.Point(635, 346);
+            this.cmdAddBP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdAddBP.Name = "cmdAddBP";
-            this.cmdAddBP.Size = new System.Drawing.Size(131, 23);
+            this.cmdAddBP.Size = new System.Drawing.Size(175, 28);
             this.cmdAddBP.TabIndex = 1;
             this.cmdAddBP.Text = "&Add Breakpoint";
             this.cmdAddBP.UseVisualStyleBackColor = true;
@@ -110,9 +118,10 @@
             // 
             // cmdRemoveBP
             // 
-            this.cmdRemoveBP.Location = new System.Drawing.Point(620, 281);
+            this.cmdRemoveBP.Location = new System.Drawing.Point(827, 346);
+            this.cmdRemoveBP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdRemoveBP.Name = "cmdRemoveBP";
-            this.cmdRemoveBP.Size = new System.Drawing.Size(131, 23);
+            this.cmdRemoveBP.Size = new System.Drawing.Size(175, 28);
             this.cmdRemoveBP.TabIndex = 1;
             this.cmdRemoveBP.Text = "&Remove Breakpoint";
             this.cmdRemoveBP.UseVisualStyleBackColor = true;
@@ -122,18 +131,21 @@
             // 
             this.clbBreakOnOptions.CheckOnClick = true;
             this.clbBreakOnOptions.FormattingEnabled = true;
-            this.clbBreakOnOptions.Location = new System.Drawing.Point(772, 54);
+            this.clbBreakOnOptions.Location = new System.Drawing.Point(1029, 66);
+            this.clbBreakOnOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clbBreakOnOptions.Name = "clbBreakOnOptions";
-            this.clbBreakOnOptions.Size = new System.Drawing.Size(220, 94);
+            this.clbBreakOnOptions.Size = new System.Drawing.Size(292, 106);
             this.clbBreakOnOptions.TabIndex = 2;
+            this.clbBreakOnOptions.SelectedIndexChanged += new System.EventHandler(this.clbBreakOnOptions_SelectedIndexChanged);
             this.clbBreakOnOptions.SelectedValueChanged += new System.EventHandler(this.clbBreakOnOptions_SelectedValueChanged);
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(772, 24);
+            this.label1.Location = new System.Drawing.Point(1029, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(220, 27);
+            this.label1.Size = new System.Drawing.Size(293, 33);
             this.label1.TabIndex = 3;
             this.label1.Text = "Break on ...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -141,31 +153,28 @@
             // cmdClose
             // 
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.Location = new System.Drawing.Point(772, 281);
+            this.cmdClose.Location = new System.Drawing.Point(1029, 346);
+            this.cmdClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(75, 23);
+            this.cmdClose.Size = new System.Drawing.Size(100, 28);
             this.cmdClose.TabIndex = 4;
             this.cmdClose.Text = "&Close";
             this.cmdClose.UseVisualStyleBackColor = true;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
-            // chTaskName
-            // 
-            this.chTaskName.Text = "Task Name";
-            this.chTaskName.Width = 143;
-            // 
             // frmDebugPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(1010, 312);
+            this.ClientSize = new System.Drawing.Size(1347, 384);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.clbBreakOnOptions);
             this.Controls.Add(this.cmdRemoveBP);
             this.Controls.Add(this.cmdAddBP);
             this.Controls.Add(this.lvBreakpoints);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmDebugPanel";
             this.Text = "frmDebugPanel";
             this.Activated += new System.EventHandler(this.frmDebugPanel_Activated);

@@ -2064,6 +2064,41 @@
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
   </Op>
+  <Op OpCode="FE02">
+    <Instruction>CALL</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE03">
+    <Instruction>CALLF</Instruction>
+    <Operand1>Mp</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE04">
+    <Instruction>JMP</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE05">
+    <Instruction>JMPF</Instruction>
+    <Operand1>Mp</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="FE06">
+    <Instruction>PUSH</Instruction>
+    <Operand1>Ev</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
   <Op OpCode="FF00">
     <Instruction>INC</Instruction>
     <Operand1>Ev</Operand1>
@@ -2340,6 +2375,13 @@
   <Op OpCode="D800">
     <Instruction>FADD</Instruction>
     <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DE00">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mw</Operand1>
     <Operand2>-1</Operand2>
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
@@ -2680,6 +2722,20 @@
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
   </Op>
+  <Op OpCode="DB06">
+    <Instruction>FCOM</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DB07">
+    <Instruction>FST</Instruction>
+    <Operand1>Md</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
   <Op OpCode="DBE1">
     <Instruction>NOP</Instruction>
     <Operand1>-1</Operand1>
@@ -2697,6 +2753,13 @@
   <Op OpCode="DBE3">
     <Instruction>FINIT</Instruction>
     <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DC00">
+    <Instruction>FADD</Instruction>
+    <Operand1>Mq</Operand1>
     <Operand2>-1</Operand2>
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
@@ -2808,7 +2871,7 @@
   </Op>
   <Op OpCode="DD06">
     <Instruction>FSAVE</Instruction>
-    <Operand1>-1</Operand1>
+    <Operand1>Md</Operand1>
     <Operand2>-1</Operand2>
     <Operand3>-1</Operand3>
     <UseNewDecoder>1</UseNewDecoder>
@@ -2968,6 +3031,13 @@
     <UseNewDecoder>1</UseNewDecoder>
   </Op>
   <Op OpCode="DEF9">
+    <Instruction>FDIV</Instruction>
+    <Operand1>-1</Operand1>
+    <Operand2>-1</Operand2>
+    <Operand3>-1</Operand3>
+    <UseNewDecoder>1</UseNewDecoder>
+  </Op>
+  <Op OpCode="DEFF">
     <Instruction>FDIV</Instruction>
     <Operand1>-1</Operand1>
     <Operand2>-1</Operand2>
