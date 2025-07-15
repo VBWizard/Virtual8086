@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VirtualProcessor
 {
     public class PhysicalMem
     {
-        public static UInt32[] mChangeAddress = new UInt32[67108864];
-        public static byte[] mChanges = new byte[67108864];
+        public static List<uint> mChangeAddress = new List<uint>();
+        public static List<byte> mChanges = new List<byte>();
         public static long mChangesPending = 0;
         public static byte[] mMemBytes;
         public bool mUsePaging = true;
@@ -90,15 +91,17 @@ namespace VirtualProcessor
             return (UInt16)(MemLocation >> 32);
         }
 
-        public static void Commit(Processor_80x86 mProc, uint[] mChangeAddress, byte[] mChanges)
+        public static void Commit(Processor_80x86 mProc, List<uint> mChangeAddress, List<byte> mChanges)
         {
-            for (int cnt = 0; cnt < PhysicalMem.mChangesPending; cnt++)
+            for (int cnt = 0; cnt < mChangeAddress.Count; cnt++)
             {
                 PhysicalMem.mMemBytes[mChangeAddress[cnt]] = mChanges[cnt];
 #if CALCULATE_PAGE_MEMORY_USAGE
                 BlockChanged(mProc, mChangeAddress[cnt], true);
 #endif
             }
+            mChangeAddress.Clear();
+            mChanges.Clear();
             mChangesPending = 0;
         }
 
@@ -185,27 +188,29 @@ namespace VirtualProcessor
             //Update PDE and PTE
             PDE |= (1 << 5);
             //pMemory(mProc, dirIdx, (UInt32)(DirEntry | (1 << 5)));
-            mChangeAddress[mChangesPending] = directoryIndexPtr;
-            mChanges[mChangesPending++] = (byte)PDE;
-            mChangeAddress[mChangesPending] = directoryIndexPtr + 1;
-            mChanges[mChangesPending++] = (byte)(PDE >> 8);
-            mChangeAddress[mChangesPending] = directoryIndexPtr + 2;
-            mChanges[mChangesPending++] = (byte)(PDE >> 16);
-            mChangeAddress[mChangesPending] = directoryIndexPtr + 3;
-            mChanges[mChangesPending++] = (byte)(PDE >> 24);
+            mChangeAddress.Add(directoryIndexPtr);
+            mChanges.Add((byte)PDE);
+            mChangeAddress.Add(directoryIndexPtr + 1);
+            mChanges.Add((byte)(PDE >> 8));
+            mChangeAddress.Add(directoryIndexPtr + 2);
+            mChanges.Add((byte)(PDE >> 16));
+            mChangeAddress.Add(directoryIndexPtr + 3);
+            mChanges.Add((byte)(PDE >> 24));
+            mChangesPending = mChangeAddress.Count;
 
             PTE |= (1 << 5);
             if (Writing)
                 PTE |= (1 << 6);
             //pMemory(mProc, pageEntry, (UInt32)(PageEntry));
-            mChangeAddress[mChangesPending] = pageIndexPtr;
-            mChanges[mChangesPending++] = (byte)PTE;
-            mChangeAddress[mChangesPending] = pageIndexPtr + 1;
-            mChanges[mChangesPending++] = (byte)(PTE >> 8);
-            mChangeAddress[mChangesPending] = pageIndexPtr + 2;
-            mChanges[mChangesPending++] = (byte)(PTE >> 16);
-            mChangeAddress[mChangesPending] = pageIndexPtr + 3;
-            mChanges[mChangesPending++] = (byte)(PTE >> 24);
+            mChangeAddress.Add(pageIndexPtr);
+            mChanges.Add((byte)PTE);
+            mChangeAddress.Add(pageIndexPtr + 1);
+            mChanges.Add((byte)(PTE >> 8));
+            mChangeAddress.Add(pageIndexPtr + 2);
+            mChanges.Add((byte)(PTE >> 16));
+            mChangeAddress.Add(pageIndexPtr + 3);
+            mChanges.Add((byte)(PTE >> 24));
+            mChangesPending = mChangeAddress.Count;
 
             if ((PTE & 0xFFFFF000) + (Address & 0x00000FFF) > mMemBytes.Length)
             {
@@ -306,6 +311,8 @@ namespace VirtualProcessor
 
         public void Rollback()
         {
+            mChangeAddress.Clear();
+            mChanges.Clear();
             mChangesPending = 0;
         }
 
@@ -458,8 +465,9 @@ namespace VirtualProcessor
                 }
 #endif
                 //If we get here, there was no memory handler hit
-                mChangeAddress[mChangesPending] = mPME;
-                mChanges[mChangesPending++] = Value;
+                mChangeAddress.Add(mPME);
+                mChanges.Add(Value);
+                mChangesPending = mChangeAddress.Count;
             }
             else
             {
@@ -1104,9 +1112,10 @@ namespace VirtualProcessor
                     return;
                 for (UInt32 loc = lMemAddr3; loc <= lMemAddr3 + 1; loc++)
                 {
-                    mChangeAddress[mChangesPending] = loc;
-                    mChanges[mChangesPending++] = (byte)(Value & 0xFF); Value >>= 8;
+                    mChangeAddress.Add(loc);
+                    mChanges.Add((byte)(Value & 0xFF)); Value >>= 8;
                 }
+                mChangesPending = mChangeAddress.Count;
                 return;
             }
             lMemAddr3 = Location;
@@ -1124,9 +1133,10 @@ namespace VirtualProcessor
                     return;
                 for (UInt32 loc = lMemAddr3; loc <= lMemAddr3 + 3; loc++)
                 {
-                    mChangeAddress[mChangesPending] = loc;
-                    mChanges[mChangesPending++] = (byte)(Value & 0xFF); Value >>= 8;
+                    mChangeAddress.Add(loc);
+                    mChanges.Add((byte)(Value & 0xFF)); Value >>= 8;
                 }
+                mChangesPending = mChangeAddress.Count;
                 return;
             }
             lMemAddr3 = Location;
