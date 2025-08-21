@@ -9931,6 +9931,12 @@ break;
             mProc.regs.setFlagPF(Dest.OpQWord);
             mProc.regs.setFlagZF(Dest.OpQWord);
 
+            if (Count == 1) {
+                int msb  = Misc.getBit(Dest.OpQWord, Size - 1);
+                int next = Misc.getBit(Dest.OpQWord, Size - 2);
+                mProc.regs.setFlagOF((msb ^ next) == 1);
+            }
+
             #region Instructions
             #endregion
         }
