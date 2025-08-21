@@ -10791,7 +10791,8 @@ break;
             mProc.regs.setFlagOF(false);
             mProc.regs.setFlagPF(lOp1Value.OpQWord);
             mProc.regs.setFlagZF(lOp1Value.OpQWord);
-            //AF flag undefined
+            mProc.regs.setFlagAF(false);
+            //AF flag cleared
 
             #region Instructions
             #endregion
