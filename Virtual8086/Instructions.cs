@@ -9067,9 +9067,9 @@ break;
             mProc.regs.setFlagCF(Misc.getBit(lOp1Value.OpQWord, lTopBitNum) == 1);
             if (CurrentDecode.Op2Value.OpByte == 1)
             {
-                int lMSBDest = Misc.getBit(lOp1Value.OpQWord, lTopBitNum);
-                int lXORd = lMSBDest ^ (mProc.regs.FLAGS & 0x01);
-                mProc.regs.setFlagOF(lXORd == 1);
+                int msb  = Misc.getBit(lOp1Value.OpQWord, lTopBitNum);
+                int next = Misc.getBit(lOp1Value.OpQWord, lTopBitNum - 1);
+                mProc.regs.setFlagOF((msb ^ next) == 1);
             }
 
             #region Instructions
