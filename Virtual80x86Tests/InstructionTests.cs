@@ -27,6 +27,7 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
+        static SAHF insSAHF;
         static SCASB insSCASB;
         static SHR insSHR;
 
@@ -45,6 +46,7 @@ namespace VirtualProcessor.Tests
             insADC = new ADC() { mProc = mProc };
             insSTC = new STC() { mProc = mProc };
             insCLC = new CLC() { mProc = mProc };
+            insSAHF = new SAHF() { mProc = mProc };
             insSCASB = new SCASB() { mProc = mProc };
             insSHR = new SHR() { mProc = mProc };
         }
@@ -146,6 +148,23 @@ namespace VirtualProcessor.Tests
 
 
         }
+
+        [TestMethod()]
+        public void SAHFTests()
+        {
+            sIns = new sInstruction();
+
+            // Ensure reserved bits (1,3,5) are not modified when clearing flags
+            mProc.regs.FLAGS = 0xFF; // set all bits
+            mProc.regs.AH = 0x00;    // clear all status flag bits
+            insSAHF.Impl(ref sIns);
+            Assert.AreEqual(0x2A, mProc.regs.FLAGS & 0xFF, "SAHF did not preserve reserved bits when clearing flags");
+
+            // Ensure status flags update while reserved bits remain unchanged
+            mProc.regs.FLAGS = 0x00; // reserved bits start cleared
+            mProc.regs.AH = 0xFF;    // set all flag bits in AH
+            insSAHF.Impl(ref sIns);
+            Assert.AreEqual(0xD5, mProc.regs.FLAGS & 0xFF, "SAHF did not correctly set status flags");
 
         [TestMethod]
         public void SCASBRepVariants()
