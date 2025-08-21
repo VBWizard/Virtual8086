@@ -8507,7 +8507,9 @@ break;
                 mProc.PUSH.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
             }
@@ -8518,7 +8520,9 @@ break;
                 mProc.PUSH.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
             }
