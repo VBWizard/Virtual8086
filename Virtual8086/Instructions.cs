@@ -4317,7 +4317,7 @@ break;
                     mOp1_8 = (sbyte)mProc.regs.AL;
                     mOp2_8 = (sbyte)CurrentDecode.Op1Value.OpByte;
                     mProc.regs.AX = (UInt16)(Int16)(mOp1_8 * mOp2_8);
-                    IMUL_SetFlags(mProc.regs.AX, mProc.regs.AL);
+                    IMUL_SetFlags((long)(short)Misc.SignExtend(mProc.regs.AL), (long)(short)mProc.regs.AX);
                     break;
                 #endregion
                 #region 0xF7
@@ -4336,9 +4336,8 @@ break;
                         mOp2_32 = (Int32)CurrentDecode.Op1Value.OpDWord;
                         mProc.regs.EDX = Misc.GetHi((Int64)(mOp1_32 * mOp2_32));
                         mProc.regs.EAX = Misc.GetLo((Int64)(mOp1_32 * mOp2_32));
-                        IMUL_SetFlags((Int64)mProc.regs.EAX, (Int64)((mProc.regs.EDX << 32) + mProc.regs.EAX));
-
-
+                        long full = ((long)(int)mProc.regs.EDX << 32) | mProc.regs.EAX;
+                        IMUL_SetFlags((long)(int)mProc.regs.EAX, full);
                     }
                     break;
                 #endregion
