@@ -8868,7 +8868,9 @@ break;
             }
             if (ins.ExceptionThrown)
             {
-                
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                 return;
             }
             ins.Op1Add = 0;
@@ -8906,11 +8908,20 @@ break;
             mProc.POP.Impl(ref ins);
             if (ins.ExceptionThrown)
             {
-                
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                 return;
             }
             ins.Op1Add = Processor_80x86.RCS;
             mProc.POP.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Add = 0x0;
             //TODO: Need to update for StackSize=32
                 mProc.regs.SP += (UInt16)(CurrentDecode.Op1Value.OpWord & 0xFFFF);
