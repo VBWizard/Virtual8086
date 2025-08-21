@@ -8150,16 +8150,60 @@ break;
                 ins.Op1Add = Processor_80x86.RDI; mProc.POP.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
                 ins.Op1Add = Processor_80x86.RSI; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.RBP; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 mProc.regs.SP += 2;
                 ins.Op1Add = Processor_80x86.RBX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.RDX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.RCX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.RAX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
             }
             else
             {
@@ -8167,16 +8211,60 @@ break;
                 ins.Op1Add = Processor_80x86.REDI; mProc.POP.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
                 ins.Op1Add = Processor_80x86.RESI; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.REBP; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 mProc.regs.SP += 4;
                 ins.Op1Add = Processor_80x86.REBX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.REDX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.RECX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Add = Processor_80x86.REAX; mProc.POP.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
             }
         }
     }
