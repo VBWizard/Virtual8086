@@ -8204,9 +8204,10 @@ break;
             mProc.POP.mNoSetMemoryToValue = true;
             ins.Operand1IsRef = false;
             mProc.POP.Impl(ref ins);
-            if (ins.ExceptionThrown)
-            {
-
+            if (ins.ExceptionThrown) {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                 return;
             }
             lTempFlags = ins.Op1Value.OpDWord;
