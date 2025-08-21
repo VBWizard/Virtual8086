@@ -8384,23 +8384,74 @@ break;
                 mProc.PUSH.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
                 ins.Op1Value.OpWord = mProc.regs.CX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = mProc.regs.DX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = mProc.regs.BX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = lOrigSP;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = mProc.regs.BP;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = mProc.regs.SI;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpWord = mProc.regs.DI;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
             }
             else
             {
@@ -8409,23 +8460,74 @@ break;
                 mProc.PUSH.Impl(ref ins);
                 if (ins.ExceptionThrown)
                 {
-                    
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                     return;
                 }
                 ins.Op1Value.OpDWord = mProc.regs.ECX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = mProc.regs.EDX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = mProc.regs.EBX;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = lOrigESP;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = mProc.regs.EBP;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = mProc.regs.ESI;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 ins.Op1Value.OpDWord = mProc.regs.EDI;
                 mProc.PUSH.Impl(ref ins);
+                if (ins.ExceptionThrown)
+                {
+                    CurrentDecode.ExceptionThrown = true;
+                    CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                    CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                    return;
+                }
                 
             
             }
@@ -8458,23 +8560,74 @@ break;
             mProc.PUSH.Impl(ref ins);
             if (ins.ExceptionThrown)
             {
-                
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
                 return;
             }
             ins.Op1Value.OpDWord = mProc.regs.ECX;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = mProc.regs.EDX;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = mProc.regs.EBX;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = lOrigESP;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = mProc.regs.EBP;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = mProc.regs.ESI;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
             ins.Op1Value.OpDWord = mProc.regs.EDI;
             mProc.PUSH.Impl(ref ins);
+            if (ins.ExceptionThrown)
+            {
+                CurrentDecode.ExceptionThrown = true;
+                CurrentDecode.ExceptionNumber = ins.ExceptionNumber;
+                CurrentDecode.ExceptionErrorCode = ins.ExceptionErrorCode;
+                return;
+            }
 
         }
     }
