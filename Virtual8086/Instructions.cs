@@ -9109,7 +9109,8 @@ break;
             //sTempFlags += Misc.getBit(mProc.regs.AH, 0);
 
             //08/27/10 - changed from ^= to=  **** OMG THIS FIXED IT, A> prompt!!! ****
-            mProc.regs.FLAGS = (Word)((mProc.regs.FLAGS & 0xFF00) + mProc.regs.AH);
+            //03/17/24 - updated to preserve reserved flag bits when loading from AH
+            mProc.regs.FLAGS = (Word)((mProc.regs.FLAGS & ~0x00D5) | (mProc.regs.AH & 0xD5));
             #region Instructions
             /*
               Operation
