@@ -10696,13 +10696,13 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            UInt16 lTemp = 0;
+            UInt32 lTemp = 0;
             if (mProc.mSegmentOverride == 0)
                 mProc.mSegmentOverride = Processor_80x86.RDS;
             if (mProc.mCurrInstructAddrSize16)
                 lTemp = (UInt16)(mProc.regs.BX + mProc.regs.AL);
             else
-                lTemp = (UInt16)(mProc.regs.EBX + mProc.regs.AL);
+                lTemp = mProc.regs.EBX + mProc.regs.AL;
 
             UInt32 loc = GetSegOverriddenAddress(mProc, lTemp);
             mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, loc);
@@ -10729,10 +10729,17 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            UInt32 TableBase = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.BX);
-            mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, TableBase + mProc.regs.AL);
+            UInt32 lTemp = 0;
+            if (mProc.mSegmentOverride == 0)
+                mProc.mSegmentOverride = Processor_80x86.RDS;
+            if (mProc.mCurrInstructAddrSize16)
+                lTemp = (UInt16)(mProc.regs.BX + mProc.regs.AL);
+            else
+                lTemp = mProc.regs.EBX + mProc.regs.AL;
 
-            throw new Exception("Partially implemented!");
+            UInt32 loc = GetSegOverriddenAddress(mProc, lTemp);
+            mProc.regs.AL = PhysicalMem.GetByte(mProc, ref CurrentDecode, loc);
+
             #region Instructions
             #endregion
         }
