@@ -1571,6 +1571,7 @@ break;
 
             DWord lSource = 0;
             DWord lDest = 0;
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
             bool lRepeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
@@ -7294,6 +7295,7 @@ break;
         {
             DWord lSource = 0;
             DWord lDest = 0;
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             //mProc.mCurrentInstruction.mName = "MOVSB\n";
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
@@ -7320,11 +7322,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class MOVSW : Instruct
@@ -7348,6 +7353,7 @@ break;
         {
             DWord lSource = 0;
             DWord lDest = 0;
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
 
 
@@ -7389,10 +7395,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
         public static void IncDec(Processor_80x86 mProc, ref DWord Dest, ref DWord Src, bool AddrSize16, byte Size, bool IncSource, bool IncDest, bool SourceOverridable, bool DestOverridable)
         {
@@ -7587,7 +7597,7 @@ break;
         {
             DWord lSource = 0;
             DWord lDest = 0;
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
@@ -7612,11 +7622,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class MOVSX : Instruct
