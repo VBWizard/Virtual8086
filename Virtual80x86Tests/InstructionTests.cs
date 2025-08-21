@@ -156,6 +156,95 @@ namespace VirtualProcessor.Tests
         }
 
         [TestMethod()]
+        public void IDIVByte_Success()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.AX = 0x0008;
+            sIns.Op1TypeCode = TypeCode.Byte;
+            sIns.Op1Value.OpByte = 0x02;
+            insIDIV.Impl(ref sIns);
+            Assert.IsFalse(sIns.ExceptionThrown, "IDIV byte success threw exception");
+            Assert.AreEqual((byte)4, mProc.regs.AL, "IDIV byte quotient");
+            Assert.AreEqual((byte)0, mProc.regs.AH, "IDIV byte remainder");
+        }
+
+        [TestMethod()]
+        public void IDIVByte_DivideError()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.AX = 0x7FFF;
+            sIns.Op1TypeCode = TypeCode.Byte;
+            sIns.Op1Value.OpByte = 0x01;
+            insIDIV.Impl(ref sIns);
+            Assert.IsTrue(sIns.ExceptionThrown, "IDIV byte divide error not thrown");
+            Assert.AreEqual(0x00, sIns.ExceptionNumber, "IDIV byte divide error code");
+            Assert.AreEqual(0x7FFF, mProc.regs.AX, "IDIV byte dividend modified");
+        }
+
+        [TestMethod()]
+        public void IDIVWord_Success()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.DX = 0x0000;
+            mProc.regs.AX = 0x8000;
+            sIns.Op1TypeCode = TypeCode.UInt16;
+            sIns.Op1Value.OpWord = 0x0002;
+            insIDIV.Impl(ref sIns);
+            Assert.IsFalse(sIns.ExceptionThrown, "IDIV word success threw exception");
+            Assert.AreEqual((UInt16)0x4000, mProc.regs.AX, "IDIV word quotient");
+            Assert.AreEqual((UInt16)0x0000, mProc.regs.DX, "IDIV word remainder");
+        }
+
+        [TestMethod()]
+        public void IDIVWord_DivideError()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.DX = 0x0001;
+            mProc.regs.AX = 0x0000;
+            sIns.Op1TypeCode = TypeCode.UInt16;
+            sIns.Op1Value.OpWord = 0x0001;
+            insIDIV.Impl(ref sIns);
+            Assert.IsTrue(sIns.ExceptionThrown, "IDIV word divide error not thrown");
+            Assert.AreEqual(0x00, sIns.ExceptionNumber, "IDIV word divide error code");
+            Assert.AreEqual((UInt16)0x0001, mProc.regs.DX, "IDIV word dividend modified (DX)");
+            Assert.AreEqual((UInt16)0x0000, mProc.regs.AX, "IDIV word dividend modified (AX)");
+        }
+
+        [TestMethod()]
+        public void IDIVDWord_Success()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.EDX = 0x00000000;
+            mProc.regs.EAX = 0x80000000;
+            sIns.Op1TypeCode = TypeCode.UInt32;
+            sIns.Op1Value.OpDWord = 0x00000002;
+            insIDIV.Impl(ref sIns);
+            Assert.IsFalse(sIns.ExceptionThrown, "IDIV dword success threw exception");
+            Assert.AreEqual(0x40000000u, mProc.regs.EAX, "IDIV dword quotient");
+            Assert.AreEqual(0x00000000u, mProc.regs.EDX, "IDIV dword remainder");
+        }
+
+        [TestMethod()]
+        public void IDIVDWord_DivideError()
+        {
+            IDIV insIDIV = new IDIV() { mProc = mProc };
+            sIns = new sInstruction();
+            mProc.regs.EDX = 0x00000002;
+            mProc.regs.EAX = 0x00000000;
+            sIns.Op1TypeCode = TypeCode.UInt32;
+            sIns.Op1Value.OpDWord = 0x00000001;
+            insIDIV.Impl(ref sIns);
+            Assert.IsTrue(sIns.ExceptionThrown, "IDIV dword divide error not thrown");
+            Assert.AreEqual(0x00, sIns.ExceptionNumber, "IDIV dword divide error code");
+            Assert.AreEqual(0x00000002u, mProc.regs.EDX, "IDIV dword dividend modified (EDX)");
+            Assert.AreEqual(0x00000000u, mProc.regs.EAX, "IDIV dword dividend modified (EAX)");
+        }
+      
         public void OUTSWithoutRepLeavesCounter()
         {
             var ins = new sInstruction();
