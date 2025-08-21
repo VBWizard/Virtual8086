@@ -10092,17 +10092,12 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            UInt16 lLimit;
-            UInt32 lBase;
-
-            lLimit = (UInt16)mProc.regs.LDTR.Limit;
-            lBase = mProc.regs.LDTR.Base;
-
-            if (CurrentDecode.lOpSize16)
-                lBase &= 0x00FFFFFF;
-
-            mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lLimit);
-            mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add + 4, lBase);
+            if (CurrentDecode.Op1.Register != eGeneralRegister.NONE)
+                mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add,
+                                   (DWord)(mProc.regs.LDTR.SegSel & 0xFFFF));
+            else
+                mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add,
+                                  (Word)mProc.regs.LDTR.SegSel);
 
             #region Instructions
             #endregion
