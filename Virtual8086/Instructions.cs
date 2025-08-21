@@ -8936,8 +8936,9 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            mProc.regs.EAX = (UInt32)mProc.mInsructionsExecuted * 25;
-            mProc.regs.EDX = (UInt32)(((mProc.mInsructionsExecuted * 25) & 0xFFFFFFFF00000000) >> 32);
+            UInt64 tsc = mProc.mInsructionsExecuted * 25;
+            mProc.regs.EAX = (UInt32)tsc;
+            mProc.regs.EDX = (UInt32)(tsc >> 32);
             #region Instructions
             #endregion
         }

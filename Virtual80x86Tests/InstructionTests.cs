@@ -27,6 +27,7 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
+        static RDTSC insRDTSC;
 
 
         [AssemblyInitialize]
@@ -43,6 +44,7 @@ namespace VirtualProcessor.Tests
             insADC = new ADC() { mProc = mProc };
             insSTC = new STC() { mProc = mProc };
             insCLC = new CLC() { mProc = mProc };
+            insRDTSC = new RDTSC() { mProc = mProc };
         }
 
         [TestMethod()]
@@ -59,6 +61,18 @@ namespace VirtualProcessor.Tests
             insAAA.Impl(ref sIns);
             Assert.AreEqual(0x0101, mProc.regs.AX, "AAA test failed");
 
+        }
+
+        [TestMethod()]
+        public void RDTSC64BitTest()
+        {
+            sIns = new sInstruction();
+            mProc.InstructionsExecuted = 0x100000001;
+            mProc.regs.EAX = 0;
+            mProc.regs.EDX = 0;
+            insRDTSC.Impl(ref sIns);
+            Assert.AreEqual(0x00000019u, mProc.regs.EAX, "RDTSC low dword incorrect");
+            Assert.AreEqual(0x00000019u, mProc.regs.EDX, "RDTSC high dword incorrect");
         }
 
         [TestMethod()]
