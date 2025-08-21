@@ -2507,7 +2507,7 @@ break;
             }
             if (lOp2Value.OpByte > 0)
             {
-                for (int c = 1; c < lOp2Value.OpByte - 1; c++)
+                for (int c = 1; c < lOp2Value.OpByte; c++)
                 {
                     if (!CurrentDecode.lOpSize16) //32 bit operand size
                     {
