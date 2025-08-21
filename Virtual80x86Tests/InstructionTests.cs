@@ -27,6 +27,7 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
+        static SHR insSHR;
 
 
         [AssemblyInitialize]
@@ -43,6 +44,7 @@ namespace VirtualProcessor.Tests
             insADC = new ADC() { mProc = mProc };
             insSTC = new STC() { mProc = mProc };
             insCLC = new CLC() { mProc = mProc };
+            insSHR = new SHR() { mProc = mProc };
         }
 
         [TestMethod()]
@@ -141,6 +143,80 @@ namespace VirtualProcessor.Tests
             //TEST: ADD
 
 
+        }
+
+        [TestMethod()]
+        public void SHRByteFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.AL = 0x81;
+            ins.Op1TypeCode = TypeCode.Byte;
+            ins.Op1Value.OpByte = 0x81;
+            ins.Op1Add = Processor_80x86.RAL;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual(0x40, mProc.regs.AL);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.AX = 0x8001;
+            ins.Op1TypeCode = TypeCode.UInt16;
+            ins.Op1Value.OpWord = 0x8001;
+            ins.Op1Add = Processor_80x86.RAX;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual(0x4000, mProc.regs.AX);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRDWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.EAX = 0x80000001;
+            ins.Op1TypeCode = TypeCode.UInt32;
+            ins.Op1Value.OpDWord = 0x80000001;
+            ins.Op1Add = Processor_80x86.REAX;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual((UInt32)0x40000000, mProc.regs.EAX);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRQWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            UInt32 addr = 0x2000;
+            ins.Op1TypeCode = TypeCode.UInt64;
+            ins.Op1Value.OpQWord = 0x8000000000000001;
+            ins.Op1Add = addr;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            mProc.mem.SetQWord(mProc, ref ins, addr, ins.Op1Value.OpQWord);
+            insSHR.Impl(ref ins);
+            UInt64 result = mProc.mem.GetQWord(mProc, ref ins, addr);
+            Assert.AreEqual(0x4000000000000000, result);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
         }
     }
 }
