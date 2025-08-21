@@ -9800,6 +9800,7 @@ break;
         {
             int lTempCount = CurrentDecode.Op2Value.OpByte, lTopBitNum = 0;
             sOpVal lOp1Value = CurrentDecode.Op1Value;
+            sOpVal original = lOp1Value;
 
             if (mProc.ProcType > eProcTypes.i8086)
                 lTempCount = lTempCount & 0x1F;
@@ -9822,7 +9823,7 @@ break;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
-                            mProc.regs.setFlagCF((lOp1Value.OpByte & 0x01) == 1);
+                            mProc.regs.setFlagCF((lOp1Value.OpWord & 0x01) == 1);
                         lOp1Value.OpWord /= 2;
                     }
                     mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Value.OpWord);
@@ -9833,7 +9834,7 @@ break;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
-                            mProc.regs.setFlagCF((lOp1Value.OpByte & 0x01) == 1);
+                            mProc.regs.setFlagCF((lOp1Value.OpDWord & 0x01) == 1);
                         lOp1Value.OpDWord /= 2;
                     }
                     mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Value.OpDWord);
@@ -9844,7 +9845,7 @@ break;
                     for (UInt16 cnt = 0; (cnt) < lTempCount; cnt++)
                     {
                         if (cnt == lTempCount - 1)
-                            mProc.regs.setFlagCF((lOp1Value.OpByte & 0x01) == 1);
+                            mProc.regs.setFlagCF((lOp1Value.OpQWord & 0x01) == 1);
                         lOp1Value.OpQWord /= 2;
                     }
                     mProc.mem.SetQWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Value.OpQWord);
@@ -9854,8 +9855,8 @@ break;
 
             if (lTempCount == 1)
             {
-                bool lTempOF = ((Misc.getBit(lOp1Value.OpQWord, lTopBitNum)) == 1);
-                mProc.regs.setFlagOF(lTempOF);
+                bool msb = Misc.getBit(original.OpQWord, lTopBitNum) == 1;
+                mProc.regs.setFlagOF(msb);
             }
             mProc.regs.setFlagPF(lOp1Value.OpQWord);
             mProc.regs.setFlagZF(lOp1Value.OpQWord);
