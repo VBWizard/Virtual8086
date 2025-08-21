@@ -4217,27 +4217,53 @@ break;
             switch (CurrentDecode.Op1TypeCode)
             {
                 case TypeCode.Byte:
-                    Word lTempAX = Misc.SignExtend(mProc.regs.AL);
-                    mProc.regs.AL = (byte)(lTempAX / (Int16)CurrentDecode.Op1Value.OpByte);
-                    mProc.regs.AH = (byte)(lTempAX % (UInt16)CurrentDecode.Op1Value.OpByte);
-                    break;
+                    {
+                        Int16 dividend = (Int16)mProc.regs.AX;
+                        Int16 divisor = (sbyte)CurrentDecode.Op1Value.OpByte;
+                        Int16 quotient = (Int16)(dividend / divisor);
+                        Int16 remainder = (Int16)(dividend % divisor);
+                        if (quotient < sbyte.MinValue || quotient > sbyte.MaxValue)
+                        {
+                            CurrentDecode.ExceptionNumber = 0x00;
+                            CurrentDecode.ExceptionThrown = true;
+                            return;
+                        }
+                        mProc.regs.AL = (byte)quotient;
+                        mProc.regs.AH = (byte)remainder;
+                        break;
+                    }
                 case TypeCode.UInt16:
-                    if (Misc.IsNegative(mProc.regs.AX))
-                        mProc.regs.DX = 0xFFFF;
-                    UInt32 lDXAX = (UInt32)((mProc.regs.DX << 16) + mProc.regs.AX);
-                    mProc.regs.AX = (UInt16)((Int32)lDXAX / (Int32)CurrentDecode.Op1Value.OpWord);
-                    mProc.regs.DX = (UInt16)((Int32)lDXAX % (Int32)CurrentDecode.Op1Value.OpWord);
-                    //SetC the flags
-                    break;
+                    {
+                        Int32 dividend = (Int32)((mProc.regs.DX << 16) | mProc.regs.AX);
+                        Int32 divisor = (Int16)CurrentDecode.Op1Value.OpWord;
+                        Int32 quotient = dividend / divisor;
+                        Int32 remainder = dividend % divisor;
+                        if (quotient < Int16.MinValue || quotient > Int16.MaxValue)
+                        {
+                            CurrentDecode.ExceptionNumber = 0x00;
+                            CurrentDecode.ExceptionThrown = true;
+                            return;
+                        }
+                        mProc.regs.AX = (UInt16)quotient;
+                        mProc.regs.DX = (UInt16)remainder;
+                        break;
+                    }
                 case TypeCode.UInt32:
-                    if (Misc.IsNegative(mProc.regs.EAX))
-                        mProc.regs.EDX = 0xFFFFFFFF;
-                    Int64 lEDXEAX = mProc.regs.EDX;
-                    lEDXEAX <<= 32;
-                    lEDXEAX |= mProc.regs.EAX;
-                    mProc.regs.EAX = (UInt32)(lEDXEAX / (Int64)CurrentDecode.Op1Value.OpDWord);
-                    mProc.regs.EDX = (UInt32)(lEDXEAX % (Int64)CurrentDecode.Op1Value.OpDWord);
-                    break;
+                    {
+                        Int64 dividend = ((Int64)mProc.regs.EDX << 32) | mProc.regs.EAX;
+                        Int64 divisor = (Int32)CurrentDecode.Op1Value.OpDWord;
+                        Int64 quotient = dividend / divisor;
+                        Int64 remainder = dividend % divisor;
+                        if (quotient < Int32.MinValue || quotient > Int32.MaxValue)
+                        {
+                            CurrentDecode.ExceptionNumber = 0x00;
+                            CurrentDecode.ExceptionThrown = true;
+                            return;
+                        }
+                        mProc.regs.EAX = (UInt32)quotient;
+                        mProc.regs.EDX = (UInt32)remainder;
+                        break;
+                    }
                 #region Instructions
                 /*
             Operation
