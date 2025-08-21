@@ -7207,7 +7207,39 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            mProc.regs.TR.mSegSel = CurrentDecode.Op1Value.OpWord;
+            Word lSelector = CurrentDecode.Op1Value.OpWord;
+            UInt32 lDescriptor = (UInt32)(lSelector >> 3);
+
+            // TSS selector must come from the GDT and be non-null
+            if ((lSelector & 0x4) == 0x4 || lSelector == 0 || lDescriptor > mProc.mGDTCache.Count - 1)
+            {
+                CurrentDecode.ExceptionNumber = 0x0d;
+                CurrentDecode.ExceptionErrorCode = lSelector;
+                return;
+            }
+
+            sGDTEntry theDescriptor = mProc.mGDTCache[(int)lDescriptor];
+
+            if (!theDescriptor.access.Present)
+            {
+                CurrentDecode.ExceptionNumber = 0x0b;
+                CurrentDecode.ExceptionErrorCode = lSelector;
+                return;
+            }
+
+            if (theDescriptor.access.SystemDescType != eSystemOrGateDescType.TSS_32_Av)
+            {
+                CurrentDecode.ExceptionNumber = 0x0d;
+                CurrentDecode.ExceptionErrorCode = lSelector;
+                return;
+            }
+
+            // Mark TSS descriptor busy
+            mProc.mGDTCache.SetBusyFlag(mProc, (Word)lDescriptor, true);
+            theDescriptor.access.SystemDescType = eSystemOrGateDescType.TSS_32_Bu;
+            mProc.mGDTCache[(int)lDescriptor] = theDescriptor;
+
+            mProc.regs.TR.mSegSel = lSelector;
             Load(mProc, ref CurrentDecode);
 
             #region Instructions
