@@ -4636,7 +4636,7 @@ break;
         {
             UInt32 lDest, lJunk = 0;
 
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
             if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
@@ -4688,11 +4688,14 @@ break;
                 //        mProc.regs.ECX--;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
 
         }
     }
