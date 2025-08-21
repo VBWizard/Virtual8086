@@ -27,10 +27,6 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
-        static RDTSC insRDTSC;
-        static SAHF insSAHF;
-        static SCASB insSCASB;
-        static SHR insSHR;
 
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
@@ -46,6 +42,7 @@ namespace VirtualProcessor.Tests
             insADC = new ADC() { mProc = mProc };
             insSTC = new STC() { mProc = mProc };
             insCLC = new CLC() { mProc = mProc };
+            insOUTS = new OUTS() { mProc = mProc };
         }
 
         [TestMethod()]
@@ -159,7 +156,25 @@ namespace VirtualProcessor.Tests
         }
 
         [TestMethod()]
-        public void SAHFTests()
+        public void OUTSWithoutRepLeavesCounter()
+        {
+            var ins = new sInstruction();
+            ins.RealOpCode = 0x6F;
+            mProc.mCurrInstructAddrSize16 = true;
+            mProc.regs.CX = 5;
+            mProc.regs.SI = 0;
+            mProc.regs.ES.Value = 0;
+            mProc.regs.DX = 0;
+            mProc.mem.SetDWord(mProc, ref ins, 0, 0x12345678);
+            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+
+            insOUTS.Impl(ref ins);
+
+            Assert.AreEqual((UInt16)5, mProc.regs.CX, "OUTS should not modify CX without REP");
+        }
+      
+        [TestMethod]
+         public void SAHFTests()
         {
             sIns = new sInstruction();
 

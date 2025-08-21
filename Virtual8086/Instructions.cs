@@ -7993,7 +7993,7 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lSource, lJunk = 0;
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
@@ -8034,11 +8034,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class POP : Instruct
