@@ -9207,6 +9207,9 @@ break;
             if (mProc.ProcType > eProcTypes.i8086)
                 lTempCount = lTempCount & 0x1F;
 
+            if (lTempCount == 0)
+                return;
+
             if (CurrentDecode.Op1Value.OpDWord >= 0x80000000)
                 lTempCount = lTempCount + 1 - 1;
 
