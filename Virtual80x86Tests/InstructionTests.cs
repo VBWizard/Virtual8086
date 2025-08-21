@@ -27,6 +27,7 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
+        static SCASB insSCASB;
         static SHR insSHR;
 
 
@@ -44,6 +45,7 @@ namespace VirtualProcessor.Tests
             insADC = new ADC() { mProc = mProc };
             insSTC = new STC() { mProc = mProc };
             insCLC = new CLC() { mProc = mProc };
+            insSCASB = new SCASB() { mProc = mProc };
             insSHR = new SHR() { mProc = mProc };
         }
 
@@ -145,7 +147,51 @@ namespace VirtualProcessor.Tests
 
         }
 
-        [TestMethod()]
+        [TestMethod]
+        public void SCASBRepVariants()
+        {
+            sInstruction ins = new sInstruction();
+            uint baseAddr = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, 0);
+
+            // REP / REPE - all bytes equal
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_ZERO;
+            mProc.mCurrInstructAddrSize16 = true;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            for (int i = 0; i < 3; i++) mProc.mem.SetByte(mProc, ref ins, baseAddr + (uint)i, 0x5);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(0u, mProc.regs.CX, "REP CX not zero");
+            Assert.AreEqual(3, mProc.regs.DI, "REP DI incorrect");
+            Assert.IsTrue(mProc.regs.FLAGSB.ZF, "REP ZF not set");
+
+            // REPE - stop on mismatch
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_ZERO;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 0, 0x4);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 1, 0x5);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 2, 0x5);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(2u, mProc.regs.CX, "REPE CX incorrect");
+            Assert.AreEqual(1, mProc.regs.DI, "REPE DI incorrect");
+            Assert.IsFalse(mProc.regs.FLAGSB.ZF, "REPE ZF incorrect");
+
+            // REPNE - stop on match
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_NOT_ZERO;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 0, 0x4);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 1, 0x5);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 2, 0x4);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(1u, mProc.regs.CX, "REPNE CX incorrect");
+            Assert.AreEqual(2, mProc.regs.DI, "REPNE DI incorrect");
+            Assert.IsTrue(mProc.regs.FLAGSB.ZF, "REPNE ZF incorrect");
+
+          [TestMethod()]
         public void SHRByteFlags()
         {
             sInstruction ins = new sInstruction();

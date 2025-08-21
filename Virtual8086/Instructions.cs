@@ -9346,50 +9346,39 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
+            DWord lDest = 0, lJunk = 0;
             lSource.OpQWord = 0;
-
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
-
             lPreVal1.OpByte = mProc.regs.AL;
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && (lLoopCounter == 0))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
             }
+
             if (mProc.mCurrInstructAddrSize16)
-                lSource.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI));
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI);
             else
-                lSource.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI));
-            if (CurrentDecode.ExceptionThrown)
-            { return; }
-            lAL.OpQWord = lPreVal1.OpQWord;
-            lAL.OpByte -= lSource.OpByte;
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI);
 
-
-            //notice that we don't save the result, we just use it to save the flags
-            SetFlagsForSubtraction(mProc, lPreVal1, lSource, lAL, TypeCode.Byte);
-            mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpByte, lAL.OpByte, lSource.OpByte);
-            if (mProc.regs.FLAGSB.DF)
+            do
             {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI--;
-                else
-                    mProc.regs.EDI--;
-            }
-            else
-            {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI++;
-                else
-                    mProc.regs.EDI++;
-            }
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.CX--;
-                else
-                    mProc.regs.ECX--;
+                lSource.OpByte = PhysicalMem.GetByte(mProc, ref CurrentDecode, lDest);
+                if (CurrentDecode.ExceptionThrown) { return; }
+                lAL.OpQWord = lPreVal1.OpQWord;
+                lAL.OpByte -= lSource.OpByte;
 
+                SetFlagsForSubtraction(mProc, lPreVal1, lSource, lAL, TypeCode.Byte);
+                mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpByte, lAL.OpByte, lSource.OpByte);
+
+                MOVSW.IncDec(mProc, ref lDest, ref lJunk, mProc.mCurrInstructAddrSize16, 1, false, true, false, false);
+                lLoopCounter--;
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_NOT_ZERO && mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_ZERO && !mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.NOT_REPEAT || (mProc.NeedToInterruptLoop() && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)) return;
+            }
+            while (lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
         }
     }
     public class SCASD : Instruct
@@ -9414,56 +9403,43 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
- 
+            DWord lDest = 0, lJunk = 0;
             lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
-
             lPreVal1.OpQWord = 0;
             lPreVal1.OpDWord = mProc.regs.EAX;
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && (lLoopCounter == 0))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
             }
+
             if (mProc.mCurrInstructAddrSize16)
-                lSource = mProc.mem.GetDWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI));
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI);
             else
-                lSource = mProc.mem.GetDWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI));
-            if (CurrentDecode.ExceptionThrown)
-            { return; }
-            sOpVal lAL = lPreVal1;
-            lAL.OpDWord -= lSource;
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI);
 
-
-            //notice that we don't save the result, we just use it to save the flags
-            mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpDWord, lAL.OpDWord, lSource);
-            mProc.regs.setFlagOF_Sub(lPreVal1.OpDWord, lSource, lAL.OpDWord);
-            mProc.regs.setFlagSF(lAL.OpDWord);
-            mProc.regs.setFlagZF(lAL.OpDWord);
-            mProc.regs.setFlagAF(lPreVal1.OpDWord, lAL.OpDWord);
-            mProc.regs.setFlagPF(lAL.OpDWord);
-            if (mProc.regs.FLAGSB.DF)
+            do
             {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI -= 4;
-                else
-                    mProc.regs.EDI -= 4;
-            }
-            else
-            {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI += 4;
-                else
-                    mProc.regs.EDI += 4;
-            }
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.CX--;
-                else
-                    mProc.regs.ECX--;
+                lSource = mProc.mem.GetDWord(mProc, ref CurrentDecode, lDest);
+                if (CurrentDecode.ExceptionThrown) { return; }
+                sOpVal lAL = lPreVal1;
+                lAL.OpDWord -= lSource;
 
-            #region Instructions
-            #endregion
+                mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpDWord, lAL.OpDWord, lSource);
+                mProc.regs.setFlagOF_Sub(lPreVal1.OpDWord, lSource, lAL.OpDWord);
+                mProc.regs.setFlagSF(lAL.OpDWord);
+                mProc.regs.setFlagZF(lAL.OpDWord);
+                mProc.regs.setFlagAF(lPreVal1.OpDWord, lAL.OpDWord);
+                mProc.regs.setFlagPF(lAL.OpDWord);
+
+                MOVSW.IncDec(mProc, ref lDest, ref lJunk, mProc.mCurrInstructAddrSize16, 4, false, true, false, false);
+                lLoopCounter--;
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_NOT_ZERO && mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_ZERO && !mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.NOT_REPEAT || (mProc.NeedToInterruptLoop() && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)) return;
+            }
+            while (lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
         }
     }
     public class SCASW : Instruct
@@ -9488,13 +9464,13 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-
+            DWord lDest = 0, lJunk = 0;
             lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
             lSource.OpQWord = 0;
             lPreVal1.OpQWord = 0;
             lPreVal1.OpWord = mProc.regs.AX;
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && (lLoopCounter == 0))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
@@ -9505,47 +9481,36 @@ break;
                 mProc.SCASD.UsageCount++;
                 this.UsageCount--;
                 mProc.SCASD.Impl(ref CurrentDecode);
-    
+
                 return;
             }
 
             if (mProc.mCurrInstructAddrSize16)
-                lSource.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI));
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.DI);
             else
-                lSource.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI));
-            if (CurrentDecode.ExceptionThrown)
-            { return; }
-            sOpVal lAL = lPreVal1;
-            lAL.OpWord -= lSource.OpWord;
+                lDest = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, mProc.regs.EDI);
 
+            do
+            {
+                lSource.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, lDest);
+                if (CurrentDecode.ExceptionThrown) { return; }
+                sOpVal lAL = lPreVal1;
+                lAL.OpWord -= lSource.OpWord;
 
-            //notice that we don't save the result, we just use it to save the flags
-            //            SetFlagsForSubtraction(mProc, lPreVal1, lTemp, lAL, TypeCode.UInt16, true, true);
-            mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpWord, lAL.OpWord, lSource.OpWord);
-            mProc.regs.setFlagOF_Sub(lPreVal1.OpWord, lSource.OpWord, lAL.OpWord);
-            mProc.regs.setFlagSF(lAL.OpWord);
-            mProc.regs.setFlagZF(lAL.OpWord);
-            mProc.regs.setFlagAF(lPreVal1.OpWord, lAL.OpWord);
-            mProc.regs.setFlagPF(lAL.OpWord);
-            if (mProc.regs.FLAGSB.DF)
-            {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI -= 2;
-                else
-                    mProc.regs.EDI -= 2;
+                mProc.regs.setFlagCF_SUB_CMP(lPreVal1.OpWord, lAL.OpWord, lSource.OpWord);
+                mProc.regs.setFlagOF_Sub(lPreVal1.OpWord, lSource.OpWord, lAL.OpWord);
+                mProc.regs.setFlagSF(lAL.OpWord);
+                mProc.regs.setFlagZF(lAL.OpWord);
+                mProc.regs.setFlagAF(lPreVal1.OpWord, lAL.OpWord);
+                mProc.regs.setFlagPF(lAL.OpWord);
+
+                MOVSW.IncDec(mProc, ref lDest, ref lJunk, mProc.mCurrInstructAddrSize16, 2, false, true, false, false);
+                lLoopCounter--;
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_NOT_ZERO && mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.REPEAT_TILL_ZERO && !mProc.regs.FLAGSB.ZF) { mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT; break; }
+                if (mProc.mRepeatCondition == Processor_80x86.NOT_REPEAT || (mProc.NeedToInterruptLoop() && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)) return;
             }
-            else
-            {
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.DI += 2;
-                else
-                    mProc.regs.EDI += 2;
-            }
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT)
-                if (mProc.mCurrInstructAddrSize16)
-                    mProc.regs.CX--;
-                else
-                    mProc.regs.ECX--;
+            while (lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
             #region Instructions
             #endregion
