@@ -10280,7 +10280,7 @@ break;
         {
             DWord lDest = 0;
             DWord lJunk = 0;
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
@@ -10302,11 +10302,12 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16) mProc.regs.CX = 0;
+                else                               mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class STOSW : Instruct
@@ -10330,7 +10331,7 @@ break;
         {
             UInt32 lDest = 0;
             UInt32 lJunk = 0;
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
@@ -10345,7 +10346,7 @@ break;
                 mProc.STOSD.UsageCount++;
                 this.UsageCount--;
                 mProc.STOSD.Impl(ref CurrentDecode);
-    
+
                 return;
             }
 
@@ -10363,11 +10364,12 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16) mProc.regs.CX = 0;
+                else                               mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class STOSD : Instruct
@@ -10390,7 +10392,7 @@ break;
         public override void Impl(ref sInstruction CurrentDecode)
         {
             UInt32 lDest = 0, lJunk = 0;
-
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
@@ -10415,11 +10417,12 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16) mProc.regs.CX = 0;
+                else                               mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
         }
     }
     public class SUB : Instruct
