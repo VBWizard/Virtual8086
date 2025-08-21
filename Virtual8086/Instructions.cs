@@ -10556,12 +10556,35 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            //TODO: Fix VERR hack
-            mProc.regs.setFlagZF(true);
-            #region Instructions
-            /*
-            */
-            #endregion
+            Word selector = CurrentDecode.Op1Value.OpWord;
+            Word index = (Word)(selector >> 3);
+            bool useLDT = (selector & 0x4) == 0x4;
+            ePrivLvl rpl = (ePrivLvl)(selector & 0x3);
+
+            sGDTEntry descriptor = new sGDTEntry();
+            bool valid = false;
+
+            cGDTCache table = useLDT ? mProc.mLDTCache : mProc.mGDTCache;
+            if (table != null && index < table.Count)
+            {
+                descriptor = table[index];
+                if (descriptor.access.Present)
+                {
+                    if (rpl <= mProc.regs.CPL && mProc.regs.CPL <= descriptor.access.PrivLvl)
+                    {
+                        bool isData = descriptor.access.DescType == eGDTDescType.Code_or_Data &&
+                                      descriptor.access.SegType <= eGDTSegType.Data_RW_Expand_Down_Accessed;
+                        bool isReadableCode = descriptor.access.DescType == eGDTDescType.Code_or_Data && (
+                                    descriptor.access.SegType == eGDTSegType.Code_Read ||
+                                    descriptor.access.SegType == eGDTSegType.Code_Read_Accessed ||
+                                    descriptor.access.SegType == eGDTSegType.Code_Exec_RO_Conforming ||
+                                    descriptor.access.SegType == eGDTSegType.Code_Exec_RO_Conforming_Accessed);
+                        valid = isData || isReadableCode;
+                    }
+                }
+            }
+
+            mProc.regs.setFlagZF(valid);
         }
     }
     public class VERW : Instruct
@@ -10582,12 +10605,33 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            //TODO: Fix VERW hack
-            mProc.regs.setFlagZF(true);
-            #region Instructions
-            /*
-            */
-            #endregion
+            Word selector = CurrentDecode.Op1Value.OpWord;
+            Word index = (Word)(selector >> 3);
+            bool useLDT = (selector & 0x4) == 0x4;
+            ePrivLvl rpl = (ePrivLvl)(selector & 0x3);
+
+            sGDTEntry descriptor = new sGDTEntry();
+            bool valid = false;
+
+            cGDTCache table = useLDT ? mProc.mLDTCache : mProc.mGDTCache;
+            if (table != null && index < table.Count)
+            {
+                descriptor = table[index];
+                if (descriptor.access.Present)
+                {
+                    if (rpl <= mProc.regs.CPL && mProc.regs.CPL <= descriptor.access.PrivLvl)
+                    {
+                        bool isWritableData = descriptor.access.DescType == eGDTDescType.Code_or_Data && (
+                                    descriptor.access.SegType == eGDTSegType.Data_RW ||
+                                    descriptor.access.SegType == eGDTSegType.Data_RW_Accessed ||
+                                    descriptor.access.SegType == eGDTSegType.Data_RW_Expand_DOwn ||
+                                    descriptor.access.SegType == eGDTSegType.Data_RW_Expand_Down_Accessed);
+                        valid = isWritableData;
+                    }
+                }
+            }
+
+            mProc.regs.setFlagZF(valid);
         }
     }
     public class XADD : Instruct
