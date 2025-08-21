@@ -6845,10 +6845,11 @@ break;
             DWord lSource = 0;
             DWord lJunk = 0;
 
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (repeating && ((lLoopCounter == 0)))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
@@ -6865,11 +6866,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
 
         }
     }
@@ -6895,6 +6899,7 @@ break;
             DWord lSource = 0;
             DWord lJunk = 0;
 
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
@@ -6911,7 +6916,7 @@ break;
             //else
             //    lSource = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.DS, mProc.regs.ESI);
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (repeating && ((lLoopCounter == 0)))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
@@ -6928,11 +6933,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
 
         }
     }
@@ -6958,10 +6966,11 @@ break;
             DWord lSource = 0;
             DWord lJunk = 0;
 
+            bool repeating = mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT;
 
             DWord lLoopCounter = mProc.mCurrInstructAddrSize16 ? mProc.regs.CX : mProc.regs.ECX;
 
-            if (mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT && ((lLoopCounter == 0)))
+            if (repeating && ((lLoopCounter == 0)))
             {
                 mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
                 return;
@@ -6978,11 +6987,14 @@ break;
             }
             while (--lLoopCounter > 0 && mProc.mRepeatCondition != Processor_80x86.NOT_REPEAT);
 
-            if (mProc.mCurrInstructAddrSize16)
-                mProc.regs.CX = 0;
-            else
-                mProc.regs.ECX = 0;
-            mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            if (repeating)
+            {
+                if (mProc.mCurrInstructAddrSize16)
+                    mProc.regs.CX = 0;
+                else
+                    mProc.regs.ECX = 0;
+                mProc.mRepeatCondition = Processor_80x86.NOT_REPEAT;
+            }
 
         }
     }
