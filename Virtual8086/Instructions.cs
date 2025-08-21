@@ -6818,7 +6818,7 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            mProc.regs.CR0 = (mProc.regs.CR0 & ~0x0F) | (CurrentDecode.Op1Value.OpWord & 0x0F);
+            mProc.regs.CR0 = (UInt32)((mProc.regs.CR0 & ~0x0F) | (CurrentDecode.Op1Value.OpWord & 0x0F));
             #region Instructions
             #endregion
         }
