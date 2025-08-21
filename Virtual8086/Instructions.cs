@@ -4743,7 +4743,7 @@ break;
                     mProc.PUSH.Impl(ref ins);
                     mProc.regs.setFlagIF(false);
                     mProc.regs.setFlagTF(false);
-                    mProc.regs.setFlagAC(false);
+                    // mProc.regs.setFlagAC(false);
 
                     ins.Op1Add = Processor_80x86.RCS;
                     ins.Op1Value.OpDWord = mProc.regs.CS.Value;
