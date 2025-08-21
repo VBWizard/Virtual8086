@@ -9310,12 +9310,12 @@ break;
                 case TypeCode.UInt32:
                     lOp1ValSigned.OpDWord = (DWord)((Int32)lOp1ValSigned.OpDWord - ((Int32)lOp2Value.OpDWord + (Int32)(mProc.regs.FLAGS & 0x01)));
                     mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1ValSigned.OpDWord);
-                    mProc.regs.setFlagCF_SBB(lPreVal1.OpWord, lOp1ValSigned.OpWord, lOp2Value.OpWord);
+                    mProc.regs.setFlagCF_SBB(lPreVal1.OpDWord, lOp1ValSigned.OpDWord, lOp2Value.OpDWord);
                     break;
                 case TypeCode.UInt64:
                     lOp1ValSigned.OpQWord = (QWord)((Int64)lOp1ValSigned.OpQWord - ((Int64)lOp2Value.OpQWord + (Int64)(mProc.regs.FLAGS & 0x01)));
                     mProc.mem.SetQWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1ValSigned.OpQWord);
-                    mProc.regs.setFlagCF_SBB(lPreVal1.OpWord, lOp1ValSigned.OpWord, lOp2Value.OpWord);
+                    mProc.regs.setFlagCF_SBB(lPreVal1.OpQWord, lOp1ValSigned.OpQWord, lOp2Value.OpQWord);
                     break;
             }
 
