@@ -7771,23 +7771,21 @@ break;
                 case TypeCode.Byte:
                     lOp1Val.OpByte = (byte)-(lOp1Val.OpByte);
                     mProc.mem.SetByte(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Val.OpByte);
-                    mProc.regs.setFlagOF_Sub(lPreVal1.OpByte, (byte)-(lOp1Val.OpByte), lOp1Val.OpByte);
                     break;
                 case TypeCode.UInt16:
                     lOp1Val.OpWord = (Word)(-(lOp1Val.OpWord));
                     mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Val.OpWord);
-                    mProc.regs.setFlagOF_Sub(lPreVal1.OpWord, (Word)(-(lOp1Val.OpWord)), lOp1Val.OpWord);
                     break;
                 case TypeCode.UInt32:
                     lOp1Val.OpDWord = (DWord)(-(lOp1Val.OpDWord));
                     mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, lOp1Val.OpDWord);
-                    mProc.regs.setFlagOF_Sub(lPreVal1.OpDWord, (Word)(-(lOp1Val.OpDWord)), lOp1Val.OpDWord);
                     break;
                 default:
                     throw new Exception("Cannot negate a quad word");
             }
 
-            SetFlagsForSubtraction(mProc, lPreVal1, CurrentDecode.Op1Value, lOp1Val, CurrentDecode.Op1TypeCode);
+            sOpVal zero = new sOpVal();
+            SetFlagsForSubtraction(mProc, zero, lPreVal1, lOp1Val, CurrentDecode.Op1TypeCode);
 
             #region Instructions
             #endregion
