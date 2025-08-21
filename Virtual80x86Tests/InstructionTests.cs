@@ -27,8 +27,6 @@ namespace VirtualProcessor.Tests
         static ADC insADC;
         static STC insSTC;
         static CLC insCLC;
-        static OUTS insOUTS;
-
 
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
@@ -61,6 +59,18 @@ namespace VirtualProcessor.Tests
             insAAA.Impl(ref sIns);
             Assert.AreEqual(0x0101, mProc.regs.AX, "AAA test failed");
 
+        }
+
+        [TestMethod()]
+        public void RDTSC64BitTest()
+        {
+            sIns = new sInstruction();
+            mProc.InstructionsExecuted = 0x100000001;
+            mProc.regs.EAX = 0;
+            mProc.regs.EDX = 0;
+            insRDTSC.Impl(ref sIns);
+            Assert.AreEqual(0x00000019u, mProc.regs.EAX, "RDTSC low dword incorrect");
+            Assert.AreEqual(0x00000019u, mProc.regs.EDX, "RDTSC high dword incorrect");
         }
 
         [TestMethod()]
@@ -161,6 +171,141 @@ namespace VirtualProcessor.Tests
             insOUTS.Impl(ref ins);
 
             Assert.AreEqual((UInt16)5, mProc.regs.CX, "OUTS should not modify CX without REP");
+        }
+      
+        [TestMethod]
+         public void SAHFTests()
+        {
+            sIns = new sInstruction();
+
+            // Ensure reserved bits (1,3,5) are not modified when clearing flags
+            mProc.regs.FLAGS = 0xFF; // set all bits
+            mProc.regs.AH = 0x00;    // clear all status flag bits
+            insSAHF.Impl(ref sIns);
+            Assert.AreEqual(0x2A, mProc.regs.FLAGS & 0xFF, "SAHF did not preserve reserved bits when clearing flags");
+
+            // Ensure status flags update while reserved bits remain unchanged
+            mProc.regs.FLAGS = 0x00; // reserved bits start cleared
+            mProc.regs.AH = 0xFF;    // set all flag bits in AH
+            insSAHF.Impl(ref sIns);
+            Assert.AreEqual(0xD5, mProc.regs.FLAGS & 0xFF, "SAHF did not correctly set status flags");
+
+        [TestMethod]
+        public void SCASBRepVariants()
+        {
+            sInstruction ins = new sInstruction();
+            uint baseAddr = PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.ES, 0);
+
+            // REP / REPE - all bytes equal
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_ZERO;
+            mProc.mCurrInstructAddrSize16 = true;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            for (int i = 0; i < 3; i++) mProc.mem.SetByte(mProc, ref ins, baseAddr + (uint)i, 0x5);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(0u, mProc.regs.CX, "REP CX not zero");
+            Assert.AreEqual(3, mProc.regs.DI, "REP DI incorrect");
+            Assert.IsTrue(mProc.regs.FLAGSB.ZF, "REP ZF not set");
+
+            // REPE - stop on mismatch
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_ZERO;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 0, 0x4);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 1, 0x5);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 2, 0x5);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(2u, mProc.regs.CX, "REPE CX incorrect");
+            Assert.AreEqual(1, mProc.regs.DI, "REPE DI incorrect");
+            Assert.IsFalse(mProc.regs.FLAGSB.ZF, "REPE ZF incorrect");
+
+            // REPNE - stop on match
+            mProc.mRepeatCondition = Processor_80x86.REPEAT_TILL_NOT_ZERO;
+            mProc.regs.CX = 3;
+            mProc.regs.DI = 0;
+            mProc.regs.AL = 0x5;
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 0, 0x4);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 1, 0x5);
+            mProc.mem.SetByte(mProc, ref ins, baseAddr + 2, 0x4);
+            insSCASB.Impl(ref ins);
+            Assert.AreEqual(1u, mProc.regs.CX, "REPNE CX incorrect");
+            Assert.AreEqual(2, mProc.regs.DI, "REPNE DI incorrect");
+            Assert.IsTrue(mProc.regs.FLAGSB.ZF, "REPNE ZF incorrect");
+
+          [TestMethod()]
+        public void SHRByteFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.AL = 0x81;
+            ins.Op1TypeCode = TypeCode.Byte;
+            ins.Op1Value.OpByte = 0x81;
+            ins.Op1Add = Processor_80x86.RAL;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual(0x40, mProc.regs.AL);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.AX = 0x8001;
+            ins.Op1TypeCode = TypeCode.UInt16;
+            ins.Op1Value.OpWord = 0x8001;
+            ins.Op1Add = Processor_80x86.RAX;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual(0x4000, mProc.regs.AX);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRDWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            mProc.regs.EAX = 0x80000001;
+            ins.Op1TypeCode = TypeCode.UInt32;
+            ins.Op1Value.OpDWord = 0x80000001;
+            ins.Op1Add = Processor_80x86.REAX;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            insSHR.Impl(ref ins);
+            Assert.AreEqual((UInt32)0x40000000, mProc.regs.EAX);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
+        }
+
+        [TestMethod()]
+        public void SHRQWordFlags()
+        {
+            sInstruction ins = new sInstruction();
+            mProc.regs.setFlagCF(false);
+            mProc.regs.setFlagOF(false);
+            UInt32 addr = 0x2000;
+            ins.Op1TypeCode = TypeCode.UInt64;
+            ins.Op1Value.OpQWord = 0x8000000000000001;
+            ins.Op1Add = addr;
+            ins.Op2TypeCode = TypeCode.Byte;
+            ins.Op2Value.OpByte = 1;
+            mProc.mem.SetQWord(mProc, ref ins, addr, ins.Op1Value.OpQWord);
+            insSHR.Impl(ref ins);
+            UInt64 result = mProc.mem.GetQWord(mProc, ref ins, addr);
+            Assert.AreEqual(0x4000000000000000, result);
+            Assert.IsTrue(mProc.regs.FLAGSB.CF);
+            Assert.IsTrue(mProc.regs.FLAGSB.OF);
         }
     }
 }
