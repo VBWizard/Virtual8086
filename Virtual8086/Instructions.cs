@@ -6396,17 +6396,73 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
+            Word selector = CurrentDecode.Op2Value.OpWord;
+            UInt32 index = (UInt32)(selector >> 3);
+            bool useLDT = (selector & 0x4) != 0;
+            sGDTEntry desc;
+
+            if (useLDT)
+            {
+                if (mProc.mLDTCache == null || index >= mProc.mLDTCache.Count)
+                {
+                    mProc.regs.setFlagZF(false);
+                    return;
+                }
+                desc = mProc.mLDTCache[(int)index];
+            }
+            else
+            {
+                if (index >= mProc.mGDTCache.Count)
+                {
+                    mProc.regs.setFlagZF(false);
+                    return;
+                }
+                desc = mProc.mGDTCache[(int)index];
+            }
+
+            if (!desc.access.Present)
+            {
+                mProc.regs.setFlagZF(false);
+                return;
+            }
+
+            bool legal = false;
+            if (desc.access.DescType == eGDTDescType.Code_or_Data)
+                legal = true;
+            else
+            {
+                switch (desc.access.SystemDescType)
+                {
+                    case eSystemOrGateDescType.LDT:
+                    case eSystemOrGateDescType.TSS_16_Av:
+                    case eSystemOrGateDescType.TSS_16_Bu:
+                    case eSystemOrGateDescType.TSS_32_Av:
+                    case eSystemOrGateDescType.TSS_32_Bu:
+                        legal = true;
+                        break;
+                }
+            }
+
+            if (!legal)
+            {
+                mProc.regs.setFlagZF(false);
+                return;
+            }
+
+            UInt32 rights = (UInt32)((desc.Value >> 32) & 0x00F0FF00);
+
             if (CurrentDecode.lOpSize16)
             {
-                CurrentDecode.Op1Value.OpWord = (Word)(CurrentDecode.Op2Value.OpWord & 0xFF00);
+                CurrentDecode.Op1Value.OpWord = (Word)(rights & 0xFFFF);
                 mProc.mem.SetWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, CurrentDecode.Op1Value.OpWord);
             }
             else
             {
-                CurrentDecode.Op1Value.OpDWord = CurrentDecode.Op2Value.OpDWord & 0x00f0ff00;
+                CurrentDecode.Op1Value.OpDWord = rights;
                 mProc.mem.SetDWord(mProc, ref CurrentDecode, CurrentDecode.Op1Add, CurrentDecode.Op1Value.OpDWord);
             }
 
+            mProc.regs.setFlagZF(true);
         }
     }
     public class LAHF : Instruct
