@@ -7007,7 +7007,7 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            if (mProc.mCurrInstructAddrSize16)
+            if (mProc.mCurrInstructOpSize16)
             {
                 if (--mProc.regs.CX != 0)
                     UpdIPForShortJump(CurrentDecode.Op1Value, CurrentDecode.Op1TypeCode);
@@ -7041,7 +7041,7 @@ break;
         }
         public override void Impl(ref sInstruction CurrentDecode)
         {
-            if (mProc.mAddrSize16)
+            if (mProc.mCurrInstructOpSize16)
             {
                 if ((--mProc.regs.CX != 0) & (mProc.regs.FLAGSB.ZF))
                     UpdIPForShortJump(CurrentDecode.Op1Value, CurrentDecode.Op1TypeCode);
@@ -7106,7 +7106,7 @@ break;
         }
         public void LoopNE_Logic(Processor_80x86 mProc, ref sInstruction CurrentDecode)
         {
-            if (mProc.mCurrInstructAddrSize16)
+            if (mProc.mCurrInstructOpSize16)
             {
                 if ((--mProc.regs.CX != 0) && (!mProc.regs.FLAGSB.ZF))
                 {
