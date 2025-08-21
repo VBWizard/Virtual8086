@@ -8067,26 +8067,25 @@ break;
             CurrentDecode.Op1Value.OpQWord = 0;
             if (lAddrSize16)
                 if (lOpSize16)
-                {
                     CurrentDecode.Op1Value.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.SP));
-                    if (CurrentDecode.Op1Add != Processor_80x86.RSP) mProc.regs.SP += 2;
-                }
                 else
-                {
                     CurrentDecode.Op1Value.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.SP));
-                    if (CurrentDecode.Op1Add != Processor_80x86.RSP) mProc.regs.SP += 4;
-                }
             else
                 if (lOpSize16)
-                {
                     CurrentDecode.Op1Value.OpWord = mProc.mem.GetWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.ESP));
-                    if (CurrentDecode.Op1Add != Processor_80x86.RSP) mProc.regs.ESP += 2;
-                }
                 else
-                {
                     CurrentDecode.Op1Value.OpDWord = mProc.mem.GetDWord(mProc, ref CurrentDecode, PhysicalMem.GetLocForSegOfs(mProc, ref mProc.regs.SS, mProc.regs.ESP));
-                    if (CurrentDecode.Op1Add != Processor_80x86.RSP) mProc.regs.ESP += 4;
-                }
+
+            if (lAddrSize16)
+            {
+                if (lOpSize16) mProc.regs.SP += 2;
+                else mProc.regs.SP += 4;
+            }
+            else
+            {
+                if (lOpSize16) mProc.regs.ESP += 2;
+                else mProc.regs.ESP += 4;
+            }
 
             if (CurrentDecode.Op1.EffReg1 == eGeneralRegister.SP || CurrentDecode.Op1.EffReg1 == eGeneralRegister.ESP
             || CurrentDecode.Op1.EffReg2 == eGeneralRegister.SP || CurrentDecode.Op1.EffReg2 == eGeneralRegister.ESP)
